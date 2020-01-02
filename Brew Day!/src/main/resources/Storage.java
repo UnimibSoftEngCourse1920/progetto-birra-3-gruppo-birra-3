@@ -1,7 +1,8 @@
-package resources;
-import main.DatabaseController;
+package main.resources;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import main.DatabaseController;
 
 public class Storage {
 
@@ -53,3 +54,4 @@ public class Storage {
 		return instance;
 	}
 }
+

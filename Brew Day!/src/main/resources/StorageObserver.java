@@ -1,4 +1,4 @@
-package resources;
+package main.resources;
 
 public class StorageObserver {
 
