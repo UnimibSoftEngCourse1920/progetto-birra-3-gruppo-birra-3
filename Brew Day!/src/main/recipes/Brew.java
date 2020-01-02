@@ -1,50 +1,53 @@
 package main.recipes;
 
+import main.resources.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Brew {
-	
-	private int id;
+
+	private Double id;
 	private Date startDate;
 	private Date finishDate;
 	private Map<Integer,String> notes = new HashMap<>();
 	private Recipe recipe;
 	private Storage storage;
-	private DatabaseController DBcontroller;
 	private BrewController Bcontroller;
-	
-	public Brew(int id, Recipe recipe) {
+
+	public Brew(Double id, Recipe recipe, Date startDate) {
 		super();
-		this.id = id;
 		this.recipe = recipe;
+		//this.id = (Double) recipe.getId() + 0.01; must be review
+		this.startDate = startDate;
 	}
-	
-	public int getId() {
+
+	public Double getId() {
 		return id;
 	}
-	
-	public void setId(int id) {
+
+	public void setId(Double id) {
 		this.id = id;
 	}
-	
+
 	public Date getStartDate() {
 		return startDate;
 	}
-	
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	
+
 	public Date getFinishDate() {
 		return finishDate;
 	}
-	
+
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}
-	
+
 	public void addNote(int id, String text, boolean tasting) {
 		if(tasting) {
 			notes.put((-1) * id, text);
@@ -53,13 +56,61 @@ public class Brew {
 			notes.put(id, text);
 		}
 	}
-	
-    public void deleteNote(int id) {
-    	notes.remove(id);
+
+	public void deleteNote(int id) {
+		notes.remove(id);
 	}
-    
-    public void modifyNote(int id, String text, boolean tasting) {
-    	deleteNote(id);
-    	addNote(id,text,tasting);
+
+	public void modifyNote(int id, String text) {
+		notes.put(id, text);
+	}
+
+	public void storeBrew() {
+		Connection conn = null;
+		Statement stmt = null;
+		try{
+			//Register JDBC driver
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Open a connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
+
+			//Execute a query
+			stmt = conn.createStatement();
+
+			String sql = "INSERT INTO Brew " +
+					"SET id = " + this.getId() + ", "
+							+ "name = " + recipe.getName() 
+							+ ", startDate " + this.getStartDate() 
+							+ ", finishDate = " + this.getFinishDate()
+							+ ", Recipe_id = " + recipe.getId()
+							+ "Storage_idStorage = 1";
+			
+			stmt.executeUpdate(sql);
+			
+			for(Entry<Integer, String> i : this.notes.entrySet()) {
+				sql = sql;
+				stmt.executeUpdate(sql);
+			}
+
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			try{
+				if(stmt!=null)
+					conn.close();
+			}catch(SQLException se){
+			}// do nothing
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
 	}
 }

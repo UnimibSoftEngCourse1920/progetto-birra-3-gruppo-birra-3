@@ -4,20 +4,16 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
-import main.DatabaseController;
-
 public class Equipment {
 	
 	private double capacity;
 	private HashMap<String, Double> instruments;
-	private DatabaseController controller;
 	
 	Scanner scan = new Scanner(System.in);
 	
-	public Equipment(HashMap<String, Double> instruments, DatabaseController controller) {
+	public Equipment(HashMap<String, Double> instruments) {
 		super();
 		this.instruments = instruments;
-		this.controller = controller;
 	}
 
 
@@ -68,7 +64,7 @@ public class Equipment {
 	}
 	
 	public void store() {
-		this.controller.store();
+		
 	}
 	
 }
