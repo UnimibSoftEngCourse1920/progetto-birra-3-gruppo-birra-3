@@ -10,9 +10,10 @@ public class StorageObserver {
 	}
 
 	public void notify(Storage storage) {
-		for (int i = 0; i < this.listeners.length; i++) {
-			listeners[i].update();
+		if (this.listeners.length != 0) {
+			for (int i = 0; i < this.listeners.length; i++) {
+				listeners[i].update();
+			}
 		}
-		
 	} 
 }

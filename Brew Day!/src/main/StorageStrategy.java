@@ -1,5 +1,6 @@
+package main;
 
-public class RecipeStrategy implements DBStrategy {
+public class StorageStrategy implements DBStrategy {
 
 	@Override
 	public void store(Object o) {

@@ -1,12 +1,13 @@
 package resources;
+import main.DatabaseController;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 public class Storage {
 
 	private HashMap<String,Double> ingredients;
-	private DatabaseController controller;
-	private StorageObserver observer;
+	private static DatabaseController controller;
+	private static StorageObserver observer;
 	private static Storage instance;
 	
 	private Storage(HashMap<String, Double> ingredients) {
@@ -16,7 +17,7 @@ public class Storage {
 
 	
 	public HashMap<String, Double> getIngredients() {
-		return ingredients;
+		return this.ingredients;
 	}
 
 
@@ -33,7 +34,7 @@ public class Storage {
 	}
 
 	public void store() {
-		this.controller.execute();
+		//this.controller.execute();
 	}
 	
 	public static Storage getInstance() {
@@ -41,9 +42,14 @@ public class Storage {
 			instance = new Storage(new HashMap<String, Double>());
 		}
 		
+		if (controller == null) {
+			controller = controller.getInstance();
+		}
+		
+		if (observer == null) {
+			observer = new StorageObserver();
+		}
+		
 		return instance;
 	}
-	
-	
-
 }
