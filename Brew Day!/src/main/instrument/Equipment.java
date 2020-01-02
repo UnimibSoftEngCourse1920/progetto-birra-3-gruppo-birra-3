@@ -59,6 +59,7 @@ public class Equipment {
 		store(instruments);
 	}
 	
+	
 	public void store(HashMap<String, Double> instruments) {
 		Connection conn = null;
 		Statement stmt = null;

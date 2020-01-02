@@ -3,6 +3,8 @@ package main.recipes;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.instrument.Equipment;
+
 public class Recipe {
 	
 	private int id;
@@ -10,7 +12,6 @@ public class Recipe {
 	Map<String,Double> ingredients = new HashMap<>();
 	Map<String,Double> missingIngredients = new HashMap<>();
 	private Equipment equipment;
-	private DatabaseController DBcontroller;
 	private RecipeController Rcontroller;
 	
 	public Recipe(int id, String name, Map<String, Double> ingredients) {
@@ -53,12 +54,7 @@ public class Recipe {
 		return equipment;
 	}
 	
-	public Map<String, Double> update(){
-		//Must be completed
-		missingIngredients();
-	}
-	
-	public Map<String, Double> computeMissingIngredients(Map<String, Double> AvailableIngredients){
+	public static Map<String, Double> computeMissingIngredients(Map<String, Double> AvailableIngredients){
 		//Must be completed
 	}
 }
