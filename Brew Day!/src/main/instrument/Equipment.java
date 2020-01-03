@@ -16,7 +16,7 @@ public class Equipment {
 	
 	Scanner scan = new Scanner(System.in);
 	
-	public Equipment(HashMap<String, Double> instruments) {
+	private Equipment(HashMap<String, Double> instruments) {
 		super();
 		this.instruments = instruments;
 		
