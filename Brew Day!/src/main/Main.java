@@ -28,7 +28,7 @@ public class Main {
 
 			//Open a connection
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			
+
 			//Initialize the script runner
 			ScriptRunner sr = new ScriptRunner(conn, false, false);
 			//Creating a reader object
@@ -43,7 +43,6 @@ public class Main {
 			//Handle errors for Class.forName
 			e.printStackTrace();
 		}finally{
-			
 			try{
 				if(stmt!=null)
 					stmt.close();

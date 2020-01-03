@@ -73,19 +73,116 @@ public class Brew {
 			//Execute a query
 			stmt = conn.createStatement();
 
-			String sql = "INSERT INTO Brew " +
-					"SET id = " + this.getId() + ", "
-							+ "name = " + recipe.getName() 
-							+ ", startDate " + this.getStartDate() 
-							+ ", finishDate = " + this.getFinishDate()
-							+ ", Recipe_id = " + recipe.getId()
-							+ "Storage_idStorage = 1";
+			String sql = "INSERT INTO Brew " 
+					+ "SET id = " + this.getId()
+					+ ", name = " + recipe.getName() 
+					+ ", startDate " + this.getStartDate() 
+					+ ", finishDate = " + this.getFinishDate()
+					+ ", Recipe_id = " + recipe.getId()
+					+ "Storage_idStorage = 1";
 			
 			stmt.executeUpdate(sql);
 			
 			for(Entry<Integer, String> i : this.notes.entrySet()) {
-				//Must be completed
-				sql = sql;
+				sql = "INSERT INTO Note "
+						+ "SET id = " + i.getKey()
+						+ ", text = " + i.getValue()
+						+ ", Brew_id = " + this.getId();
+				stmt.executeUpdate(sql);
+			}
+
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			try{
+				if(stmt!=null)
+					conn.close();
+			}catch(SQLException se){
+			}// do nothing
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public void updateBrew() {
+		Connection conn = null;
+		Statement stmt = null;
+		try{
+			//Register JDBC driver
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Open a connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
+
+			//Execute a query
+			stmt = conn.createStatement();
+
+			String sql = "UPDATE Brew " 
+					+ "SET name = " + recipe.getName() 
+					+ ", startDate " + this.getStartDate() 
+					+ ", finishDate = " + this.getFinishDate()
+					+ ", Recipe_id = " + recipe.getId()
+					+ " WHERE id = " + this.getId();
+			
+			stmt.executeUpdate(sql);
+			
+			for(Entry<Integer, String> i : this.notes.entrySet()) {
+				sql = "UPDATE Note " 
+						+ "SET text = " + i.getValue()
+						+ " WHERE id = " + i.getKey();
+				stmt.executeUpdate(sql);
+			}
+
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			try{
+				if(stmt!=null)
+					conn.close();
+			}catch(SQLException se){
+			}// do nothing
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteBrew() {
+		Connection conn = null;
+		Statement stmt = null;
+		try{
+			//Register JDBC driver
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Open a connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
+
+			//Execute a query
+			stmt = conn.createStatement();
+
+			String sql = "DELETE FROM Brew " +
+					"WHERE id = " + this.getId();
+			
+			stmt.executeUpdate(sql);
+			
+			for(Entry<Integer, String> i : this.notes.entrySet()) {
+				sql = "DELETE FROM Note "
+						+ "WHERE id = " + i.getKey();
 				stmt.executeUpdate(sql);
 			}
 
