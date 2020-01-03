@@ -11,9 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import main.DatabaseController;
-import main.resources.Storage;
-
 public class Brew {
 
 	private Double id;
@@ -22,7 +19,6 @@ public class Brew {
 	private Map<Integer,String> notes = new HashMap<>();
 	private Recipe recipe;
 	private Storage storage;
-	private BrewController Bcontroller;
 
 	public Brew(Double id, Recipe recipe, Date startDate) {
 		super();
@@ -88,6 +84,7 @@ public class Brew {
 			stmt.executeUpdate(sql);
 			
 			for(Entry<Integer, String> i : this.notes.entrySet()) {
+				//Must be completed
 				sql = sql;
 				stmt.executeUpdate(sql);
 			}

@@ -1,13 +1,15 @@
 package main.recipes;
 
+import main.instrument.Equipment;
+import main.resources.Storage;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import main.DatabaseController;
-import main.instrument.Equipment;
-
-import main.instrument.Equipment;
 
 public class Recipe {
 	
@@ -16,7 +18,7 @@ public class Recipe {
 	Map<String,Double> ingredients = new HashMap<>();
 	Map<String,Double> missingIngredients = new HashMap<>();
 	private Equipment equipment;
-	private RecipeController Rcontroller;
+	private Storage storage;
 	
 	public Recipe(int id, String name, Map<String, Double> ingredients) {
 		super();
@@ -29,16 +31,8 @@ public class Recipe {
 		return id;
 	}	
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public double getQuantity(String name) {
@@ -76,15 +70,67 @@ public class Recipe {
 		return results;
 	}
 	
-	public void save() {
-		//Must be completed
+	public Map<String, Double> createBrew(){
+		//must be completed
 	}
 	
-	public void modify() {
+	public void storeRecipe() {
+		Connection conn = null;
+		Statement stmt = null;
+		try{
+			//Register JDBC driver
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Open a connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
+
+			//Execute a query
+			stmt = conn.createStatement();
+
+			String sql = "INSERT INTO Recipe" +
+					"SET id = " + this.getId() + ", "
+							+ "name = " + this.getName() 
+							+ ", Equipment_idEquipment = 1"
+							+ "Storage_idStorage = 1";
+			
+			stmt.executeUpdate(sql);
+			
+			for(Entry<String, Double> i : this.ingredients.entrySet()) {
+				//Must be completed
+				stmt.executeUpdate(sql);
+			}
+			
+			for(Entry<String, Double> i : this.missingIngredients.entrySet()) {
+				//Must be completed
+				stmt.executeUpdate(sql);
+			}
+
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}finally{
+			try{
+				if(stmt!=null)
+					conn.close();
+			}catch(SQLException se){
+			}// do nothing
+			try{
+				if(conn!=null)
+					conn.close();
+			}catch(SQLException se){
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public void modifyRecipe() {
 		//Must be completed
 	}
 
-	public void delete() {
+	public void deleteRecipe() {
 		//Must be completed
 	}
 }

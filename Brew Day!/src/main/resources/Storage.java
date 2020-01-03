@@ -15,7 +15,6 @@ public class Storage {
 		this.ingredients = ingredients;
 	}
 
-
 	public HashMap<String, Double> getIngredients() {
 		return this.ingredients;
 	}
@@ -29,8 +28,6 @@ public class Storage {
 		for(Entry<String, Double> i : ingredients.entrySet()) {
 			getIngredients().put(i.getKey(), i.getValue());
 		}
-
-		Recipe.computeMissingIngredients(this.getIngredients());
 
 		this.store();
 	}

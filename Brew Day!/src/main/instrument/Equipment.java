@@ -2,6 +2,9 @@ package main.instrument;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import main.resources.Storage;
+
 import java.util.Scanner;
 import java.sql.*;
 
@@ -9,6 +12,7 @@ import java.sql.*;
 public class Equipment {
 	
 	private HashMap<String, Double> instruments;
+	private static Equipment instance;
 	
 	Scanner scan = new Scanner(System.in);
 	
@@ -105,4 +109,11 @@ public class Equipment {
 		return null;
 	}
 	
+	public static Equipment getInstance() {
+		if (instance == null) {
+			instance = new Equipment(new HashMap<String, Double>()); 
+		}
+
+		return instance;
+	}
 }
