@@ -27,7 +27,7 @@ public class RecipeController {
 	}
 	
 	public void startBrew(Recipe recipe) {
-		//Must be completed (Probably needs this class to be an extension of Thread)
+		//Must be completed
 		while(!recipe.missingIngredients.isEmpty()) {}
 		Scontroller.updateIngredients(recipe.ingredients);
 		createBrew(id,recipe);

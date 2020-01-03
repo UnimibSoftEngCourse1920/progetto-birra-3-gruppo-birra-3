@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import main.DatabaseController;
+import main.resources.Storage;
+
 public class Brew {
 
 	private Double id;
@@ -31,11 +34,7 @@ public class Brew {
 	public Double getId() {
 		return id;
 	}
-
-	public void setId(Double id) {
-		this.id = id;
-	}
-
+	
 	public Date getStartDate() {
 		return startDate;
 	}

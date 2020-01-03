@@ -13,12 +13,10 @@ public class BrewController {
 
 	public void store() {
 		//Must be completed
-		controller.store(this);
 	}
 	
 	public void delete() {
 		//Must be completed
-		controller.delete(this);
 	}
 
 }

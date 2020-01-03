@@ -2,6 +2,10 @@ package main.recipes;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import main.DatabaseController;
+import main.instrument.Equipment;
 
 import main.instrument.Equipment;
 
@@ -23,7 +27,7 @@ public class Recipe {
 
 	public int getId() {
 		return id;
-	}
+	}	
 
 	public void setId(int id) {
 		this.id = id;
@@ -38,7 +42,7 @@ public class Recipe {
 	}
 
 	public double getQuantity(String name) {
-		ingredients.get(name);
+		return ingredients.get(name);
 	}
 
 	public void setIngredient(String name, double quantity) {
@@ -54,7 +58,33 @@ public class Recipe {
 		return equipment;
 	}
 	
-	public static Map<String, Double> computeMissingIngredients(Map<String, Double> AvailableIngredients){
+	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
+		Map<String,Double> results = new HashMap<>();
+		Double available;
+		Double needed;
+		
+		for(Entry<String, Double> i : this.ingredients.entrySet()) {
+			available = availableIngredients.get(i.getKey());
+			if(available != null) {
+				needed = this.ingredients.get(i.getKey());
+				if(available - needed > 0) {
+					results.put(i.getKey(), available - needed);
+				}
+			}
+		}
+		
+		return results;
+	}
+	
+	public void save() {
+		//Must be completed
+	}
+	
+	public void modify() {
+		//Must be completed
+	}
+
+	public void delete() {
 		//Must be completed
 	}
 }
