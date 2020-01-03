@@ -55,13 +55,13 @@ public class Storage {
 			//Execute a query
 			stmt = conn.createStatement();
 
-			String sql = "INSERT INTO Storage_has_Ingredient " +
-					"SET ";
-
+			String sql = null;
 			for(Entry<String, Double> i : this.getIngredients().entrySet()) {
-				sql = sql + "Storage_idStorage = 1" 
-						+ ", Ingredient_Name = " + i.getKey() 
-						+  ", quantity = " + i.getValue();
+				sql = "INSERT INTO Storage_has_Ingredient " +
+						"VALUES (1" 
+						+ ", " + i.getKey() 
+						+  ", " + i.getValue()
+						+")";
 				stmt.executeUpdate(sql);
 			}
 
@@ -99,12 +99,11 @@ public class Storage {
 			//Execute a query
 			stmt = conn.createStatement();
 
-			String sql = "UPDATE Storage_has_Ingredient " +
-					"SET ";
-
+			String sql = null;
 			for(Entry<String, Double> i : this.getIngredients().entrySet()) {
-				sql = sql + "quantity = " + i.getValue()
-				+ " WHERE Ingredient_name = " + i.getKey();
+				sql =  "UPDATE Storage_has_Ingredient "
+						+ "SET quantity = " + i.getValue()
+						+ " WHERE Ingredient_name = " + i.getKey();
 				stmt.executeUpdate(sql);
 			}
 
@@ -142,10 +141,10 @@ public class Storage {
 			//Execute a query
 			stmt = conn.createStatement();
 
-			String sql = "DELETE FROM Storage_has_Ingredient WHERE";
-
+			String sql = null;
 			for(Entry<String, Double> i : this.getIngredients().entrySet()) {
-				sql = sql + "Ingredient_Name = " + i.getKey();
+				sql = "DELETE FROM Storage_has_Ingredient WHERE" 
+						+ "Ingredient_Name = " + i.getKey();
 				stmt.executeUpdate(sql);
 			}
 

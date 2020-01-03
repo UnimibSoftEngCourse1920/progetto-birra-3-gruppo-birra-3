@@ -74,20 +74,21 @@ public class Brew {
 			stmt = conn.createStatement();
 
 			String sql = "INSERT INTO Brew " 
-					+ "SET id = " + this.getId()
-					+ ", name = " + recipe.getName() 
-					+ ", startDate " + this.getStartDate() 
-					+ ", finishDate = " + this.getFinishDate()
-					+ ", Recipe_id = " + recipe.getId()
-					+ "Storage_idStorage = 1";
+					+ "VALUES (" + this.getId()
+					+ ", " + recipe.getName() 
+					+ ", " + this.getStartDate() 
+					+ ", " + this.getFinishDate()
+					+ ", " + recipe.getId()
+					+ ", 1)";
 			
 			stmt.executeUpdate(sql);
 			
 			for(Entry<Integer, String> i : this.notes.entrySet()) {
 				sql = "INSERT INTO Note "
-						+ "SET id = " + i.getKey()
-						+ ", text = " + i.getValue()
-						+ ", Brew_id = " + this.getId();
+						+ "VALUES (" + i.getKey()
+						+ ", " + i.getValue()
+						+ ", " + this.getId()
+						+")";
 				stmt.executeUpdate(sql);
 			}
 
