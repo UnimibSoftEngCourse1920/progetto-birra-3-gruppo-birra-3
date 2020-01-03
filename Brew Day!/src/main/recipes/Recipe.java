@@ -99,20 +99,20 @@ public class Recipe {
 			//Execute a query
 			stmt = conn.createStatement();
 			
-			String sql = "INSERT INTO Recipe" +
-					"VALUES id = " + this.getId() + ", "
-							+ "name = " + this.getName() 
-							+ ", Storage_idStorage = 1" 
-						    + ", Equipment_idEquipment = 1";
+			String sql = "INSERT INTO Recipe " 
+							+ "VALUES (" + this.getId() 
+							+ ", " + this.getName() 
+							+ ", " + 1 
+						    + ", " + 1 + ")";
 			
 			stmt.executeUpdate(sql);
 			
 			String sqlEqIn = null;
 			for(Entry<String, Double> i : this.ingredients.entrySet()) {
 				sqlEqIn = "INSERT INTO Recipe_has_Ingredients "
-						+ "VALUES Recipe_id = " + this.getId()
-						+ ", Ingredient_name = " + i.getKey()
-						+ ", quantity = " + i.getValue();
+						+ "VALUES (" + this.getId()
+						+ ", " + i.getKey()
+						+ ", " + i.getValue() + ")";
 				stmt.executeUpdate(sqlEqIn);
 			}
 
@@ -154,7 +154,7 @@ public class Recipe {
 					"SET id = " + this.getId() + ", "
 					+ "name = " + this.getName() 
 					+ ", Equipment_idEquipment = 1"
-					+ "Storage_idStorage = 1";
+					+ ", Storage_idStorage = 1";
 			
 			stmt.executeUpdate(sql);
 			
