@@ -2,17 +2,14 @@ package main.recipes;
 
 import main.resources.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-public class Brew {
+public class Brew implements Serializable{
 
+	private static final long serialVersionUID = 2L;
 	private Double id;
 	private Date startDate;
 	private Date finishDate;
@@ -61,150 +58,14 @@ public class Brew {
 	}
 
 	public void storeBrew() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = "INSERT INTO Brew " 
-					+ "VALUES (" + this.getId()
-					+ ", " + recipe.getName() 
-					+ ", " + this.getStartDate() 
-					+ ", " + this.getFinishDate()
-					+ ", " + recipe.getId()
-					+ ", 1)";
-			
-			stmt.executeUpdate(sql);
-			
-			for(Entry<Integer, String> i : this.notes.entrySet()) {
-				sql = "INSERT INTO Note "
-						+ "VALUES (" + i.getKey()
-						+ ", " + i.getValue()
-						+ ", " + this.getId()
-						+")";
-				stmt.executeUpdate(sql);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+		
 	}
 	
 	public void updateBrew() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = "UPDATE Brew " 
-					+ "SET name = " + recipe.getName() 
-					+ ", startDate " + this.getStartDate() 
-					+ ", finishDate = " + this.getFinishDate()
-					+ ", Recipe_id = " + recipe.getId()
-					+ " WHERE id = " + this.getId();
-			
-			stmt.executeUpdate(sql);
-			
-			for(Entry<Integer, String> i : this.notes.entrySet()) {
-				sql = "UPDATE Note " 
-						+ "SET text = " + i.getValue()
-						+ " WHERE id = " + i.getKey();
-				stmt.executeUpdate(sql);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+		
 	}
 	
 	public void deleteBrew() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = "DELETE FROM Brew " +
-					"WHERE id = " + this.getId();
-			
-			stmt.executeUpdate(sql);
-			
-			for(Entry<Integer, String> i : this.notes.entrySet()) {
-				sql = "DELETE FROM Note "
-						+ "WHERE id = " + i.getKey();
-				stmt.executeUpdate(sql);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+	
 	}
 }

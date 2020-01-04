@@ -3,17 +3,15 @@ package main.recipes;
 import main.instrument.Equipment;
 import main.resources.Storage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Recipe {
-	
+public class Recipe implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	Map<String,Double> ingredients = new HashMap<>();
@@ -87,152 +85,24 @@ public class Recipe {
 	}
 	
 	public void storeRecipe() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-			
-			String sql = "INSERT INTO Recipe " 
-							+ "VALUES (" + this.getId() 
-							+ ", " + this.getName() 
-							+ ", " + 1 
-						    + ", " + 1 + ")";
-			
-			stmt.executeUpdate(sql);
-			
-			String sqlEqIn = null;
-			for(Entry<String, Double> i : this.ingredients.entrySet()) {
-				sqlEqIn = "INSERT INTO Recipe_has_Ingredients "
-						+ "VALUES (" + this.getId()
-						+ ", " + i.getKey()
-						+ ", " + i.getValue() + ")";
-				stmt.executeUpdate(sqlEqIn);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+		
 	}
 	
-	public void modifyRecipe() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = "UPDATE Brew " +
-					"SET id = " + this.getId() + ", "
-					+ "name = " + this.getName() 
-					+ ", Equipment_idEquipment = 1"
-					+ ", Storage_idStorage = 1";
-			
-			stmt.executeUpdate(sql);
-			
-			String sqlEqIn = null;
-			for(Entry<String, Double> i : this.ingredients.entrySet()) {
-				sqlEqIn = "UPDATE Recipe_has_Ingredients "
-						+ "SET Recipe_id = " + this.getId()
-						+ ", Ingredient_name = " + i.getKey()
-						+ ", quantity = " + i.getValue();
-				stmt.executeUpdate(sqlEqIn);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+	public void updateRecipe() {
+		
 	}
-
+	
 	public void deleteRecipe() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = "DELETE FROM Recipe " +
-					"WHERE id = " + this.getId();
-			
-			stmt.executeUpdate(sql);
-			
-			String sqlEqIn = null;
-			for(Entry<String, Double> i : this.ingredients.entrySet()) {
-				sqlEqIn = "DELETE FROM Recipe_has_Ingredients "
-						+ "WHERE Recipe_id = " + this.getId()
-						+ ", Ingredient_name = " + i.getKey()
-						+ ", quantity = " + i.getValue();
-				stmt.executeUpdate(sqlEqIn);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
+	
+	}
+	
+    //Created only for testing purpose
+	@Override
+	public String toString() {
+		String ingredientsString = "";
+		for(Entry<String, Double> i : ingredients.entrySet()) {
+			ingredientsString += i.getKey() + "   " + ingredients.get(i.getKey()) + ", ";
 		}
+		return "Recipe [id=" + id + "; name=" + name + "; ingredients=" + ingredientsString + "]";
 	}
 }

@@ -1,62 +1,31 @@
 package main;
-import java.sql.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import com.ibatis.common.jdbc.ScriptRunner;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import main.recipes.Recipe;
 
 public class Main {
 
-	final static String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	private final static String DB_URL = "jdbc:mysql://localhost:3306/";
-
-	private final static String USER = "root";
-	private final static String PASS = "toor";
-	
-	public static Connection conn = null;
-
-	public static void main(String[] args) {
-		createDB();
-	}
-
-	public static void connectDB() {
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			System.out.println("Database connected!");
-
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally{
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-	}
-
-	private static void createDB() {
-		connectDB();
-		//Initialize the script runner
-		ScriptRunner sr = new ScriptRunner(conn, false, false);
-		//Creating a reader object
-		Reader reader;
-		try {
-			reader = new BufferedReader(new FileReader("/Files/Brew Day!.sql"));
-			sr.runScript(reader);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException | SQLException e) {
-			e.printStackTrace();
-		}			
-	}
+	public static void main(String args[]) {
+		
+		String filepath = System.getProperty("user.dir") + "\\src\\Files\\objects.txt";
+		 
+        IOController ioController = new IOController();
+        
+        //Write object to file
+        Map<String,Double> i = new HashMap<>();
+        i.put("Malt", 150.0);
+        i.put("Yeast", 300.0);
+        Recipe r1 = new Recipe(1, "Test Recipe", i);
+        ioController.WriteObjectToFile(r1);
+ 
+        //Read object from file
+        Recipe r2 = (Recipe) ioController.ReadObjectFromFile(filepath);
+        System.out.println(r2.toString()); 
+        
+        File file = new File(filepath);
+        file.delete();
+    }
 }

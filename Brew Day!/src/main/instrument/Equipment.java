@@ -3,14 +3,13 @@ package main.instrument;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import main.resources.Storage;
-
 import java.util.Scanner;
-import java.sql.*;
+import java.io.Serializable;
 
 
-public class Equipment {
+public class Equipment implements Serializable {
 	
+	private static final long serialVersionUID = 3L;
 	private HashMap<String, Double> instruments;
 	private static Equipment instance;
 	
@@ -63,124 +62,11 @@ public class Equipment {
 	}
 	
 	public void storeEquipment() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			System.out.println("Connecting to DB...");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-			System.out.println("Connected DB successfully...");
-			
-			//Execute a query
-			System.out.println("Creating statement...");
-		    stmt = conn.createStatement();
-		    
-		    //creating script SQL for store instruments in DB (used only the 1st time)
-		    //equipment table(idEquipment, capacity)
-			String sqlEq = "INSERT INTO Equipment "
-						+ "VALUES (1"
-						+ ", " + computeCapacity(this.instruments)
-						+ ")";
-		    
-			stmt.executeUpdate(sqlEq);
-
-			//equipment_has_instrument table(Equipment_idEquipment, Instrument_name)
-			String sqlEqIn = null;
-			for(Entry<String, Double> i : this.getInstruments().entrySet()) {
-				sqlEqIn = "INSERT INTO Equipment_has_Instrument "
-							+ "VALUES (1" 
-							+ ", " + i.getKey()
-							+ ")";
-				stmt.executeUpdate(sqlEqIn);
-			}
-			
-			//instrument table(name, capacity)
-			String sqlIn = null;
-			for(Entry<String, Double> i : this.getInstruments().entrySet()) {
-				sqlIn = "INSERT INTO Instrument "
-						+ "VALUES (" + i.getKey()
-						+ ", " + i.getValue()
-						+ ")";
-				stmt.executeUpdate(sqlIn);
-			}
-			
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+		
 	}	
 	
 	public void updateEquipment() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			System.out.println("Connecting to DB...");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-			System.out.println("Connected DB successfully...");
-			
-			//Execute a query
-			System.out.println("Creating statement...");
-		    stmt = conn.createStatement();
-		    
-		    //create sql statement for updating modified instruments
-		    //instruments table(name, capacity)
-		    String sqlIn = null;
-			for(Entry<String, Double> i : this.getInstruments().entrySet()) {
-				sqlIn = "UPDATE Instrument"
-						+ "SET capacity = " + i.getValue()
-						+ "WHERE name = " + i.getKey();
-				stmt.executeUpdate(sqlIn);
-			}
-			
-			 //equipment table(idEquipment, capacity)
-		    String sqlEq = "UPDATE Equipment"
-						+ "SET capacity = " + computeCapacity(this.instruments)
-						+ "WHERE idEquipment = 1";
-				stmt.executeUpdate(sqlEq);
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			
-			try{
-				if(stmt!=null)
-					stmt.close();
-			}catch(SQLException se2){
-			}
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
+		
 	}
 	
 	public static Equipment getInstance() {
