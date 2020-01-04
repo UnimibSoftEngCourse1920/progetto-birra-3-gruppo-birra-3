@@ -1,7 +1,7 @@
 package main.resources;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import main.recipes.*;
+import main.Main;
 
 import java.sql.*;
 
@@ -20,152 +20,59 @@ public class Storage {
 	}
 
 
-	public void setIngredients(HashMap<String, Double> ingredients) {
+	public void setIngredients(HashMap<String, Double> ingredients) throws SQLException {
 		this.ingredients = ingredients;
-		
-		this.storeStorage();
+
+		//Main.connectDB(); probabilmente non necessario
+
+		//Execute a query
+		Statement stmt = Main.conn.createStatement();
+
+		String sql = null;
+		for(Entry<String, Double> i : this.getIngredients().entrySet()) {
+			sql = "INSERT INTO Storage_has_Ingredient " +
+					"VALUES (1" 
+					+ ", " + i.getKey() 
+					+  ", " + i.getValue()
+					+")";
+			stmt.executeUpdate(sql);
+		}
 	}
 
-	public void updateIngredients(HashMap<String, Double> ingredients) {
+	public void updateIngredients(HashMap<String, Double> ingredients) throws SQLException {
 		for(Entry<String, Double> i : ingredients.entrySet()) {
 			getIngredients().put(i.getKey(), i.getValue());
 		}
 
-		this.updateStorage();
+		//Main.connectDB();	probabilmente non necessario
+
+		//Execute a query
+		Statement stmt = Main.conn.createStatement();
+
+		String sql = null;
+		for(Entry<String, Double> i : this.getIngredients().entrySet()) {
+			sql =  "UPDATE Storage_has_Ingredient "
+					+ "SET quantity = " + i.getValue()
+					+ " WHERE Ingredient_name = " + i.getKey();
+			stmt.executeUpdate(sql);
+		}
 	}
-	
-	public void deleteIngredients(String[] ingredients) {
+
+	public void deleteIngredients(String[] ingredients) throws SQLException {
 		for (int i = 0; i < ingredients.length; i++) {
 			this.ingredients.remove(ingredients[i]);
 		}
-		
-		this.deleteStorage();
-	}
 
-	public void storeStorage() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
+		//Main.connectDB();	probabilmente non necessario
 
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
+		//Execute a query
+		Statement stmt = Main.conn.createStatement();
 
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = null;
-			for(Entry<String, Double> i : this.getIngredients().entrySet()) {
-				sql = "INSERT INTO Storage_has_Ingredient " +
-						"VALUES (1" 
-						+ ", " + i.getKey() 
-						+  ", " + i.getValue()
-						+")";
-				stmt.executeUpdate(sql);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-	}
-	
-	public void updateStorage() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = null;
-			for(Entry<String, Double> i : this.getIngredients().entrySet()) {
-				sql =  "UPDATE Storage_has_Ingredient "
-						+ "SET quantity = " + i.getValue()
-						+ " WHERE Ingredient_name = " + i.getKey();
-				stmt.executeUpdate(sql);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
-		}
-	}
-	
-	public void deleteStorage() {
-		Connection conn = null;
-		Statement stmt = null;
-		try{
-			//Register JDBC driver
-			Class.forName("com.mysql.jdbc.Driver");
-
-			//Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/", "username", "password");
-
-			//Execute a query
-			stmt = conn.createStatement();
-
-			String sql = null;
-			for(Entry<String, Double> i : this.getIngredients().entrySet()) {
-				sql = "DELETE FROM Storage_has_Ingredient WHERE" 
-						+ "Ingredient_Name = " + i.getKey();
-				stmt.executeUpdate(sql);
-			}
-
-		}catch(SQLException se){
-			//Handle errors for JDBC
-			se.printStackTrace();
-		}catch(Exception e){
-			//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(stmt!=null)
-					conn.close();
-			}catch(SQLException se){
-			}// do nothing
-			try{
-				if(conn!=null)
-					conn.close();
-			}catch(SQLException se){
-				se.printStackTrace();
-			}
+		String sql = null;
+		for(Entry<String, Double> i : this.getIngredients().entrySet()) {
+			sql = "DELETE FROM Storage_has_Ingredient WHERE" 
+					+ "Ingredient_Name = " + i.getKey();
+			stmt.executeUpdate(sql);
 		}
 	}
 
