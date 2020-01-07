@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Recipe implements Serializable{
+public class Recipe implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int id;
@@ -32,6 +32,18 @@ public class Recipe implements Serializable{
 	public String getName() {
 		return name;
 	}
+	
+	public Equipment getEquipment() {
+		return equipment;
+	}
+
+	public Storage getStorage() {
+		return storage;
+	}
+
+	public Map<String, Double> getIngredients() {
+		return ingredients;
+	}
 
 	public double getQuantity(String name) {
 		return ingredients.get(name);
@@ -44,10 +56,6 @@ public class Recipe implements Serializable{
 		else {
 			ingredients.replace(name, quantity);
 		}
-	}
-
-	public Equipment getEquipment() {
-		return equipment;
 	}
 	
 	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
