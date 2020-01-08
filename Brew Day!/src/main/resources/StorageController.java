@@ -1,5 +1,6 @@
 package main.resources;
 
+import java.io.File;
 import java.util.HashMap;
 
 import main.IOController;
@@ -10,8 +11,7 @@ public class StorageController {
 	private static IOController ioController = new IOController();
 	
 	protected static Storage extractStorage() {
-		return (Storage) ioController.ReadObjectFromFile(filepath);
-		
+		return (Storage) ioController.ReadObjectFromFile(filepath);	
 	}
 	
 	protected static void store(Storage storage) {
@@ -28,5 +28,11 @@ public class StorageController {
 		Storage storage = extractStorage();
 		storage.deleteIngredient(ingredient);
 		store(storage);
+	}
+	
+	//for only testing purpose
+	public static void deleteFile() {
+		File file = new File(filepath);
+		file.delete();
 	}
 }

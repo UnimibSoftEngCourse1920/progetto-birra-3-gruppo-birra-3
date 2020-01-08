@@ -40,6 +40,11 @@ public class Storage implements Serializable{
 	public void deleteIngredient(String ingredient) {
 		this.ingredients.remove(ingredient);
 	}
-	
+
+	//for only testing purpose
+	@Override
+	public String toString() {
+		return "ingredients = " + ingredients;
+	}	
 }
 
