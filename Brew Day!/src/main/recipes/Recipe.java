@@ -2,25 +2,26 @@ package main.recipes;
 
 import main.instrument.Equipment;
 import main.resources.Storage;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Recipe implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
-	Map<String,Double> ingredients = new HashMap<>();
+	HashMap<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
+	private static final AtomicInteger count = new AtomicInteger(0); //this serve to autoincrement the id
 	
-	public Recipe(int id, String name, Map<String, Double> ingredients) {
+	public Recipe(String name, HashMap<String, Double> ingredients) {
 		super();
-		this.id = id;
+		this.id = count.incrementAndGet();
 		this.name = name;
 		this.ingredients = ingredients;
 	}
@@ -37,21 +38,24 @@ public class Recipe implements Serializable{
 		return ingredients.get(name);
 	}
 
-	public void setIngredient(String name, double quantity) {
-		if(ingredients.get(name) == null) {
-			ingredients.put(name, quantity);
-		}
-		else {
-			ingredients.replace(name, quantity);
-		}
-	}
-
 	public Equipment getEquipment() {
 		return equipment;
 	}
 	
-	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
-		Map<String,Double> results = new HashMap<>();
+	public HashMap<String,Double> getIngredients() {
+		return this.ingredients;
+	}
+	
+	public void setIngredients(HashMap<String, Double> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public HashMap<String, Double> computeMissingIngredients(HashMap<String, Double> availableIngredients){
+		HashMap<String,Double> results = new HashMap<>();
 		Double available;
 		Double needed;
 		
@@ -84,16 +88,9 @@ public class Recipe implements Serializable{
 		}
 	}
 	
-	public void storeRecipe() {
-		
-	}
-	
-	public void updateRecipe() {
-		
-	}
-	
-	public void deleteRecipe() {
-	
+	public void updateRecipe(String name, HashMap<String, Double> ingredients) {
+		this.setName(name);
+		this.setIngredients(ingredients);
 	}
 	
     //Created only for testing purpose

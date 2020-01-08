@@ -17,8 +17,7 @@ public class Equipment implements Serializable {
 	
 	private Equipment(HashMap<String, Double> instruments) {
 		super();
-		setInstruments(instruments);
-		storeEquipment();
+		this.instruments = instruments;
 	}
 
 	public HashMap<String, Double> getInstruments() {
@@ -57,16 +56,10 @@ public class Equipment implements Serializable {
 		    else if (c == 'N' || c == 'n')
 		    	System.out.println("Beautiful");
 		}
-		
-		updateEquipment();
 	}
 	
-	public void storeEquipment() {
-		
-	}	
-	
-	public void updateEquipment() {
-		
+	public void deleteInstrument(String name) {
+		this.instruments.remove(name);
 	}
 	
 	public static Equipment getInstance() {

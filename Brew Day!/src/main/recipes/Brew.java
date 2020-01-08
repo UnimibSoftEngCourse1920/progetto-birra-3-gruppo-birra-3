@@ -20,7 +20,7 @@ public class Brew implements Serializable{
 	public Brew(Double id, Recipe recipe, Date startDate) {
 		super();
 		this.recipe = recipe;
-		//this.id = (Double) recipe.getId() + 0.01; must be review
+		this.id = id; //ho provato a autoncrementare come con Recipe con AtomicLong ma non funge
 		this.startDate = startDate;
 	}
 
@@ -55,17 +55,5 @@ public class Brew implements Serializable{
 
 	public void modifyNote(int id, String text) {
 		notes.put(id, text);
-	}
-
-	public void storeBrew() {
-		
-	}
-	
-	public void updateBrew() {
-		
-	}
-	
-	public void deleteBrew() {
-	
-	}
+	}	
 }
