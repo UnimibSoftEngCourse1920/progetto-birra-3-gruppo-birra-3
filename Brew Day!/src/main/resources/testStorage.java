@@ -15,18 +15,18 @@ public class testStorage {
         StorageController.store(storage);
         
         //Test read
-        System.out.println("Lo storage è: " + StorageController.extractStorage().toString());
+        System.out.println("Lo storage e': " + StorageController.extractStorage().toString());
         
         //Test update
         HashMap<String,Double> newIngredients = ingredients;
         newIngredients.put("Yeast", 30.0);
         newIngredients.put("Malt", 15.0);
         StorageController.update(newIngredients);
-        System.out.println("Lo storage modificato è: " + StorageController.extractStorage().toString());
+        System.out.println("Lo storage modificato e': " + StorageController.extractStorage().toString());
         
         //Test delete
         StorageController.delete("Hop");
-        System.out.println("Lo storage con eliminazione è: " + StorageController.extractStorage().toString());
+        System.out.println("Lo storage con eliminazione e': " + StorageController.extractStorage().toString());
         
         StorageController.deleteFile();
 

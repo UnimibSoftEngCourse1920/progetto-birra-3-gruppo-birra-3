@@ -93,13 +93,8 @@ public class Recipe implements Serializable{
 		this.setIngredients(ingredients);
 	}
 	
-    //Created only for testing purpose
-	@Override
+    @Override
 	public String toString() {
-		String ingredientsString = "";
-		for(Entry<String, Double> i : ingredients.entrySet()) {
-			ingredientsString += i.getKey() + "   " + ingredients.get(i.getKey()) + ", ";
-		}
-		return "Recipe [id=" + id + "; name=" + name + "; ingredients=" + ingredientsString + "]";
+		return "id = " + id + ", name = " + name + ", ingredients = " + ingredients;
 	}
 }
