@@ -11,13 +11,13 @@ import java.util.Map.Entry;
 
 public class Brew implements Serializable{
 
-	private static final long serialVersionUID = 2L;
 	private Double id;
 	private Date startDate;
 	private Date finishDate;
 	private Map<Integer,String> notes = new HashMap<>();
 	private Recipe recipe;
 	private Storage storage;
+	private static final long serialVersionUID = 2L;
 	
 	public Brew(Recipe recipe, Date startDate) {
 		super();

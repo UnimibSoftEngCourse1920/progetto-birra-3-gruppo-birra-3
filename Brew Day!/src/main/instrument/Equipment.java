@@ -8,22 +8,14 @@ import java.io.Serializable;
 
 public class Equipment implements Serializable{
 	
-	private static final long serialVersionUID = 3L;
 	private HashMap<String, Double> instruments;
 	private static Equipment instance;
+	private static final long serialVersionUID = 3L;
 	
 	
 	private Equipment(HashMap<String, Double> instruments) {
 		super();
 		this.instruments = instruments;
-	}
-	
-	public static Equipment getInstance() {
-		if (instance == null) {
-			instance = new Equipment(new HashMap<String, Double>()); 
-		}
-
-		return instance;
 	}
 
 	public HashMap<String, Double> getInstruments() {
@@ -52,6 +44,14 @@ public class Equipment implements Serializable{
 	
 	public void deleteInstrument(String name) {
 		this.getInstruments().remove(name);
+	}
+	
+	public static Equipment getInstance() {
+		if (instance == null) {
+			instance = new Equipment(new HashMap<String, Double>()); 
+		}
+
+		return instance;
 	}
 	
 	//for only testing purpose

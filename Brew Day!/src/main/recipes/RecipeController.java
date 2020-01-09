@@ -7,10 +7,25 @@ import main.IOController;
 
 public class RecipeController {
 
-	private static String filepath = System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt";
-	private static IOController ioController = new IOController();
+	private  String filepath;
+	private  IOController ioController; 
+	private static RecipeController instance;
+	
+	private RecipeController() {
+		super();
+		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt"; 
+		this.ioController = new IOController();
+	}
+	
+	public static RecipeController getInstance() {
+		if (instance == null) {
+			instance = new RecipeController();
+		}
+		
+		return instance;
+	}
 
-	protected static ArrayList<Recipe> extractRecipe() {
+	protected ArrayList<Recipe> extractRecipe() {
 		if (ioController.ReadObjectFromFile(filepath) != null) {
 			return (ArrayList<Recipe>) ioController.ReadObjectFromFile(filepath);
 		}
@@ -19,7 +34,7 @@ public class RecipeController {
 	}
 
 
-	protected static void store(Recipe recipe) {
+	protected void store(Recipe recipe) {
 		ArrayList<Recipe> recipes = extractRecipe();
 		for (Recipe r : recipes) {
 			if (r.getId() == recipe.getId()) {
@@ -31,7 +46,7 @@ public class RecipeController {
 		ioController.WriteObjectToFile(recipes, filepath);
 	}
 
-	protected static void update(int id, String name, HashMap<String,Double> ingredients) {
+	protected void update(int id, String name, HashMap<String,Double> ingredients) {
 		if (name != null && ingredients != null) {
 			ArrayList<Recipe> recipes = extractRecipe();
 			for (Recipe recipe : recipes) {
@@ -51,7 +66,7 @@ public class RecipeController {
 
 	}
 
-	protected static void delete(int id) {
+	protected void delete(int id) {
 		ArrayList<Recipe> recipes = extractRecipe();
 		for (int i = 0; i < recipes.size(); i++) {
 			if (recipes.get(i).getId() == id) {
@@ -63,7 +78,7 @@ public class RecipeController {
 	}
 
 	//for only testing purpose
-	public static void deleteFile() {
+	public void deleteFile() {
 		File file = new File(filepath);
 		file.delete();
 	}

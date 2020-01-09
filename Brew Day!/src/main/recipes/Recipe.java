@@ -11,14 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Recipe implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String name;
 	HashMap<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
-	private static final AtomicInteger count = new AtomicInteger(0); //this serves to autoincrement the id
 	private double countBrew = 1;
+	private static final AtomicInteger count = new AtomicInteger(0); //this serves to autoincrement the id
+	private static final long serialVersionUID = 1L;
 	
 	public Recipe(String name, HashMap<String, Double> ingredients) {
 		super();
@@ -59,23 +60,11 @@ public class Recipe implements Serializable{
 		this.name = name;
 	}
 	
-	public HashMap<String, Double> computeMissingIngredients(HashMap<String, Double> availableIngredients){
-		HashMap<String,Double> results = new HashMap<>();
-		Double available;
-		Double needed;
-		
-		for(Entry<String, Double> i : ingredients.entrySet()) {
-			available = availableIngredients.get(i.getKey());
-			if(available != null) {
-				needed = ingredients.get(i.getKey());
-				if(available - needed > 0) {
-					results.put(i.getKey(), available - needed);
-				}
-			}
-		}
-		
-		return results;
+	public void updateRecipe(String name, HashMap<String, Double> ingredients) {
+		this.setName(name);
+		this.setIngredients(ingredients);
 	}
+	
 	
 	public Brew createBrew(double id){
 		Map<String,Double> missingIngredients = new HashMap<>();
@@ -94,9 +83,22 @@ public class Recipe implements Serializable{
 		}
 	}
 	
-	public void updateRecipe(String name, HashMap<String, Double> ingredients) {
-		this.setName(name);
-		this.setIngredients(ingredients);
+	public HashMap<String, Double> computeMissingIngredients(HashMap<String, Double> availableIngredients){
+		HashMap<String,Double> results = new HashMap<>();
+		Double available;
+		Double needed;
+		
+		for(Entry<String, Double> i : ingredients.entrySet()) {
+			available = availableIngredients.get(i.getKey());
+			if(available != null) {
+				needed = ingredients.get(i.getKey());
+				if(available - needed > 0) {
+					results.put(i.getKey(), available - needed);
+				}
+			}
+		}
+		
+		return results;
 	}
 	
 	//Created only for testing purpose
