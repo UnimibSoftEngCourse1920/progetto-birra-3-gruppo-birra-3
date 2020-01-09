@@ -2,23 +2,28 @@ package main.instrument;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
-
-import java.util.Scanner;
 import java.io.Serializable;
 
 
-public class Equipment implements Serializable {
+
+public class Equipment implements Serializable{
 	
 	private static final long serialVersionUID = 3L;
 	private HashMap<String, Double> instruments;
 	private static Equipment instance;
 	
-	Scanner scan = new Scanner(System.in);
 	
 	private Equipment(HashMap<String, Double> instruments) {
 		super();
-		setInstruments(instruments);
-		storeEquipment();
+		this.instruments = instruments;
+	}
+	
+	public static Equipment getInstance() {
+		if (instance == null) {
+			instance = new Equipment(new HashMap<String, Double>()); 
+		}
+
+		return instance;
 	}
 
 	public HashMap<String, Double> getInstruments() {
@@ -38,42 +43,20 @@ public class Equipment implements Serializable {
 		return total;
 	}
 	
-	// let change the capacity value of every instrument
-	public void updateInstruments() {
-		
-		for (Entry<String, Double> i : instruments.entrySet()) {
-		    System.out.println("Do you want to change the value of " + i.getKey() + " ?");
-		    
-		    // scanning char Y,y: yes; N,n: no
-		    char c = scan.next().charAt(0);
-		    
-		    if (c == 'Y' || c == 'y') { // positive answer
-		    	System.out.println("Please insert the new value of " + i.getKey() + ":");
-		    	double d = scan.nextDouble();
-		    	instruments.put(i.getKey(), d);
-		    	System.out.println("The new value of "  + i.getKey() + "is " + i.getValue());
-		    }
-		    
-		    else if (c == 'N' || c == 'n')
-		    	System.out.println("Beautiful");
+	
+	public void updateInstruments(HashMap<String, Double> instruments) {
+		for(Entry<String, Double> i : instruments.entrySet()) {
+			getInstruments().put(i.getKey(), i.getValue());
 		}
-		
-		updateEquipment();
 	}
 	
-	public void storeEquipment() {
-		
-	}	
-	
-	public void updateEquipment() {
-		
+	public void deleteInstrument(String name) {
+		this.getInstruments().remove(name);
 	}
 	
-	public static Equipment getInstance() {
-		if (instance == null) {
-			instance = new Equipment(new HashMap<String, Double>()); 
-		}
-
-		return instance;
-	}
+	//for only testing purpose
+		@Override
+		public String toString() {
+			return "instruments = " + instruments;
+		}	
 }

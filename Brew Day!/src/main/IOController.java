@@ -6,14 +6,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class IOController {
-	
-	private static final String filepath = System.getProperty("user.dir") + "\\src\\Files\\objects.txt";
 
 	public IOController() {
-		// TODO Auto-generated constructor stub
+
 	}
 	 
-    public void WriteObjectToFile(Object serObj) {
+    public void WriteObjectToFile(Object serObj, String filepath) {
         try {
             FileOutputStream fileOut = new FileOutputStream(filepath);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
@@ -37,4 +35,5 @@ public class IOController {
             return null;
         }
     }
+    
 }

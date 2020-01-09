@@ -2,25 +2,27 @@ package main.recipes;
 
 import main.instrument.Equipment;
 import main.resources.Storage;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Recipe implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
-	Map<String,Double> ingredients = new HashMap<>();
+	HashMap<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
+	private static final AtomicInteger count = new AtomicInteger(0); //this serves to autoincrement the id
+	private double countBrew = 1;
 	
-	public Recipe(int id, String name, Map<String, Double> ingredients) {
+	public Recipe(String name, HashMap<String, Double> ingredients) {
 		super();
-		this.id = id;
+		this.id = count.incrementAndGet();
 		this.name = name;
 		this.ingredients = ingredients;
 	}
@@ -37,21 +39,28 @@ public class Recipe implements Serializable{
 		return ingredients.get(name);
 	}
 
-	public void setIngredient(String name, double quantity) {
-		if(ingredients.get(name) == null) {
-			ingredients.put(name, quantity);
-		}
-		else {
-			ingredients.replace(name, quantity);
-		}
-	}
-
 	public Equipment getEquipment() {
 		return equipment;
 	}
 	
-	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
-		Map<String,Double> results = new HashMap<>();
+	public HashMap<String,Double> getIngredients() {
+		return this.ingredients;
+	}
+	
+	public double getCountBrew() {
+		return countBrew;
+	}
+
+	public void setIngredients(HashMap<String, Double> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public HashMap<String, Double> computeMissingIngredients(HashMap<String, Double> availableIngredients){
+		HashMap<String,Double> results = new HashMap<>();
 		Double available;
 		Double needed;
 		
@@ -73,7 +82,8 @@ public class Recipe implements Serializable{
 		missingIngredients = computeMissingIngredients(storage.getIngredients());
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
-			Brew b = new Brew(id, this, currentDate);
+			Brew b = new Brew(this, currentDate);
+			countBrew++;
 			return b;
 		}
 		else {
@@ -84,16 +94,14 @@ public class Recipe implements Serializable{
 		}
 	}
 	
-	public void storeRecipe() {
-		
+	public void updateRecipe(String name, HashMap<String, Double> ingredients) {
+		this.setName(name);
+		this.setIngredients(ingredients);
 	}
 	
-	public void updateRecipe() {
-		
-	}
-	
-	public void deleteRecipe() {
-	
+	//Created only for testing purpose
+	public void incrementCountBrew() {
+		countBrew++;
 	}
 	
     //Created only for testing purpose

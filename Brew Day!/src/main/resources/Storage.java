@@ -37,10 +37,14 @@ public class Storage implements Serializable{
 		}
 	}
 
-	public void deleteIngredients(String[] ingredients) {
-		for (int i = 0; i < ingredients.length; i++) {
-			this.ingredients.remove(ingredients[i]);
-		}
+	public void deleteIngredient(String ingredient) {
+		this.ingredients.remove(ingredient);
 	}
+
+	//for only testing purpose
+	@Override
+	public String toString() {
+		return "ingredients = " + ingredients;
+	}	
 }
 
