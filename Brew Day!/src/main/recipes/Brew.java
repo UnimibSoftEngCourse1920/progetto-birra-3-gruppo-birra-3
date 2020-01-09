@@ -3,9 +3,11 @@ package main.recipes;
 import main.resources.*;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Brew implements Serializable{
 
@@ -16,11 +18,11 @@ public class Brew implements Serializable{
 	private Map<Integer,String> notes = new HashMap<>();
 	private Recipe recipe;
 	private Storage storage;
-
-	public Brew(Double id, Recipe recipe, Date startDate) {
+	
+	public Brew(Recipe recipe, Date startDate) {
 		super();
 		this.recipe = recipe;
-		this.id = id; //ho provato a autoncrementare come con Recipe con AtomicLong ma non funge
+		this.id = (double) recipe.getId() + recipe.getCountBrew() / 10;
 		this.startDate = startDate;
 	}
 
@@ -56,4 +58,15 @@ public class Brew implements Serializable{
 	public void modifyNote(int id, String text) {
 		notes.put(id, text);
 	}	
+	
+	//Created only for testing purpose
+	@Override
+	public String toString() {
+		String notesString = "";
+		for(Entry<Integer,String> i : notes.entrySet()) {
+			notesString += i.getKey() + "   " + notes.get(i.getKey()) + ", ";
+		}
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		return "Brew [id=" + id + ", startDate=" + formatter.format(startDate) + ", finishDate=" + finishDate + ", notes=" + notesString + "]";
+	}
 }

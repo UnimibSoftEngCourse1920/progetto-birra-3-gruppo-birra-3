@@ -1,6 +1,8 @@
 package main.recipes;
 
 import main.IOController;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class BrewController {
@@ -9,17 +11,25 @@ public class BrewController {
 	private static IOController ioController = new IOController();
 	
 	protected static ArrayList<Brew> extractBrew() {
-		return (ArrayList<Brew>) ioController.ReadObjectFromFile(filepath);
-	}
+	    if (ioController.ReadObjectFromFile(filepath) != null) {
+	      return (ArrayList<Brew>) ioController.ReadObjectFromFile(filepath);
+	    }
 
-	protected static void store(Brew brew) {
-		ioController.WriteObjectToFile(brew, filepath);
-	}
+	    return new ArrayList<Brew>();
+	  }
+
+	  protected static void store(Brew brew) {
+	    ArrayList<Brew> brews = extractBrew();
+	    if (!brews.contains(brew)) {
+	      brews.add(brew);
+	      ioController.WriteObjectToFile(brews, filepath);
+	    }
+	  }
 
 	protected static void update(Double id, int noteId, String noteText) {
 		ArrayList<Brew> brews = extractBrew();
 		for (Brew brew : brews) {
-			if (brew.getId() == id) {
+			if (brew.getId().compareTo(id) == 0) {
 				brew.modifyNote(noteId, noteText);
 			}
 		}
@@ -37,6 +47,10 @@ public class BrewController {
 		
 		ioController.WriteObjectToFile(brews, filepath);
 	}
-
-
+	
+	//for only testing purpose
+		public static void deleteFile() {
+			File file = new File(filepath);
+			file.delete();
+		}
 }
