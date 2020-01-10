@@ -14,14 +14,14 @@ public class Recipe implements Serializable{
 	
 	private int id;
 	private String name;
-	HashMap<String,Double> ingredients;
+	Map<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
 	private double countBrew = 1;
 	private static final AtomicInteger count = new AtomicInteger(0); //this serves to autoincrement the id
 	private static final long serialVersionUID = 1L;
 	
-	public Recipe(String name, HashMap<String, Double> ingredients) {
+	public Recipe(String name, Map<String, Double> ingredients) {
 		super();
 		this.id = count.incrementAndGet();
 		this.name = name;
@@ -44,7 +44,7 @@ public class Recipe implements Serializable{
 		return equipment;
 	}
 	
-	public HashMap<String,Double> getIngredients() {
+	public Map<String,Double> getIngredients() {
 		return this.ingredients;
 	}
 	
@@ -52,7 +52,7 @@ public class Recipe implements Serializable{
 		return countBrew;
 	}
 
-	public void setIngredients(HashMap<String, Double> ingredients) {
+	public void setIngredients(Map<String, Double> ingredients) {
 		this.ingredients = ingredients;
 	}
 	
@@ -60,7 +60,7 @@ public class Recipe implements Serializable{
 		this.name = name;
 	}
 	
-	public void updateRecipe(String name, HashMap<String, Double> ingredients) {
+	public void updateRecipe(String name, Map<String, Double> ingredients) {
 		this.setName(name);
 		this.setIngredients(ingredients);
 	}
@@ -83,8 +83,8 @@ public class Recipe implements Serializable{
 		}
 	}
 	
-	public HashMap<String, Double> computeMissingIngredients(HashMap<String, Double> availableIngredients){
-		HashMap<String,Double> results = new HashMap<>();
+	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
+		Map<String,Double> results = new HashMap<>();
 		Double available;
 		Double needed;
 		

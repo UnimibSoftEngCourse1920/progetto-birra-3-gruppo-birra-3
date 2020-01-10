@@ -26,8 +26,8 @@ public class BrewController {
 	}
 	
 	protected ArrayList<Brew> extractBrew() {
-	    if (ioController.ReadObjectFromFile(filepath) != null) {
-	      return (ArrayList<Brew>) ioController.ReadObjectFromFile(filepath);
+	    if (ioController.readObjectFromFile(filepath) != null) {
+	      return (ArrayList<Brew>) ioController.readObjectFromFile(filepath);
 	    }
 
 	    return new ArrayList<Brew>();
@@ -37,7 +37,7 @@ public class BrewController {
 	    ArrayList<Brew> brews = extractBrew();
 	    if (!brews.contains(brew)) {
 	      brews.add(brew);
-	      ioController.WriteObjectToFile(brews, filepath);
+	      ioController.writeObjectToFile(brews, filepath);
 	    }
 	  }
 
@@ -49,7 +49,7 @@ public class BrewController {
 			}
 		}
 		
-		ioController.WriteObjectToFile(brews, filepath);
+		ioController.writeObjectToFile(brews, filepath);
 	}
 	
 	protected void delete(Double id) {
@@ -60,12 +60,17 @@ public class BrewController {
 			}
 		}
 		
-		ioController.WriteObjectToFile(brews, filepath);
+		ioController.writeObjectToFile(brews, filepath);
 	}
 	
 	//for only testing purpose
 		public void deleteFile() {
 			File file = new File(filepath);
-			file.delete();
+			
+			if (file.delete()) {
+				System.out.println("\nFile deleted");
+			} else {
+				System.out.println("\nImpossible delete file");
+			}
 		}
 }

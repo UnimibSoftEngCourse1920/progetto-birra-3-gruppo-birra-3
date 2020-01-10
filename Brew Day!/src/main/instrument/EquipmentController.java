@@ -4,6 +4,7 @@ import main.IOController;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
@@ -32,18 +33,21 @@ public class EquipmentController {
 	}
 	
 	protected Equipment extractEquipment() {
-		return (Equipment) ioController.ReadObjectFromFile(filepath);
+		return (Equipment) ioController.readObjectFromFile(filepath);
 	}
 	
 	protected void createEquipment() {
-		HashMap<String, Double> instruments = new HashMap<String, Double>();
+		Map<String, Double> instruments = new HashMap<String, Double>();
 		insertInstruments(instruments);
 		Equipment equipment = Equipment.getInstance();
 		equipment.setInstruments(instruments);
 		store(equipment);
 	}
 	
-	protected void insertInstruments(HashMap<String, Double> instruments) {
+	protected void insertInstruments(Map<String, Double> instruments) {
+
+		Map<String, Double> instruments1 = new HashMap<String, Double>();
+
 		boolean b = true;
 		
 		while(b) {
@@ -51,7 +55,7 @@ public class EquipmentController {
 			String name = scan.next();
 			System.out.println("Insert the capacity of " + name + ": ");
 			double quantity = scan.nextDouble();
-			instruments.put(name, quantity);
+			instruments1.put(name, quantity);
 			
 			System.out.println("Do you want to add another ingredient? [Y/N]");
 			char c = scan.next().charAt(0);
@@ -73,12 +77,12 @@ public class EquipmentController {
 	}
 	
 	protected void store(Equipment equipment) {
-		ioController.WriteObjectToFile(equipment, filepath);
+		ioController.writeObjectToFile(equipment, filepath);
 	}
 	
 	protected void update() {
 		Equipment equipment = extractEquipment();
-		HashMap<String, Double> instruments = updatingInstruments();
+		Map<String, Double> instruments = updatingInstruments();
 		equipment.updateInstruments(instruments);
 		store(equipment);
 	}
@@ -93,11 +97,18 @@ public class EquipmentController {
 	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
-		file.delete();
+		
+		if (file.delete()) {
+			System.out.println("\nFile deleted");
+		} else {
+			System.out.println("\nImpossible delete file");
+		}
 	}
 	
-	private HashMap<String, Double> updatingInstruments() {
+
+	private Map<String, Double> updatingInstruments() {
 		Equipment equipment = extractEquipment();
+
 		
 		
 		for (Entry<String, Double> i : equipment.getInstruments().entrySet()) {

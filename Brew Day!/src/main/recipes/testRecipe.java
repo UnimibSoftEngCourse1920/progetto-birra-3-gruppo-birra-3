@@ -1,11 +1,9 @@
 package main.recipes;
 
-import java.io.File;
-import java.util.ArrayList;
-import main.IOController;
 import java.util.HashMap;
-import main.resources.StorageController;
-import java.util.HashMap;
+import java.util.Map;
+
+
 
 public class testRecipe {
 
@@ -22,7 +20,7 @@ public class testRecipe {
 
 		System.out.println("La prima recipe e': " + recipeController.extractRecipe().toString());
 
-		HashMap<String,Double> ingredients2 = new HashMap<String, Double>();
+		Map<String,Double> ingredients2 = new HashMap<String, Double>();
 		ingredients2.put("Yeast", 30.0); 
 		ingredients2.put("Sugar", 40.0); 
 		Recipe recipe2 = new Recipe("Recipe 2", ingredients2);
@@ -30,14 +28,14 @@ public class testRecipe {
 
 		System.out.println("\nLe due recipe sono: " + recipeController.extractRecipe().toString());
 
-		HashMap<String,Double> ingredients3 = new HashMap<String, Double>();
+		Map<String,Double> ingredients3 = new HashMap<String, Double>();
 		ingredients3.put("Additive", 50.0); 
 		Recipe recipe3 = new Recipe("Recipe 3", ingredients2); 
 		recipeController.store(recipe3);
 
 		System.out.println("\nLe tre recipe sono: " + recipeController.extractRecipe().toString());
 
-		HashMap<String,Double> ingredients4 = new HashMap<String, Double>();
+		Map<String,Double> ingredients4 = new HashMap<String, Double>();
 		ingredients4.put("Sugar", 100.0); 
 		Recipe recipe4 = new Recipe("Recipe 4", ingredients4); 
 		recipeController.store(recipe4);
@@ -46,9 +44,7 @@ public class testRecipe {
 
 		//Test update
 		recipeController.update(1, "New Recipe 1", ingredients2);
-		recipeController.update(2, "New Recipe 2", null);
-		recipeController.update(3, null, ingredients4);
-		recipeController.update(4, null, null);
+		recipeController.update(2, "New Recipe 2", ingredients4);
 
 		System.out.println("\nLe quattro recipe dopo le modifiche sono: " + recipeController.extractRecipe().toString());
 

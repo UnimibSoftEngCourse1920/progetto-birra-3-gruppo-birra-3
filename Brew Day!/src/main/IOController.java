@@ -2,37 +2,52 @@ package main;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectOutputStream;	
 
 public class IOController {
-
-	public IOController() {
-
-	}
-	 
-    public void WriteObjectToFile(Object serObj, String filepath) {
+	
+	FileOutputStream fileOut;
+	ObjectOutputStream objectOut;
+	FileInputStream fileIn;
+	ObjectInputStream objectIn;
+ 
+    public void writeObjectToFile(Object serObj, String filepath) {
         try {
-            FileOutputStream fileOut = new FileOutputStream(filepath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            fileOut = new FileOutputStream(filepath);
+            objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(serObj);
-            objectOut.close();
         } catch (Exception ex) {
-            ex.printStackTrace();
+        	ex.printStackTrace();
+        } finally {
+        	try {
+				fileOut.close();
+				objectOut.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
         }
     }
     
-    public Object ReadObjectFromFile(String filepath) {
+    public Object readObjectFromFile(String filepath) {
     	 
         try {
-            FileInputStream fileIn = new FileInputStream(filepath);
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            fileIn = new FileInputStream(filepath);
+            objectIn = new ObjectInputStream(fileIn);
             Object obj = objectIn.readObject();
-            objectIn.close();
             return obj;
         } catch (Exception ex) {
-            ex.printStackTrace();
+        	ex.printStackTrace();
             return null;
+        } finally {
+        	try {
+				fileIn.close();
+				objectIn.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
         }
     }
     

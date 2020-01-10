@@ -1,29 +1,30 @@
 package main.resources;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.io.Serializable;
 
 public class Storage implements Serializable{
 
 	private static final long serialVersionUID = 4L;
-	private HashMap<String,Double> ingredients;
+	private Map<String,Double> ingredients;
 	private static Storage instance;
 
-	private Storage(HashMap<String, Double> ingredients) {
+	private Storage(Map<String, Double> ingredients) {
 		super();
 		this.ingredients = ingredients;
 	}
 
-	public HashMap<String, Double> getIngredients() {
+	public Map<String, Double> getIngredients() {
 		return this.ingredients;
 	}
 
 
-	public void setIngredients(HashMap<String, Double> ingredients) {
+	public void setIngredients(Map<String, Double> ingredients) {
 		this.ingredients = ingredients;
 	}
 
-	public void updateIngredients(HashMap<String, Double> ingredients) {
+	public void updateIngredients(Map<String, Double> ingredients) {
 		for(Entry<String, Double> i : ingredients.entrySet()) {
 			getIngredients().put(i.getKey(), i.getValue());
 		}

@@ -1,0 +1,6 @@
+projectKey=BrewDay!
+serverUrl=http://localhost:9000
+serverVersion=8.1.0.31237
+dashboardUrl=http://localhost:9000/dashboard?id=BrewDay%21
+ceTaskId=AW-M8BGnxo0yHNzXBoGN
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AW-M8BGnxo0yHNzXBoGN

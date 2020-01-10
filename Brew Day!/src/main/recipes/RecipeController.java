@@ -1,6 +1,6 @@
 package main.recipes;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.io.File;
 import java.util.ArrayList;
 import main.IOController;
@@ -26,8 +26,8 @@ public class RecipeController {
 	}
 
 	protected ArrayList<Recipe> extractRecipe() {
-		if (ioController.ReadObjectFromFile(filepath) != null) {
-			return (ArrayList<Recipe>) ioController.ReadObjectFromFile(filepath);
+		if (ioController.readObjectFromFile(filepath) != null) {
+			return (ArrayList<Recipe>) ioController.readObjectFromFile(filepath);
 		}
 
 		return new ArrayList<Recipe>();
@@ -43,28 +43,22 @@ public class RecipeController {
 		}
 
 		recipes.add(recipe);
-		ioController.WriteObjectToFile(recipes, filepath);
+		ioController.writeObjectToFile(recipes, filepath);
 	}
 
-	protected void update(int id, String name, HashMap<String,Double> ingredients) {
-		if (name != null && ingredients != null) {
-			ArrayList<Recipe> recipes = extractRecipe();
-			for (Recipe recipe : recipes) {
-				if (recipe.getId() == id) {
-					if (name == null) {
-						recipe.updateRecipe(recipe.getName(), ingredients);
-					} else if (ingredients == null) {
-						recipe.updateRecipe(name, recipe.getIngredients());
-					} else {
-						recipe.updateRecipe(name, ingredients);
-					}
-				}
-			}
+	protected void update(int id, String name, Map<String,Double> ingredients) {
+		ArrayList<Recipe> recipes = extractRecipe();
+		for (Recipe recipe : recipes) {
+			if (recipe.getId() == id) {
+				recipe.updateRecipe(name, ingredients);
 
-			ioController.WriteObjectToFile(recipes, filepath);
+			}
 		}
 
+		ioController.writeObjectToFile(recipes, filepath);
 	}
+
+	
 
 	protected void delete(int id) {
 		ArrayList<Recipe> recipes = extractRecipe();
@@ -74,12 +68,17 @@ public class RecipeController {
 			}
 		}
 
-		ioController.WriteObjectToFile(recipes, filepath);
+		ioController.writeObjectToFile(recipes, filepath);
 	}
 
 	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
-		file.delete();
+		
+		if (file.delete()) {
+			System.out.println("\nFile deleted");
+		} else {
+			System.out.println("\nImpossible delete file");
+		}
 	}
 }

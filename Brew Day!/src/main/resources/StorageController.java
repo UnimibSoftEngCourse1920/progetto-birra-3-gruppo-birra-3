@@ -2,6 +2,7 @@ package main.resources;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
@@ -31,19 +32,19 @@ public class StorageController {
 	}
 	
 	protected Storage extractStorage() {
-		return (Storage) this.ioController.ReadObjectFromFile(this.filepath);	
+		return (Storage) this.ioController.readObjectFromFile(this.filepath);	
 	}
 	
 	
 	protected void createStorage() {
-		HashMap<String, Double> ingredients = new HashMap<String, Double>();
+		Map<String, Double> ingredients = new HashMap<String, Double>();
 		insertIngredients(ingredients);
 		Storage storage = Storage.getInstance();
 		storage.setIngredients(ingredients);
 		store(storage);
 	}
 	
-	protected void insertIngredients(HashMap<String, Double> ingredients) {
+	protected void insertIngredients(Map<String, Double> ingredients) {
 		boolean b = true;
 		
 		while(b) {
@@ -72,12 +73,12 @@ public class StorageController {
 	}
 	
 	protected void store(Storage storage) {
-		this.ioController.WriteObjectToFile(storage, this.filepath);
+		this.ioController.writeObjectToFile(storage, this.filepath);
 	}
 	
 	protected void update() {
 		Storage storage = extractStorage();
-		HashMap<String, Double> ingredients = updatingIngredients();
+		Map<String, Double> ingredients = updatingIngredients();
 		storage.updateIngredients(ingredients);
 		store(storage);
 	}
@@ -92,10 +93,14 @@ public class StorageController {
 	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
-		file.delete();
+		if (file.delete()) {
+			System.out.println("\nFile deleted");
+		} else {
+			System.out.println("\nImpossible delete file");
+		}
 	}
 	
-	private HashMap<String, Double> updatingIngredients() {
+	private Map<String, Double> updatingIngredients() {
 		Storage storage = extractStorage();
 		
 		
