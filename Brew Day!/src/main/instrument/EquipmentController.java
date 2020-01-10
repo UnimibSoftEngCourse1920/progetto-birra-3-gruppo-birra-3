@@ -9,16 +9,33 @@ import java.util.Map.Entry;
 
 public class EquipmentController {
 	
-	private static String filepath = System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt";
-	private static IOController ioController = new IOController();
+	private String filepath;
+	private IOController ioController;
+	private static EquipmentController instance;
 	
-	static Scanner scan = new Scanner(System.in);
+	//only for testing
+	private static Scanner scan = new Scanner(System.in);
 	
-	protected static Equipment extractEquipment() {
+	private EquipmentController() {
+		super();
+		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt";
+		this.ioController = new IOController();
+	}
+	
+	public static EquipmentController getInstance() {
+		if (instance == null) {
+			instance = new EquipmentController();
+		}
+		
+		return instance;
+		
+	}
+	
+	protected Equipment extractEquipment() {
 		return (Equipment) ioController.ReadObjectFromFile(filepath);
 	}
 	
-	protected static void createEquipment() {
+	protected void createEquipment() {
 		HashMap<String, Double> instruments = new HashMap<String, Double>();
 		boolean b = true;
 		
@@ -44,18 +61,18 @@ public class EquipmentController {
 		store(equipment);
 	}
 	
-	protected static void store(Equipment equipment) {
+	protected void store(Equipment equipment) {
 		ioController.WriteObjectToFile(equipment, filepath);
 	}
 	
-	protected static void update() {
+	protected void update() {
 		Equipment equipment = extractEquipment();
 		HashMap<String, Double> instruments = updatingInstruments();
 		equipment.updateInstruments(instruments);
 		store(equipment);
 	}
 	
-	protected static void delete() {
+	protected void delete() {
 		Equipment equipment = extractEquipment();
 		String instrumentName = getInstrumentNameToDelete();
 		equipment.deleteInstrument(instrumentName);
@@ -63,7 +80,7 @@ public class EquipmentController {
 	}
 	
 	//for only testing purpose
-	public static void deleteFile() {
+	public void deleteFile() {
 		File file = new File(filepath);
 		file.delete();
 	}

@@ -3,25 +3,27 @@ package main.instrument;
 public class testEquipment {
 	public static void main(String[] args) {
 		
+		EquipmentController equipmentController = EquipmentController.getInstance();
+		
 		//test create equipment and store equipment
 		System.out.println("Creating Equipment...");
-		EquipmentController.createEquipment();
+		equipmentController.createEquipment();
 		
 		System.out.println("Done successfully.");
 		
 		//test read
-        System.out.println("Equipment is composed by this " + EquipmentController.extractEquipment().toString());
+        System.out.println("Equipment is composed by this " + equipmentController.extractEquipment().toString());
 		
         //test update
-        EquipmentController.update();
-        System.out.println("Equipment has been modified, now is composed by this " + EquipmentController.extractEquipment().toString());
+        equipmentController.update();
+        System.out.println("Equipment has been modified, now is composed by this " + equipmentController.extractEquipment().toString());
 		
         
         //test delete
-        EquipmentController.delete();
-        System.out.println("Instrument specified deleted, now Equipment is composed by " + EquipmentController.extractEquipment().toString());
+        equipmentController.delete();
+        System.out.println("Instrument specified deleted, now Equipment is composed by " + equipmentController.extractEquipment().toString());
 	
-        EquipmentController.deleteFile();
+        equipmentController.deleteFile();
 	
 	}
 }

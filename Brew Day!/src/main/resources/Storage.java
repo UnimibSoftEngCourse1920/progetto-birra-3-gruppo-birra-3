@@ -13,14 +13,6 @@ public class Storage implements Serializable{
 		super();
 		this.ingredients = ingredients;
 	}
-	
-	public static Storage getInstance() {
-		if (instance == null) {
-			instance = new Storage(new HashMap<String, Double>());
-		}
-
-		return instance;
-	}
 
 	public HashMap<String, Double> getIngredients() {
 		return this.ingredients;
@@ -39,6 +31,14 @@ public class Storage implements Serializable{
 
 	public void deleteIngredient(String ingredient) {
 		this.ingredients.remove(ingredient);
+	}
+	
+	public static Storage getInstance() {
+		if (instance == null) {
+			instance = new Storage(new HashMap<String, Double>());
+		}
+
+		return instance;
 	}
 
 	//for only testing purpose

@@ -7,31 +7,46 @@ import main.IOController;
 
 public class StorageController {
 	
-	private static String filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
-	private static IOController ioController = new IOController();
+	private String filepath;
+	private IOController ioController;
+	private static StorageController instance;
 	
-	protected static Storage extractStorage() {
-		return (Storage) ioController.ReadObjectFromFile(filepath);	
+	private StorageController() {
+		super();
+		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
+		this.ioController = new IOController();
 	}
 	
-	protected static void store(Storage storage) {
-		ioController.WriteObjectToFile(storage, filepath);
+	public static StorageController getInstance() {
+		if (instance == null) {
+			instance = new StorageController();
+		}
+		
+		return instance;
 	}
 	
-	protected static void update(HashMap<String, Double> ingredients) {
+	protected Storage extractStorage() {
+		return (Storage) this.ioController.ReadObjectFromFile(this.filepath);	
+	}
+	
+	protected void store(Storage storage) {
+		this.ioController.WriteObjectToFile(storage, this.filepath);
+	}
+	
+	protected void update(HashMap<String, Double> ingredients) {
 		Storage storage = extractStorage();
 		storage.updateIngredients(ingredients);
 		store(storage);
 	}
 	
-	protected static void delete(String ingredient) {
+	protected void delete(String ingredient) {
 		Storage storage = extractStorage();
 		storage.deleteIngredient(ingredient);
 		store(storage);
 	}
 	
 	//for only testing purpose
-	public static void deleteFile() {
+	public void deleteFile() {
 		File file = new File(filepath);
 		file.delete();
 	}

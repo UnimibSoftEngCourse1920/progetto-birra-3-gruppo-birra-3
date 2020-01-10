@@ -9,6 +9,8 @@ import main.resources.StorageController;
 public class testBrew {
 	
 	public static void main(String[] args) {
+		
+	BrewController brewController = BrewController.getInstance();
 
 	//Test addNote
 	HashMap<String,Double> ingredients = new HashMap<String, Double>();
@@ -31,20 +33,20 @@ public class testBrew {
     //Test store
     recipe.incrementCountBrew();
     Brew brew2 = new Brew(recipe,startDate);
-    BrewController.store(brew);
-    BrewController.store(brew2);
+    brewController.store(brew);
+    brewController.store(brew2);
     
     //Test read
-    System.out.println("La brew è: " + BrewController.extractBrew().toString());
+    System.out.println("La brew e': " + brewController.extractBrew().toString());
     
     //Test update
-    BrewController.update(brew.getId(),-1,"test update note 1");
-    System.out.println("La brew è: " + BrewController.extractBrew().toString());
+    brewController.update(brew.getId(),-1,"test update note 1");
+    System.out.println("\nLa brew e': " + brewController.extractBrew().toString());
     
     //Test delete
-    BrewController.delete(brew.getId());
-    System.out.println("La brew con eliminazione è: " + BrewController.extractBrew().toString());
+    brewController.delete(brew.getId());
+    System.out.println("\nLa brew con eliminazione e': " + brewController.extractBrew().toString());
     
-    BrewController.deleteFile();
+    brewController.deleteFile();
 	}
 }

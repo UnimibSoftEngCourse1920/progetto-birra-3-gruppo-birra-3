@@ -7,10 +7,25 @@ import java.util.ArrayList;
 
 public class BrewController {
 
-	private static String filepath = System.getProperty("user.dir") + "\\src\\Files\\Brew.txt";
-	private static IOController ioController = new IOController();
+	private String filepath;
+	private IOController ioController;
+	private static BrewController instance;
 	
-	protected static ArrayList<Brew> extractBrew() {
+	private BrewController() {
+		super();
+		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Brew.txt";
+		this.ioController = new IOController();
+	}
+	
+	public static BrewController getInstance() {
+		if (instance == null) {
+			instance = new BrewController();
+		}
+		
+		return instance;
+	}
+	
+	protected ArrayList<Brew> extractBrew() {
 	    if (ioController.ReadObjectFromFile(filepath) != null) {
 	      return (ArrayList<Brew>) ioController.ReadObjectFromFile(filepath);
 	    }
@@ -18,7 +33,7 @@ public class BrewController {
 	    return new ArrayList<Brew>();
 	  }
 
-	  protected static void store(Brew brew) {
+	  protected void store(Brew brew) {
 	    ArrayList<Brew> brews = extractBrew();
 	    if (!brews.contains(brew)) {
 	      brews.add(brew);
@@ -26,7 +41,7 @@ public class BrewController {
 	    }
 	  }
 
-	protected static void update(Double id, int noteId, String noteText) {
+	protected void update(Double id, int noteId, String noteText) {
 		ArrayList<Brew> brews = extractBrew();
 		for (Brew brew : brews) {
 			if (brew.getId().compareTo(id) == 0) {
@@ -37,7 +52,7 @@ public class BrewController {
 		ioController.WriteObjectToFile(brews, filepath);
 	}
 	
-	protected static void delete(Double id) {
+	protected void delete(Double id) {
 		ArrayList<Brew> brews = extractBrew();
 		for (int i = 0; i < brews.size(); i++) {
 			if (brews.get(i).getId() == id) {
@@ -49,7 +64,7 @@ public class BrewController {
 	}
 	
 	//for only testing purpose
-		public static void deleteFile() {
+		public void deleteFile() {
 			File file = new File(filepath);
 			file.delete();
 		}
