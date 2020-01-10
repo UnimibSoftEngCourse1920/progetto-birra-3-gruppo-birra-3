@@ -77,7 +77,7 @@ public class Recipe implements Serializable{
 		return results;
 	}
 	
-	public Brew createBrew(double id){
+	public Brew createBrew(){
 		Map<String,Double> missingIngredients = new HashMap<>();
 		missingIngredients = computeMissingIngredients(storage.getIngredients());
 		if(missingIngredients.isEmpty()) {
