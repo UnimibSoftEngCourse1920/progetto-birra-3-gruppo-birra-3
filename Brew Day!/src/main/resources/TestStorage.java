@@ -1,6 +1,6 @@
 package main.resources;
 
-public class testStorage {
+public class TestStorage {
 
 	public static void main(String[] args) {
 		

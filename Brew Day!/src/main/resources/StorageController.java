@@ -37,7 +37,7 @@ public class StorageController {
 	
 	
 	protected void createStorage() {
-		Map<String, Double> ingredients = new HashMap<String, Double>();
+		Map<String, Double> ingredients = new HashMap<>();
 		insertIngredients(ingredients);
 		Storage storage = Storage.getInstance();
 		storage.setIngredients(ingredients);
@@ -57,10 +57,7 @@ public class StorageController {
 			System.out.println("Do you want to add another ingredient? [Y/N]");
 			char c = scan.next().charAt(0);
 			
-			if (c == 'Y' || c == 'y') {
-				b = true;
-			}
-			else if (c == 'N' || c == 'n') {
+			if (c == 'N' || c == 'n') {
 				b = false;
 			}
 		}
@@ -126,8 +123,6 @@ public class StorageController {
 	private String getIngredientNameToDelete() {
 		//asking which instrument to delete
 		System.out.println("Please insert the name of the ingredient to delete: ");
-		String instrumentName = scan.next();
-		
-		return instrumentName;
+		return scan.next();
 	}
 }

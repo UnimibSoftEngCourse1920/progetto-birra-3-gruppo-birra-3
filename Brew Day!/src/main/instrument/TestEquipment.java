@@ -1,6 +1,6 @@
 package main.instrument;
 
-public class testEquipment {
+public class TestEquipment {
 	public static void main(String[] args) {
 		
 		EquipmentController equipmentController = EquipmentController.getInstance();

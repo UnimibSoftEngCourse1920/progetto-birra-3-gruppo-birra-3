@@ -30,7 +30,7 @@ public class BrewController {
 	      return (ArrayList<Brew>) ioController.readObjectFromFile(filepath);
 	    }
 
-	    return new ArrayList<Brew>();
+	    return new ArrayList<>();
 	  }
 
 	  protected void store(Brew brew) {

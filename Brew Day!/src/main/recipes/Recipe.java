@@ -14,7 +14,7 @@ public class Recipe implements Serializable{
 	
 	private int id;
 	private String name;
-	Map<String,Double> ingredients;
+	private Map<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
 	private double countBrew = 1;
@@ -67,8 +67,7 @@ public class Recipe implements Serializable{
 	
 
 	public Brew createBrew(){
-		Map<String,Double> missingIngredients = new HashMap<>();
-		missingIngredients = computeMissingIngredients(storage.getIngredients());
+		Map<String,Double> missingIngredients = computeMissingIngredients(storage.getIngredients());
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
 			Brew b = new Brew(this, currentDate);
@@ -106,13 +105,8 @@ public class Recipe implements Serializable{
 		countBrew++;
 	}
 	
-    //Created only for testing purpose
-	@Override
+    @Override
 	public String toString() {
-		String ingredientsString = "";
-		for(Entry<String, Double> i : ingredients.entrySet()) {
-			ingredientsString += i.getKey() + "   " + ingredients.get(i.getKey()) + ", ";
-		}
-		return "Recipe [id=" + id + "; name=" + name + "; ingredients=" + ingredientsString + "]";
+		return "id = " + id + ", name = " + name + ", ingredients = " + ingredients;
 	}
 }

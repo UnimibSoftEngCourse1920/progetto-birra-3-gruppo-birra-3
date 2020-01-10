@@ -37,7 +37,7 @@ public class EquipmentController {
 	}
 	
 	protected void createEquipment() {
-		Map<String, Double> instruments = new HashMap<String, Double>();
+		Map<String, Double> instruments = new HashMap<>();
 		insertInstruments(instruments);
 		Equipment equipment = Equipment.getInstance();
 		equipment.setInstruments(instruments);
@@ -46,8 +46,6 @@ public class EquipmentController {
 	
 	protected void insertInstruments(Map<String, Double> instruments) {
 
-		Map<String, Double> instruments1 = new HashMap<String, Double>();
-
 		boolean b = true;
 		
 		while(b) {
@@ -55,7 +53,7 @@ public class EquipmentController {
 			String name = scan.next();
 			System.out.println("Insert the capacity of " + name + ": ");
 			double quantity = scan.nextDouble();
-			instruments1.put(name, quantity);
+			instruments.put(name, quantity);
 			
 			System.out.println("Do you want to add another ingredient? [Y/N]");
 			char c = scan.next().charAt(0);
@@ -134,8 +132,7 @@ public class EquipmentController {
 		//asking which instrument to delete
 		System.out.println("Please insert the name of the instrument to delete: ");
 
-		String instrumentName = scan.next();
+		return scan.next();
 		
-		return instrumentName;
 	}
 }

@@ -30,7 +30,7 @@ public class RecipeController {
 			return (ArrayList<Recipe>) ioController.readObjectFromFile(filepath);
 		}
 
-		return new ArrayList<Recipe>();
+		return new ArrayList<>();
 	}
 
 

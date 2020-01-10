@@ -1,19 +1,16 @@
 package main.recipes;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import main.resources.StorageController;
-
-public class testBrew {
+public class TestBrew {
 	
 	public static void main(String[] args) {
 		
 	BrewController brewController = BrewController.getInstance();
 
 	//Test addNote
-	HashMap<String,Double> ingredients = new HashMap<String, Double>();
+	HashMap<String,Double> ingredients = new HashMap<>();
     ingredients.put("Malt", 10.0);
     ingredients.put("Hop", 20.0);
 	Recipe recipe = new Recipe("test recipe", ingredients);
