@@ -37,16 +37,23 @@ public class EquipmentController {
 	
 	protected void createEquipment() {
 		HashMap<String, Double> instruments = new HashMap<String, Double>();
+		insertInstruments(instruments);
+		Equipment equipment = Equipment.getInstance();
+		equipment.setInstruments(instruments);
+		store(equipment);
+	}
+	
+	protected void insertInstruments(HashMap<String, Double> instruments) {
 		boolean b = true;
 		
 		while(b) {
 			System.out.println("Insert the name of the instrument you want to add: ");
 			String name = scan.next();
 			System.out.println("Insert the capacity of " + name + ": ");
-			double capacity = scan.nextDouble();
-			instruments.put(name, capacity);
+			double quantity = scan.nextDouble();
+			instruments.put(name, quantity);
 			
-			System.out.println("Do you want to add another instrument? [Y/N]");
+			System.out.println("Do you want to add another ingredient? [Y/N]");
 			char c = scan.next().charAt(0);
 			
 			if (c == 'Y' || c == 'y') {
@@ -55,9 +62,13 @@ public class EquipmentController {
 			else if (c == 'N' || c == 'n') {
 				b = false;
 			}
+			//da creare un altro else per le exception
 		}
-		Equipment equipment = Equipment.getInstance();
-		equipment.setInstruments(instruments);
+	}
+	
+	protected void insertInstruments() {
+		Equipment equipment = extractEquipment();
+		insertInstruments(equipment.getInstruments());
 		store(equipment);
 	}
 	
@@ -85,8 +96,8 @@ public class EquipmentController {
 		file.delete();
 	}
 	
-	private static HashMap<String, Double> updatingInstruments() {
-		Equipment equipment = Equipment.getInstance();
+	private HashMap<String, Double> updatingInstruments() {
+		Equipment equipment = extractEquipment();
 		
 		
 		for (Entry<String, Double> i : equipment.getInstruments().entrySet()) {
@@ -105,20 +116,15 @@ public class EquipmentController {
 		    else if (c == 'N' || c == 'n') //negative answer
 		    	System.out.println("Beautiful");
 		}
-		//scan.close();
 		return equipment.getInstruments();
 	}
 	
-	private static String getInstrumentNameToDelete() {
-		//Scanner scan = new Scanner(System.in);
-		
+	private String getInstrumentNameToDelete() {
 		//asking which instrument to delete
 		System.out.println("Please insert the name of the instrument to delete: ");
 
 		String instrumentName = scan.next();
-		//scan.close();
 		
 		return instrumentName;
-		
 	}
 }

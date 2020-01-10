@@ -2,6 +2,8 @@ package main.resources;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Map.Entry;
 
 import main.IOController;
 
@@ -10,6 +12,9 @@ public class StorageController {
 	private String filepath;
 	private IOController ioController;
 	private static StorageController instance;
+	
+	//only for testing
+	private static Scanner scan = new Scanner(System.in);
 	
 	private StorageController() {
 		super();
@@ -29,19 +34,58 @@ public class StorageController {
 		return (Storage) this.ioController.ReadObjectFromFile(this.filepath);	
 	}
 	
+	
+	protected void createStorage() {
+		HashMap<String, Double> ingredients = new HashMap<String, Double>();
+		insertIngredients(ingredients);
+		Storage storage = Storage.getInstance();
+		storage.setIngredients(ingredients);
+		store(storage);
+	}
+	
+	protected void insertIngredients(HashMap<String, Double> ingredients) {
+		boolean b = true;
+		
+		while(b) {
+			System.out.println("Insert the name of the ingredient you want to add: ");
+			String name = scan.next();
+			System.out.println("Insert the quantity of " + name + ": ");
+			double quantity = scan.nextDouble();
+			ingredients.put(name, quantity);
+			
+			System.out.println("Do you want to add another ingredient? [Y/N]");
+			char c = scan.next().charAt(0);
+			
+			if (c == 'Y' || c == 'y') {
+				b = true;
+			}
+			else if (c == 'N' || c == 'n') {
+				b = false;
+			}
+		}
+	}
+	
+	protected void insertIngredients() {
+		Storage storage = extractStorage();
+		insertIngredients(storage.getIngredients());
+		store(storage);
+	}
+	
 	protected void store(Storage storage) {
 		this.ioController.WriteObjectToFile(storage, this.filepath);
 	}
 	
-	protected void update(HashMap<String, Double> ingredients) {
+	protected void update() {
 		Storage storage = extractStorage();
+		HashMap<String, Double> ingredients = updatingIngredients();
 		storage.updateIngredients(ingredients);
 		store(storage);
 	}
 	
-	protected void delete(String ingredient) {
+	protected void delete() {
 		Storage storage = extractStorage();
-		storage.deleteIngredient(ingredient);
+		String ingredientName = getIngredientNameToDelete();
+		storage.deleteIngredient(ingredientName);
 		store(storage);
 	}
 	
@@ -49,5 +93,36 @@ public class StorageController {
 	public void deleteFile() {
 		File file = new File(filepath);
 		file.delete();
+	}
+	
+	private HashMap<String, Double> updatingIngredients() {
+		Storage storage = extractStorage();
+		
+		
+		for (Entry<String, Double> i : storage.getIngredients().entrySet()) {
+		    System.out.println("Do you want to change the value of " + i.getKey() + " ? [Y/N]");
+		    
+		    // scanning char Y,y: yes; N,n: no
+		    char c = scan.next().charAt(0);
+		    
+		    if (c == 'Y' || c == 'y') { //positive answer
+		    	System.out.println("Please insert the new value of " + i.getKey() + ":");
+		    	double d = scan.nextDouble();
+		    	storage.getIngredients().put(i.getKey(), d);
+		    	System.out.println("The new value of "  + i.getKey() + " is " + i.getValue());
+		    }
+		    
+		    else if (c == 'N' || c == 'n') //negative answer
+		    	System.out.println("Beautiful");
+		}
+		return storage.getIngredients();
+	}
+	
+	private String getIngredientNameToDelete() {
+		//asking which instrument to delete
+		System.out.println("Please insert the name of the ingredient to delete: ");
+		String instrumentName = scan.next();
+		
+		return instrumentName;
 	}
 }

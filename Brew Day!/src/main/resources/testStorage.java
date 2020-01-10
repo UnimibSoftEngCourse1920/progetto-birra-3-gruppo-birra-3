@@ -1,34 +1,29 @@
 package main.resources;
 
-import java.util.HashMap;
-
 public class testStorage {
 
 	public static void main(String[] args) {
 		
 		StorageController storageController = StorageController.getInstance();
 		
-		//Test store
-        HashMap<String,Double> ingredients = new HashMap<String, Double>();
-        ingredients.put("Malt", 10.0);
-        ingredients.put("Hop", 20.0);
-        Storage storage = Storage.getInstance();
-        storage.setIngredients(ingredients);
-        storageController.store(storage);
+		//test create equipment and store equipment
+		System.out.println("Creating Storage...");
+		storageController.createStorage();
         
-        //Test read
-        System.out.println("Lo storage e': " + storageController.extractStorage().toString());
+        //test read
+        System.out.println("Storage is composed by: " + storageController.extractStorage().toString());
         
-        //Test update
-        HashMap<String,Double> newIngredients = ingredients;
-        newIngredients.put("Yeast", 30.0);
-        newIngredients.put("Malt", 15.0);
-        storageController.update(newIngredients);
-        System.out.println("\nLo storage modificato e': " + storageController.extractStorage().toString());
+        //test update
+        storageController.update();
+        System.out.println("Storage has been modified, now is composed by this " + storageController.extractStorage().toString());
         
-        //Test delete
-        storageController.delete("Hop");
-        System.out.println("\nLo storage con eliminazione e': " + storageController.extractStorage().toString());
+        //test delete
+        storageController.delete();
+        System.out.println("Ingredient specified deleted, now Storage is composed by " + storageController.extractStorage().toString());
+        
+        //test insert
+        storageController.insertIngredients();
+        System.out.println("Storage has been modified, now is composed by this " + storageController.extractStorage().toString());
         
         storageController.deleteFile();
 

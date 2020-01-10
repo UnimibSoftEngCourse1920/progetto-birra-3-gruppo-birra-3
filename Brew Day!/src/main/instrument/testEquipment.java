@@ -18,11 +18,14 @@ public class testEquipment {
         equipmentController.update();
         System.out.println("Equipment has been modified, now is composed by this " + equipmentController.extractEquipment().toString());
 		
-        
         //test delete
         equipmentController.delete();
         System.out.println("Instrument specified deleted, now Equipment is composed by " + equipmentController.extractEquipment().toString());
-	
+        
+        //test insert
+        equipmentController.insertInstruments();
+        System.out.println("Equipment has been modified, now is composed by this " + equipmentController.extractEquipment().toString());
+        
         equipmentController.deleteFile();
 	
 	}
