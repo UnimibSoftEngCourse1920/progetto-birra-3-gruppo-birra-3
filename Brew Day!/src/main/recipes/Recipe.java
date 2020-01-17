@@ -45,7 +45,7 @@ public class Recipe implements Serializable{
 	}
 	
 	public Map<String,Double> getIngredients() {
-		return this.ingredients;
+		return ingredients;
 	}
 	
 	public double getCountBrew() {

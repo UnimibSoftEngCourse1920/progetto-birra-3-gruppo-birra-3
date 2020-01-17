@@ -2,73 +2,67 @@ package main.recipes;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
 public class RecipeTest {
 
 	@Test
 	public void testRecipe() {
-		fail("Not yet implemented");
-	}
+		HashMap<String,Double> ingredients = new HashMap<>();
+		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		assertEquals(recipe1.getId(), 1);
 
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetName() {
-		fail("Not yet implemented");
+		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
+		assertEquals(recipe2.getId(), 2);
 	}
 
 	@Test
 	public void testGetQuantity() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetEquipment() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetIngredients() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetCountBrew() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetIngredients() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetName() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateRecipe() {
-		fail("Not yet implemented");
+		HashMap<String,Double> ingredients = new HashMap<>();
+		ingredients.put("Malt", 10.0); 
+		ingredients.put("Hop", 20.0); 
+		Recipe recipe = new Recipe("Recipe", ingredients);
+		
+		double malt = recipe.getQuantity("Malt");
+		double hop = recipe.getQuantity("Hop");
+		
+		assertTrue(malt == 10.0);
+		assertTrue(hop == 20.0);
 	}
 
 	@Test
 	public void testCreateBrew() {
-		fail("Not yet implemented");
+		HashMap<String,Double> ingredients = new HashMap<>();
+		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		Brew brew1 = recipe1.createBrew();
+		Brew brew2 = recipe1.createBrew();
+		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
+		Brew brew3 = recipe2.createBrew();
+		
+		assertTrue(brew1.getId() == 1.1);
+		assertTrue(brew2.getId() == 1.2);
+		assertTrue(brew3.getId() == 2.1);
+		
+		//missingIngredients notify testing must be added when implemented
 	}
 
 	@Test
 	public void testComputeMissingIngredients() {
-		fail("Not yet implemented");
+		HashMap<String,Double> ingredients1 = new HashMap<>();
+		ingredients1.put("Malt", 10.0); 
+		ingredients1.put("Hop", 20.0); 
+		Recipe recipe = new Recipe("Recipe", ingredients1);
+		
+		HashMap<String,Double> ingredients2 = new HashMap<>();
+		ingredients2.put("Malt", 20.0); 
+		ingredients2.put("Hop", 40.0);
+		
+		Map<String,Double> missing = recipe.computeMissingIngredients(ingredients2);
+		
+		assertTrue(missing.get("Malt") == 10.0);
+		assertTrue(missing.get("Hop") == 20.0);
 	}
-
-	@Test
-	public void testIncrementCountBrew() {
-		fail("Not yet implemented");
-	}
-
 }
