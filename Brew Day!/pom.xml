@@ -6,7 +6,6 @@
   <name>Brew Day!</name>
   <build>
     <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>test</testSourceDirectory>
     <resources>
       <resource>
         <directory>src</directory>
@@ -26,4 +25,10 @@
       </plugin>
     </plugins>
   </build>
+  <properties>
+      <sonar.projectKey>UnimibSoftEngCourse1920_progetto-birra-3-gruppo-birra-3</sonar.projectKey>
+      <sonar.organization>unimibsoftengcourse1920</sonar.organization>
+      <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+      <sonar.login>3e9d0b52e6d645be26e1fd507272b8d90182ee18</sonar.login>
+  </properties>
 </project>
