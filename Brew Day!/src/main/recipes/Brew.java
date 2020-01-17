@@ -30,6 +30,10 @@ public class Brew implements Serializable{
 	public Date getFinishDate() {
 		return finishDate;
 	}
+	
+	public Map<Integer,String> getNotes() {
+		return this.notes;
+	}
 
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
