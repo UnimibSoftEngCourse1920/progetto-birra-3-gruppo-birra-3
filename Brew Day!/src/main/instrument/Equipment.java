@@ -27,9 +27,9 @@ public class Equipment implements Serializable{
 		this.instruments = instruments;
 	}
 	
-	public double computeCapacity(Map<String, Double> instruments) {
+	public double computeCapacity() {
 		double total = 0;
-		for (Double value : instruments.values()) {
+		for (Double value : this.instruments.values()) {
 		    total += value;
 		}
 		
