@@ -75,7 +75,7 @@ public class StorageController {
 	
 	protected void update() {
 		Storage storage = extractStorage();
-		Map<String, Double> ingredients = updatingIngredients();
+		Map<String, Double> ingredients = updatingIngredients(storage);
 		storage.updateIngredients(ingredients);
 		store(storage);
 	}
@@ -97,9 +97,7 @@ public class StorageController {
 		}
 	}
 	
-	private Map<String, Double> updatingIngredients() {
-		Storage storage = extractStorage();
-		
+	private Map<String, Double> updatingIngredients(Storage storage) {		
 		
 		for (Entry<String, Double> i : storage.getIngredients().entrySet()) {
 		    System.out.println("Do you want to change the value of " + i.getKey() + " ? [Y/N]");
