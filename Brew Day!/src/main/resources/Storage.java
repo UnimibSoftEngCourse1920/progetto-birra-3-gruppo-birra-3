@@ -26,7 +26,7 @@ public class Storage implements Serializable{
 
 	public void updateIngredients(Map<String, Double> ingredients) {
 		for(Entry<String, Double> i : ingredients.entrySet()) {
-			getIngredients().put(i.getKey(), i.getValue());
+			this.getIngredients().put(i.getKey(), i.getValue());
 		}
 	}
 
@@ -41,8 +41,27 @@ public class Storage implements Serializable{
 
 		return instance;
 	}
+	
+	
 
-	//for only testing purpose
+	//Starting here, for only testing purpose
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Storage other = (Storage) obj;
+		if (ingredients == null) {
+			if (other.ingredients != null)
+				return false;
+		} else if (!ingredients.equals(other.ingredients))
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return "ingredients = " + ingredients;

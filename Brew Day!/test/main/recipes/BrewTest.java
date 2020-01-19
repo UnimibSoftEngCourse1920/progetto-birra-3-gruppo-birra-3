@@ -33,7 +33,10 @@ public class BrewTest {
 		storage.setIngredients(storageIngredients);
 		
 		//create Brew correctly
-		assertEquals(1,1, recipe1.createBrew().getId());
+		assertEquals(1,1 , recipe1.createBrew().getId());
+		assertEquals(1,2 , recipe1.createBrew().getId());
+		
+		assertEquals(2,1 , new Recipe("Recipe 2", new HashMap<String,Double>()).createBrew().getId());
 	}
 
 	@Test

@@ -21,8 +21,7 @@ public class EquipmentControllerTest {
 		Equipment e = Equipment.getInstance();
 		Equipment e1 = ec.extractEquipment();
 		
-		assertEquals(e.getInstruments().get("Kettle"), e1.getInstruments().get("Kettle"));
-		assertEquals(e.getInstruments().get("Fermenter"), e1.getInstruments().get("Fermenter"));
+		assertTrue(e.equals(e1));
 		
 		ec.deleteFile();
 	}
