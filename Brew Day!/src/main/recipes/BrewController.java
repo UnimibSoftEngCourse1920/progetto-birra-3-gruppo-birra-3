@@ -41,7 +41,7 @@ public class BrewController {
 	    }
 	  }
 
-	protected void update(Double id, int noteId, String noteText) {
+	protected void updateNote(Double id, int noteId, String noteText) {
 		ArrayList<Brew> brews = extractBrew();
 		for (Brew brew : brews) {
 			if (brew.getId().compareTo(id) == 0) {
@@ -51,6 +51,18 @@ public class BrewController {
 		
 		ioController.writeObjectToFile(brews, filepath);
 	}
+	
+	protected void deleteNote(Double id, int noteId) {
+		ArrayList<Brew> brews = extractBrew();
+		for (Brew brew : brews) {
+			if (brew.getId().compareTo(id) == 0) {
+				brew.deleteNote(noteId);
+			}
+		}
+		
+		ioController.writeObjectToFile(brews, filepath);
+	}
+
 	
 	protected void delete(Double id) {
 		ArrayList<Brew> brews = extractBrew();

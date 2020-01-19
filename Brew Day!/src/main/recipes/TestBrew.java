@@ -37,7 +37,7 @@ public class TestBrew {
     System.out.println("La brew e': " + brewController.extractBrew().toString());
     
     //Test update
-    brewController.update(brew.getId(),-1,"test update note 1");
+    brewController.updateNote(brew.getId(),-1,"test update note 1");
     System.out.println("\nLa brew e': " + brewController.extractBrew().toString());
     
     //Test delete
