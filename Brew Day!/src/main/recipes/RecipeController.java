@@ -33,7 +33,6 @@ public class RecipeController {
 		return new ArrayList<>();
 	}
 
-
 	protected void store(Recipe recipe) {
 		ArrayList<Recipe> recipes = extractRecipe();
 		for (Recipe r : recipes) {
@@ -57,8 +56,6 @@ public class RecipeController {
 
 		ioController.writeObjectToFile(recipes, filepath);
 	}
-
-	
 
 	protected void delete(int id) {
 		ArrayList<Recipe> recipes = extractRecipe();
