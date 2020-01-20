@@ -16,7 +16,7 @@ public class IOController {
         try (ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(filepath))) {
             objectOut.writeObject(serObj);
         } catch (IOException e) {
-        	logger.log(Level.FINE, e.getMessage());
+        	System.out.println(e.getMessage());
         } catch (Exception e) {
         	logger.log(Level.FINE, e.getMessage());
         } 
@@ -27,7 +27,7 @@ public class IOController {
         try (ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(filepath))) {
             return objectIn.readObject();
         } catch (IOException e) {
-        	logger.log(Level.FINE, e.getMessage());
+        	System.out.println(e.getMessage());
             return null;
         } catch (Exception e) {
         	logger.log(Level.FINE, e.getMessage());

@@ -73,7 +73,14 @@ public class Equipment implements Serializable{
 		return instance;
 	}
 
-	//starting here, for only testing purpose
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((instruments == null) ? 0 : instruments.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -84,12 +91,15 @@ public class Equipment implements Serializable{
 			return false;
 		Equipment other = (Equipment) obj;
 		if (instruments == null) {
-			if (other.instruments != null)
+			if (other.instruments != null) {
 				return false;
+			}
 		} else if (!instruments.equals(other.instruments))
-			return false;
+				return false;
 		return true;
 	}
+	
+	
 
 
 	@Override
