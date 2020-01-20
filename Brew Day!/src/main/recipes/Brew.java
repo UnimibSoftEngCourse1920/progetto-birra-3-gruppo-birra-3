@@ -11,12 +11,14 @@ public class Brew implements Serializable{
 	private Date startDate;
 	private Date finishDate;
 	private Map<Integer,String> notes = new HashMap<>();
+	private Recipe recipe;
 	private static final long serialVersionUID = 2L;
 	
 	public Brew(Recipe recipe, Date startDate) {
 		super();
 		this.id = (double) recipe.getId() + recipe.getCountBrew() / 10;
 		this.startDate = startDate;
+		this.recipe = recipe;
 	}
 
 	public Double getId() {
@@ -33,6 +35,10 @@ public class Brew implements Serializable{
 	
 	public Map<Integer,String> getNotes() {
 		return this.notes;
+	}
+	
+	public Recipe getRecipe() {
+		return this.recipe;
 	}
 
 	public void setFinishDate(Date finishDate) {

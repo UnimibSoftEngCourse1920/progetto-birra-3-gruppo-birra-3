@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.io.Serializable;
-import main.NullIngredientsException;;
 
 public class Storage implements Serializable{
 
@@ -13,66 +12,27 @@ public class Storage implements Serializable{
 
 	private Storage(Map<String, Double> ingredients) {
 		super();
-		try {
-			if (ingredients == null) {
-				throw new NullIngredientsException();
-			}
-			
-			this.ingredients = ingredients;
-			
-		} catch (NullIngredientsException e){
-			System.err.println(e.getMessage());
-		}
+		this.ingredients = ingredients;
 	}
 
 	public Map<String, Double> getIngredients() {
 		return this.ingredients;
 	}
 
-
 	public void setIngredients(Map<String, Double> ingredients) {
-		try {
-			if (ingredients == null) {
-				throw new NullIngredientsException();
-			}
-			
-			this.ingredients = ingredients;
-			
-		} catch (NullIngredientsException e){
-			System.err.println(e.getMessage());
-		}
+		this.ingredients = ingredients;
 	}
 
 	public void updateIngredients(Map<String, Double> ingredients) {
-		try {
-			if (ingredients == null) {
-				throw new NullIngredientsException();
-			}
-			
-			for(Entry<String, Double> i : ingredients.entrySet()) {
-				this.getIngredients().put(i.getKey(), i.getValue());
-			}
-			
-		} catch (NullIngredientsException e){
-			System.err.println(e.getMessage());
+		for(Entry<String, Double> i : ingredients.entrySet()) {
+			this.getIngredients().put(i.getKey(), i.getValue());
 		}
-		
-		
 	}
 
 	public void deleteIngredient(String ingredient) {
-		try {
-			if (ingredients == null) {
-				throw new NullIngredientsException();
-			}
-			
-			this.ingredients.remove(ingredient);
-			
-		} catch (NullIngredientsException e){
-			System.err.println(e.getMessage());
-		}
+		this.ingredients.remove(ingredient);
 	}
-	
+
 	public static Storage getInstance() {
 		if (instance == null) {
 			instance = new Storage(new HashMap<String, Double>());
@@ -80,7 +40,7 @@ public class Storage implements Serializable{
 
 		return instance;
 	}
-	
+
 	//Starting here, for only testing purpose
 	@Override
 	public boolean equals(Object obj) {

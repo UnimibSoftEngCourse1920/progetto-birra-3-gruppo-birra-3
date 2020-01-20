@@ -1,10 +1,14 @@
 package main.recipes;
 
 import main.IOController;
+import main.resources.Storage;
+import main.resources.StorageController;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class BrewController {
 
@@ -75,6 +79,32 @@ public class BrewController {
 		}
 		
 		ioController.writeObjectToFile(brews, filepath);
+	}
+	
+	protected void cancel(Double id) {
+		List<Brew> brews = extractBrew();
+		Brew brew = null;
+		for (int i = 0; i < brews.size(); i++) {
+			if (brews.get(i).getId().compareTo(id) == 0) {
+				brew = brews.get(i);
+				brews.remove(i);
+			}
+		}
+		
+		ioController.writeObjectToFile(brews, filepath);
+		
+		Map<String,Double> bIngredients = brew.getRecipe().getIngredients();
+		Storage storage = Storage.getInstance();
+		Map<String,Double> sIngredients = storage.getIngredients();
+		
+		for (Entry<String,Double> i : bIngredients.entrySet()) {
+			Double bIngredientValue = sIngredients.get(i.getKey()).doubleValue();
+			sIngredients.put(i.getKey(), i.getValue() + bIngredientValue);
+		}
+		
+		storage.updateIngredients(sIngredients);
+		StorageController storageController = StorageController.getInstance();
+		storageController.store(storage);
 	}
 	
 	//for only testing purpose
