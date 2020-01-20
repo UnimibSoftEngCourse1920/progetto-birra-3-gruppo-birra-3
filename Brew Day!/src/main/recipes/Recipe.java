@@ -1,6 +1,6 @@
 package main.recipes;
 
-import main.ingredientNotFoundException;
+import main.IngredientNotFoundException;
 import main.instrument.Equipment;
 import main.resources.Storage;
 import java.io.Serializable;
@@ -44,9 +44,9 @@ public class Recipe implements Serializable{
 		try {
 			result = ingredients.get(name);
 			if(result == null) {
-				throw new ingredientNotFoundException("Ingredient not found");
+				throw new IngredientNotFoundException();
 			}
-		} catch(ingredientNotFoundException e){
+		} catch(IngredientNotFoundException e){
 			System.err.println(e.getMessage());
 		}
 		return result;
@@ -100,7 +100,7 @@ public class Recipe implements Serializable{
 		Map<String,Double> storageIngredients = storage.getIngredients();
 
 		for(Entry<String, Double> i : this.ingredients.entrySet()) {
-			Double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
+			double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
 			if (ingredientValue < i.getValue()) {
 				missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
 			}
@@ -148,12 +148,14 @@ public class Recipe implements Serializable{
 		if (ingredients == null) {
 			if (other.ingredients != null)
 				return false;
-		} else if (!ingredients.equals(other.ingredients))
+		} 
+		else if (!ingredients.equals(other.ingredients))
 				return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} 
+		else if (!name.equals(other.name))
 				return false;
 		return true;
 	}

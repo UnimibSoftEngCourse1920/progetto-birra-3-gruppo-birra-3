@@ -20,8 +20,8 @@ public class RecipeTest {
 		ingredients1.put("Malt", 10.0); 
 		ingredients1.put("Hop", 20.0);
 		
-		StorageController sController = new StorageController();
-		sController.createStorage(ingredients1);
+		StorageController storageController = new StorageController();
+		storageController.createStorage(ingredients1);
 		
 		HashMap<String,Double> ingredients2 = new HashMap<>();
 		ingredients2.put("Malt", 20.0); 
@@ -32,6 +32,8 @@ public class RecipeTest {
 		
 		assertTrue(missing.get("Malt") == 10.0);
 		assertTrue(missing.get("Hop") == 20.0);
+		
+		storageController.deleteFile();
 	}
 	
 	@Test
@@ -62,8 +64,6 @@ public class RecipeTest {
 		
 		assertTrue(malt == 10.0);
 		assertTrue(hop == 20.0);
-		
-		
 	}
 	
 	@Test

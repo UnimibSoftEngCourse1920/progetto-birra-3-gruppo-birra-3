@@ -94,8 +94,10 @@ public class Equipment implements Serializable{
 			if (other.instruments != null) {
 				return false;
 			}
-		} else if (!instruments.equals(other.instruments))
-				return false;
+		} 
+		else if (!instruments.equals(other.instruments)) {
+			return false;
+		}
 		return true;
 	}
 	

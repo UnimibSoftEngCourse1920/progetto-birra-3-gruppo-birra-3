@@ -54,9 +54,9 @@ public class BrewController {
 				}
 			}
 			if(!found) {
-				throw new brewNotFoundException("Brew not found");
+				throw new BrewNotFoundException();
 			}
-		} catch(noteNotFoundException e) {
+		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		
@@ -74,9 +74,9 @@ public class BrewController {
 				}
 			}
 			if(!found) {
-				throw new brewNotFoundException("Brew not found");
+				throw new BrewNotFoundException();
 			}
-		} catch(noteNotFoundException e) {
+		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		
@@ -91,13 +91,14 @@ public class BrewController {
 			for (int i = 0; i < brews.size(); i++) {
 				if (brews.get(i).getId().compareTo(id) == 0) {
 					brews.remove(i);
+					i--;
 					found = true;
 				}
 			}
 			if(!found) {
-				throw new brewNotFoundException("Brew not found");
+				throw new BrewNotFoundException();
 			}
-		} catch(noteNotFoundException e) {
+		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		

@@ -54,10 +54,10 @@ public class Brew implements Serializable{
 	public void deleteNote(int id) {
 		try {
 			if(notes.get(id) == null) {
-				throw new noteNotFoundException("Note not found");
+				throw new NoteNotFoundException();
 			}
 			notes.remove(id);
-		} catch(noteNotFoundException e) {
+		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -65,10 +65,10 @@ public class Brew implements Serializable{
 	public void modifyNote(int id, String text) {
 		try {
 			if(notes.get(id) == null) {
-				throw new noteNotFoundException("Note not found");
+				throw new NoteNotFoundException();
 			}
 			notes.put(id, text);
-		} catch(noteNotFoundException e) {
+		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 	}	
@@ -101,22 +101,26 @@ public class Brew implements Serializable{
 		if (finishDate == null) {
 			if (other.finishDate != null)
 				return false;
-		} else if (!finishDate.equals(other.finishDate))
+		} 
+		else if (!finishDate.equals(other.finishDate))
 				return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} 
+		else if (!id.equals(other.id))
 				return false;
 		if (notes == null) {
 			if (other.notes != null)
 				return false;
-		} else if (!notes.equals(other.notes))
+		} 
+		else if (!notes.equals(other.notes))
 				return false;
 		if (startDate == null) {
 			if (other.startDate != null)
 				return false;
-		} else if (!startDate.equals(other.startDate))
+		} 
+		else if (!startDate.equals(other.startDate))
 				return false;
 		return true;
 	}

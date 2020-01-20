@@ -56,9 +56,9 @@ public class RecipeController {
 				}
 			}
 			if(!found) {
-				throw new brewNotFoundException("Brew not found");
+				throw new RecipeNotFoundException();
 			}
-		} catch(noteNotFoundException e) {
+		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -72,13 +72,14 @@ public class RecipeController {
 			for (int i = 0; i < recipes.size(); i++) {
 				if (recipes.get(i).getId() == id) {
 					recipes.remove(i);
+					i--;
 					found = true;
 				}
 			}
 			if(!found) {
-				throw new brewNotFoundException("Brew not found");
+				throw new RecipeNotFoundException();
 			}
-		} catch(noteNotFoundException e) {
+		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		
@@ -100,7 +101,7 @@ public class RecipeController {
 		//inserisco tutte le ricette in un arraylist
 		ArrayList<Recipe> recipes = extractRecipe();
 		//creo hashmap per inserire le ricette possibili sulla base degli ingredienti
-		Map<Integer, Double> recipeMax = new HashMap<Integer, Double>();
+		Map<Integer, Double> recipeMax = new HashMap<>();
 		//scorro l'arraylist e per ogni ricetta faccio il controllo sugli ingredienti
 		for (int i = 0; i < recipes.size(); i++) {
 			Recipe r = recipes.get(i);
@@ -122,9 +123,10 @@ public class RecipeController {
 			int id = -1;
 			//cerco la ricetta che massimizza gli ingredienti utilizzati
 			for(Entry<Integer, Double> r : recipeMax.entrySet()) {
-				if(r.getValue() > max)
+				if(r.getValue() > max) {
 					max = r.getValue();
-					id = r.getKey();
+				    id = r.getKey();
+				}
 			}
 			//determino la ricetta da restituire
 			for (int i = 0; i < recipes.size(); i++) {

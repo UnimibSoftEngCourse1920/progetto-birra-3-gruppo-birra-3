@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.io.Serializable;
-import main.NullIngredientsException;;
+import main.NullIngredientsException;
 
 public class Storage implements Serializable{
 
@@ -101,7 +101,8 @@ public class Storage implements Serializable{
 		if (ingredients == null) {
 			if (other.ingredients != null)
 				return false;
-		} else if (!ingredients.equals(other.ingredients))
+		} 
+		else if (!ingredients.equals(other.ingredients))
 				return false;
 		return true;
 	}
