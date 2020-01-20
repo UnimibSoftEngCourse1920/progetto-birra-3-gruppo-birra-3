@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;	
 
@@ -14,6 +15,8 @@ public class IOController {
     public void writeObjectToFile(Object serObj, String filepath) {
         try (ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(filepath))) {
             objectOut.writeObject(serObj);
+        } catch (IOException e) {
+        	logger.log(Level.FINE, e.getMessage());
         } catch (Exception e) {
         	logger.log(Level.FINE, e.getMessage());
         } 
@@ -23,10 +26,14 @@ public class IOController {
     	 
         try (ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(filepath))) {
             return objectIn.readObject();
+        } catch (IOException e) {
+        	logger.log(Level.FINE, e.getMessage());
+            return null;
         } catch (Exception e) {
         	logger.log(Level.FINE, e.getMessage());
             return null;
         } 
+        
     }
     
 }

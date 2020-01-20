@@ -26,7 +26,8 @@ public class EquipmentController {
 	}
 	
 	protected Equipment extractEquipment() {
-		return (Equipment) ioController.readObjectFromFile(filepath);
+		Equipment e = (Equipment) ioController.readObjectFromFile(filepath);
+		return e;
 	}
 	
 	protected void createEquipment(Map<String, Double> instruments) {

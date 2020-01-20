@@ -28,18 +28,29 @@ public class Equipment implements Serializable{
 	}
 
 	public double computeCapacity() {
-		double total = 0;
-		for (Double value : this.instruments.values()) {
-			total += value;
+		try {
+			double total = 0;
+			for (Double value : this.instruments.values()) {
+				if(value < 0) throw new CapacityException("Negative Capacity");
+				total += value;
+			}
+			return total;
+		}catch(CapacityException e) {
+			System.out.println(e.getMessage());
+			return 0.00;
 		}
-
-		return total;
 	}
 
 
 	public void updateInstruments(Map<String, Double> instruments) {
 		for(Entry<String, Double> i : instruments.entrySet()) {
-			getInstruments().put(i.getKey(), i.getValue());
+			
+			try {
+				if(i.getKey() == null || i.getValue() == null) throw new InstrumentException("Instrument null");
+				getInstruments().put(i.getKey(), i.getValue());
+			}catch(InstrumentException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
@@ -54,9 +65,6 @@ public class Equipment implements Serializable{
 
 		return instance;
 	}
-
-
-
 
 	//starting here, for only testing purpose
 	@Override
