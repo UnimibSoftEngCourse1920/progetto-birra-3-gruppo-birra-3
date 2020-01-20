@@ -41,7 +41,6 @@ public class BrewControllerTest {
 
 	@Test
 	public void testStore() {
-		IOController iocontroller = new IOController();
 		BrewController brewController = BrewController.getInstance();
 		
 		HashMap<String,Double> ingredients = new HashMap<>();
@@ -71,7 +70,6 @@ public class BrewControllerTest {
 
 	@Test
 	public void testUpdate() {
-		IOController iocontroller = new IOController();
 		BrewController brewController = BrewController.getInstance();
 		
 		HashMap<String,Double> ingredients = new HashMap<>();
@@ -108,7 +106,6 @@ public class BrewControllerTest {
 
 	@Test
 	public void testDelete() {
-		IOController iocontroller = new IOController();
 		BrewController brewController = BrewController.getInstance();
 		
 		HashMap<String,Double> ingredients = new HashMap<>();

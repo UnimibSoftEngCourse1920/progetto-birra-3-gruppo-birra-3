@@ -32,7 +32,7 @@ public class Brew implements Serializable{
 	}
 	
 	public Map<Integer,String> getNotes() {
-		return this.notes;
+		return notes;
 	}
 
 	public void setFinishDate(Date finishDate) {
