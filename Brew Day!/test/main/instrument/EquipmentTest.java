@@ -28,7 +28,7 @@ public class EquipmentTest {
 	}
 
 	@Test
-	public void testUpdateInstruments() {
+	public void testUpdateInstruments() throws NullInstrumentsException {
 		Equipment equipment = Equipment.getInstance();
 		Map<String, Double> instruments = new HashMap<>();
 		

@@ -31,7 +31,7 @@ public class StorageController {
 	}
 
 
-	protected void createStorage(Map<String,Double> ingredients) {
+	public void createStorage(Map<String,Double> ingredients) {
 		try {
 			if (ingredients == null) {
 				throw new NullIngredientsException();

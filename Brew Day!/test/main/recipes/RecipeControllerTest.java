@@ -10,6 +10,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import main.IOController;
+import main.resources.Storage;
+import main.resources.StorageController;
 
 public class RecipeControllerTest {
 	
@@ -125,5 +127,47 @@ public class RecipeControllerTest {
 		recipeController.deleteFile();
 		
 		assertTrue(recipes.isEmpty());
+	}
+	
+	
+	@Test
+	public void testFeatureWSIBT(){
+		RecipeController recipeController = RecipeController.getInstance();
+		
+		//creo ricette
+		HashMap<String,Double> ingredients1 = new HashMap<>();
+		ingredients1.put("Malt", 10.0); 
+		ingredients1.put("Hop", 190.0); 
+		Recipe recipe1 = new Recipe("Recipe 1", ingredients1);
+		recipeController.store(recipe1);
+		
+		Map<String,Double> ingredients2 = new HashMap<>();
+		ingredients2.put("Yeast", 30.0); 
+		ingredients2.put("Sugar", 40.0); 
+		Recipe recipe2 = new Recipe("Recipe 2", ingredients2);
+		recipeController.store(recipe2);
+		
+		Map<String,Double> ingredients3 = new HashMap<>();
+		ingredients3.put("Malt", 15.0); 
+		ingredients3.put("Sugar", 40.0); 
+		Recipe recipe3 = new Recipe("Recipe 3", ingredients3);
+		recipeController.store(recipe3);
+		
+		//creo storage
+		Map<String,Double> ingredients = new HashMap<String, Double>();
+		ingredients.put("Malt", 10.0);
+		ingredients.put("Yeast", 35.0);
+		ingredients.put("Hop", 189.0);
+		ingredients.put("Sugar", 50.0);
+		StorageController storageController = StorageController.getInstance();
+		storageController.createStorage(ingredients);
+		
+		
+		Recipe recipeFeature = recipeController.featureWSIBT();
+		
+		recipeController.deleteFile();
+		storageController.deleteFile();
+		
+		assertTrue(recipeFeature.equals(recipe2));		
 	}
 }

@@ -42,20 +42,27 @@ public class Equipment implements Serializable{
 	}
 
 
-	public void updateInstruments(Map<String, Double> instruments) {
-		for(Entry<String, Double> i : instruments.entrySet()) {
-			
-			try {
+	public void updateInstruments(Map<String, Double> instruments) throws NullInstrumentsException{
+		try {
+			if(instruments == null) throw new NullInstrumentsException("Instruments null");
+			for(Entry<String, Double> i : instruments.entrySet()) {
 				if(i.getKey() == null || i.getValue() == null) throw new InstrumentException("Instrument null");
 				getInstruments().put(i.getKey(), i.getValue());
-			}catch(InstrumentException e) {
-				System.out.println(e.getMessage());
 			}
+		}catch(InstrumentException e) {
+			System.out.println(e.getMessage());
 		}
+		
 	}
 
 	public void deleteInstrument(String name) {
-		this.getInstruments().remove(name);
+		try {
+			if(name == null) throw new InstrumentException("Instrument name null");
+			this.getInstruments().remove(name);
+		}catch(InstrumentException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 	public static Equipment getInstance() {

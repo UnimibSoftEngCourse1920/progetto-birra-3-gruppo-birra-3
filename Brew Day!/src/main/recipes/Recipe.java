@@ -86,6 +86,7 @@ public class Recipe implements Serializable{
 
 	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
 		Map<String,Double> missingIngredients = new HashMap<>();
+		this.storage = Storage.getInstance();
 		Map<String,Double> storageIngredients = storage.getIngredients();
 
 		for(Entry<String, Double> i : this.ingredients.entrySet()) {

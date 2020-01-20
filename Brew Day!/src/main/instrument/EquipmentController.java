@@ -31,9 +31,14 @@ public class EquipmentController {
 	}
 	
 	protected void createEquipment(Map<String, Double> instruments) {
-		Equipment equipment = Equipment.getInstance();
-		equipment.setInstruments(instruments);
-		store(equipment);
+		try {
+			if(instruments == null) throw new NullInstrumentsException();
+			Equipment equipment = Equipment.getInstance();
+			equipment.setInstruments(instruments);
+			store(equipment);
+		}catch(NullInstrumentsException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	protected void store(Equipment equipment) {
@@ -41,9 +46,14 @@ public class EquipmentController {
 	}
 	
 	protected void update(Map<String, Double> instruments) {
-		Equipment equipment = extractEquipment();
-		equipment.updateInstruments(instruments);
-		store(equipment);
+		try {
+			if(instruments == null) throw new NullInstrumentsException();
+			Equipment equipment = extractEquipment();
+			equipment.updateInstruments(instruments);
+			store(equipment);
+		}catch(NullInstrumentsException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	protected void delete(String instrumentName) {
