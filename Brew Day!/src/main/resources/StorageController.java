@@ -12,7 +12,8 @@ public class StorageController {
 	private IOController ioController;
 	private static StorageController instance;
 
-	private StorageController() {
+	//Protected
+	public StorageController() {
 		super();
 		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 		this.ioController = new IOController();
@@ -30,8 +31,8 @@ public class StorageController {
 		return (Storage) this.ioController.readObjectFromFile(this.filepath);	
 	}
 
-
-	protected void createStorage(Map<String,Double> ingredients) {
+	//Protected
+	public void createStorage(Map<String,Double> ingredients) {
 		try {
 			if (ingredients == null) {
 				throw new NullIngredientsException();

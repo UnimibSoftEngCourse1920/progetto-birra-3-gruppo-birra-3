@@ -9,6 +9,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import main.resources.StorageController;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RecipeTest {
 
@@ -16,14 +18,17 @@ public class RecipeTest {
 	public void testComputeMissingIngredients() {
 		HashMap<String,Double> ingredients1 = new HashMap<>();
 		ingredients1.put("Malt", 10.0); 
-		ingredients1.put("Hop", 20.0); 
-		Recipe recipe = new Recipe("Recipe", ingredients1);
+		ingredients1.put("Hop", 20.0);
+		
+		StorageController sController = new StorageController();
+		sController.createStorage(ingredients1);
 		
 		HashMap<String,Double> ingredients2 = new HashMap<>();
 		ingredients2.put("Malt", 20.0); 
-		ingredients2.put("Hop", 40.0);
+		ingredients2.put("Hop", 40.0); 
+		Recipe recipe = new Recipe("Recipe", ingredients2);
 		
-		Map<String,Double> missing = recipe.computeMissingIngredients(ingredients2);
+		Map<String,Double> missing = recipe.computeMissingIngredients();
 		
 		assertTrue(missing.get("Malt") == 10.0);
 		assertTrue(missing.get("Hop") == 20.0);

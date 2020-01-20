@@ -44,10 +44,19 @@ public class RecipeController {
 
 	protected void update(int id, String name, Map<String,Double> ingredients) {
 		ArrayList<Recipe> recipes = extractRecipe();
-		for (int i = 0; i < recipes.size(); i++) {
-			if (recipes.get(i).getId() == id) {
-				recipes.get(i).updateRecipe(name, ingredients);
+		boolean found = false;
+		try {
+			for (int i = 0; i < recipes.size(); i++) {
+				if (recipes.get(i).getId() == id) {
+					recipes.get(i).updateRecipe(name, ingredients);
+					found = true;
+				}
 			}
+			if(!found) {
+				throw new brewNotFoundException("Brew not found");
+			}
+		} catch(noteNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
 
 		ioController.writeObjectToFile(recipes, filepath);
@@ -55,12 +64,21 @@ public class RecipeController {
 
 	protected void delete(int id) {
 		ArrayList<Recipe> recipes = extractRecipe();
-		for (int i = 0; i < recipes.size(); i++) {
-			if (recipes.get(i).getId() == id) {
-				recipes.remove(i);
+		boolean found = false;
+		try {
+			for (int i = 0; i < recipes.size(); i++) {
+				if (recipes.get(i).getId() == id) {
+					recipes.remove(i);
+					found = true;
+				}
 			}
+			if(!found) {
+				throw new brewNotFoundException("Brew not found");
+			}
+		} catch(noteNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
-
+		
 		ioController.writeObjectToFile(recipes, filepath);
 	}
 

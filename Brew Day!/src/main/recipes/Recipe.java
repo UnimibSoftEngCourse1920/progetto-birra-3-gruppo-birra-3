@@ -1,5 +1,6 @@
 package main.recipes;
 
+import main.ingredientNotFoundException;
 import main.instrument.Equipment;
 import main.resources.Storage;
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public class Recipe implements Serializable{
 	private Map<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
-	private double countBrew = 1;
+	private double countBrew = 1.0;
 	private static final AtomicInteger count = new AtomicInteger(0); //this serves to autoincrement the id
 	private static final long serialVersionUID = 1L;
 
@@ -43,10 +44,10 @@ public class Recipe implements Serializable{
 		try {
 			result = ingredients.get(name);
 			if(result == null) {
-				throw new ingredientNotFoundException("The ingredient " + name + "isn't part of this recipe");
+				throw new ingredientNotFoundException("Ingredient not found");
 			}
 		} catch(ingredientNotFoundException e){
-			System.err.print(e);
+			System.err.println(e.getMessage());
 		}
 		return result;
 	}
@@ -73,12 +74,12 @@ public class Recipe implements Serializable{
 
 	public void updateRecipe(String name, Map<String, Double> ingredients) {
 		this.setName(name);
-		this.setIngredients(ingredients);
+	    this.setIngredients(ingredients);
 	}
 
 
 	public Brew createBrew(){
-		Map<String,Double> missingIngredients = computeMissingIngredients(storage.getIngredients());
+		Map<String,Double> missingIngredients = computeMissingIngredients();
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
 			Brew b = new Brew(this, currentDate);
@@ -93,8 +94,9 @@ public class Recipe implements Serializable{
 		}
 	}
 
-	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
+	public Map<String, Double> computeMissingIngredients(){
 		Map<String,Double> missingIngredients = new HashMap<>();
+		storage = Storage.getInstance();
 		Map<String,Double> storageIngredients = storage.getIngredients();
 
 		for(Entry<String, Double> i : this.ingredients.entrySet()) {

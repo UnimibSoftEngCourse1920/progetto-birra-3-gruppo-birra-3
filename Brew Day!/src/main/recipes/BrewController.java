@@ -45,10 +45,19 @@ public class BrewController {
 
 	protected void updateNote(Double id, int noteId, String noteText) {
 		List<Brew> brews = extractBrew();
-		for (Brew brew : brews) {
-			if (brew.getId().compareTo(id) == 0) {
-				brew.modifyNote(noteId, noteText);
+		boolean found = false;
+		try {
+			for (Brew brew : brews) {
+				if (brew.getId().compareTo(id) == 0) {
+					brew.modifyNote(noteId, noteText);
+					found = true;
+				}
 			}
+			if(!found) {
+				throw new brewNotFoundException("Brew not found");
+			}
+		} catch(noteNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
 		
 		ioController.writeObjectToFile(brews, filepath);
@@ -56,10 +65,19 @@ public class BrewController {
 	
 	protected void deleteNote(Double id, int noteId) {
 		List<Brew> brews = extractBrew();
-		for (int i = 0; i < brews.size(); i++) {
-			if (brews.get(i).getId().compareTo(id) == 0) {
-				brews.get(i).deleteNote(noteId);
+		boolean found = false;
+		try {
+			for (int i = 0; i < brews.size(); i++) {
+				if (brews.get(i).getId().compareTo(id) == 0) {
+					brews.get(i).deleteNote(noteId);
+					found = true;
+				}
 			}
+			if(!found) {
+				throw new brewNotFoundException("Brew not found");
+			}
+		} catch(noteNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
 		
 		ioController.writeObjectToFile(brews, filepath);
@@ -68,10 +86,19 @@ public class BrewController {
 	
 	protected void delete(Double id) {
 		List<Brew> brews = extractBrew();
-		for (int i = 0; i < brews.size(); i++) {
-			if (brews.get(i).getId().compareTo(id) == 0) {
-				brews.remove(i);
+		boolean found = false;
+		try {
+			for (int i = 0; i < brews.size(); i++) {
+				if (brews.get(i).getId().compareTo(id) == 0) {
+					brews.remove(i);
+					found = true;
+				}
 			}
+			if(!found) {
+				throw new brewNotFoundException("Brew not found");
+			}
+		} catch(noteNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
 		
 		ioController.writeObjectToFile(brews, filepath);

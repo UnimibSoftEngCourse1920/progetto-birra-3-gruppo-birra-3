@@ -30,6 +30,8 @@ public class RecipeControllerTest {
 		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
 		
 		List<Recipe> recipes = new ArrayList<Recipe>();
+		recipes.add(recipe1);
+		recipes.add(recipe2);
 		
 		iocontroller.writeObjectToFile(recipes, System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt"); 
 		ArrayList<Recipe> extRecipes = recipeController.extractRecipe();

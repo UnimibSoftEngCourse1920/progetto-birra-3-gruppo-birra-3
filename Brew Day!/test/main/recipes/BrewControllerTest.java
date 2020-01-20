@@ -29,8 +29,8 @@ public class BrewControllerTest {
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
-	    brew1.addNote(1,"test note 1",true);
-	    brew1.addNote(2,"test note 2",false);
+	    brew1.addNote("test note 1",true);
+	    brew1.addNote("test note 2",false);
 	    
 	    recipe.incrementCountBrew();
 	    
@@ -56,13 +56,13 @@ public class BrewControllerTest {
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
-	    brew1.addNote(1,"Note 1",true);
-	    brew1.addNote(2,"Note 2",false);
+	    brew1.addNote("Note 1",true);
+	    brew1.addNote("Note 2",false);
 	   
 		recipe.incrementCountBrew();
 	    Brew brew2 = new Brew(recipe,startDate);
-	    brew2.addNote(3,"Note 3",true);
-	    brew2.addNote(4,"Note 4",false);
+	    brew2.addNote("Note 3",true);
+	    brew2.addNote("Note 4",false);
 	    
 	    brewController.store(brew1);
 	    brewController.store(brew2);
@@ -76,17 +76,17 @@ public class BrewControllerTest {
 	}
 
 	@Test
-	public void testUpdate() {
+	public void testUpdateNote() {
 		BrewController brewController = BrewController.getInstance();
 		
 		Recipe recipe = new Recipe("Recipe", new HashMap<>());
 	    Brew brew1 = recipe.createBrew();
-	    brew1.addNote(1,"Note 1",true);
-	    brew1.addNote(2,"Note 2",false);
+	    brew1.addNote("Note 1",true);
+	    brew1.addNote("Note 2",false);
 		
 	    Brew brew2 = recipe.createBrew();
-	    brew2.addNote(3,"Note 3",true);
-	    brew2.addNote(4,"Note 4",false);
+	    brew2.addNote("Note 3",true);
+	    brew2.addNote("Note 4",false);
 	    brewController.store(brew1);
 	    brewController.store(brew2);  
 	    
@@ -94,10 +94,10 @@ public class BrewControllerTest {
 		String noteEdit2 = "Note 4 Edit";
 		
 		brewController.updateNote(brew1.getId(),-1,noteEdit1);
-		brewController.updateNote(brew2.getId(),4,noteEdit2);
+		brewController.updateNote(brew2.getId(),2,noteEdit2);
 		
 		brew1.modifyNote(-1, noteEdit1);
-		brew2.modifyNote(4, noteEdit2);
+		brew2.modifyNote(2, noteEdit2);
 		
 		ArrayList<Brew> brews = brewController.extractBrew();
 		
@@ -118,13 +118,13 @@ public class BrewControllerTest {
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
-	    brew1.addNote(1,"Note 1",true);
-	    brew1.addNote(2,"Note 2",false);
+	    brew1.addNote("Note 1",true);
+	    brew1.addNote("Note 2",false);
 		recipe.incrementCountBrew();
 		
 	    Brew brew2 = new Brew(recipe,startDate);
-	    brew2.addNote(3,"Note 3",true);
-	    brew2.addNote(4,"Note 4",false);
+	    brew2.addNote("Note 3",true);
+	    brew2.addNote("Note 4",false);
 	    
 	    brewController.store(brew1);
 	    brewController.store(brew2);
@@ -147,7 +147,7 @@ public class BrewControllerTest {
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
-	    brew1.addNote(1,"Note 1",true);
+	    brew1.addNote("Note 1",true);
 		recipe.incrementCountBrew();
 	    
 	    brewController.store(brew1);
