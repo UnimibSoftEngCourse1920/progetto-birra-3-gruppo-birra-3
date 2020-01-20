@@ -39,7 +39,16 @@ public class Recipe implements Serializable{
 	}
 
 	public double getQuantity(String name) {
-		return ingredients.get(name);
+		Double result = null;
+		try {
+			result = ingredients.get(name);
+			if(result == null) {
+				throw new ingredientNotFoundException("The ingredient " + name + "isn't part of this recipe");
+			}
+		} catch(ingredientNotFoundException e){
+			System.err.print(e);
+		}
+		return result;
 	}
 
 	public Equipment getEquipment() {
@@ -89,13 +98,9 @@ public class Recipe implements Serializable{
 		Map<String,Double> storageIngredients = storage.getIngredients();
 
 		for(Entry<String, Double> i : this.ingredients.entrySet()) {
-			if (!storageIngredients.containsKey(i.getKey())) {
-				missingIngredients.put(i.getKey(), i.getValue());
-			} else {
-				Double ingredientValue = storage.getIngredients().get(i.getKey()).doubleValue();
-				if (ingredientValue < i.getValue()) {
-					missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
-				}
+			Double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
+			if (ingredientValue < i.getValue()) {
+				missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
 			}
 		}
 
