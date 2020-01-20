@@ -2,6 +2,9 @@ package main.resources;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import main.IngredientNotFoundException;
+
 import java.io.Serializable;
 
 public class Storage implements Serializable{
@@ -30,7 +33,16 @@ public class Storage implements Serializable{
 	}
 
 	public void deleteIngredient(String ingredient) {
-		this.ingredients.remove(ingredient);
+		try {
+			if (!this.ingredients.containsKey(ingredient)) {
+				throw new IngredientNotFoundException();
+			}
+
+			this.ingredients.remove(ingredient);
+
+		} catch(IngredientNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public static Storage getInstance() {

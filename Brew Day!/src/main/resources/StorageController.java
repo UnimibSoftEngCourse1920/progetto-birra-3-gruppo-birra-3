@@ -3,6 +3,7 @@ package main.resources;
 import java.io.File;
 import java.util.Map;
 import main.IOController;
+import main.IngredientNotFoundException;
 
 public class StorageController {
 
@@ -10,8 +11,7 @@ public class StorageController {
 	private IOController ioController;
 	private static StorageController instance;
 
-	//Private (changed for test purposes)
-	public StorageController() {
+	private StorageController() {
 		super();
 		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 		this.ioController = new IOController();
@@ -48,9 +48,18 @@ public class StorageController {
 	}
 
 	protected void delete(String ingredient) {
-		Storage storage = extractStorage();
-		storage.deleteIngredient(ingredient);
-		store(storage);
+		try {
+			if (!extractStorage().getIngredients().containsKey(ingredient)) {
+				throw new IngredientNotFoundException();
+			}
+
+			Storage storage = extractStorage();
+			storage.deleteIngredient(ingredient);
+			store(storage);
+
+		} catch(IngredientNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	//for only testing purpose

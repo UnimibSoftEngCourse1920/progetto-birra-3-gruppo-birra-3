@@ -20,7 +20,7 @@ public class RecipeTest {
 		ingredients1.put("Malt", 10.0); 
 		ingredients1.put("Hop", 20.0);
 		
-		StorageController storageController = new StorageController();
+		StorageController storageController = StorageController.getInstance();
 		storageController.createStorage(ingredients1);
 		
 		HashMap<String,Double> ingredients2 = new HashMap<>();

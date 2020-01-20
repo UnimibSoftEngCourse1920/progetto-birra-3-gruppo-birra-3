@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import main.IOController;
+
 public class StorageControllerTest {
 	
 	@Test
@@ -27,7 +29,20 @@ public class StorageControllerTest {
 
 	@Test
 	public void testExtractStorage() {
-		testStore();
+		IOController ioController = new IOController();
+		StorageController sController = StorageController.getInstance();
+		Storage storage1 = Storage.getInstance();
+		Map<String,Double> ingredients = new HashMap<>();
+		ingredients.put("Malt", 10.0);
+		ingredients.put("Hop", 20.0);
+		
+		ioController.writeObjectToFile(storage1, System.getProperty("user.dir") + "\\src\\Files\\Storage.txt");
+		
+		Storage storage2 = sController.extractStorage();
+		
+		sController.deleteFile();
+		
+		assertTrue(storage1.equals(storage2));
 	}
 
 	@Test
