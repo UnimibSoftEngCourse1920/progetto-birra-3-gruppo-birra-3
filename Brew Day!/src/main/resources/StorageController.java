@@ -4,54 +4,82 @@ import java.io.File;
 import java.util.Map;
 
 import main.IOController;
+import main.NullIngredientsException;
 
 public class StorageController {
-	
+
 	private String filepath;
 	private IOController ioController;
 	private static StorageController instance;
-	
+
 	private StorageController() {
 		super();
 		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 		this.ioController = new IOController();
 	}
-	
+
 	public static StorageController getInstance() {
 		if (instance == null) {
 			instance = new StorageController();
 		}
-		
+
 		return instance;
 	}
-	
+
 	protected Storage extractStorage() {
 		return (Storage) this.ioController.readObjectFromFile(this.filepath);	
 	}
-	
-	
+
+
 	protected void createStorage(Map<String,Double> ingredients) {
-		Storage storage = Storage.getInstance();
-		storage.setIngredients(ingredients);
-		store(storage);
+		try {
+			if (ingredients == null) {
+				throw new NullIngredientsException();
+			}
+
+			Storage storage = Storage.getInstance();
+			storage.setIngredients(ingredients);
+			store(storage);
+
+		} catch (NullIngredientsException e){
+			System.err.println(e.getMessage());
+		}
 	}
-	
+
 	protected void store(Storage storage) {
 		this.ioController.writeObjectToFile(storage, this.filepath);
 	}
-	
+
 	protected void update(Map<String,Double> ingredients) {
-		Storage storage = extractStorage();
-		storage.updateIngredients(ingredients);
-		store(storage);
+		try {
+			if (ingredients == null) {
+				throw new NullIngredientsException();
+			}
+
+			Storage storage = extractStorage();
+			storage.updateIngredients(ingredients);
+			store(storage);
+
+		} catch (NullIngredientsException e){
+			System.err.println(e.getMessage());
+		}	
 	}
-	
+
 	protected void delete(String ingredient) {
-		Storage storage = extractStorage();
-		storage.deleteIngredient(ingredient);
-		store(storage);
+		try {
+			if (ingredient == null) {
+				throw new NullIngredientsException();
+			}
+
+			Storage storage = extractStorage();
+			storage.deleteIngredient(ingredient);
+			store(storage);
+
+		} catch (NullIngredientsException e){
+			System.err.println(e.getMessage());
+		}	
 	}
-	
+
 	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);

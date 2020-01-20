@@ -9,6 +9,7 @@ public class StorageTest {
 
 	@Test
 	public void testUpdateIngredients() {
+		
 		Storage storage = Storage.getInstance();
 		
 		Map<String, Double> ingredients = new HashMap<>();

@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.io.Serializable;
+import main.NullIngredientsException;;
 
 public class Storage implements Serializable{
 
@@ -12,7 +13,16 @@ public class Storage implements Serializable{
 
 	private Storage(Map<String, Double> ingredients) {
 		super();
-		this.ingredients = ingredients;
+		try {
+			if (ingredients == null) {
+				throw new NullIngredientsException();
+			}
+			
+			this.ingredients = ingredients;
+			
+		} catch (NullIngredientsException e){
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public Map<String, Double> getIngredients() {
@@ -21,17 +31,46 @@ public class Storage implements Serializable{
 
 
 	public void setIngredients(Map<String, Double> ingredients) {
-		this.ingredients = ingredients;
-	}
-
-	public void updateIngredients(Map<String, Double> ingredients) {
-		for(Entry<String, Double> i : ingredients.entrySet()) {
-			this.getIngredients().put(i.getKey(), i.getValue());
+		try {
+			if (ingredients == null) {
+				throw new NullIngredientsException();
+			}
+			
+			this.ingredients = ingredients;
+			
+		} catch (NullIngredientsException e){
+			System.err.println(e.getMessage());
 		}
 	}
 
+	public void updateIngredients(Map<String, Double> ingredients) {
+		try {
+			if (ingredients == null) {
+				throw new NullIngredientsException();
+			}
+			
+			for(Entry<String, Double> i : ingredients.entrySet()) {
+				this.getIngredients().put(i.getKey(), i.getValue());
+			}
+			
+		} catch (NullIngredientsException e){
+			System.err.println(e.getMessage());
+		}
+		
+		
+	}
+
 	public void deleteIngredient(String ingredient) {
-		this.ingredients.remove(ingredient);
+		try {
+			if (ingredients == null) {
+				throw new NullIngredientsException();
+			}
+			
+			this.ingredients.remove(ingredient);
+			
+		} catch (NullIngredientsException e){
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	public static Storage getInstance() {
@@ -42,8 +81,6 @@ public class Storage implements Serializable{
 		return instance;
 	}
 	
-	
-
 	//Starting here, for only testing purpose
 	@Override
 	public boolean equals(Object obj) {
