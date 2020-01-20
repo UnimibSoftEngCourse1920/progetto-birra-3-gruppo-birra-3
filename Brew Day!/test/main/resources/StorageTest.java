@@ -1,11 +1,8 @@
 package main.resources;
 
 import static org.junit.Assert.*;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-
 import org.junit.Test;
 
 public class StorageTest {

@@ -4,6 +4,7 @@ import main.IOController;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BrewController {
 
@@ -25,6 +26,7 @@ public class BrewController {
 		return instance;
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected ArrayList<Brew> extractBrew() {
 	    if (ioController.readObjectFromFile(filepath) != null) {
 	      return (ArrayList<Brew>) ioController.readObjectFromFile(filepath);
@@ -34,7 +36,7 @@ public class BrewController {
 	  }
 
 	  protected void store(Brew brew) {
-	    ArrayList<Brew> brews = extractBrew();
+	    List<Brew> brews = extractBrew();
 	    if (!brews.contains(brew)) {
 	      brews.add(brew);
 	      ioController.writeObjectToFile(brews, filepath);
@@ -42,7 +44,7 @@ public class BrewController {
 	  }
 
 	protected void updateNote(Double id, int noteId, String noteText) {
-		ArrayList<Brew> brews = extractBrew();
+		List<Brew> brews = extractBrew();
 		for (Brew brew : brews) {
 			if (brew.getId().compareTo(id) == 0) {
 				brew.modifyNote(noteId, noteText);
@@ -53,10 +55,10 @@ public class BrewController {
 	}
 	
 	protected void deleteNote(Double id, int noteId) {
-		ArrayList<Brew> brews = extractBrew();
-		for (Brew brew : brews) {
-			if (brew.getId().compareTo(id) == 0) {
-				brew.deleteNote(noteId);
+		List<Brew> brews = extractBrew();
+		for (int i = 0; i < brews.size(); i++) {
+			if (brews.get(i).getId().compareTo(id) == 0) {
+				brews.get(i).deleteNote(noteId);
 			}
 		}
 		
@@ -65,9 +67,9 @@ public class BrewController {
 
 	
 	protected void delete(Double id) {
-		ArrayList<Brew> brews = extractBrew();
+		List<Brew> brews = extractBrew();
 		for (int i = 0; i < brews.size(); i++) {
-			if (brews.get(i).getId() == id) {
+			if (brews.get(i).getId().compareTo(id) == 0) {
 				brews.remove(i);
 			}
 		}

@@ -25,6 +25,7 @@ public class RecipeController {
 		return instance;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected ArrayList<Recipe> extractRecipe() {
 		if (ioController.readObjectFromFile(filepath) != null) {
 			return (ArrayList<Recipe>) ioController.readObjectFromFile(filepath);
@@ -35,22 +36,17 @@ public class RecipeController {
 
 	protected void store(Recipe recipe) {
 		ArrayList<Recipe> recipes = extractRecipe();
-		for (Recipe r : recipes) {
-			if (r.getId() == recipe.getId()) {
-				return;
-			}
+		if (!recipes.contains(recipe)) {
+			recipes.add(recipe);
+			ioController.writeObjectToFile(recipes, filepath);
 		}
-
-		recipes.add(recipe);
-		ioController.writeObjectToFile(recipes, filepath);
 	}
 
 	protected void update(int id, String name, Map<String,Double> ingredients) {
 		ArrayList<Recipe> recipes = extractRecipe();
-		for (Recipe recipe : recipes) {
-			if (recipe.getId() == id) {
-				recipe.updateRecipe(name, ingredients);
-
+		for (int i = 0; i < recipes.size(); i++) {
+			if (recipes.get(i).getId() == id) {
+				recipes.get(i).updateRecipe(name, ingredients);
 			}
 		}
 
