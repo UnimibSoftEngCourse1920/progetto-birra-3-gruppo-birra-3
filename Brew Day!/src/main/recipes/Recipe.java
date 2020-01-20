@@ -84,6 +84,16 @@ public class Recipe implements Serializable{
 			Date currentDate = new Date(System.currentTimeMillis());
 			Brew b = new Brew(this, currentDate);
 			countBrew++;
+			
+			//subtract ingredients from storage
+			Map<String,Double> storageIngredients = storage.getIngredients();
+			for (Entry<String,Double> i : this.ingredients.entrySet()) {
+				if (storageIngredients.containsKey(i.getKey())) {
+					Double sIngredientvalue = storageIngredients.get(i.getKey()).doubleValue();
+					storageIngredients.replace(i.getKey(),sIngredientvalue-i.getValue());
+				}
+			}
+			storage.setIngredients(storageIngredients);
 			return b;
 		}
 		else {

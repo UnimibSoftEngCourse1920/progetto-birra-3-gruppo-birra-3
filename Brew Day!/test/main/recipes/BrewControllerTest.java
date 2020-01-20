@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import org.junit.Test;
 import main.IOController;
+import main.resources.Storage;
+import main.resources.StorageController;
 
 
 public class BrewControllerTest {
@@ -159,6 +161,37 @@ public class BrewControllerTest {
 		brewController.deleteFile();
 		
 		assertTrue(brews.get(0).getNotes().isEmpty());
+	}
+	
+	@Test
+	public void testCancel() {
+		BrewController brewController = BrewController.getInstance();
+		
+		HashMap<String,Double> sIngredients = new HashMap<>();
+	    sIngredients.put("Malt", 20.0);
+	    sIngredients.put("Hop", 30.0);
+		Storage storage = Storage.getInstance();
+		storage.setIngredients(sIngredients);
+		
+		HashMap<String,Double> rIngredients = new HashMap<>();
+	    rIngredients.put("Malt", 10.0);
+	    rIngredients.put("Hop", 20.0);
+		Recipe recipe = new Recipe("Recipe", rIngredients);
+		Brew brew1 = recipe.createBrew();
+		
+		brewController.store(brew1);
+		
+		brewController.cancel(brew1.getId());
+		
+		StorageController sController = StorageController.getInstance();
+		Storage extStorage = sController.extractStorage();
+		
+		List<Brew> brews = brewController.extractBrew();
+		
+		brewController.deleteFile();
+		
+		assertTrue(brews.isEmpty());
+		assertTrue(sIngredients.equals(extStorage.getIngredients()));
 	}
 
 }

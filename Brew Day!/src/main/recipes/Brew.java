@@ -11,6 +11,7 @@ public class Brew implements Serializable{
 	private Date startDate;
 	private Date finishDate;
 	private Map<Integer,String> notes = new HashMap<>();
+	private Recipe recipe;
 	private int countNote = 1;
 	private static final long serialVersionUID = 2L;
 	
@@ -18,6 +19,7 @@ public class Brew implements Serializable{
 		super();
 		this.id = (double) recipe.getId() + recipe.getCountBrew() / 10;
 		this.startDate = startDate;
+		this.recipe = recipe;
 	}
 
 	public Double getId() {
@@ -33,7 +35,11 @@ public class Brew implements Serializable{
 	}
 	
 	public Map<Integer,String> getNotes() {
-		return notes;
+		return this.notes;
+	}
+	
+	public Recipe getRecipe() {
+		return this.recipe;
 	}
 
 	public void setFinishDate(Date finishDate) {
@@ -76,17 +82,6 @@ public class Brew implements Serializable{
 	@Override
 	public String toString() {
 		return "id = " + id + ", startDate = " + startDate + ", finishDate = " + finishDate + ", notes = " + notes;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((finishDate == null) ? 0 : finishDate.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((notes == null) ? 0 : notes.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		return result;
 	}
 
 	@Override
