@@ -43,8 +43,8 @@ public class BrewTest {
 	public void testAddNote() {
 		Recipe recipe = new Recipe("Recipe", new HashMap<>());
 		Brew brew = recipe.createBrew();
-		brew.addNote(1, "Standard note", false);
-		brew.addNote(2, "Tasting note", true);
+		brew.addNote("Standard note", false);
+		brew.addNote("Tasting note", true);
 		
 		for(Entry<Integer, String> i : brew.getNotes().entrySet()) {
 			if (i.getKey() > 0) {
@@ -59,9 +59,11 @@ public class BrewTest {
 	public void testDeleteNote() {
 		Recipe recipe = new Recipe("Recipe", new HashMap<>());
 		Brew brew = recipe.createBrew();
-		brew.addNote(1, "Note 1", false);
-		brew.addNote(2, "Note 2", true);
-		brew.addNote(3, "Note 3", false);
+		brew.addNote("Note 1", false);
+		brew.addNote("Note 2", true);
+		brew.addNote("Note 3", false);
+		
+		System.out.println(brew.toString());
 		
 		brew.deleteNote(1);
 		brew.deleteNote(-2);
@@ -75,7 +77,7 @@ public class BrewTest {
 	public void testModifyNote() {
 		Recipe recipe = new Recipe("Recipe", new HashMap<>());
 		Brew brew = recipe.createBrew();
-		brew.addNote(1, "Note 1", false);
+		brew.addNote("Note 1", false);
 		brew.modifyNote(1, "New text");
 		assertNotEquals(0,brew.getNotes().get(1).compareTo("Note 1"));
 		

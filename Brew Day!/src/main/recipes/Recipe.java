@@ -1,5 +1,6 @@
 package main.recipes;
 
+import main.ingredientNotFoundException;
 import main.instrument.Equipment;
 import main.resources.Storage;
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public class Recipe implements Serializable{
 	private Map<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
-	private double countBrew = 1;
+	private double countBrew = 1.0;
 	private static final AtomicInteger count = new AtomicInteger(0); //this serves to autoincrement the id
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +40,16 @@ public class Recipe implements Serializable{
 	}
 
 	public double getQuantity(String name) {
-		return ingredients.get(name);
+		Double result = null;
+		try {
+			result = ingredients.get(name);
+			if(result == null) {
+				throw new ingredientNotFoundException("Ingredient not found");
+			}
+		} catch(ingredientNotFoundException e){
+			System.err.println(e.getMessage());
+		}
+		return result;
 	}
 
 	public Equipment getEquipment() {
@@ -64,12 +74,12 @@ public class Recipe implements Serializable{
 
 	public void updateRecipe(String name, Map<String, Double> ingredients) {
 		this.setName(name);
-		this.setIngredients(ingredients);
+	    this.setIngredients(ingredients);
 	}
 
 
 	public Brew createBrew(){
-		Map<String,Double> missingIngredients = computeMissingIngredients(storage.getIngredients());
+		Map<String,Double> missingIngredients = computeMissingIngredients();
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
 			Brew b = new Brew(this, currentDate);
@@ -94,18 +104,15 @@ public class Recipe implements Serializable{
 		}
 	}
 
-	public Map<String, Double> computeMissingIngredients(Map<String, Double> availableIngredients){
+	public Map<String, Double> computeMissingIngredients(){
 		Map<String,Double> missingIngredients = new HashMap<>();
+		storage = Storage.getInstance();
 		Map<String,Double> storageIngredients = storage.getIngredients();
 
 		for(Entry<String, Double> i : this.ingredients.entrySet()) {
-			if (!storageIngredients.containsKey(i.getKey())) {
-				missingIngredients.put(i.getKey(), i.getValue());
-			} else {
-				Double ingredientValue = storage.getIngredients().get(i.getKey()).doubleValue();
-				if (ingredientValue < i.getValue()) {
-					missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
-				}
+			Double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
+			if (ingredientValue < i.getValue()) {
+				missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
 			}
 		}
 
@@ -123,6 +130,21 @@ public class Recipe implements Serializable{
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(countBrew);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((equipment == null) ? 0 : equipment.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((ingredients == null) ? 0 : ingredients.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((storage == null) ? 0 : storage.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -137,12 +159,12 @@ public class Recipe implements Serializable{
 			if (other.ingredients != null)
 				return false;
 		} else if (!ingredients.equals(other.ingredients))
-			return false;
+				return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
+				return false;
 		return true;
 	}
 }

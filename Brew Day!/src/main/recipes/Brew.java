@@ -12,6 +12,7 @@ public class Brew implements Serializable{
 	private Date finishDate;
 	private Map<Integer,String> notes = new HashMap<>();
 	private Recipe recipe;
+	private int countNote = 1;
 	private static final long serialVersionUID = 2L;
 	
 	public Brew(Recipe recipe, Date startDate) {
@@ -45,12 +46,14 @@ public class Brew implements Serializable{
 		this.finishDate = finishDate;
 	}
 
-	public void addNote(int id, String text, boolean tasting) {
+	public void addNote(String text, boolean tasting) {
 		if(tasting) {
-			notes.put((-1) * id, text);
+			notes.put((-1) * countNote, text);
+			countNote++;
 		}
 		else {
-			notes.put(id, text);
+			notes.put(countNote, text);
+			countNote++;
 		}
 	}
 
@@ -59,7 +62,14 @@ public class Brew implements Serializable{
 	}
 
 	public void modifyNote(int id, String text) {
-		notes.put(id, text);
+		try {
+			if(notes.get(id) == null) {
+				throw new noteNotFoundException("Note not found");
+			}
+			notes.put(id, text);
+		} catch(noteNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
 	}	
 	
 	@Override

@@ -41,6 +41,7 @@ public class Storage implements Serializable{
 		return instance;
 	}
 
+
 	//Starting here, for only testing purpose
 	@Override
 	public boolean equals(Object obj) {
@@ -55,7 +56,7 @@ public class Storage implements Serializable{
 			if (other.ingredients != null)
 				return false;
 		} else if (!ingredients.equals(other.ingredients))
-			return false;
+				return false;
 		return true;
 	}
 

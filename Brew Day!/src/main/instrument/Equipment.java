@@ -42,20 +42,27 @@ public class Equipment implements Serializable{
 	}
 
 
-	public void updateInstruments(Map<String, Double> instruments) {
-		for(Entry<String, Double> i : instruments.entrySet()) {
-			
-			try {
+	public void updateInstruments(Map<String, Double> instruments) throws NullInstrumentsException{
+		try {
+			if(instruments == null) throw new NullInstrumentsException("Instruments null");
+			for(Entry<String, Double> i : instruments.entrySet()) {
 				if(i.getKey() == null || i.getValue() == null) throw new InstrumentException("Instrument null");
 				getInstruments().put(i.getKey(), i.getValue());
-			}catch(InstrumentException e) {
-				System.out.println(e.getMessage());
 			}
+		}catch(InstrumentException e) {
+			System.out.println(e.getMessage());
 		}
+		
 	}
 
 	public void deleteInstrument(String name) {
-		this.getInstruments().remove(name);
+		try {
+			if(name == null) throw new InstrumentException("Instrument name null");
+			this.getInstruments().remove(name);
+		}catch(InstrumentException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 	public static Equipment getInstance() {
@@ -66,7 +73,14 @@ public class Equipment implements Serializable{
 		return instance;
 	}
 
-	//starting here, for only testing purpose
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((instruments == null) ? 0 : instruments.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -77,12 +91,15 @@ public class Equipment implements Serializable{
 			return false;
 		Equipment other = (Equipment) obj;
 		if (instruments == null) {
-			if (other.instruments != null)
+			if (other.instruments != null) {
 				return false;
+			}
 		} else if (!instruments.equals(other.instruments))
-			return false;
+				return false;
 		return true;
 	}
+	
+	
 
 
 	@Override

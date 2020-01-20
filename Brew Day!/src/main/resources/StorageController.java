@@ -29,7 +29,7 @@ public class StorageController {
 	}
 
 
-	protected void createStorage(Map<String,Double> ingredients) {
+	public void createStorage(Map<String,Double> ingredients) {
 		Storage storage = Storage.getInstance();
 		storage.setIngredients(ingredients);
 		store(storage);
