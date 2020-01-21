@@ -8,14 +8,13 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class mainWindow extends JFrame {
+public class MainWindow extends JFrame {
 	
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
@@ -44,7 +43,7 @@ public class mainWindow extends JFrame {
 		{}
 	}
 
-	public mainWindow() throws HeadlessException {
+	public MainWindow() throws HeadlessException {
 	    super("Brew Day!");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,7 +112,7 @@ public class mainWindow extends JFrame {
 	
 	public static void main(String[] args)
 	{
-		mainWindow gui = new mainWindow();
+		MainWindow gui = new MainWindow();
 		gui.setVisible( true);
 	}
 }
