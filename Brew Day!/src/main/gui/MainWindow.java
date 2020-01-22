@@ -22,48 +22,33 @@ import main.recipes.RecipeController;
 import main.resources.StorageController;
 
 @SuppressWarnings("serial")
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements ActionListener{
 	
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
+	private static MainWindow instance;
 	
-	private class recipeListener implements ActionListener {
-		
-		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
-			RecipeWindow gui = new RecipeWindow();
-		    gui.setVisible(true);
-		}
-	}
-	
-	private class brewListener implements ActionListener {
-			
-		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
-			BrewWindow gui = new BrewWindow();
-		    gui.setVisible(true);
-		}
-	}
-	
-	private class equipmentListener implements ActionListener {
-		
-		public void actionPerformed(ActionEvent e) {
-			//setVisible(false);
-			//EquipmentWindow gui = new EquipmentWindow();
-		    //gui.setVisible(true);
-		}
-	}
-	
-	private class storageListener implements ActionListener {
-			
-		public void actionPerformed(ActionEvent e) {
-			setVisible(false);
-			StorageWindow gui = new StorageWindow();
-		    gui.setVisible(true);
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()) {
+			case "Recipes menu":
+			    setVisible(false);
+				RecipeWindow.getInstance().setVisible(true);
+			    break;
+			case "Brews menu":
+				setVisible(false);
+				BrewWindow.getInstance().setVisible(true);
+				break;
+			case "Equipment menu":
+				//setVisible(false);
+				//EquipmentWindow.getInstance().setVisible(true);
+				break;
+			case "Storage menu":
+				//setVisible(false);
+				//StorageWindow.getInstance().setVisible(true);
 		}
 	}
 
-	public MainWindow() throws HeadlessException {
+	private MainWindow() throws HeadlessException {
 	    super("Brew Day!");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -143,19 +128,19 @@ public class MainWindow extends JFrame {
 		
 		Dimension d = new Dimension(200, 70);
 		JButton recipeButton = new JButton("Recipes menu");
-		recipeButton.addActionListener(new recipeListener());
+		recipeButton.addActionListener(this);
 		recipeButton.setPreferredSize(d);
 		recipeButtonPanel.add(recipeButton);
 		JButton brewButton = new JButton("Brews menu");
-		brewButton.addActionListener( new brewListener());
+		brewButton.addActionListener(this);
 		brewButton.setPreferredSize(d);
 		brewButtonPanel.add(brewButton);
 		JButton equipmentButton = new JButton("Equipment menu");
-		equipmentButton.addActionListener(new equipmentListener());
+		equipmentButton.addActionListener(this);
 		equipmentButton.setPreferredSize(d);
 		equipmentButtonPanel.add(equipmentButton);
 		JButton storageButton = new JButton("Storage menu");
-		storageButton.addActionListener(new storageListener());
+		storageButton.addActionListener(this);
 		storageButton.setPreferredSize(d);
 		storageButtonPanel.add(storageButton);
 		
@@ -179,6 +164,14 @@ public class MainWindow extends JFrame {
 	public Recipe getWSIBT() {
 		RecipeController recipeController = RecipeController.getInstance();
 		return recipeController.featureWSIBT();
+	}
+	
+	public static MainWindow getInstance() {
+		if (instance == null) {
+			instance = new MainWindow();
+		}
+
+		return instance;
 	}
 	
 	public static void main(String[] args)
