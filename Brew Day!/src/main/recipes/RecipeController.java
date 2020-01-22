@@ -36,8 +36,9 @@ public class RecipeController {
 
 		return new ArrayList<>();
 	}
-
-	protected void store(Recipe recipe) {
+    
+	//Protected
+	public void store(Recipe recipe) {
 		ArrayList<Recipe> recipes = extractRecipe();
 		if (!recipes.contains(recipe)) {
 			recipes.add(recipe);

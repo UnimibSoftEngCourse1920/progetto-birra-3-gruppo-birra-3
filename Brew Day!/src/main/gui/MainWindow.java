@@ -9,40 +9,58 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.recipes.Recipe;
+import main.recipes.RecipeController;
+import main.resources.StorageController;
+
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 	
-	public static final int WIDTH = 1920;
-	public static final int HEIGHT = 1080;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 	
 	private class recipeListener implements ActionListener {
 		
-		public void actionPerformed(ActionEvent e)
-		{}
+		public void actionPerformed(ActionEvent e) {
+			setVisible(false);
+			RecipeWindow gui = new RecipeWindow();
+		    gui.setVisible(true);
+		}
 	}
 	
 	private class brewListener implements ActionListener {
 			
-		public void actionPerformed(ActionEvent e)
-		{}
+		public void actionPerformed(ActionEvent e) {
+			setVisible(false);
+			BrewWindow gui = new BrewWindow();
+		    gui.setVisible(true);
+		}
 	}
 	
 	private class equipmentListener implements ActionListener {
 		
-		public void actionPerformed(ActionEvent e)
-		{}
+		public void actionPerformed(ActionEvent e) {
+			//setVisible(false);
+			//EquipmentWindow gui = new EquipmentWindow();
+		    //gui.setVisible(true);
+		}
 	}
 	
 	private class storageListener implements ActionListener {
 			
-		public void actionPerformed(ActionEvent e)
-		{}
+		public void actionPerformed(ActionEvent e) {
+			setVisible(false);
+			StorageWindow gui = new StorageWindow();
+		    gui.setVisible(true);
+		}
 	}
 
 	public MainWindow() throws HeadlessException {
@@ -52,33 +70,40 @@ public class MainWindow extends JFrame {
 		setLayout(new BorderLayout());
 		
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new GridLayout(1, 4));
+		mainPanel.setLayout(new GridLayout(2, 0));
+		
+		JPanel resourcesPanel = new JPanel();
+		resourcesPanel.setLayout(new GridLayout(1, 4));
+		
+		JPanel wsibtPanel = new JPanel();
+		wsibtPanel.setBackground(Color.ORANGE);
+		wsibtPanel.setLayout(new GridLayout(2, 0));
 		
 		JPanel recipePanel = new JPanel();
 		recipePanel.setBackground(Color.CYAN);
 		recipePanel.setLayout(new GridLayout(2, 0));
-		mainPanel.add(recipePanel);
+		resourcesPanel.add(recipePanel);
 		
 		JPanel brewPanel = new JPanel();
 		brewPanel.setBackground(Color.GREEN);
 		brewPanel.setLayout(new GridLayout(2, 0));
-		mainPanel.add(brewPanel);
+		resourcesPanel.add(brewPanel);
 		
 		JPanel equipmentPanel = new JPanel();
 		equipmentPanel.setBackground(Color.YELLOW);
 		equipmentPanel.setLayout(new GridLayout(2, 0));
-		mainPanel.add(equipmentPanel);
+		resourcesPanel.add(equipmentPanel);
 		
 		JPanel storagePanel = new JPanel();
 		storagePanel.setLayout(new GridLayout(2, 0));
 		storagePanel.setBackground(Color.RED);
-		mainPanel.add(storagePanel);
+		resourcesPanel.add(storagePanel);
 		
 		Font f = new Font("TimesRoman",Font.BOLD,25);
 		JLabel recipeLabel = new JLabel("Recipes");
 		recipeLabel.setFont(f);
 		recipeLabel.setHorizontalAlignment(JLabel.CENTER);
-		JLabel brewLabel = new JLabel("Brew");
+		JLabel brewLabel = new JLabel("Brews");
 		brewLabel.setFont(f);
 		brewLabel.setHorizontalAlignment(JLabel.CENTER);
 		JLabel equipmentLabel = new JLabel("Equipment");
@@ -112,30 +137,76 @@ public class MainWindow extends JFrame {
 		storageButtonPanel.setBackground(Color.RED);
 		storagePanel.add(storageButtonPanel);
 		
-		add(mainPanel, BorderLayout.CENTER);
+		add(mainPanel);
+		mainPanel.add(resourcesPanel);
+		mainPanel.add(wsibtPanel);
 		
 		Dimension d = new Dimension(200, 70);
-		JButton recipeButton = new JButton("Recipe menu");
+		JButton recipeButton = new JButton("Recipes menu");
 		recipeButton.addActionListener(new recipeListener());
 		recipeButton.setPreferredSize(d);
-		recipeButtonPanel.add(recipeButton, BorderLayout.CENTER);
-		JButton brewButton = new JButton("Brew menu");
+		recipeButtonPanel.add(recipeButton);
+		JButton brewButton = new JButton("Brews menu");
 		brewButton.addActionListener( new brewListener());
 		brewButton.setPreferredSize(d);
-		brewButtonPanel.add(brewButton, BorderLayout.CENTER);
+		brewButtonPanel.add(brewButton);
 		JButton equipmentButton = new JButton("Equipment menu");
 		equipmentButton.addActionListener(new equipmentListener());
 		equipmentButton.setPreferredSize(d);
-		equipmentButtonPanel.add(equipmentButton, BorderLayout.CENTER);
+		equipmentButtonPanel.add(equipmentButton);
 		JButton storageButton = new JButton("Storage menu");
 		storageButton.addActionListener(new storageListener());
 		storageButton.setPreferredSize(d);
-		storageButtonPanel.add(storageButton, BorderLayout.CENTER);
+		storageButtonPanel.add(storageButton);
+		
+		Recipe wsibtRecipe = getWSIBT();
+		JLabel wsibtLabel = new JLabel("What should I brew today? " + wsibtRecipe.getName());
+		wsibtLabel.setFont(f);
+		wsibtLabel.setHorizontalAlignment(JLabel.CENTER);
+		wsibtPanel.add(wsibtLabel);
+		
+		JPanel wsibtButtonPanel = new JPanel();
+		wsibtButtonPanel.setBackground(Color.ORANGE);
+		wsibtButtonPanel.setLayout(new FlowLayout());
+		wsibtPanel.add(wsibtButtonPanel);
+		
+		JButton wsibtButton = new JButton("Brew it!");
+		//wsibtButton.addActionListener(new createBrewListener(wsibtRecipe));
+		wsibtButton.setPreferredSize(d);
+		wsibtButtonPanel.add(wsibtButton);
+	}
+	
+	public Recipe getWSIBT() {
+		RecipeController recipeController = RecipeController.getInstance();
+		return recipeController.featureWSIBT();
 	}
 	
 	public static void main(String[] args)
 	{
+		//Only for testing purposes
+		Map<String,Double> ingredients = new HashMap<String, Double>();
+		ingredients.put("Malt", 10.0);
+		ingredients.put("Yeast", 35.0);
+		ingredients.put("Hop", 189.0);
+		ingredients.put("Sugar", 50.0);
+		StorageController storageController = StorageController.getInstance();
+		storageController.createStorage(ingredients);
+		
+		
+		RecipeController recipeController = RecipeController.getInstance();
+		HashMap<String,Double> ingredients2 = new HashMap<>();
+		ingredients2.put("Malt", 10.0); 
+		ingredients2.put("Hop", 20.0); 
+		Recipe recipe = new Recipe("Test Recipe", ingredients2);
+		recipeController.store(recipe);
+		//Only for testing purposes
+		
 		MainWindow gui = new MainWindow();
 		gui.setVisible( true);
+		
+		//Only for testing purposes
+		recipeController.deleteFile();
+		storageController.deleteFile();
+		//Only for testing purposes
 	}
 }
