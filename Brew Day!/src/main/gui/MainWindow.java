@@ -43,8 +43,9 @@ public class MainWindow extends JFrame implements ActionListener{
 				//EquipmentWindow.getInstance().setVisible(true);
 				break;
 			case "Storage menu":
-				//setVisible(false);
-				//StorageWindow.getInstance().setVisible(true);
+				StorageWindow sWindow = new StorageWindow();
+				sWindow.setVisible(true);
+				setVisible(false);
 		}
 	}
 
@@ -192,14 +193,12 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe = new Recipe("Test Recipe", ingredients2);
 		recipeController.store(recipe);
-		//Only for testing purposes
+//		//Only for testing purposes
 		
-		MainWindow gui = new MainWindow();
-		gui.setVisible( true);
+		MainWindow gui = getInstance();
+		gui.setVisible(true);
 		
-		//Only for testing purposes
+//		//Only for testing purposes
 		recipeController.deleteFile();
-		storageController.deleteFile();
-		//Only for testing purposes
 	}
 }
