@@ -17,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.recipes.Brew;
+import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.StorageController;
@@ -144,11 +146,11 @@ public class MainWindow extends JFrame implements ActionListener{
 		storageButton.setPreferredSize(d);
 		storageButtonPanel.add(storageButton);
 
-		Recipe wsibtRecipe = getWSIBT();
-		JLabel wsibtLabel = new JLabel("What should I brew today? " + wsibtRecipe.getName());
-		wsibtLabel.setFont(f);
-		wsibtLabel.setHorizontalAlignment(JLabel.CENTER);
-		wsibtPanel.add(wsibtLabel);
+		//Recipe wsibtRecipe = getWSIBT();
+		//JLabel wsibtLabel = new JLabel("What should I brew today? " + wsibtRecipe.getName());
+		//wsibtLabel.setFont(f);
+		//wsibtLabel.setHorizontalAlignment(JLabel.CENTER);
+		//wsibtPanel.add(wsibtLabel);
 
 		JPanel wsibtButtonPanel = new JPanel();
 		wsibtButtonPanel.setBackground(Color.ORANGE);
@@ -192,11 +194,9 @@ public class MainWindow extends JFrame implements ActionListener{
 		Recipe recipe = new Recipe("Test Recipe", ingredients2);
 		recipeController.store(recipe);
 
-		/*Only for testing purposes
+		//Only for testing purposes
 		BrewController brewController = BrewController.getInstance();
-		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
-		Brew brew1 = recipe.createBrew();
-		brewController.store(brew1);
+		brewController.store(recipe.createBrew());
 
 		HashMap<String,Double> ingredients3 = new HashMap<>();
 		ingredients3.put("Yeast", 10.0); 
@@ -204,13 +204,12 @@ public class MainWindow extends JFrame implements ActionListener{
 		Recipe recipe2 = new Recipe("Recipe2", ingredients3);
 		Brew brew2 = recipe2.createBrew();
 		brewController.store(brew2);
-		Only for testing purposes*/
+		//Only for testing purposes
 	
 		MainWindow gui = getInstance();
 		gui.setVisible(true);
 		
 		//Only for testing purposes
 		recipeController.deleteFile();
-		storageController.deleteFile();
 	}
 }

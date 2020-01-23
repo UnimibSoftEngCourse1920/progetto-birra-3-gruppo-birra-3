@@ -3,6 +3,7 @@ package main.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,9 +13,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import main.resources.*;
 
@@ -23,55 +26,50 @@ public class StorageWindow extends JFrame implements ActionListener {
 
 	private String filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 	private StorageController sController;
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	
+	private JPanel contentPane;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StorageWindow frame = new StorageWindow();
+					frame.setVisible(true);
+					frame.setSize(800, 350);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	public StorageWindow() {
-		super();
-		setSize(WIDTH, HEIGHT);
-		this.setTitle("Storage");
-		this.setBackground(Color.RED);
+		super("Brew Day! - Storage");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(200, 200, 800, 350);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
+		
+		JLabel label = new JLabel("The storage is:");
+		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
+		panel.add(label);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.CENTER);
 		
 		sController = StorageController.getInstance();
 			
 		Storage storage = sController.extractStorage();
-
-		JTable ingredientsTable = new JTable(createIngredientsTable(storage.getIngredients()));
 		
-		ingredientsTable.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 25));
-		ingredientsTable.setFont(new Font("Arial", Font.PLAIN, 20));
-		ingredientsTable.setRowHeight(30);
-		ingredientsTable.setFillsViewportHeight(true);
-		ingredientsTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		
-		JPanel tablePanel = new JPanel();
-		tablePanel.add(new JScrollPane(ingredientsTable));
-		
-		this.add(tablePanel, BorderLayout.NORTH);
-		
-		JPanel modifyButtonPanel = new JPanel();
-				
-		JButton modifyButton = new JButton("Modify ingredients");
-		modifyButton.setPreferredSize(new Dimension(250, 50));
-		modifyButton.setFont(new Font("Arial", Font.BOLD, 20));
-		modifyButton.addActionListener(this);
-		
-		JPanel backButtonPanel = new JPanel();
-		
-		JButton backButton = new JButton("Back");
-		backButton.setFont(new Font("Arial", Font.PLAIN, 15));
-		backButton.addActionListener(this);
-		
-		backButtonPanel.add(backButton);
-		
-		modifyButtonPanel.add(modifyButton);
-		
-		this.add(modifyButtonPanel,BorderLayout.CENTER);
-		this.add(backButtonPanel, BorderLayout.SOUTH);
-	}
-
-	private DefaultTableModel createIngredientsTable(Map<String,Double> ingredients) {
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0) {
 			@Override
 		    public boolean isCellEditable(int row, int column) {
@@ -79,11 +77,34 @@ public class StorageWindow extends JFrame implements ActionListener {
 		    }
 		};
 
-		for(Entry<String, Double> i : ingredients.entrySet()) {
+		for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
 			model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 		}
-
-		return model;
+		
+		table = new JTable(model);
+		table.setBorder(null);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.setRowHeight(30);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		
+		JPanel panel_2 = new JPanel();
+		contentPane.add(panel_2, BorderLayout.SOUTH);
+		
+		JButton modifyButton = new JButton("Modify ingredients");
+		modifyButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 20));
+		modifyButton.addActionListener(this);
+		
+		panel_2.add(modifyButton);
+		
+		JButton backButton = new JButton("Back");
+		backButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 15));
+		backButton.addActionListener(this);
+		
+		panel_2.add(backButton);
 	}
 	
 	@Override
