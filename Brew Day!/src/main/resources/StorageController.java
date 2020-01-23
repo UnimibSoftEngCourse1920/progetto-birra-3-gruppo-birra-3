@@ -1,11 +1,13 @@
 package main.resources;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Map;
 import main.IOController;
 import main.IngredientNotFoundException;
 
-public class StorageController {
+public class StorageController implements ActionListener{
 
 	private String filepath;
 	private IOController ioController;
@@ -41,7 +43,7 @@ public class StorageController {
 		this.ioController.writeObjectToFile(storage, this.filepath);
 	}
 
-	protected void update(Map<String,Double> ingredients) {
+	public void update(Map<String,Double> ingredients) {
 		Storage storage = extractStorage();
 		storage.updateIngredients(ingredients);
 		store(storage);	
@@ -70,5 +72,10 @@ public class StorageController {
 		} else {
 			System.out.println("\nImpossible delete file");
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//TODO
 	}
 }

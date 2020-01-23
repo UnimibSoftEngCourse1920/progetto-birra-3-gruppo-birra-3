@@ -25,11 +25,11 @@ public class EquipmentController {
 		return instance;
 	}
 	
-	protected Equipment extractEquipment() {
+	public Equipment extractEquipment() {
 		return (Equipment) ioController.readObjectFromFile(filepath);
 	}
 	
-	protected void createEquipment(Map<String, Double> instruments) {
+	public void createEquipment(Map<String, Double> instruments) {
 		try {
 			if(instruments == null) throw new NullInstrumentsException();
 			Equipment equipment = Equipment.getInstance();
@@ -44,10 +44,10 @@ public class EquipmentController {
 		ioController.writeObjectToFile(equipment, filepath);
 	}
 	
-	protected void update(Map<String, Double> instruments) {
+	public void update(Map<String, Double> instruments) {
 		try {
 			if(instruments == null) throw new NullInstrumentsException();
-			Equipment equipment = extractEquipment();
+			Equipment equipment = Equipment.getInstance();
 			equipment.updateInstruments(instruments);
 			store(equipment);
 		}catch(NullInstrumentsException e) {
@@ -55,8 +55,8 @@ public class EquipmentController {
 		}
 	}
 	
-	protected void delete(String instrumentName) {
-		Equipment equipment = extractEquipment();
+	public void delete(String instrumentName) {
+		Equipment equipment = Equipment.getInstance();
 		equipment.deleteInstrument(instrumentName);
 		store(equipment);
 	}

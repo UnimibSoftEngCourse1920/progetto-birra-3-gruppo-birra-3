@@ -27,7 +27,7 @@ public class Equipment implements Serializable{
 		this.instruments = instruments;
 	}
 
-	public double computeCapacity() {
+	protected double computeCapacity() {
 		try {
 			double total = 0;
 			for (Double value : this.instruments.values()) {
@@ -42,7 +42,7 @@ public class Equipment implements Serializable{
 	}
 
 
-	public void updateInstruments(Map<String, Double> instruments) throws NullInstrumentsException{
+	protected void updateInstruments(Map<String, Double> instruments) throws NullInstrumentsException{
 		try {
 			if(instruments == null) throw new NullInstrumentsException("Instruments null");
 			for(Entry<String, Double> i : instruments.entrySet()) {
@@ -55,7 +55,7 @@ public class Equipment implements Serializable{
 		
 	}
 
-	public void deleteInstrument(String name) {
+	protected void deleteInstrument(String name) {
 		try {
 			if(name == null) throw new InstrumentException("Instrument name null");
 			this.getInstruments().remove(name);

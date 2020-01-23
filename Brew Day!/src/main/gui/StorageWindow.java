@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,15 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import main.resources.*;
 
 @SuppressWarnings("serial")
-public class StorageWindow extends JFrame {
+public class StorageWindow extends JFrame implements ActionListener {
 
+	private StorageController sController;
 	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
-
-	public static void main(String[] args) {
-		StorageWindow window = new StorageWindow();
-		window.setVisible(true);
-	}
+	public static final int HEIGHT = 600;
 
 	public StorageWindow() {
 		super();
@@ -32,8 +30,12 @@ public class StorageWindow extends JFrame {
 		this.setTitle("Storage");
 		this.setBackground(Color.RED);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		sController = StorageController.getInstance();
+			
+		Storage storage = sController.extractStorage();
 
-		JTable ingredientsTable = new JTable(createIngredientsTable());
+		JTable ingredientsTable = new JTable(createIngredientsTable(storage.getIngredients()));
 		
 		ingredientsTable.getTableHeader().setFont(new Font("Arial", Font.PLAIN, 25));
 		ingredientsTable.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -46,45 +48,52 @@ public class StorageWindow extends JFrame {
 		
 		this.add(tablePanel, BorderLayout.NORTH);
 		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setSize(40, 40);
-		
+		JPanel modifyButtonPanel = new JPanel();
+				
 		JButton modifyButton = new JButton("Modify ingredients");
-		modifyButton.setPreferredSize(new Dimension(200, 50));
+		modifyButton.setPreferredSize(new Dimension(250, 50));
 		modifyButton.setFont(new Font("Arial", Font.BOLD, 20));
+		modifyButton.addActionListener(this);
 		
-		buttonPanel.add(modifyButton);
+		JPanel backButtonPanel = new JPanel();
 		
-		this.add(buttonPanel,BorderLayout.CENTER);
+		JButton backButton = new JButton("Back");
+		backButton.setFont(new Font("Arial", Font.PLAIN, 15));
+		backButton.addActionListener(this);
+		
+		backButtonPanel.add(backButton);
+		
+		modifyButtonPanel.add(modifyButton);
+		
+		this.add(modifyButtonPanel,BorderLayout.CENTER);
+		this.add(backButtonPanel, BorderLayout.SOUTH);
 	}
 
-	public static DefaultTableModel createIngredientsTable() {
-		//only for temporary test
-		Storage storage = Storage.getInstance();
-		Map<String,Double> ingredients = new HashMap<String,Double>();
-		ingredients.put("Malt", 10.0);
-		ingredients.put("Hop", 20.0);
-		ingredients.put("Yeast", 30.0);
-		ingredients.put("Sugar", 40.0);
-		ingredients.put("Additive", 50.0);
-		storage.setIngredients(ingredients);
-		StorageController.getInstance().store(storage);
-
-		Map<String,Double> storageIngredients = StorageController.getInstance().extractStorage().getIngredients();
-
-		StorageController.getInstance().deleteFile();
-
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity"}, 0) {
+	private DefaultTableModel createIngredientsTable(Map<String,Double> ingredients) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0) {
 			@Override
 		    public boolean isCellEditable(int row, int column) {
 		       return false;
 		    }
 		};
 
-		for(Entry<String, Double> i : storageIngredients.entrySet()) {
+		for(Entry<String, Double> i : ingredients.entrySet()) {
 			model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 		}
 
 		return model;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Back")) {
+			MainWindow mainWindow = MainWindow.getInstance();
+			mainWindow.setVisible(true);
+			dispose();
+		} else {
+			ModifyStorageIngredientsWindow msiWindow = new ModifyStorageIngredientsWindow();
+			msiWindow.setVisible(true);
+			dispose();
+		}
 	}
 }
