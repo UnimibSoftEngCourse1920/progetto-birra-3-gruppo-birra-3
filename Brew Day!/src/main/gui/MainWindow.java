@@ -39,13 +39,12 @@ public class MainWindow extends JFrame implements ActionListener{
 				new BrewWindow().setVisible(true);
 				break;
 			case "View your equipment":
-				//setVisible(false);
-				//EquipmentWindow.getInstance().setVisible(true);
-				break;
-			case "Storage menu":
-				StorageWindow sWindow = new StorageWindow();
-				sWindow.setVisible(true);
 				setVisible(false);
+				new EquipmentWindow().setVisible(true);
+				break;
+			case "View your storage":
+				setVisible(false);
+				new StorageWindow().setVisible(true);
 		}
 	}
 
@@ -193,12 +192,13 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe = new Recipe("Test Recipe", ingredients2);
 		recipeController.store(recipe);
-//		//Only for testing purposes
+		//Only for testing purposes
 		
 		MainWindow gui = getInstance();
 		gui.setVisible(true);
 		
-//		//Only for testing purposes
+		//Only for testing purposes
 		recipeController.deleteFile();
+		storageController.deleteFile();
 	}
 }

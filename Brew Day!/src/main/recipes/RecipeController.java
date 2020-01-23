@@ -61,14 +61,14 @@ public class RecipeController implements ActionListener{
 			if(!found) {
 				throw new RecipeNotFoundException();
 			}
-		} catch(NoteNotFoundException e) {
+		} catch(RecipeNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 
 		ioController.writeObjectToFile(recipes, filepath);
 	}
 
-	protected void delete(int id) {
+	public void delete(int id) {
 		ArrayList<Recipe> recipes = extractRecipe();
 		boolean found = false;
 		try {
@@ -82,11 +82,30 @@ public class RecipeController implements ActionListener{
 			if(!found) {
 				throw new RecipeNotFoundException();
 			}
-		} catch(NoteNotFoundException e) {
+		} catch(RecipeNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		
 		ioController.writeObjectToFile(recipes, filepath);
+	}
+	
+	public void createBrew(int id) {
+		ArrayList<Recipe> recipes = extractRecipe();
+		boolean found = false;
+		try {
+			for (int i = 0; i < recipes.size(); i++) {
+				if (recipes.get(i).getId() == id) {
+					recipes.get(i).createBrew();
+					i--;
+					found = true;
+				}
+			}
+			if(!found) {
+				throw new RecipeNotFoundException();
+			}
+		} catch(RecipeNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	//for only testing purpose
@@ -142,18 +161,5 @@ public class RecipeController implements ActionListener{
 		return null;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch(e.getActionCommand()) {
-		case "Brew it!":
-		    System.out.println("create brew");
-		    break;
-		case "Modify":
-			System.out.println("modify");
-			break;
-		case "Delete":
-			System.out.println("modify");
-			break;
-		}
-	}
+	public void actionPerformed(ActionEvent e) {}
 }

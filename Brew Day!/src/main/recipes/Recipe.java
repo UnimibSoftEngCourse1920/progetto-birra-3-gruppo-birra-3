@@ -85,6 +85,9 @@ public class Recipe implements Serializable{
 			Brew b = new Brew(this, currentDate);
 			countBrew++;
 			
+			BrewController brewController = BrewController.getInstance();
+			brewController.store(b);
+			
 			//subtract ingredients from storage
 			Map<String,Double> storageIngredients = storage.getIngredients();
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {

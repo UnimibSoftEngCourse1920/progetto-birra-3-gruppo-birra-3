@@ -61,7 +61,6 @@ public class ButtonColumn extends AbstractCellEditor
 		table.addMouseListener( this );
 	}
 
-
 	/**
 	 *  Get foreground color of the button when the cell has focus
 	 *
@@ -184,7 +183,6 @@ public class ButtonColumn extends AbstractCellEditor
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-		System.out.println(e.getActionCommand());
 		int row = table.convertRowIndexToModel( table.getEditingRow() );
 		fireEditingStopped();
 
@@ -193,8 +191,9 @@ public class ButtonColumn extends AbstractCellEditor
 		ActionEvent event = new ActionEvent(
 			table,
 			ActionEvent.ACTION_PERFORMED,
-			e.getActionCommand());
+			table.getModel().getValueAt(row, 0) + "/" + e.getActionCommand() + "/" + row);
 		action.actionPerformed(event);
+		System.out.println(event.getActionCommand());
 	}
 
 //

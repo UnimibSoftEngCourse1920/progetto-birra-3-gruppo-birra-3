@@ -14,9 +14,13 @@ import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
+import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 
@@ -47,22 +51,34 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		
 		Font f = new Font("TimesRoman",Font.BOLD,25);
 		JTable recipesTable = new JTable(createRecipesTable());
+		JScrollPane scrollPane = new JScrollPane(recipesTable);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+		
+		TableColumnModel columnModel = recipesTable.getColumnModel();
+		TableColumn column = columnModel.getColumn(2);
+        MultiRowCell multiRowCell = new MultiRowCell();
+        column.setCellEditor(multiRowCell);
+        column.setCellRenderer(multiRowCell);
+
+        int height = multiRowCell.getTableCellRendererComponent(recipesTable, "Test", true, true, 0, 0).getPreferredSize().height;
+        recipesTable.setRowHeight(height);
+		
 		recipesTable.getTableHeader().setFont(f);
 		recipesTable.setFont(f);
-		recipesTable.setRowHeight(30);
+		recipesTable.setRowHeight(60);
 		recipesTable.setFillsViewportHeight(true);
 		recipesTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
-		RecipeController recipeController = RecipeController.getInstance();
 		@SuppressWarnings("unused")
-		ButtonColumn createBrewColumn = new ButtonColumn(recipesTable, recipeController, 3);
+		ButtonColumn createBrewColumn = new ButtonColumn(recipesTable, this, 3);
 		@SuppressWarnings("unused")
-		ButtonColumn modifyColumn = new ButtonColumn(recipesTable, recipeController, 4);
+		ButtonColumn modifyColumn = new ButtonColumn(recipesTable, this, 4);
 		@SuppressWarnings("unused")
-		ButtonColumn deleteColumn = new ButtonColumn(recipesTable, recipeController, 5);
+		ButtonColumn deleteColumn = new ButtonColumn(recipesTable, this, 5);
 		
         
-		viewRecipesPanel.add(recipesTable);
+		viewRecipesPanel.add(scrollPane);
 		
 		Dimension d = new Dimension(200, 70);
 		JButton backButton = new JButton("Back");
@@ -71,7 +87,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		bottomPanel.add(backButton);
 		
 		JButton addRecipeButton = new JButton("New recipe");
-		addRecipeButton.addActionListener(recipeController);
+		addRecipeButton.addActionListener(this);
 		addRecipeButton.setPreferredSize(d);
 		bottomPanel.add(addRecipeButton);
 	}
@@ -93,6 +109,30 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe2 = new Recipe("Recipe2", ingredients2);
 		recipeController.store(recipe2);
+		
+		/*
+		Recipe recipe3 = new Recipe("Recipe3", ingredients2);
+		Recipe recipe4 = new Recipe("Recipe4", ingredients2);
+		Recipe recipe5 = new Recipe("Recipe5", ingredients2);
+		Recipe recipe6 = new Recipe("Recipe6", ingredients2);
+		Recipe recipe7 = new Recipe("Recipe7", ingredients2);
+		Recipe recipe8 = new Recipe("Recipe8", ingredients2);
+		Recipe recipe9 = new Recipe("Recipe9", ingredients2);
+		Recipe recipe10 = new Recipe("Recipe10", ingredients2);
+		Recipe recipe11 = new Recipe("Recipe11", ingredients2);
+		Recipe recipe12 = new Recipe("Recipe12", ingredients2);
+		recipeController.store(recipe2);
+		recipeController.store(recipe3);
+		recipeController.store(recipe4);
+		recipeController.store(recipe5);
+		recipeController.store(recipe6);
+		recipeController.store(recipe7);
+		recipeController.store(recipe8);
+		recipeController.store(recipe9);
+		recipeController.store(recipe10);
+		recipeController.store(recipe11);
+		recipeController.store(recipe12);
+		*/
 		//Only for testing purposes
 		
 		ArrayList<Recipe> recipes = recipeController.extractRecipe();
@@ -105,6 +145,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 			@Override
 		    public boolean isCellEditable(int row, int column) {
 				switch (column) {
+				 case 2:
 				 case 3:
 		         case 4:
 		         case 5:
@@ -119,7 +160,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		for(Recipe r : recipes) {
 			ingredients = "";
 			for(Entry<String, Double> i : r.getIngredients().entrySet()) {
-				ingredients +=  "  " + i.getKey() + "= " + Double.toString(i.getValue());
+				ingredients +=  i.getKey() + ": " + Double.toString(i.getValue()) + "\n";
 			}
 			model.addRow(new String[] {Integer.toString(r.getId()),r.getName(),ingredients,"Brew it!","Modify","Delete"});
 		}
@@ -132,7 +173,45 @@ public class RecipeWindow extends JFrame implements ActionListener{
 			case "Back":
 				setVisible(false);
 				MainWindow.getInstance().setVisible(true);
+				dispose();
 				break;
+			case "New recipe":
+				setVisible(false);
+				new CreateRecipeWindow().setVisible(true);
+				dispose();
+				break;
+			default:
+				String[] tokens = e.getActionCommand().split("/");
+				System.out.println(e.getActionCommand());
+				int recipeId = Integer.parseInt(tokens[0]);
+				String command = tokens[1];
+				int row = Integer.parseInt(tokens[2]);
+				System.out.println(command);
+				System.out.println(recipeId);
+				System.out.println(row);
+				
+				RecipeController recipeController = RecipeController.getInstance();
+				switch(command) {
+					case "Brew it!":
+						setVisible(false);
+						recipeController.createBrew(recipeId);
+					    //Only for testing purposes
+						BrewController brewController = BrewController.getInstance();
+						brewController.deleteFile();
+						//Only for testing purposes
+						new CreateBrewWindow(recipeId).setVisible(true);
+						dispose();
+						break;
+					case "Modify":
+						setVisible(false);
+						new ModifyRecipeWindow(recipeId).setVisible(true);
+						dispose();
+						break;
+					case "Delete":
+						recipeController.delete(recipeId);
+						JTable table = (JTable)e.getSource();
+				        ((DefaultTableModel)table.getModel()).removeRow(row);
+			}
 		}
 	}
 	
