@@ -35,6 +35,7 @@ public class InsertInstrumentsWindow extends JFrame {
 				try {
 					InsertInstrumentsWindow frame = new InsertInstrumentsWindow(0);
 					frame.setVisible(true);
+					frame.setSize(600, 400);	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,7 +49,7 @@ public class InsertInstrumentsWindow extends JFrame {
 	public InsertInstrumentsWindow(int numberInstruments) {
 		super("Brew Day! - Insert instruments");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -64,7 +65,7 @@ public class InsertInstrumentsWindow extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Capacity"}, 0);
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Instrument name","Capacity (l)"}, 0);
 		for(int i=0; i<numberInstruments; i++) {
 			model.addRow(new String[] {"",""});
 		}
@@ -83,8 +84,15 @@ public class InsertInstrumentsWindow extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				if (table.isEditing())
+				    table.getCellEditor().stopCellEditing();
+				
 				EquipmentController equipmentController = EquipmentController.getInstance();
 				equipmentController.createEquipment(createInstruments());
+				
+				EquipmentWindow equipmentWin = new EquipmentWindow();
+				equipmentWin.setVisible(true);
+				dispose();
 			}
 		});
 		
@@ -109,16 +117,16 @@ public class InsertInstrumentsWindow extends JFrame {
 				if (!instrumentName.matches("[a-zA-Z_]+")) {
 					throw new IllegalArgumentException();
 				}
+				
 				instruments.put(table.getValueAt(i, 0).toString(), fromStringToDouble(table.getValueAt(i, 1).toString()));
 			}
 			return instruments;
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this,"Insert only positive number in quantity field");
-			return null;
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this,"Insert only string in name field");
-			return null;
 		}
+		return null;
 	}
 
 	

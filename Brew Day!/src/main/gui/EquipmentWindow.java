@@ -34,6 +34,7 @@ public class EquipmentWindow extends JFrame {
 				try {
 					EquipmentWindow frame = new EquipmentWindow();
 					frame.setVisible(true);
+					frame.setSize(600, 400);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +48,7 @@ public class EquipmentWindow extends JFrame {
 	public EquipmentWindow() {
 		super("Brew Day! - Equipment menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -56,16 +57,16 @@ public class EquipmentWindow extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		JLabel lblEquipment = new JLabel("Equipment");
+		JLabel lblEquipment = new JLabel("Equipment menu");
 		panel.add(lblEquipment);
 
 		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.WEST);
+		contentPane.add(panel_1, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{121, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWidths = new int[]{121};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0};
+		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 
 		JButton btnShowEquipment = new JButton("Show Equipment");
@@ -91,6 +92,13 @@ public class EquipmentWindow extends JFrame {
 				}
 			}
 		});
+		
+		GridBagConstraints gbc_btnShowEquipment = new GridBagConstraints();
+		gbc_btnShowEquipment.fill = GridBagConstraints.BOTH;
+		gbc_btnShowEquipment.insets = new Insets(0, 0, 5, 0);
+		gbc_btnShowEquipment.gridx = 0;
+		gbc_btnShowEquipment.gridy = 1;
+		panel_1.add(btnShowEquipment, gbc_btnShowEquipment);
 
 
 		JButton btnCreateEquipment = new JButton("Create Equipment");
@@ -124,12 +132,9 @@ public class EquipmentWindow extends JFrame {
 		gbc_btnCreateEquipment.gridx = 0;
 		gbc_btnCreateEquipment.gridy = 0;
 		panel_1.add(btnCreateEquipment, gbc_btnCreateEquipment);
-		GridBagConstraints gbc_btnShowEquipment = new GridBagConstraints();
-		gbc_btnShowEquipment.fill = GridBagConstraints.BOTH;
-		gbc_btnShowEquipment.insets = new Insets(0, 0, 5, 0);
-		gbc_btnShowEquipment.gridx = 0;
-		gbc_btnShowEquipment.gridy = 1;
-		panel_1.add(btnShowEquipment, gbc_btnShowEquipment);
+		
+		
+		
 
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
 
@@ -180,6 +185,7 @@ public class EquipmentWindow extends JFrame {
 		});
 
 		GridBagConstraints gbc_btnInsertNewInstrument = new GridBagConstraints();
+		gbc_btnInsertNewInstrument.fill = GridBagConstraints.BOTH;
 		gbc_btnInsertNewInstrument.insets = new Insets(0, 0, 5, 0);
 		gbc_btnInsertNewInstrument.gridx = 0;
 		gbc_btnInsertNewInstrument.gridy = 3;
@@ -188,10 +194,13 @@ public class EquipmentWindow extends JFrame {
 
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
 		
+		
 		btnDeleteInstrument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				EquipmentController equipmentController = EquipmentController.getInstance();
+				int size = equipmentController.extractEquipment().getInstruments().size();
 				File f = new File(filepath);
-				if(f.exists()) {
+				if(f.exists() && size != 0) {
 					DeleteInstrumentWindow deleteInstrumentWin = new DeleteInstrumentWindow();
 					deleteInstrumentWin.setVisible(true);
 					dispose();
@@ -204,9 +213,23 @@ public class EquipmentWindow extends JFrame {
 		});
 
 		GridBagConstraints gbc_btnDeleteInstrument = new GridBagConstraints();
+		gbc_btnDeleteInstrument.insets = new Insets(0, 0, 5, 0);
 		gbc_btnDeleteInstrument.fill = GridBagConstraints.BOTH;
 		gbc_btnDeleteInstrument.gridx = 0;
 		gbc_btnDeleteInstrument.gridy = 4;
 		panel_1.add(btnDeleteInstrument, gbc_btnDeleteInstrument);
+		
+		JPanel panel_2 = new JPanel();
+		contentPane.add(panel_2, BorderLayout.SOUTH);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainWindow mainWin = MainWindow.getInstance();
+				mainWin.setVisible(true);
+				dispose();
+			}
+		});
+		panel_2.add(btnBack);
 	}
 }

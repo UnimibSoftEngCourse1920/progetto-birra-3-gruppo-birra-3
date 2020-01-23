@@ -34,6 +34,7 @@ public class ShowEquipmentWindow extends JFrame {
 				try {
 					ShowEquipmentWindow frame = new ShowEquipmentWindow();
 					frame.setVisible(true);
+					frame.setSize(600, 400);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +48,7 @@ public class ShowEquipmentWindow extends JFrame {
 	public ShowEquipmentWindow() {
 		super("Brew Day! - Show equipment");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -94,6 +95,26 @@ public class ShowEquipmentWindow extends JFrame {
 			}
 		});
 		panel_2.add(btnBack);
+		
+		JButton btnModifyEquipment = new JButton("Modify Equipment");
+		btnModifyEquipment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModifyEquipmentWindow modifyEqWin = new ModifyEquipmentWindow();
+				modifyEqWin.setVisible(true);
+				dispose();
+			}
+		});
+		panel_2.add(btnModifyEquipment);
+		
+		JButton btnDeleteInstrument = new JButton("Delete Instrument");
+		btnDeleteInstrument.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeleteInstrumentWindow deleteInstrumentWin = new DeleteInstrumentWindow();
+				deleteInstrumentWin.setVisible(true);
+				dispose();
+			}
+		});
+		panel_2.add(btnDeleteInstrument);
 		
 	}
 

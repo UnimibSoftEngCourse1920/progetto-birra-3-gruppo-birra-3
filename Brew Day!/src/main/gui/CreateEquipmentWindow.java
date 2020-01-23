@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -31,6 +32,7 @@ public class CreateEquipmentWindow extends JFrame {
 				try {
 					CreateEquipmentWindow frame = new CreateEquipmentWindow();
 					frame.setVisible(true);
+					frame.setSize(600, 400);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,7 +46,7 @@ public class CreateEquipmentWindow extends JFrame {
 	public CreateEquipmentWindow() {
 		super("Brew Day! - Create equipment");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -61,7 +63,7 @@ public class CreateEquipmentWindow extends JFrame {
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{301, 0};
 		gbl_panel_2.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel_2.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{10.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
@@ -72,9 +74,8 @@ public class CreateEquipmentWindow extends JFrame {
 		gbc_lblHowManyInstruments.gridy = 0;
 		panel_2.add(lblHowManyInstruments, gbc_lblHowManyInstruments);
 		
-		textField = new JTextField();
+		textField = new JTextField(10);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 1;
@@ -83,12 +84,20 @@ public class CreateEquipmentWindow extends JFrame {
 		JButton btnNext = new JButton("Next >");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String inputString = textField.getText();
-				int input = Integer.parseInt(inputString);
+				try {
+					String inputString = textField.getText();
+					int input = Integer.parseInt(inputString);
+					InsertInstrumentsWindow insertInstrumentsWin = new InsertInstrumentsWindow(input);
+					insertInstrumentsWin.setVisible(true);
+					dispose();
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(panel_2,"You must insert a number");
+				}catch(NullPointerException e1) {
+					JOptionPane.showMessageDialog(panel_2, "You must insert a number");
+				}
 				
-				InsertInstrumentsWindow insertInstrumentsWin = new InsertInstrumentsWindow(input);
-				insertInstrumentsWin.setVisible(true);
-				dispose();
+				
+				
 			}
 		});
 		
