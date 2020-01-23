@@ -69,7 +69,6 @@ public class ShowEquipmentWindow extends JFrame {
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Instrument name","Quantity"}, 0) {
 			@Override
 			   public boolean isCellEditable(int row, int column) {
-			       //Only the third column
 			       return false;
 			   }
 			};

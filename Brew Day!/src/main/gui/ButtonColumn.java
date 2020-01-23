@@ -185,7 +185,7 @@ public class ButtonColumn extends AbstractCellEditor
 	public void actionPerformed(ActionEvent e)
 	{
 		System.out.println(e.getActionCommand());
-		int row = table.convertRowIndexToModel( table.getEditingRow() );
+		table.convertRowIndexToModel( table.getEditingRow() );
 		fireEditingStopped();
 
 		//  Invoke the Action

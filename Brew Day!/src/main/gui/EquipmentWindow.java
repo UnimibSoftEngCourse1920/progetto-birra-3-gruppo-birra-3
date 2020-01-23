@@ -52,13 +52,13 @@ public class EquipmentWindow extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
-		
+
 		JLabel lblEquipment = new JLabel("Equipment");
 		panel.add(lblEquipment);
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.WEST);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
@@ -67,8 +67,9 @@ public class EquipmentWindow extends JFrame {
 		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
-		
+
 		JButton btnShowEquipment = new JButton("Show Equipment");
+
 		btnShowEquipment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File f = new File(filepath);
@@ -86,13 +87,14 @@ public class EquipmentWindow extends JFrame {
 						showEqWin.setVisible(true);
 						dispose();
 					}
-					
+
 				}
 			}
 		});
-		
-		
+
+
 		JButton btnCreateEquipment = new JButton("Create Equipment");
+
 		btnCreateEquipment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File f = new File(filepath);
@@ -115,6 +117,7 @@ public class EquipmentWindow extends JFrame {
 				}
 			}
 		});
+
 		GridBagConstraints gbc_btnCreateEquipment = new GridBagConstraints();
 		gbc_btnCreateEquipment.fill = GridBagConstraints.BOTH;
 		gbc_btnCreateEquipment.insets = new Insets(0, 0, 5, 0);
@@ -127,8 +130,9 @@ public class EquipmentWindow extends JFrame {
 		gbc_btnShowEquipment.gridx = 0;
 		gbc_btnShowEquipment.gridy = 1;
 		panel_1.add(btnShowEquipment, gbc_btnShowEquipment);
-		
+
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
+
 		btnModifyEquipment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File f = new File(filepath);
@@ -146,20 +150,21 @@ public class EquipmentWindow extends JFrame {
 						modifyEqWin.setVisible(true);
 						dispose();
 					}
-					
+
 				}
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnModifyEquipment = new GridBagConstraints();
 		gbc_btnModifyEquipment.fill = GridBagConstraints.BOTH;
 		gbc_btnModifyEquipment.insets = new Insets(0, 0, 5, 0);
 		gbc_btnModifyEquipment.gridx = 0;
 		gbc_btnModifyEquipment.gridy = 2;
 		panel_1.add(btnModifyEquipment, gbc_btnModifyEquipment);
-		
-		
+
+
 		JButton btnInsertNewInstrument = new JButton("Insert New Instrument");
+		
 		btnInsertNewInstrument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File f = new File(filepath);
@@ -173,15 +178,16 @@ public class EquipmentWindow extends JFrame {
 				}
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnInsertNewInstrument = new GridBagConstraints();
 		gbc_btnInsertNewInstrument.insets = new Insets(0, 0, 5, 0);
 		gbc_btnInsertNewInstrument.gridx = 0;
 		gbc_btnInsertNewInstrument.gridy = 3;
 		panel_1.add(btnInsertNewInstrument, gbc_btnInsertNewInstrument);
-		
-		
+
+
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
+		
 		btnDeleteInstrument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File f = new File(filepath);
@@ -193,10 +199,10 @@ public class EquipmentWindow extends JFrame {
 				else {
 					JOptionPane.showMessageDialog(panel_1, "You have no equipment to delete");
 				}
-				
+
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnDeleteInstrument = new GridBagConstraints();
 		gbc_btnDeleteInstrument.fill = GridBagConstraints.BOTH;
 		gbc_btnDeleteInstrument.gridx = 0;
