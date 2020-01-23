@@ -198,17 +198,19 @@ public class EquipmentWindow extends JFrame {
 		btnDeleteInstrument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EquipmentController equipmentController = EquipmentController.getInstance();
-				int size = equipmentController.extractEquipment().getInstruments().size();
 				File f = new File(filepath);
-				if(f.exists() && size != 0) {
-					DeleteInstrumentWindow deleteInstrumentWin = new DeleteInstrumentWindow();
-					deleteInstrumentWin.setVisible(true);
-					dispose();
-				}
-				else {
+				if(!f.exists()) {
 					JOptionPane.showMessageDialog(panel_1, "You have no equipment to delete");
+				}else {
+						int size = equipmentController.extractEquipment().getInstruments().size();
+						if(size != 0) {
+							DeleteInstrumentWindow deleteInstrumentWin = new DeleteInstrumentWindow();
+							deleteInstrumentWin.setVisible(true);
+							dispose();
+						}else {
+						JOptionPane.showMessageDialog(panel_1, "You have no equipment to delete");
+					}
 				}
-
 			}
 		});
 

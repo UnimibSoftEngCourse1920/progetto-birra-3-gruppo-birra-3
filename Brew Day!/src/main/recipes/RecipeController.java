@@ -96,7 +96,6 @@ public class RecipeController implements ActionListener{
 			for (int i = 0; i < recipes.size(); i++) {
 				if (recipes.get(i).getId() == id) {
 					recipes.get(i).createBrew();
-					i--;
 					found = true;
 				}
 			}
