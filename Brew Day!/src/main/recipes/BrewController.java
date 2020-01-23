@@ -31,7 +31,7 @@ public class BrewController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected ArrayList<Brew> extractBrew() {
+	public ArrayList<Brew> extractBrew() {
 	    if (ioController.readObjectFromFile(filepath) != null) {
 	      return (ArrayList<Brew>) ioController.readObjectFromFile(filepath);
 	    }
@@ -39,7 +39,7 @@ public class BrewController {
 	    return new ArrayList<>();
 	  }
 
-	  protected void store(Brew brew) {
+	  public void store(Brew brew) {
 	    List<Brew> brews = extractBrew();
 	    if (!brews.contains(brew)) {
 	      brews.add(brew);

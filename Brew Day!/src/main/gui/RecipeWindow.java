@@ -27,7 +27,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	public static final int HEIGHT = 720;
 	
 	public RecipeWindow(){
-		super("Brew Day!");
+		super("Recipes");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -138,7 +138,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	
 	public static void main(String[] args){
 		RecipeWindow gui = new RecipeWindow();
-		gui.setVisible( true);
+		gui.setVisible(true);
 	}
 
 }
