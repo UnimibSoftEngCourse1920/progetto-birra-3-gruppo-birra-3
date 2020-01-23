@@ -2,13 +2,15 @@ package main.recipes;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import main.IOController;
 
-public class RecipeController {
+public class RecipeController implements ActionListener{
 
 	private  String filepath;
 	private  IOController ioController; 
@@ -29,7 +31,7 @@ public class RecipeController {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected ArrayList<Recipe> extractRecipe() {
+	public ArrayList<Recipe> extractRecipe() {
 		if (ioController.readObjectFromFile(filepath) != null) {
 			return (ArrayList<Recipe>) ioController.readObjectFromFile(filepath);
 		}
@@ -138,5 +140,20 @@ public class RecipeController {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()) {
+		case "Brew it!":
+		    System.out.println("create brew");
+		    break;
+		case "Modify":
+			System.out.println("modify");
+			break;
+		case "Delete":
+			System.out.println("modify");
+			break;
+		}
 	}
 }

@@ -30,19 +30,19 @@ public class MainWindow extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
-			case "Recipes menu":
+			case "View your recipes":
 			    setVisible(false);
-				RecipeWindow.getInstance().setVisible(true);
+				new RecipeWindow().setVisible(true);
 			    break;
-			case "Brews menu":
+			case "View your brews":
 				setVisible(false);
-				BrewWindow.getInstance().setVisible(true);
+				new BrewWindow().setVisible(true);
 				break;
-			case "Equipment menu":
+			case "View your equipment":
 				//setVisible(false);
 				//EquipmentWindow.getInstance().setVisible(true);
 				break;
-			case "Storage menu":
+			case "View your storage":
 				//setVisible(false);
 				//StorageWindow.getInstance().setVisible(true);
 		}
@@ -127,19 +127,19 @@ public class MainWindow extends JFrame implements ActionListener{
 		mainPanel.add(wsibtPanel);
 		
 		Dimension d = new Dimension(200, 70);
-		JButton recipeButton = new JButton("Recipes menu");
+		JButton recipeButton = new JButton("View your recipes");
 		recipeButton.addActionListener(this);
 		recipeButton.setPreferredSize(d);
 		recipeButtonPanel.add(recipeButton);
-		JButton brewButton = new JButton("Brews menu");
+		JButton brewButton = new JButton("View your brews");
 		brewButton.addActionListener(this);
 		brewButton.setPreferredSize(d);
 		brewButtonPanel.add(brewButton);
-		JButton equipmentButton = new JButton("Equipment menu");
+		JButton equipmentButton = new JButton("View your equipment");
 		equipmentButton.addActionListener(this);
 		equipmentButton.setPreferredSize(d);
 		equipmentButtonPanel.add(equipmentButton);
-		JButton storageButton = new JButton("Storage menu");
+		JButton storageButton = new JButton("View your storage");
 		storageButton.addActionListener(this);
 		storageButton.setPreferredSize(d);
 		storageButtonPanel.add(storageButton);
