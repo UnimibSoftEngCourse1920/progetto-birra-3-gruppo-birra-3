@@ -31,7 +31,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	public static final int HEIGHT = 720;
 	
 	public RecipeWindow(){
-		super("Brew Day!");
+		super("Recipes");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -182,13 +182,9 @@ public class RecipeWindow extends JFrame implements ActionListener{
 				break;
 			default:
 				String[] tokens = e.getActionCommand().split("/");
-				System.out.println(e.getActionCommand());
 				int recipeId = Integer.parseInt(tokens[0]);
 				String command = tokens[1];
 				int row = Integer.parseInt(tokens[2]);
-				System.out.println(command);
-				System.out.println(recipeId);
-				System.out.println(row);
 				
 				RecipeController recipeController = RecipeController.getInstance();
 				switch(command) {
@@ -217,7 +213,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	
 	public static void main(String[] args){
 		RecipeWindow gui = new RecipeWindow();
-		gui.setVisible( true);
+		gui.setVisible(true);
 	}
 
 }

@@ -36,6 +36,7 @@ public class ModifyEquipmentWindow extends JFrame {
 				try {
 					ModifyEquipmentWindow frame = new ModifyEquipmentWindow();
 					frame.setVisible(true);
+					frame.setSize(600, 400);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,7 +50,7 @@ public class ModifyEquipmentWindow extends JFrame {
 	public ModifyEquipmentWindow() {
 		super("Brew Day! - Modify equipment");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -91,9 +92,17 @@ public class ModifyEquipmentWindow extends JFrame {
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {	
+				
+				if (table.isEditing())
+				    table.getCellEditor().stopCellEditing();
+				
 				EquipmentController equipmentController = EquipmentController.getInstance();
 				equipmentController.update(updateInstruments());
+				
+				EquipmentWindow equipmentWin = new EquipmentWindow();
+				equipmentWin.setVisible(true);
+				dispose();
 			}
 		});
 		panel_2.add(btnSave);

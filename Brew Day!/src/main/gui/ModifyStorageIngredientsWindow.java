@@ -25,7 +25,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 
 	private StorageController sController;
 	private JTable ingredientsTable;
-	public static final int WIDTH = 1280;
+	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 
 	public ModifyStorageIngredientsWindow() {
@@ -73,7 +73,12 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 	}
 
 	private DefaultTableModel createIngredientsTable(Map<String,Double> ingredients) {
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0);
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0) {
+			@Override
+			   public boolean isCellEditable(int row, int column) {
+			       return column == 1;
+			   }
+		};
 
 		for(Entry<String, Double> i : ingredients.entrySet()) {
 			model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});

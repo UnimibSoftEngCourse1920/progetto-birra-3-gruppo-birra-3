@@ -23,11 +23,11 @@ import main.resources.StorageController;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener{
-	
+
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	private static MainWindow instance;
-	
+
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
 			case "View your recipes":
@@ -49,41 +49,41 @@ public class MainWindow extends JFrame implements ActionListener{
 	}
 
 	private MainWindow() throws HeadlessException {
-	    super("Brew Day!");
+		super("Brew Day!");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
-		
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(2, 0));
-		
+
 		JPanel resourcesPanel = new JPanel();
 		resourcesPanel.setLayout(new GridLayout(1, 4));
-		
+
 		JPanel wsibtPanel = new JPanel();
 		wsibtPanel.setBackground(Color.ORANGE);
 		wsibtPanel.setLayout(new GridLayout(2, 0));
-		
+
 		JPanel recipePanel = new JPanel();
 		recipePanel.setBackground(Color.CYAN);
 		recipePanel.setLayout(new GridLayout(2, 0));
 		resourcesPanel.add(recipePanel);
-		
+
 		JPanel brewPanel = new JPanel();
 		brewPanel.setBackground(Color.GREEN);
 		brewPanel.setLayout(new GridLayout(2, 0));
 		resourcesPanel.add(brewPanel);
-		
+
 		JPanel equipmentPanel = new JPanel();
 		equipmentPanel.setBackground(Color.YELLOW);
 		equipmentPanel.setLayout(new GridLayout(2, 0));
 		resourcesPanel.add(equipmentPanel);
-		
+
 		JPanel storagePanel = new JPanel();
 		storagePanel.setLayout(new GridLayout(2, 0));
 		storagePanel.setBackground(Color.RED);
 		resourcesPanel.add(storagePanel);
-		
+
 		Font f = new Font("TimesRoman",Font.BOLD,25);
 		JLabel recipeLabel = new JLabel("Recipes");
 		recipeLabel.setFont(f);
@@ -101,31 +101,31 @@ public class MainWindow extends JFrame implements ActionListener{
 		brewPanel.add(brewLabel);
 		equipmentPanel.add(equipmentLabel);
 		storagePanel.add(storageLabel);
-		
+
 		JPanel recipeButtonPanel = new JPanel();
 		recipeButtonPanel.setLayout(new FlowLayout());
 		recipeButtonPanel.setBackground(Color.CYAN);
 		recipePanel.add(recipeButtonPanel);
-		
+
 		JPanel brewButtonPanel = new JPanel();
 		brewButtonPanel.setLayout(new FlowLayout());
 		brewButtonPanel.setBackground(Color.GREEN);
 		brewPanel.add(brewButtonPanel);
-		
+
 		JPanel equipmentButtonPanel = new JPanel();
 		equipmentButtonPanel.setLayout(new FlowLayout());
 		equipmentButtonPanel.setBackground(Color.YELLOW);
 		equipmentPanel.add(equipmentButtonPanel);
-		
+
 		JPanel storageButtonPanel = new JPanel();
 		storageButtonPanel.setLayout(new FlowLayout());
 		storageButtonPanel.setBackground(Color.RED);
 		storagePanel.add(storageButtonPanel);
-		
+
 		add(mainPanel);
 		mainPanel.add(resourcesPanel);
 		mainPanel.add(wsibtPanel);
-		
+
 		Dimension d = new Dimension(200, 70);
 		JButton recipeButton = new JButton("View your recipes");
 		recipeButton.addActionListener(this);
@@ -143,29 +143,29 @@ public class MainWindow extends JFrame implements ActionListener{
 		storageButton.addActionListener(this);
 		storageButton.setPreferredSize(d);
 		storageButtonPanel.add(storageButton);
-		
+
 		Recipe wsibtRecipe = getWSIBT();
 		JLabel wsibtLabel = new JLabel("What should I brew today? " + wsibtRecipe.getName());
 		wsibtLabel.setFont(f);
 		wsibtLabel.setHorizontalAlignment(JLabel.CENTER);
 		wsibtPanel.add(wsibtLabel);
-		
+
 		JPanel wsibtButtonPanel = new JPanel();
 		wsibtButtonPanel.setBackground(Color.ORANGE);
 		wsibtButtonPanel.setLayout(new FlowLayout());
 		wsibtPanel.add(wsibtButtonPanel);
-		
+
 		JButton wsibtButton = new JButton("Brew it!");
 		//wsibtButton.addActionListener(new createBrewListener(wsibtRecipe));
 		wsibtButton.setPreferredSize(d);
 		wsibtButtonPanel.add(wsibtButton);
 	}
-	
+
 	public Recipe getWSIBT() {
 		RecipeController recipeController = RecipeController.getInstance();
 		return recipeController.featureWSIBT();
 	}
-	
+
 	public static MainWindow getInstance() {
 		if (instance == null) {
 			instance = new MainWindow();
@@ -173,7 +173,7 @@ public class MainWindow extends JFrame implements ActionListener{
 
 		return instance;
 	}
-	
+
 	public static void main(String[] args)
 	{
 		//Only for testing purposes
@@ -184,16 +184,28 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients.put("Sugar", 50.0);
 		StorageController storageController = StorageController.getInstance();
 		storageController.createStorage(ingredients);
-		
-		
+
 		RecipeController recipeController = RecipeController.getInstance();
 		HashMap<String,Double> ingredients2 = new HashMap<>();
 		ingredients2.put("Malt", 10.0); 
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe = new Recipe("Test Recipe", ingredients2);
 		recipeController.store(recipe);
-		//Only for testing purposes
-		
+
+		/*Only for testing purposes
+		BrewController brewController = BrewController.getInstance();
+		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		Brew brew1 = recipe.createBrew();
+		brewController.store(brew1);
+
+		HashMap<String,Double> ingredients3 = new HashMap<>();
+		ingredients3.put("Yeast", 10.0); 
+		ingredients3.put("Sugar", 20.0); 
+		Recipe recipe2 = new Recipe("Recipe2", ingredients3);
+		Brew brew2 = recipe2.createBrew();
+		brewController.store(brew2);
+		Only for testing purposes*/
+	
 		MainWindow gui = getInstance();
 		gui.setVisible(true);
 		

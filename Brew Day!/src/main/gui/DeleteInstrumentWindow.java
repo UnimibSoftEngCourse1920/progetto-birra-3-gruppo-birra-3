@@ -32,6 +32,7 @@ public class DeleteInstrumentWindow extends JFrame {
 				try {
 					DeleteInstrumentWindow frame = new DeleteInstrumentWindow();
 					frame.setVisible(true);
+					frame.setSize(600, 400);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,7 +46,7 @@ public class DeleteInstrumentWindow extends JFrame {
 	public DeleteInstrumentWindow() {
 		super("Brew Day! - Delete instrument");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
