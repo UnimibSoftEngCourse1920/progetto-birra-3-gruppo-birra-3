@@ -1,106 +1,174 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import main.recipes.Brew;
 import main.recipes.BrewController;
-
+import main.recipes.Recipe;
+import main.recipes.RecipeController;
+import main.resources.StorageController;
 
 @SuppressWarnings("serial")
 public class BrewWindow extends JFrame implements ActionListener {
 
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	private JPanel contentPane;
+	private JTable table;
 
-	public BrewWindow(){
-		super("Brews");
-		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
-
-		JPanel viewBrewsPanel = new JPanel();
-
-		Font f = new Font("TimesRoman",Font.BOLD,25);
-		JTable brewsTable = new JTable(createbrewsTable());
-		brewsTable.setBorder(null);
-		brewsTable.getTableHeader().setFont(f);
-		brewsTable.setFont(f);
-		brewsTable.setRowHeight(30);
-		brewsTable.setFillsViewportHeight(true);
-		brewsTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-
-		JScrollPane scrollPane = new JScrollPane(brewsTable);
-
-		@SuppressWarnings("unused")
-		ButtonColumn viewNotesColumn = new ButtonColumn(brewsTable, this, 7);
-
-		viewBrewsPanel.add(brewsTable);
-
-		JPanel bottomPanel = new JPanel();
-
-		Dimension d = new Dimension(200, 70);
-		JButton backButton = new JButton("Back");
-		backButton.addActionListener(this);
-		backButton.setPreferredSize(d);
-		bottomPanel.add(backButton);
-
-		this.add(bottomPanel, BorderLayout.CENTER);
-		this.add(scrollPane, BorderLayout.NORTH);
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BrewWindow frame = new BrewWindow();
+					frame.setVisible(true);
+					frame.setSize(1600, 900);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
+	public BrewWindow() {
+		super("Brew Day! - Brews");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(0, 0, 1600, 900);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 
-	public static DefaultTableModel createbrewsTable() {
+		//////////////////////////////////////////////
+		//Only for testing purposes
+		Map<String,Double> ingredients = new HashMap<String, Double>();
+		ingredients.put("Malt", 10.0);
+		ingredients.put("Yeast", 35.0);
+		ingredients.put("Hop", 189.0);
+		ingredients.put("Sugar", 50.0);
+		StorageController storageController = StorageController.getInstance();
+		storageController.createStorage(ingredients);
 
-		BrewController brewController = BrewController.getInstance();
-
-		ArrayList<Brew> Brews = brewController.extractBrew();
+		RecipeController recipeController = RecipeController.getInstance();
+		HashMap<String,Double> ingredients2 = new HashMap<>();
+		ingredients2.put("Malt", 10.0); 
+		ingredients2.put("Hop", 20.0); 
+		Recipe recipe = new Recipe("Test Recipe", ingredients2);
+		recipeController.store(recipe);
 
 		//Only for testing purposes
-		brewController.deleteFile();
-		//Only for testing purposes 
+		BrewController brewController = BrewController.getInstance();
+		brewController.store(recipe.createBrew());
 
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Brew Number","Recipe Number", "Recipe Name","Ingredients","Note's number","Start date", "Finish date",""}, 0) {
+		HashMap<String,Double> ingredients3 = new HashMap<>();
+		ingredients3.put("Yeast", 10.0); 
+		ingredients3.put("Sugar", 20.0); 
+		Recipe recipe2 = new Recipe("Recipe2", ingredients3);
+		Brew brew2 = recipe2.createBrew();
+		brewController.store(brew2);
+		//Only for testing purposes
+		////////////////////////////////////////////////
+
+
+
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
+
+		JLabel label = new JLabel("The brews are:");
+		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
+		panel.add(label);
+
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.CENTER);
+
+		List<Brew> brews = brewController.extractBrew();
+		
+		brewController.deleteFile();
+
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Brew Number","Recipe Number", "Recipe Name","Ingredients","Note's number","Start Date","Finish Date","","",""}, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return column == 7;
+				switch (column) {
+				case 7:
+				case 8:
+				case 9:
+					return true;
+				default:
+					return false;
+				}
 			}
 		};
 
-		String ingredients;
-		for(Brew r : Brews) {
-			ingredients = "";
+		String ingredient;
+		for(Brew r : brews) {
+			ingredient = "";
 			for(Entry<String, Double> i : r.getRecipe().getIngredients().entrySet()) {
-				ingredients +=  "  " + i.getKey() + "= " + Double.toString(i.getValue());
+				ingredient +=  "  " + i.getKey() + "= " + Double.toString(i.getValue());
 			}
-			model.addRow(new String[] {Double.toString(r.getId()),Integer.toString(r.getRecipe().getId()),r.getRecipe().getName(),ingredients,Integer.toString(r.getNotes().size()), new SimpleDateFormat("MM/dd/yyyy").format(r.getStartDate()),new SimpleDateFormat("MM/dd/yyyy").format(r.getFinishDate()),"View Notes","Modify","Delete"});
+			model.addRow(new String[] {Double.toString(r.getId()),Integer.toString(r.getRecipe().getId()),r.getRecipe().getName(),ingredient,Integer.toString(r.getNotes().size()),fromDatetoString(r.getStartDate()),fromDatetoString(r.getFinishDate()),"View Notes","Terminate","Delete"});
 		}
 
-		return model;
+		table = new JTable(model);
+		table.setBorder(null);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.setRowHeight(30);
+		
+		@SuppressWarnings("unused")
+		ButtonColumn viewNotesColumn = new ButtonColumn(table, this, 7);
+		@SuppressWarnings("unused")
+		ButtonColumn terminateColumn = new ButtonColumn(table, this, 8);
+		@SuppressWarnings("unused")
+		ButtonColumn deleteColumn = new ButtonColumn(table, this, 9);
+		JScrollPane scrollPane = new JScrollPane(table);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+
+		JPanel panel_2 = new JPanel();
+		contentPane.add(panel_2, BorderLayout.SOUTH);
+
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font(btnBack.getFont().getName(),Font.BOLD, 17));
+		btnBack.addActionListener(this);
+		panel_2.add(btnBack);
+	}
+
+	public static String fromDatetoString(Date date) {
+		if (date == null) {
+			return "";
+		}
+
+		String pattern = "dd/MM/yyyy";
+
+		DateFormat df = new SimpleDateFormat(pattern);
+
+		return df.format(date);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		switch(e.getActionCommand()) {
-		case "Back":
-			setVisible(false);
-			MainWindow.getInstance().setVisible(true);
-			break;
-		}
-	}
-
-	public static void main(String[] args){
-		BrewWindow gui = new BrewWindow();
-		gui.setVisible( true);
+		MainWindow.getInstance().setVisible(true);
+		dispose();
 	}
 }

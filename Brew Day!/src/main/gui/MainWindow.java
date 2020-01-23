@@ -170,6 +170,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		wsibtLabel.setHorizontalAlignment(JLabel.CENTER);
 		wsibtPanel.add(wsibtLabel);
 
+
 		JPanel wsibtButtonPanel = new JPanel();
 		wsibtButtonPanel.setBackground(Color.ORANGE);
 		wsibtButtonPanel.setLayout(new FlowLayout());
@@ -226,7 +227,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe1 = new Recipe("Recipe1", ingredients2);
 		recipeController.store(recipe1);
-
+		
 		//create recipe2
 		HashMap<String,Double> ingredients3 = new HashMap<>();
 		ingredients3.put("Malt", 100.0); 
@@ -251,12 +252,12 @@ public class MainWindow extends JFrame implements ActionListener{
 		Brew brew2 = recipe2.createBrew();
 		brewController.store(brew2);
 		*/
-
+		
+		//Only for testing purpose
 		MainWindow gui = getInstance();
 		gui.setVisible(true);
 		
 		//Only for testing purposes
 		recipeController.deleteFile();
-		storageController.deleteFile();
 	}
 }
