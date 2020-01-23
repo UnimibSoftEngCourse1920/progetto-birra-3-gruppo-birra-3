@@ -119,44 +119,50 @@ public class RecipeController implements ActionListener{
 		}
 	}
 	
-	public Recipe featureWSIBT() {
-		//inserisco tutte le ricette in un arraylist
-		ArrayList<Recipe> recipes = extractRecipe();
-		//creo hashmap per inserire le ricette possibili sulla base degli ingredienti
-		Map<Integer, Double> recipeMax = new HashMap<>();
-		//scorro l'arraylist e per ogni ricetta faccio il controllo sugli ingredienti
-		for (int i = 0; i < recipes.size(); i++) {
-			Recipe r = recipes.get(i);
-			Map<String, Double> missingIngredients = r.computeMissingIngredients();
-			double totIngredients = 0.0;
-			//se sono presenti tutti gli ingredienti in storage calcolo gli ingredienti
-			if(missingIngredients.isEmpty()) {
-				Map<String, Double> ingredients = r.getIngredients();
-				for(Entry<String, Double> j : ingredients.entrySet()) {
-					totIngredients = totIngredients + j.getValue();
-				}
-				recipeMax.put(r.getId(), totIngredients);
-			}			
-		}
+public Recipe featureWSIBT() {
 		
-		//se esiste una ricetta plausibile
-		if(!recipeMax.isEmpty()) {
-			double max = 0.0;
-			int id = -1;
-			//cerco la ricetta che massimizza gli ingredienti utilizzati
-			for(Entry<Integer, Double> r : recipeMax.entrySet()) {
-				if(r.getValue() > max) {
-					max = r.getValue();
-				    id = r.getKey();
-				}
-			}
-			//determino la ricetta da restituire
+		try {
+			//inserisco tutte le ricette in un arraylist
+			ArrayList<Recipe> recipes = extractRecipe();
+			//creo hashmap per inserire le ricette possibili sulla base degli ingredienti
+			Map<Integer, Double> recipeMax = new HashMap<>();
+			//scorro l'arraylist e per ogni ricetta faccio il controllo sugli ingredienti
 			for (int i = 0; i < recipes.size(); i++) {
 				Recipe r = recipes.get(i);
-				if(r.getId() == id) {
-					return r;
+				Map<String, Double> missingIngredients = r.computeMissingIngredients();
+				double totIngredients = 0.0;
+				//se sono presenti tutti gli ingredienti in storage calcolo gli ingredienti
+				if(missingIngredients.isEmpty()) {
+					Map<String, Double> ingredients = r.getIngredients();
+					for(Entry<String, Double> j : ingredients.entrySet()) {
+						totIngredients = totIngredients + j.getValue();
+					}
+					recipeMax.put(r.getId(), totIngredients);
+				}			
+			}
+			
+			//se esiste una ricetta plausibile
+			if(!recipeMax.isEmpty()) {
+				double max = 0.0;
+				int id = -1;
+				//cerco la ricetta che massimizza gli ingredienti utilizzati
+				for(Entry<Integer, Double> r : recipeMax.entrySet()) {
+					if(r.getValue() > max) {
+						max = r.getValue();
+					    id = r.getKey();
+					}
+				}
+				//determino la ricetta da restituire
+				for (int i = 0; i < recipes.size(); i++) {
+					Recipe r = recipes.get(i);
+					if(r.getId() == id) {
+						return r;
+					}
 				}
 			}
+			throw new RecipeNotFoundException("Recipe not found");
+		}catch(RecipeNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}
