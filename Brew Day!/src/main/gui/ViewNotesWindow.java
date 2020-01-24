@@ -55,12 +55,12 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
 		
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Recipe Name","Brew Number","Notes","Type","",""}, 0) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Recipe Name","Brew Number","Note number","Notes","Type","",""}, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				switch (column) {
-				case 4:
 				case 5:
+				case 6:
 					return true;
 				default:
 					return false;
@@ -71,7 +71,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		for(Brew b : brews) {
 			if (b.getId().compareTo(this.brewId) == 0) {
 				for(Entry<Integer, String> note : b.getNotes().entrySet()) {
-					model.addRow(new String[] {b.getRecipe().getName(),Double.toString(b.getId()),note.getValue(),b.getNoteType(note.getKey()),"Modify","Delete"});
+					model.addRow(new String[] {b.getRecipe().getName(),Double.toString(b.getId()),note.getKey().toString(),note.getValue(),b.getNoteType(note.getKey()),"Modify","Delete"});
 				}
 			}
 		}
@@ -85,9 +85,9 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		table.setRowHeight(30);
 
 		@SuppressWarnings("unused")
-		ButtonColumn viewNotesColumn = new ButtonColumn(table, this, 4);
+		ButtonColumn viewNotesColumn = new ButtonColumn(table, this, 5);
 		@SuppressWarnings("unused")
-		ButtonColumn terminateColumn = new ButtonColumn(table, this, 5);
+		ButtonColumn terminateColumn = new ButtonColumn(table, this, 6);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -104,8 +104,6 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		backButton.setFont(new Font(backButton.getFont().getName(),Font.BOLD, 18));
 		backButton.addActionListener(this);
 		panel_2.add(backButton);
-
-		brewController.deleteFile();
 	}
 
 	public static String fromDatetoString(Date date) {
@@ -129,21 +127,23 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 			break;
 		case "Add":
 			setVisible(false);
+			new AddOrModifyNoteWindow(brewId,0).setVisible(true);
 			dispose();
 			break;
 		default:
-			String[] tokens = e.getActionCommand().split("/");
-			int noteId = Integer.parseInt(tokens[0]);
-			String command = tokens[1];
-			int row = Integer.parseInt(tokens[2]);
+			String[] tokens1 = e.getActionCommand().split("/");
+			int noteId1 = Integer.parseInt(tokens1[2]);
+			String command = tokens1[1];
+			int row = Integer.parseInt(tokens1[2]);
 			
 			switch(command) {
 				case "Modify":
 					setVisible(false);
+					new AddOrModifyNoteWindow(brewId,noteId1).setVisible(true);
 					dispose();
 					break;
 				case "Delete":
-					brewController.deleteNote(brewId, noteId);
+					brewController.deleteNote(brewId, noteId1);
 					JTable table = (JTable)e.getSource();
 			        ((DefaultTableModel)table.getModel()).removeRow(row);
 		}

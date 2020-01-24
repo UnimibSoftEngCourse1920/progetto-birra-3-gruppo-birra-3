@@ -83,25 +83,28 @@ public class BrewControllerTest {
 		
 		Recipe recipe = new Recipe("Recipe", new HashMap<>());
 	    Brew brew1 = recipe.createBrew();
-	    brew1.addNote("Note 1",true);
-	    brew1.addNote("Note 2",false);
+	    brewController.addNote(brew1.getId(), "Note 1", true);
+	    brewController.addNote(brew1.getId(), "Note 2", false);
+	    System.out.println(brew1.getNotes().toString());
 		
 	    Brew brew2 = recipe.createBrew();
-	    brew2.addNote("Note 3",true);
-	    brew2.addNote("Note 4",false);
-	    brewController.store(brew1);
-	    brewController.store(brew2);  
+	    brewController.addNote(brew2.getId(), "Note 3", false);
+	    System.out.println(brew2.getNotes().toString());
 	    
 	    String noteEdit1 = "Note 1 Edit";
-		String noteEdit2 = "Note 4 Edit";
+		String noteEdit2 = "Note 3 Edit";
 		
 		brewController.updateNote(brew1.getId(),-1,noteEdit1);
-		brewController.updateNote(brew2.getId(),2,noteEdit2);
+		brewController.updateNote(brew2.getId(),1,noteEdit2);
 		
 		brew1.modifyNote(-1, noteEdit1);
-		brew2.modifyNote(2, noteEdit2);
+		System.out.println(brew1.getNotes().toString());
+		brew2.modifyNote(1, noteEdit2);
+		System.out.println(brew2.getNotes().toString());
 		
 		ArrayList<Brew> brews = brewController.extractBrew();
+		
+		System.out.println(brews.toString());
 		
 		brewController.deleteFile();
 		
