@@ -79,7 +79,7 @@ public class Recipe implements Serializable{
 
 
 	public Brew createBrew(){
-		Map<String,Double> missingIngredients = computeMissingIngredients();
+		Map<String,Double> missingIngredients = this.computeMissingIngredients();
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
 			Brew b = new Brew(this, currentDate);

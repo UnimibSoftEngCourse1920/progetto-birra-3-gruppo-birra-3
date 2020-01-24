@@ -191,7 +191,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 						BrewController brewController = BrewController.getInstance();
 						brewController.deleteFile();
 						//Only for testing purposes
-						new CreateBrewWindow(recipeId).setVisible(true);
+						new BrewWindow().setVisible(true);
 						dispose();
 						break;
 					case "Modify":
