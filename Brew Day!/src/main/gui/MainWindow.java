@@ -12,12 +12,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import main.instrument.EquipmentController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;

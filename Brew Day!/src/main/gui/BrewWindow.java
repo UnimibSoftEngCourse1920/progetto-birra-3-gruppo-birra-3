@@ -1,7 +1,6 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,23 +34,6 @@ public class BrewWindow extends JFrame implements ActionListener {
 	private BrewController brewController;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BrewWindow frame = new BrewWindow();
-					frame.setVisible(true);
-					frame.setSize(1600, 700);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public BrewWindow() {
@@ -63,10 +45,6 @@ public class BrewWindow extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		
-		
-		BrewController brewController = BrewController.getInstance();
-		/*
 		//////////////////////////////////////////////
 		//Only for testing purposes
 		Map<String,Double> ingredients = new HashMap<String, Double>();
@@ -84,15 +62,9 @@ public class BrewWindow extends JFrame implements ActionListener {
 		Recipe recipe = new Recipe("Test Recipe", ingredients2);
 		recipeController.store(recipe);
 
-<<<<<<< HEAD
 		brewController = BrewController.getInstance();
 		Brew brew1 = recipe.createBrew();
 		brewController.store(brew1);
-=======
-		//Only for testing purposes
-		
-		brewController.store(recipe.createBrew());
->>>>>>> branch 'GUI' of https://github.com/UnimibSoftEngCourse1920/progetto-birra-3-gruppo-birra-3.git
 
 		HashMap<String,Double> ingredients3 = new HashMap<>();
 		ingredients3.put("Yeast", 10.0); 
@@ -106,7 +78,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		brewController.addNote(brew2.getId(), "Note 2", true);
 		//Only for testing purposes
 		////////////////////////////////////////////////
-		*/
+
 
 
 		JPanel panel = new JPanel();
@@ -228,7 +200,9 @@ public class BrewWindow extends JFrame implements ActionListener {
 
 				for (Brew b : brews1) {
 					if (b.getId().compareTo(brewId) == 0) {
-						if (b.getFinishDate() != null) terminated = true;
+						if (b.getFinishDate() != null) {
+							terminated1 = true;
+						}
 					}
 				}
 
@@ -237,7 +211,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 					JTable table1 = (JTable)e.getSource();
 					((DefaultTableModel)table1.getModel()).removeRow(row);
 				} else {
-					JOptionPane.showMessageDialog(this,"You can't cancel a not terminated brew");
+					JOptionPane.showMessageDialog(this,"You can't cancel a terminated brew");
 				}
 
 				break;

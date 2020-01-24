@@ -42,7 +42,16 @@ public class BrewController {
 
 	  public void store(Brew brew) {
 	    List<Brew> brews = extractBrew();
-	    if (!brews.contains(brew)) {
+	    
+	    boolean found = false;
+	    
+	    for (Brew b : brews) {
+			if (b.getId().compareTo(brew.getId()) == 0) {
+				found = true;
+			}
+	    }
+	    
+	    if (found == false) {
 	      brews.add(brew);
 	      ioController.writeObjectToFile(brews, filepath);
 	    }
