@@ -2,15 +2,13 @@ package main.recipes;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import main.IOController;
 
-public class RecipeController implements ActionListener{
+public class RecipeController {
 
 	private  String filepath;
 	private  IOController ioController; 
@@ -48,7 +46,7 @@ public class RecipeController implements ActionListener{
 		}
 	}
 
-	protected void update(int id, String name, Map<String,Double> ingredients) {
+	public void update(int id, String name, Map<String,Double> ingredients) {
 		ArrayList<Recipe> recipes = extractRecipe();
 		boolean found = false;
 		try {
@@ -165,6 +163,4 @@ public Recipe featureWSIBT() {
 		}
 		return null;
 	}
-
-	public void actionPerformed(ActionEvent e) {}
 }

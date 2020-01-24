@@ -10,7 +10,6 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.recipes.Brew;
-import main.recipes.BrewController;
+import main.instrument.EquipmentController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.StorageController;
@@ -183,10 +181,9 @@ public class MainWindow extends JFrame implements ActionListener{
 				Recipe wsibtRecipe = getWSIBT();
 				recipeController.createBrew(wsibtRecipe.getId());
 				
-				//only for testing purpose
-				BrewController brewController = BrewController.getInstance();
-				ArrayList<Brew> ab = brewController.extractBrew();
-				System.out.println(ab.toString());
+				BrewWindow brewWin = new BrewWindow();
+				brewWin.setVisible(true);
+				dispose();
 			}
 		});
 		wsibtButton.setPreferredSize(d);
@@ -209,17 +206,21 @@ public class MainWindow extends JFrame implements ActionListener{
 	public static void main(String[] args)
 	{
 		//Only for testing purposes
+		Map<String, Double> instruments = new HashMap<>();
+		instruments.put("Kettle", 25.0);
+		instruments.put("Fermenter", 10.0);	
+		EquipmentController equipmentController = EquipmentController.getInstance();
+		equipmentController.createEquipment(instruments);
+		
 		//create storage
 		Map<String,Double> ingredients = new HashMap<String, Double>();
-		ingredients.put("Malt", 1000.0);
+	    ingredients.put("Malt", 1000.0);
 		ingredients.put("Yeast", 35.0);
 		ingredients.put("Hop", 189.0);
 		ingredients.put("Sugar", 50.0);
 		StorageController storageController = StorageController.getInstance();
 		storageController.createStorage(ingredients);
-
-		
-		
+	
 		//create recipe1
 		RecipeController recipeController = RecipeController.getInstance();
 		HashMap<String,Double> ingredients2 = new HashMap<>();
@@ -227,37 +228,37 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe1 = new Recipe("Recipe1", ingredients2);
 		recipeController.store(recipe1);
-		
+				
 		//create recipe2
 		HashMap<String,Double> ingredients3 = new HashMap<>();
-		ingredients3.put("Malt", 100.0); 
+	    ingredients3.put("Malt", 100.0); 
 		ingredients3.put("Yeast", 25.0);
 		Recipe recipe2 = new Recipe("Recipe2", ingredients3);
 		recipeController.store(recipe2);
-		
+				
 		//create recipe3
 		HashMap<String,Double> ingredients4 = new HashMap<>();
 		ingredients4.put("Yeast", 10.0); 
 		ingredients4.put("Sugar", 20.0); 
 		Recipe recipe3 = new Recipe("Recipe3", ingredients4);
 		recipeController.store(recipe3);
-		
+				
 		/*
 		//create brew from recipe1
 		BrewController brewController = BrewController.getInstance();
 		Brew brew1 = recipe1.createBrew();
 		brewController.store(brew1);
-		
+				
 		//create brew from recipe2
 		Brew brew2 = recipe2.createBrew();
 		brewController.store(brew2);
 		*/
-		
+				
 		//Only for testing purpose
 		MainWindow gui = getInstance();
 		gui.setVisible(true);
-		
+				
 		//Only for testing purposes
-		recipeController.deleteFile();
+		//recipeController.deleteFile();
 	}
 }

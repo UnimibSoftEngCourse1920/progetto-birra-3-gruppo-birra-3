@@ -63,6 +63,10 @@ public class BrewWindow extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
+		
+		
+		BrewController brewController = BrewController.getInstance();
+		/*
 		//////////////////////////////////////////////
 		//Only for testing purposes
 		Map<String,Double> ingredients = new HashMap<String, Double>();
@@ -80,9 +84,15 @@ public class BrewWindow extends JFrame implements ActionListener {
 		Recipe recipe = new Recipe("Test Recipe", ingredients2);
 		recipeController.store(recipe);
 
+<<<<<<< HEAD
 		brewController = BrewController.getInstance();
 		Brew brew1 = recipe.createBrew();
 		brewController.store(brew1);
+=======
+		//Only for testing purposes
+		
+		brewController.store(recipe.createBrew());
+>>>>>>> branch 'GUI' of https://github.com/UnimibSoftEngCourse1920/progetto-birra-3-gruppo-birra-3.git
 
 		HashMap<String,Double> ingredients3 = new HashMap<>();
 		ingredients3.put("Yeast", 10.0); 
@@ -96,7 +106,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		brewController.addNote(brew2.getId(), "Note 2", true);
 		//Only for testing purposes
 		////////////////////////////////////////////////
-
+		*/
 
 
 		JPanel panel = new JPanel();
