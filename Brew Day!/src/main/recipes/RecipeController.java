@@ -2,7 +2,10 @@ package main.recipes;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,12 +14,14 @@ import main.IOController;
 public class RecipeController {
 
 	private  String filepath;
+	private  String counterIdFilepath;
 	private  IOController ioController; 
 	private static RecipeController instance;
 	
 	private RecipeController() {
 		super();
 		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt"; 
+		this.counterIdFilepath = System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt"; 
 		this.ioController = new IOController();
 	}
 	
@@ -37,7 +42,6 @@ public class RecipeController {
 		return new ArrayList<>();
 	}
     
-	//Protected
 	public void store(Recipe recipe) {
 		ArrayList<Recipe> recipes = extractRecipe();
 		if (!recipes.contains(recipe)) {
@@ -104,6 +108,18 @@ public class RecipeController {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public void updateCounterId(int id) {
+		try {
+			System.out.println(id);
+			FileOutputStream fos = new FileOutputStream(counterIdFilepath);
+		    DataOutputStream dos = new DataOutputStream(fos);
+		    dos.writeInt(id);
+		    dos.close();   
+        } catch (IOException e) {
+        	System.out.println(e.getMessage());
+        }
+	}
 
 	//for only testing purpose
 	public void deleteFile() {
@@ -116,7 +132,7 @@ public class RecipeController {
 		}
 	}
 	
-public Recipe featureWSIBT() {
+	public Recipe featureWSIBT() {
 		
 		try {
 			//inserisco tutte le ricette in un arraylist

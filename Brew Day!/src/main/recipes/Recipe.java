@@ -8,23 +8,28 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Recipe implements Serializable{
 
 
-	private int id;
+	private static int startingId;
 	private String name;
 	private Map<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
 	private double countBrew = 1.0;
-	private static final AtomicInteger count = new AtomicInteger(0); //this serves to autoincrement the id
+	private int id;
 	private static final long serialVersionUID = 1L;
 
 	public Recipe(String name, Map<String, Double> ingredients) {
 		super();
-		this.id = count.incrementAndGet();
+		
+		RecipeController recipeController = RecipeController.getInstance();
+		
+        startingId++;
+        this.id = startingId;
+        recipeController.updateCounterId(startingId);
+        
 		this.name = name;
 		this.ingredients = ingredients;
 		this.equipment = Equipment.getInstance();
@@ -62,6 +67,14 @@ public class Recipe implements Serializable{
 
 	public double getCountBrew() {
 		return countBrew;
+	}
+
+	public static int getStartingId() {
+		return startingId;
+	}
+
+	public static void setStartingId(int startingId) {
+		Recipe.startingId = startingId;
 	}
 
 	public void setIngredients(Map<String, Double> ingredients) {
