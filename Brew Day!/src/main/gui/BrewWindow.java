@@ -61,6 +61,10 @@ public class BrewWindow extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
+		
+		
+		BrewController brewController = BrewController.getInstance();
+		/*
 		//////////////////////////////////////////////
 		//Only for testing purposes
 		Map<String,Double> ingredients = new HashMap<String, Double>();
@@ -79,7 +83,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		recipeController.store(recipe);
 
 		//Only for testing purposes
-		BrewController brewController = BrewController.getInstance();
+		
 		brewController.store(recipe.createBrew());
 
 		HashMap<String,Double> ingredients3 = new HashMap<>();
@@ -90,7 +94,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		brewController.store(brew2);
 		//Only for testing purposes
 		////////////////////////////////////////////////
-
+		*/
 
 
 		JPanel panel = new JPanel();

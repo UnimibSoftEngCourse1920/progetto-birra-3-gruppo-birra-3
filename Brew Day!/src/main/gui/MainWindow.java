@@ -10,7 +10,6 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,8 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import main.instrument.EquipmentController;
-import main.recipes.Brew;
-import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.StorageController;
@@ -184,10 +181,9 @@ public class MainWindow extends JFrame implements ActionListener{
 				Recipe wsibtRecipe = getWSIBT();
 				recipeController.createBrew(wsibtRecipe.getId());
 				
-				//only for testing purpose
-				BrewController brewController = BrewController.getInstance();
-				ArrayList<Brew> ab = brewController.extractBrew();
-				System.out.println(ab.toString());
+				BrewWindow brewWin = new BrewWindow();
+				brewWin.setVisible(true);
+				dispose();
 			}
 		});
 		wsibtButton.setPreferredSize(d);
@@ -263,6 +259,6 @@ public class MainWindow extends JFrame implements ActionListener{
 		gui.setVisible(true);
 				
 		//Only for testing purposes
-		recipeController.deleteFile();
+		//recipeController.deleteFile();
 	}
 }
