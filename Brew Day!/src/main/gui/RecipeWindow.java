@@ -31,7 +31,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	public static final int HEIGHT = 720;
 	
 	public RecipeWindow(){
-		super("Recipes");
+		super("Brew Day! - Recipes");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -136,10 +136,6 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		//Only for testing purposes
 		
 		ArrayList<Recipe> recipes = recipeController.extractRecipe();
-		
-		//Only for testing purposes
-		recipeController.deleteFile();
-		//Only for testing purposes 
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Number","Name","Ingredients","","",""}, 0) {
 			@Override

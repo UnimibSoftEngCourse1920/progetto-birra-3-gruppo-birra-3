@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.instrument.EquipmentController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.StorageController;
@@ -177,6 +178,12 @@ public class MainWindow extends JFrame implements ActionListener{
 	public static void main(String[] args)
 	{
 		//Only for testing purposes
+		Map<String, Double> instruments = new HashMap<>();
+		instruments.put("Kettle", 25.0);
+		instruments.put("Fermenter", 10.0);	
+		EquipmentController equipmentController = EquipmentController.getInstance();
+		equipmentController.createEquipment(instruments);
+		
 		Map<String,Double> ingredients = new HashMap<String, Double>();
 		ingredients.put("Malt", 10.0);
 		ingredients.put("Yeast", 35.0);
@@ -191,6 +198,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe = new Recipe("Test Recipe", ingredients2);
 		recipeController.store(recipe);
+		//Only for testing purposes
 
 		/*Only for testing purposes
 		BrewController brewController = BrewController.getInstance();
@@ -211,6 +219,6 @@ public class MainWindow extends JFrame implements ActionListener{
 		
 		//Only for testing purposes
 		recipeController.deleteFile();
-		storageController.deleteFile();
+		//Only for testing purposes
 	}
 }
