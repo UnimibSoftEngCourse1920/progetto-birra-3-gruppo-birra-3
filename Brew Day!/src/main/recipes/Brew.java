@@ -41,9 +41,14 @@ public class Brew implements Serializable{
 	public Recipe getRecipe() {
 		return this.recipe;
 	}
+	
+	public String getNoteType(int id) {
+		if (id > 0) return "Standard";
+		return "Tasting";
+	}
 
 	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
+		if (this.finishDate == null) this.finishDate = finishDate;
 	}
 
 	public void addNote(String text, boolean tasting) {

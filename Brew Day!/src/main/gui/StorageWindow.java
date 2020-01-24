@@ -1,9 +1,6 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,23 +26,6 @@ public class StorageWindow extends JFrame implements ActionListener {
 	
 	private JPanel contentPane;
 	private JTable table;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StorageWindow frame = new StorageWindow();
-					frame.setVisible(true);
-					frame.setSize(800, 350);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public StorageWindow() {
 		super("Brew Day! - Storage");

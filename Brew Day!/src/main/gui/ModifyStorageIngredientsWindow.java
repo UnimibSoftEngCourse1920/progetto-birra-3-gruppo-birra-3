@@ -1,15 +1,12 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import main.resources.Storage;
 import main.resources.StorageController;
 
@@ -30,23 +26,6 @@ private StorageController sController;
 	
 	private JPanel contentPane;
 	private JTable table;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ModifyStorageIngredientsWindow frame = new ModifyStorageIngredientsWindow();
-					frame.setVisible(true);
-					frame.setSize(800, 350);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public ModifyStorageIngredientsWindow() {
 		super("Brew Day! - Storage");
@@ -112,20 +91,13 @@ private StorageController sController;
 		try {
 			Map<String,Double> newIngredients = new HashMap<>();
 			for (int i = 0; i < table.getRowCount(); i++) {
-				String ingredientName = table.getValueAt(i, 0).toString();
-				if (!ingredientName.matches("[a-zA-Z_]+")) {
-					throw new IllegalArgumentException();
-				}
 				newIngredients.put(table.getValueAt(i, 0).toString(), fromStringToDouble(table.getValueAt(i, 1).toString()));
 			}
 			return newIngredients;
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this,"Insert only positive number in quantity field");
 			return null;
-		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this,"Insert only string in name field");
-			return null;
-		}
+		} 
 	}
 
 	private double fromStringToDouble(String str) {

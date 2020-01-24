@@ -6,6 +6,7 @@ import main.resources.StorageController;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -47,7 +48,7 @@ public class BrewController {
 	    }
 	  }
 
-	protected void updateNote(Double id, int noteId, String noteText) {
+	public void updateNote(Double id, int noteId, String noteText) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
 		try {
@@ -67,7 +68,7 @@ public class BrewController {
 		ioController.writeObjectToFile(brews, filepath);
 	}
 	
-	protected void deleteNote(Double id, int noteId) {
+	public void deleteNote(Double id, int noteId) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
 		try {
@@ -77,9 +78,33 @@ public class BrewController {
 					found = true;
 				}
 			}
+			
 			if(!found) {
 				throw new BrewNotFoundException();
 			}
+			
+		} catch(NoteNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		ioController.writeObjectToFile(brews, filepath);
+	}
+	
+	public void addNote(Double id, String text, Boolean tasting) {
+		List<Brew> brews = extractBrew();
+		boolean found = false;
+		try {
+			for (Brew brew : brews) {
+				if (brew.getId().compareTo(id) == 0) {
+					brew.addNote(text, tasting);
+					found = true;
+				}
+			}
+
+			if(!found) {
+				throw new BrewNotFoundException();
+			}
+
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
@@ -88,7 +113,7 @@ public class BrewController {
 	}
 
 	
-	protected void delete(Double id) {
+	public void delete(Double id) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
 		try {
@@ -109,12 +134,15 @@ public class BrewController {
 		ioController.writeObjectToFile(brews, filepath);
 	}
 	
-	protected void cancel(Double id) {
+	public void cancel(Double id) {
 		List<Brew> brews = extractBrew();
 		Brew brew = null;
 		for (int i = 0; i < brews.size(); i++) {
 			if (brews.get(i).getId().compareTo(id) == 0) {
 				brew = brews.get(i);
+				if (brew.getFinishDate() != null) {
+					return;
+				}
 				brews.remove(i);
 			}
 		}
@@ -133,6 +161,29 @@ public class BrewController {
 		storage.updateIngredients(sIngredients);
 		StorageController storageController = StorageController.getInstance();
 		storageController.store(storage);
+	}
+	
+	public void setFinishDate(Double id) {
+		List<Brew> brews = extractBrew();
+		boolean found = false;
+		try {
+			for (Brew brew : brews) {
+				if (brew.getId().compareTo(id) == 0) {
+					Date currentDate = new Date(System.currentTimeMillis());
+					brew.setFinishDate(currentDate);
+					found = true;
+				}
+			}
+
+			if(!found) {
+				throw new BrewNotFoundException();
+			}
+
+		} catch(NoteNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		ioController.writeObjectToFile(brews, filepath);
 	}
 	
 	//for only testing purpose
