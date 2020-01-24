@@ -58,6 +58,7 @@ public class RecipeController {
 				if (recipes.get(i).getId() == id) {
 					recipes.get(i).updateRecipe(name, ingredients);
 					found = true;
+					ioController.writeObjectToFile(recipes, filepath);
 				}
 			}
 			if(!found) {
@@ -67,7 +68,7 @@ public class RecipeController {
 			System.out.println(e.getMessage());
 		}
 
-		ioController.writeObjectToFile(recipes, filepath);
+		
 	}
 
 	public void delete(int id) {
@@ -79,6 +80,7 @@ public class RecipeController {
 					recipes.remove(i);
 					i--;
 					found = true;
+					ioController.writeObjectToFile(recipes, filepath);
 				}
 			}
 			if(!found) {
@@ -88,7 +90,7 @@ public class RecipeController {
 			System.out.println(e.getMessage());
 		}
 		
-		ioController.writeObjectToFile(recipes, filepath);
+		
 	}
 	
 	public void createBrew(int id) {
@@ -99,6 +101,7 @@ public class RecipeController {
 				if (recipes.get(i).getId() == id) {
 					recipes.get(i).createBrew();
 					found = true;
+					ioController.writeObjectToFile(recipes, filepath);
 				}
 			}
 			if(!found) {
@@ -178,5 +181,9 @@ public class RecipeController {
 			System.out.println(e.getMessage());
 		}
 		return null;
+	}
+	
+	public void updateCountBrew() {
+		
 	}
 }

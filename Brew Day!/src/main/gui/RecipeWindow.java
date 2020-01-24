@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ import javax.swing.table.TableColumnModel;
 import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
+import main.resources.StorageController;
 
 @SuppressWarnings("serial")
 public class RecipeWindow extends JFrame implements ActionListener{
@@ -98,6 +100,15 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		RecipeController recipeController = RecipeController.getInstance();
 
 		//Only for testing purposes
+		//create storage
+		Map<String,Double> ingredients3 = new HashMap<String, Double>();
+	    ingredients3.put("Malt", 1000.0);
+		ingredients3.put("Yeast", 35.0);
+		ingredients3.put("Hop", 189.0);
+		ingredients3.put("Sugar", 50.0);
+		StorageController storageController = StorageController.getInstance();
+		storageController.createStorage(ingredients3);
+		
 		HashMap<String,Double> ingredients1 = new HashMap<>();
 		ingredients1.put("Malt", 5.0); 
 		ingredients1.put("Hop", 60.0); 
@@ -187,10 +198,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 					case "Brew it!":
 						setVisible(false);
 						recipeController.createBrew(recipeId);
-					    //Only for testing purposes
-						BrewController brewController = BrewController.getInstance();
-						brewController.deleteFile();
-						//Only for testing purposes
+						
 						new BrewWindow().setVisible(true);
 						dispose();
 						break;

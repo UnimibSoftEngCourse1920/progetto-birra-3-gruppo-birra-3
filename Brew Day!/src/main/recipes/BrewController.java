@@ -42,7 +42,16 @@ public class BrewController {
 
 	  public void store(Brew brew) {
 	    List<Brew> brews = extractBrew();
-	    if (!brews.contains(brew)) {
+	    
+	    boolean found = false;
+	    
+	    for (Brew b : brews) {
+			if (b.getId().compareTo(brew.getId()) == 0) {
+				found = true;
+			}
+	    }
+	    
+	    if (found == false) {
 	      brews.add(brew);
 	      ioController.writeObjectToFile(brews, filepath);
 	    }
@@ -56,6 +65,7 @@ public class BrewController {
 				if (brew.getId().compareTo(id) == 0) {
 					brew.modifyNote(noteId, noteText);
 					found = true;
+					ioController.writeObjectToFile(brews, filepath);
 				}
 			}
 			if(!found) {
@@ -65,7 +75,7 @@ public class BrewController {
 			System.out.println(e.getMessage());
 		}
 		
-		ioController.writeObjectToFile(brews, filepath);
+		
 	}
 	
 	public void deleteNote(Double id, int noteId) {
@@ -76,6 +86,7 @@ public class BrewController {
 				if (brews.get(i).getId().compareTo(id) == 0) {
 					brews.get(i).deleteNote(noteId);
 					found = true;
+					ioController.writeObjectToFile(brews, filepath);
 				}
 			}
 			
@@ -87,7 +98,7 @@ public class BrewController {
 			System.out.println(e.getMessage());
 		}
 		
-		ioController.writeObjectToFile(brews, filepath);
+		
 	}
 	
 	public void addNote(Double id, String text, Boolean tasting) {
@@ -98,6 +109,7 @@ public class BrewController {
 				if (brew.getId().compareTo(id) == 0) {
 					brew.addNote(text, tasting);
 					found = true;
+					ioController.writeObjectToFile(brews, filepath);
 				}
 			}
 
@@ -108,8 +120,6 @@ public class BrewController {
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		ioController.writeObjectToFile(brews, filepath);
 	}
 
 	
@@ -122,6 +132,7 @@ public class BrewController {
 					brews.remove(i);
 					i--;
 					found = true;
+					ioController.writeObjectToFile(brews, filepath);
 				}
 			}
 			if(!found) {
@@ -131,7 +142,7 @@ public class BrewController {
 			System.out.println(e.getMessage());
 		}
 		
-		ioController.writeObjectToFile(brews, filepath);
+		
 	}
 	
 	public void cancel(Double id) {
@@ -144,6 +155,7 @@ public class BrewController {
 					return;
 				}
 				brews.remove(i);
+				
 			}
 		}
 		
@@ -172,6 +184,7 @@ public class BrewController {
 					Date currentDate = new Date(System.currentTimeMillis());
 					brew.setFinishDate(currentDate);
 					found = true;
+					
 				}
 			}
 
@@ -182,8 +195,8 @@ public class BrewController {
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
 		ioController.writeObjectToFile(brews, filepath);
+		
 	}
 	
 	//for only testing purpose
