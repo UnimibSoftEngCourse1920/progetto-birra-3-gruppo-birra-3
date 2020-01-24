@@ -9,7 +9,7 @@ public class Brew implements Serializable{
 
 	private Double id;
 	private Date startDate;
-	private Date finishDate;
+	private Date finishDate = null;
 	private Map<Integer,String> notes = new HashMap<>();
 	private Recipe recipe;
 	private int countNote = 1;
