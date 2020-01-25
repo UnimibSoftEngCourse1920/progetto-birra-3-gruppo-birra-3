@@ -55,7 +55,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
 
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Recipe Name","Brew Number","Note number","Note text","Type","",""}, 0) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Note number","Recipe Name","Brew Number","Note text","Type","",""}, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				switch (column) {
@@ -71,7 +71,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		for(Brew b : brews) {
 			if (b.getId().compareTo(this.brewId) == 0) {
 				for(Entry<Integer, String> note : b.getNotes().entrySet()) {
-					model.addRow(new String[] {b.getRecipe().getName(),Double.toString(b.getId()),note.getKey().toString(),note.getValue(),b.getNoteType(note.getKey()),"Modify","Delete"});
+					model.addRow(new String[] {note.getKey().toString(),b.getRecipe().getName(),Double.toString(b.getId()),note.getValue(),b.getNoteType(note.getKey()),"Modify","Delete"});
 				}
 			}
 		}
@@ -80,6 +80,9 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.getColumnModel().getColumn(3).setPreferredWidth(750);
+		//This is for hide first column
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
 		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
 		table.setRowHeight(30);
@@ -132,7 +135,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 			break;
 		default:
 			String[] tokens1 = e.getActionCommand().split("/");
-			int noteId1 = Integer.parseInt(tokens1[2]);
+			int noteId1 = Integer.parseInt(tokens1[0]);
 			String command = tokens1[1];
 			int row = Integer.parseInt(tokens1[2]);
 
