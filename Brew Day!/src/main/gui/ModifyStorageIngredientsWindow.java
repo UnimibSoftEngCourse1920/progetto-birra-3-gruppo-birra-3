@@ -49,7 +49,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 
 		sController = StorageController.getInstance();
 
-		Storage storage = sController.extractStorage();
+		Storage storage = Storage.getInstance();
 
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0) {
 			@Override

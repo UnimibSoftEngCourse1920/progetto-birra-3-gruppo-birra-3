@@ -107,6 +107,7 @@ public class Recipe implements Serializable{
 			BrewController brewController = BrewController.getInstance();
 			brewController.store(b);
 			//subtract ingredients from storage
+			storage = Storage.getInstance();
 			Map<String,Double> storageIngredients = storage.getIngredients();
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
 				double sIngredientValue = storageIngredients.get(i.getKey()).doubleValue();
@@ -134,8 +135,7 @@ public class Recipe implements Serializable{
 		
 		try {
 			if(f.exists()) {
-				StorageController storageController = StorageController.getInstance();
-				Map<String,Double> storageIngredients = storageController.extractStorage().getIngredients();
+				Map<String,Double> storageIngredients = Storage.getInstance().getIngredients();
 				for(Entry<String, Double> i : this.ingredients.entrySet()) {
 					double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
 					if (ingredientValue < i.getValue()) {

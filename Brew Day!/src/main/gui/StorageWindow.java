@@ -49,7 +49,7 @@ public class StorageWindow extends JFrame implements ActionListener {
 		
 		sController = StorageController.getInstance();
 			
-		Storage storage = sController.extractStorage();
+		Storage storage = Storage.getInstance();
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0) {
 			@Override
@@ -67,12 +67,12 @@ public class StorageWindow extends JFrame implements ActionListener {
 			defaultIngredients.put("Sugar", 0.0);
 			defaultIngredients.put("Additive", 0.0);
 			sController.createStorage(defaultIngredients);
-			storage = sController.extractStorage();
+			storage = Storage.getInstance();
 			for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
 				model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 			}
 		}else {
-			storage = sController.extractStorage();
+			storage = Storage.getInstance();
 			for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
 				model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 			}

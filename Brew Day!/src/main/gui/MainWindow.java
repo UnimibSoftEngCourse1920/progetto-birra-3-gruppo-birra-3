@@ -18,12 +18,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import main.instrument.EquipmentController;
 import main.recipes.Brew;
 import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
-import main.resources.StorageController;
+import main.resources.Storage;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener{
@@ -159,12 +158,11 @@ public class MainWindow extends JFrame implements ActionListener{
 		String filepathStorage = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 		File fileStorage = new File(filepathStorage);
 		RecipeController recipeController = RecipeController.getInstance();
-		StorageController storageController = StorageController.getInstance();
-
+		
 		String wsibtRecipe = null;
 		if(fileRecipe.exists() && fileStorage.exists()) {
 			int sizeR = recipeController.extractRecipe().size();
-			int sizeS = storageController.extractStorage().getIngredients().size();
+			int sizeS = Storage.getInstance().getIngredients().size();
 			if(sizeR != 0 && sizeS != 0) {
 				Recipe r = getWSIBT();
 				if(r != null) {

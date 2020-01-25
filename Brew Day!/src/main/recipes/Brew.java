@@ -119,11 +119,6 @@ public class Brew implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (recipe == null) {
-			if (other.recipe != null)
-				return false;
-		} else if (!recipe.equals(other.recipe))
-			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
 				return false;

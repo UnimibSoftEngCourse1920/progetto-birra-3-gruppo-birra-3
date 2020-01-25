@@ -9,6 +9,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import main.resources.Storage;
 import main.resources.StorageController;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -38,6 +39,16 @@ public class RecipeTest {
 	
 	@Test
 	public void testCreateBrew() {
+		StorageController sController = StorageController.getInstance();
+		BrewController brewController = BrewController.getInstance();
+		
+		HashMap<String,Double> sIngredients = new HashMap<>();
+	    sIngredients.put("Malt", 20.0);
+	    sIngredients.put("Hop", 30.0);
+		Storage storage = Storage.getInstance();
+		storage.setIngredients(sIngredients);
+		sController.store(storage);
+		
 		HashMap<String,Double> ingredients = new HashMap<>();
 		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
 		Brew brew1 = recipe1.createBrew();
@@ -45,11 +56,12 @@ public class RecipeTest {
 		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
 		Brew brew3 = recipe2.createBrew();
 		
-		assertTrue(brew1.getId() == 2.1);
-		assertTrue(brew2.getId() == 2.2);
-		assertTrue(brew3.getId() == 3.1);
+		brewController.deleteFile();
+		sController.deleteFile();
 		
-		//missingIngredients notify testing must be added when implemented
+		assertTrue(brew1.getId().compareTo(2.1) == 0);
+		assertTrue(brew2.getId().compareTo(2.2) == 0);
+		assertTrue(brew3.getId().compareTo(3.1) == 0);
 	}
 	
 	@Test

@@ -73,7 +73,7 @@ public class BrewControllerTest {
 	    
 	    brewController.deleteFile();
 	        
-	  	assertTrue(brews.get(0).equals(brew1));	
+	  	assertTrue(brews.get(0).equals(brew1));
 	  	assertTrue(brews.get(1).equals(brew2));
 	}
 
@@ -174,12 +174,14 @@ public class BrewControllerTest {
 	@Test
 	public void testCancel() {
 		BrewController brewController = BrewController.getInstance();
+		StorageController sController = StorageController.getInstance();
 		
 		HashMap<String,Double> sIngredients = new HashMap<>();
 	    sIngredients.put("Malt", 20.0);
 	    sIngredients.put("Hop", 30.0);
 		Storage storage = Storage.getInstance();
 		storage.setIngredients(sIngredients);
+		sController.store(storage);
 		
 		HashMap<String,Double> rIngredients = new HashMap<>();
 	    rIngredients.put("Malt", 10.0);
@@ -191,12 +193,12 @@ public class BrewControllerTest {
 		
 		brewController.cancel(brew1.getId());
 		
-		StorageController sController = StorageController.getInstance();
 		Storage extStorage = sController.extractStorage();
 		
 		List<Brew> brews = brewController.extractBrew();
 		
 		brewController.deleteFile();
+		sController.deleteFile();
 		
 		assertTrue(brews.isEmpty());
 		assertTrue(sIngredients.equals(extStorage.getIngredients()));
