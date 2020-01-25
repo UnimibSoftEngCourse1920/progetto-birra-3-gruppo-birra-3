@@ -50,6 +50,7 @@ public class BrewController implements Serializable {
 	    for (Brew b : brews) {
 			if (b.getId().compareTo(brew.getId()) == 0) {
 				found = true;
+				break;
 			}
 	    }
 	    
@@ -68,6 +69,7 @@ public class BrewController implements Serializable {
 					brew.modifyNote(noteId, noteText);
 					found = true;
 					ioController.writeObjectToFile(brews, filepath);
+					break;
 				}
 			}
 			if(!found) {
@@ -87,6 +89,7 @@ public class BrewController implements Serializable {
 					brews.get(i).deleteNote(noteId);
 					found = true;
 					ioController.writeObjectToFile(brews, filepath);
+					break;
 				}
 			}
 			
@@ -108,6 +111,7 @@ public class BrewController implements Serializable {
 					brew.addNote(text, tasting);
 					found = true;
 					ioController.writeObjectToFile(brews, filepath);
+					break;
 				}
 			}
 
@@ -131,6 +135,7 @@ public class BrewController implements Serializable {
 					i--;
 					found = true;
 					ioController.writeObjectToFile(brews, filepath);
+					break;
 				}
 			}
 			if(!found) {
@@ -151,6 +156,7 @@ public class BrewController implements Serializable {
 					return;
 				}
 				brews.remove(i);
+				break;
 			}
 		}
 		
@@ -179,6 +185,7 @@ public class BrewController implements Serializable {
 					Date currentDate = new Date(System.currentTimeMillis());
 					brew.setFinishDate(currentDate);
 					found = true;
+					break;
 				}
 			}
 

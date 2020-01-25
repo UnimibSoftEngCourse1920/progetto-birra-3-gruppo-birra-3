@@ -21,6 +21,7 @@ public class MultiRowCell extends AbstractCellEditor implements TableCellEditor,
         textArea = new JTextArea(25, 50);
         textArea.setEditable(false);
         textArea.setFont(new Font(textArea.getFont().getName(), Font.PLAIN, 14));
+        textArea.setLineWrap(true);
         scrollPane = new JScrollPane(textArea);
     }
 
