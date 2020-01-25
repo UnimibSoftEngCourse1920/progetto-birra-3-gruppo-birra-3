@@ -91,28 +91,35 @@ public class InsertNewInstrumentWindow extends JFrame {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EquipmentController equipmentController = EquipmentController.getInstance();
-				Map<String, Double> instruments = equipmentController.extractEquipment().getInstruments();
 				
-				String name = textField.getText();
-				boolean b = true;
 				
-				for(Entry<String, Double> i : instruments.entrySet()) {
-					if(name.equals(i.getKey())) {
-						JOptionPane.showMessageDialog(panel2, "You already have this instrument in your equipment");
-						b = false;
+				try {
+					EquipmentController equipmentController = EquipmentController.getInstance();
+					Map<String, Double> instruments = equipmentController.extractEquipment().getInstruments();
+					
+					boolean b = true;
+					String name = textField.getText();
+					String capacity = textField1.getText();
+					
+					if(!name.matches("[a-zA-Z_]+") || !capacity.matches("[0-9]+.{0,1}[0-9]*")) {
+						throw new IllegalArgumentException();
 					}
+					for(Entry<String, Double> i : instruments.entrySet()) {
+						if(name.equals(i.getKey())) {
+							JOptionPane.showMessageDialog(panel2, "You already have this instrument in your equipment");
+							b = false;
+						}
+					}
+					if(b) {
+						instruments.put(name, Double.parseDouble(capacity));
+						equipmentController.update(instruments);
+					}
+					EquipmentWindow equipmentWin = new EquipmentWindow();
+					equipmentWin.setVisible(true);
+					dispose();
+				}catch (IllegalArgumentException e1) {
+					JOptionPane.showMessageDialog(panel2,"Insert only string in name field and positive numbers , separated by dot (e.g. Kettle 10.50");
 				}
-				double capacity = fromStringToDouble(textField1.getText());
-				
-				if(b) {
-					instruments.put(name, capacity);
-					equipmentController.update(instruments);
-				}
-				
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
 			}
 		});
 		panel2.add(btnSave);
@@ -126,13 +133,6 @@ public class InsertNewInstrumentWindow extends JFrame {
 			}
 		});
 		panel2.add(btnBack);
-	}
-	
-	private double fromStringToDouble(String str) {
-		if (str.contains("-")) {
-			throw new NumberFormatException();
-		} 
-		return Double.parseDouble(str);
 	}
 
 }

@@ -64,12 +64,18 @@ public class InsertInstrumentsWindow extends JFrame {
 				if (table.isEditing())
 				    table.getCellEditor().stopCellEditing();
 				
-				EquipmentController equipmentController = EquipmentController.getInstance();
-				equipmentController.createEquipment(createInstruments());
-				
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
+				if(createInstruments() != null) {
+					EquipmentController equipmentController = EquipmentController.getInstance();
+					equipmentController.update(createInstruments());
+					
+					EquipmentWindow equipmentWin = new EquipmentWindow();
+					equipmentWin.setVisible(true);
+					dispose();
+				}else {
+					InsertInstrumentsWindow insInstrumentsWin = new InsertInstrumentsWindow(numberInstruments);
+					insInstrumentsWin.setVisible(true);
+					dispose();
+				}
 			}
 		});
 		
@@ -91,25 +97,18 @@ public class InsertInstrumentsWindow extends JFrame {
 			Map<String, Double> instruments = new HashMap<>();
 			for (int i = 0; i < table.getRowCount(); i++) {
 				String instrumentName = table.getValueAt(i, 0).toString();
-				if (!instrumentName.matches("[a-zA-Z_]+")) {
+				String instrumentCapacity = table.getValueAt(i, 1).toString();
+				if (!instrumentName.matches("[a-zA-Z_]+") || !instrumentCapacity.matches("[0-9]+.{0,1}[0-9]*")) {
 					throw new IllegalArgumentException();
 				}
 				
-				instruments.put(table.getValueAt(i, 0).toString(), fromStringToDouble(table.getValueAt(i, 1).toString()));
+				instruments.put(instrumentName, Double.parseDouble(instrumentCapacity));
 			}
 			return instruments;
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this,"Insert only positive number in quantity field");
-		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this,"Insert only string in name field");
+		}catch (IllegalArgumentException e) {
+			JOptionPane.showMessageDialog(this,"Insert only string in name field and positive numbers , separated by dot (e.g. Kettle 10.50");
+			return null;
 		}
-		return null;
-	}
-	
-	private double fromStringToDouble(String str) {
-		if (str.contains("-")) {
-			throw new NumberFormatException();
-		} 
-		return Double.parseDouble(str);
+		
 	}
 }
