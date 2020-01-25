@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,10 +15,8 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import main.instrument.EquipmentController;
 import javax.swing.JScrollPane;
-
 
 @SuppressWarnings("serial")
 public class ModifyEquipmentWindow extends JFrame {
@@ -27,9 +24,6 @@ public class ModifyEquipmentWindow extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Create the frame.
-	 */
 	public ModifyEquipmentWindow() {
 		super("Brew Day! - Modify equipment");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

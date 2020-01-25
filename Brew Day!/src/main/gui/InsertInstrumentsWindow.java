@@ -1,7 +1,6 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,9 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import main.instrument.EquipmentController;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -26,9 +23,6 @@ public class InsertInstrumentsWindow extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Create the frame.
-	 */
 	public InsertInstrumentsWindow(int numberInstruments) {
 		super("Brew Day! - Insert instruments");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -111,8 +105,6 @@ public class InsertInstrumentsWindow extends JFrame {
 		}
 		return null;
 	}
-
-	
 	
 	private double fromStringToDouble(String str) {
 		if (str.contains("-")) {
@@ -120,5 +112,4 @@ public class InsertInstrumentsWindow extends JFrame {
 		} 
 		return Double.parseDouble(str);
 	}
-
 }

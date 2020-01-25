@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-
 import main.instrument.EquipmentController;
-
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -23,9 +20,6 @@ public class DeleteInstrumentWindow extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Create the frame.
-	 */
 	public DeleteInstrumentWindow() {
 		super("Brew Day! - Delete instrument");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -79,9 +73,5 @@ public class DeleteInstrumentWindow extends JFrame {
 				}
 			});
 		}
-		
-		
-		
 	}
-
 }

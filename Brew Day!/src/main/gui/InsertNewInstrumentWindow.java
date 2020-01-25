@@ -7,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import main.instrument.EquipmentController;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -25,10 +24,7 @@ public class InsertNewInstrumentWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField1;
-	
-	/**
-	 * Create the frame.
-	 */
+
 	public InsertNewInstrumentWindow() {
 		super("Brew Day! - Insert new instrument");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

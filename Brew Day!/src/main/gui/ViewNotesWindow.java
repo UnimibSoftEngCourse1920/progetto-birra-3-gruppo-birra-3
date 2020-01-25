@@ -55,8 +55,8 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
-		
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Recipe Name","Brew Number","Note number","Notes","Type","",""}, 0) {
+
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Recipe Name","Brew Number","Note number","Note text","Type","",""}, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				switch (column) {
@@ -80,9 +80,9 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getColumnModel().getColumn(2).setPreferredWidth(750);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.getColumnModel().getColumn(3).setPreferredWidth(750);
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
 		table.setRowHeight(30);
 
 		@SuppressWarnings("unused")
@@ -95,7 +95,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
-		
+
 		JButton addButton = new JButton("Add");
 		addButton.setFont(new Font(addButton.getFont().getName(),Font.BOLD, 18));
 		addButton.addActionListener(this);
@@ -136,19 +136,18 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 			int noteId1 = Integer.parseInt(tokens1[2]);
 			String command = tokens1[1];
 			int row = Integer.parseInt(tokens1[2]);
-			
+
 			switch(command) {
-				case "Modify":
-					setVisible(false);
-					new AddOrModifyNoteWindow(brewId,noteId1).setVisible(true);
-					dispose();
-					break;
-				case "Delete":
-					brewController.deleteNote(brewId, noteId1);
-					JTable table = (JTable)e.getSource();
-			        ((DefaultTableModel)table.getModel()).removeRow(row);
+			case "Modify":
+				setVisible(false);
+				new AddOrModifyNoteWindow(brewId,noteId1).setVisible(true);
+				dispose();
+				break;
+			case "Delete":
+				brewController.deleteNote(brewId, noteId1);
+				JTable table = (JTable)e.getSource();
+				((DefaultTableModel)table.getModel()).removeRow(row);
+			}
 		}
 	}
-	}
-
 }

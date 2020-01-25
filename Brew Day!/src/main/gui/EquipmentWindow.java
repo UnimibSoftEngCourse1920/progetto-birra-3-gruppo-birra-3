@@ -1,14 +1,11 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-
 import main.instrument.EquipmentController;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -25,9 +22,6 @@ public class EquipmentWindow extends JFrame {
 	private JPanel contentPane;
 	private String filepath = System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt";
 
-	/**
-	 * Create the frame.
-	 */
 	public EquipmentWindow() {
 		super("Brew Day! - Equipment menu");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -116,9 +110,6 @@ public class EquipmentWindow extends JFrame {
 		gbcBtnCreateEquipment.gridy = 0;
 		panel1.add(btnCreateEquipment, gbcBtnCreateEquipment);
 		
-		
-		
-
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
 
 		btnModifyEquipment.addActionListener(new ActionListener() {
@@ -150,7 +141,6 @@ public class EquipmentWindow extends JFrame {
 		gbcBtnModifyEquipment.gridy = 2;
 		panel1.add(btnModifyEquipment, gbcBtnModifyEquipment);
 
-
 		JButton btnInsertNewInstrument = new JButton("Insert New Instrument");
 		
 		btnInsertNewInstrument.addActionListener(new ActionListener() {
@@ -174,9 +164,7 @@ public class EquipmentWindow extends JFrame {
 		gbcBtnInsertNewInstrument.gridy = 3;
 		panel1.add(btnInsertNewInstrument, gbcBtnInsertNewInstrument);
 
-
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
-		
 		
 		btnDeleteInstrument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

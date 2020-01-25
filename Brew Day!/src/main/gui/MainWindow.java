@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -18,8 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-
 import main.instrument.EquipmentController;
+import main.recipes.Brew;
+import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.StorageController;
@@ -245,7 +245,6 @@ public class MainWindow extends JFrame implements ActionListener{
 		Recipe recipe3 = new Recipe("Recipe3", ingredients4);
 		recipeController.store(recipe3);
 				
-		/*
 		//create brew from recipe1
 		BrewController brewController = BrewController.getInstance();
 		Brew brew1 = recipe1.createBrew();
@@ -254,7 +253,10 @@ public class MainWindow extends JFrame implements ActionListener{
 		//create brew from recipe2
 		Brew brew2 = recipe2.createBrew();
 		brewController.store(brew2);
-		*/
+		
+		brewController.addNote(brew1.getId(), "Note 1", false);
+		brewController.addNote(brew1.getId(), "Note 2", true);
+		brewController.addNote(brew2.getId(), "Note 2", true);
 				
 		//Only for testing purpose
 		MainWindow gui = getInstance();

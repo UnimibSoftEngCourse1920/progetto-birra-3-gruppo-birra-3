@@ -6,14 +6,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
@@ -23,9 +21,6 @@ public class CreateEquipmentWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 
-	/**
-	 * Create the frame.
-	 */
 	public CreateEquipmentWindow() {
 		super("Brew Day! - Create equipment");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -97,5 +92,4 @@ public class CreateEquipmentWindow extends JFrame {
 		});
 		panel1.add(btnBack);
 	}
-
 }
