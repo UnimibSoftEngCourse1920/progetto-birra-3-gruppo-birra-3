@@ -243,7 +243,6 @@ public class MainWindow extends JFrame implements ActionListener{
 		Recipe recipe3 = new Recipe("Recipe3", ingredients4);
 		recipeController.store(recipe3);
 				
-		
 		//create brew from recipe1
 		BrewController brewController = BrewController.getInstance();
 		Brew brew1 = recipe1.createBrew();

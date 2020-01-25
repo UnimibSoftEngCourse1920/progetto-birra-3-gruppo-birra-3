@@ -28,9 +28,6 @@ public class BrewWindow extends JFrame implements ActionListener {
 	private JTable table;
 	private BrewController brewController;
 
-	/**
-	 * Create the frame.
-	 */
 	public BrewWindow() {
 		super("Brew Day! - Brews");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +47,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 
+		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
 
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Brew Number","Recipe Number", "Recipe Name","Ingredients","Note's number","Start Date","Finish Date","","","",""}, 0) {

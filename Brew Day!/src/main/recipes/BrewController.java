@@ -74,8 +74,6 @@ public class BrewController {
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 	
 	public void deleteNote(Double id, int noteId) {
@@ -97,8 +95,6 @@ public class BrewController {
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 	
 	public void addNote(Double id, String text, Boolean tasting) {
@@ -141,8 +137,6 @@ public class BrewController {
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 	
 	public void cancel(Double id) {
@@ -155,7 +149,6 @@ public class BrewController {
 					return;
 				}
 				brews.remove(i);
-				
 			}
 		}
 		
@@ -184,7 +177,6 @@ public class BrewController {
 					Date currentDate = new Date(System.currentTimeMillis());
 					brew.setFinishDate(currentDate);
 					found = true;
-					
 				}
 			}
 
@@ -196,7 +188,6 @@ public class BrewController {
 			System.out.println(e.getMessage());
 		}
 		ioController.writeObjectToFile(brews, filepath);
-		
 	}
 	
 	//for only testing purpose
