@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.instrument.EquipmentController;
+import main.recipes.BrewController;
 import main.recipes.Recipe;
+import main.recipes.RecipeController;
+import main.resources.StorageController;
 
 public class Main {
 
@@ -40,5 +44,15 @@ public class Main {
 	    }
 		
 		Recipe.setStartingId(startingId);
+		
+		BrewController bController = BrewController.getInstance();
+		StorageController sController = StorageController.getInstance();
+		RecipeController rController = RecipeController.getInstance();
+		EquipmentController eController = EquipmentController.getInstance();
+		
+		bController.deleteFile();
+		sController.deleteFile();
+		rController.deleteFile();
+		eController.deleteFile();
 	}
 }

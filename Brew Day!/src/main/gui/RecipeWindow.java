@@ -65,7 +65,6 @@ public class RecipeWindow extends JFrame implements ActionListener{
 
         int height = multiRowCell.getTableCellRendererComponent(recipesTable, "Test", true, true, 0, 0).getPreferredSize().height;
         recipesTable.setRowHeight(height);
-		
 		recipesTable.getTableHeader().setFont(f);
 		recipesTable.setFont(f);
 		recipesTable.setRowHeight(60);
