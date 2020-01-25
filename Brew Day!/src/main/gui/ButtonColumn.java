@@ -141,7 +141,6 @@ implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
 			renderButton.setBorder( originalBorder );
 		}
 
-		//		renderButton.setText( (value == null) ? "" : value.toString() );
 		if (value == null) {
 			renderButton.setText( "" );
 			renderButton.setIcon( null );
@@ -200,7 +199,13 @@ implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
 		isButtonColumnEditor = false;
 	}
 
-	public void mouseClicked(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		// Do nothing because this event handling is not necessary 
+	}
+	public void mouseEntered(MouseEvent e) {
+		// Do nothing because this event handling is not necessary 
+	}
+	public void mouseExited(MouseEvent e) {
+		// Do nothing because this event handling is not necessary 
+	}
 }

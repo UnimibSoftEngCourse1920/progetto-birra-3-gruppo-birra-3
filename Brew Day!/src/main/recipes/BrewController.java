@@ -147,7 +147,7 @@ public class BrewController {
 	
 	public void cancel(Double id) {
 		List<Brew> brews = extractBrew();
-		Brew brew = null;
+		Brew brew = brews.get(0);
 		for (int i = 0; i < brews.size(); i++) {
 			if (brews.get(i).getId().compareTo(id) == 0) {
 				brew = brews.get(i);
@@ -166,7 +166,7 @@ public class BrewController {
 		Map<String,Double> sIngredients = storage.getIngredients();
 		
 		for (Entry<String,Double> i : bIngredients.entrySet()) {
-			Double bIngredientValue = sIngredients.get(i.getKey()).doubleValue();
+			double bIngredientValue = sIngredients.get(i.getKey()).doubleValue();
 			sIngredients.put(i.getKey(), i.getValue() + bIngredientValue);
 		}
 		

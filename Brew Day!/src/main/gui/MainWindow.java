@@ -16,6 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
 import main.instrument.EquipmentController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
@@ -45,13 +48,14 @@ public class MainWindow extends JFrame implements ActionListener{
 			case "View your storage":
 				setVisible(false);
 				new StorageWindow().setVisible(true);
+			default:;
 		}
 	}
 
-	private MainWindow() throws HeadlessException {
+	private MainWindow() {
 		super("Brew Day!");
 		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
 		JPanel mainPanel = new JPanel();
@@ -87,16 +91,16 @@ public class MainWindow extends JFrame implements ActionListener{
 		Font f = new Font("TimesRoman",Font.BOLD,25);
 		JLabel recipeLabel = new JLabel("Recipes");
 		recipeLabel.setFont(f);
-		recipeLabel.setHorizontalAlignment(JLabel.CENTER);
+		recipeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel brewLabel = new JLabel("Brews");
 		brewLabel.setFont(f);
-		brewLabel.setHorizontalAlignment(JLabel.CENTER);
+		brewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel equipmentLabel = new JLabel("Equipment");
 		equipmentLabel.setFont(f);
-		equipmentLabel.setHorizontalAlignment(JLabel.CENTER);
+		equipmentLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel storageLabel = new JLabel("Storage");
 		storageLabel.setFont(f);
-		storageLabel.setHorizontalAlignment(JLabel.CENTER);
+		storageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		recipePanel.add(recipeLabel);
 		brewPanel.add(brewLabel);
 		equipmentPanel.add(equipmentLabel);
@@ -211,7 +215,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		equipmentController.createEquipment(instruments);
 		
 		//create storage
-		Map<String,Double> ingredients = new HashMap<String, Double>();
+		Map<String,Double> ingredients = new HashMap<>();
 	    ingredients.put("Malt", 1000.0);
 		ingredients.put("Yeast", 35.0);
 		ingredients.put("Hop", 189.0);

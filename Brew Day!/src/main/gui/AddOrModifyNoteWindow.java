@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
+
 import main.recipes.Brew;
 import main.recipes.BrewController;
 import javax.swing.JButton;
@@ -21,7 +23,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener{
 	
 	public AddOrModifyNoteWindow(Double brewId,int noteId) {
 		super("Brew Day! - Modify Note");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(250, 400, 500, 400);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		this.brewId = brewId;
@@ -37,7 +39,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener{
 		if (noteId != 0) {
 			for (Brew brew : brews) {
 				if (brew.getId().compareTo(brewId) == 0) {
-					textArea.setText(brew.getNotes().get(this.noteId).toString());
+					textArea.setText(brew.getNotes().get(this.noteId));
 					break;
 				}
 			}

@@ -1,7 +1,6 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 @SuppressWarnings("serial")
 public class CreateEquipmentWindow extends JFrame {
@@ -24,28 +24,11 @@ public class CreateEquipmentWindow extends JFrame {
 	private JTextField textField;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreateEquipmentWindow frame = new CreateEquipmentWindow();
-					frame.setVisible(true);
-					frame.setSize(600, 400);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public CreateEquipmentWindow() {
 		super("Brew Day! - Create equipment");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,28 +41,28 @@ public class CreateEquipmentWindow extends JFrame {
 		JLabel lblCreateEquipment = new JLabel("Create Equipment");
 		panel.add(lblCreateEquipment);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.CENTER);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{301, 0};
-		gbl_panel_2.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel_2.columnWeights = new double[]{10.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_2.setLayout(gbl_panel_2);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.CENTER);
+		GridBagLayout gblPanel2 = new GridBagLayout();
+		gblPanel2.columnWidths = new int[]{301, 0};
+		gblPanel2.rowHeights = new int[]{0, 0, 0, 0};
+		gblPanel2.columnWeights = new double[]{10.0, Double.MIN_VALUE};
+		gblPanel2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel2.setLayout(gblPanel2);
 		
 		JLabel lblHowManyInstruments = new JLabel("How many instruments do you want to insert?");
-		GridBagConstraints gbc_lblHowManyInstruments = new GridBagConstraints();
-		gbc_lblHowManyInstruments.insets = new Insets(0, 0, 5, 0);
-		gbc_lblHowManyInstruments.gridx = 0;
-		gbc_lblHowManyInstruments.gridy = 0;
-		panel_2.add(lblHowManyInstruments, gbc_lblHowManyInstruments);
+		GridBagConstraints gbcLblHowManyInstruments = new GridBagConstraints();
+		gbcLblHowManyInstruments.insets = new Insets(0, 0, 5, 0);
+		gbcLblHowManyInstruments.gridx = 0;
+		gbcLblHowManyInstruments.gridy = 0;
+		panel2.add(lblHowManyInstruments, gbcLblHowManyInstruments);
 		
 		textField = new JTextField(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 1;
-		panel_2.add(textField, gbc_textField);
+		GridBagConstraints gbcTextField = new GridBagConstraints();
+		gbcTextField.insets = new Insets(0, 0, 5, 0);
+		gbcTextField.gridx = 0;
+		gbcTextField.gridy = 1;
+		panel2.add(textField, gbcTextField);
 		
 		JButton btnNext = new JButton("Next >");
 		btnNext.addActionListener(new ActionListener() {
@@ -90,24 +73,19 @@ public class CreateEquipmentWindow extends JFrame {
 					InsertInstrumentsWindow insertInstrumentsWin = new InsertInstrumentsWindow(input);
 					insertInstrumentsWin.setVisible(true);
 					dispose();
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(panel_2,"You must insert a number");
-				}catch(NullPointerException e1) {
-					JOptionPane.showMessageDialog(panel_2, "You must insert a number");
-				}
-				
-				
-				
+				} catch (NumberFormatException|NullPointerException e1) {
+					JOptionPane.showMessageDialog(panel2,"You must insert a number");
+				}	
 			}
 		});
 		
-		GridBagConstraints gbc_btnNext = new GridBagConstraints();
-		gbc_btnNext.gridx = 0;
-		gbc_btnNext.gridy = 2;
-		panel_2.add(btnNext, gbc_btnNext);
+		GridBagConstraints gbcBtnNext = new GridBagConstraints();
+		gbcBtnNext.gridx = 0;
+		gbcBtnNext.gridy = 2;
+		panel2.add(btnNext, gbcBtnNext);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.SOUTH);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -117,7 +95,7 @@ public class CreateEquipmentWindow extends JFrame {
 				dispose();
 			}
 		});
-		panel_1.add(btnBack);
+		panel1.add(btnBack);
 	}
 
 }

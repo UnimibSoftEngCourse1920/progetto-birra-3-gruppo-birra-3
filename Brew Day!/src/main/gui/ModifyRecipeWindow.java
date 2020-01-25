@@ -20,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
 import java.awt.FlowLayout;
 
 
@@ -48,7 +50,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		ingredients = recipe.getIngredients();
 		
 		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
