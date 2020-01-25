@@ -94,13 +94,14 @@ public class RecipeController {
 		}
 	}
 	
-	public void createBrew(int id) {
+	public Brew createBrew(int id) {
 		List<Recipe> recipes = extractRecipe();
+		Brew brew = null;
 		boolean found = false;
 		try {
 			for (int i = 0; i < recipes.size(); i++) {
 				if (recipes.get(i).getId() == id) {
-					recipes.get(i).createBrew();
+				    brew = recipes.get(i).createBrew();
 					found = true;
 					ioController.writeObjectToFile(recipes, filepath);
 					break;
@@ -112,6 +113,7 @@ public class RecipeController {
 		} catch(RecipeNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
+		return brew;
 	}
 	
 	public void updateCounterId(int id) {
@@ -121,6 +123,27 @@ public class RecipeController {
         } catch (IOException e) {
         	System.out.println(e.getMessage());
         }
+	}
+	
+	public Map<String,Double> getMissingIngredients(int id) {
+		List<Recipe> recipes = extractRecipe();
+		Map<String,Double> missingIngredients = null;
+		boolean found = false;
+		try {
+			for (int i = 0; i < recipes.size(); i++) {
+				if (recipes.get(i).getId() == id) {
+					missingIngredients = recipes.get(i).getMissingIngredients();
+					found = true;
+					break;
+				}
+			}
+			if(!found) {
+				throw new RecipeNotFoundException();
+			}
+		} catch(RecipeNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		return missingIngredients;
 	}
 
 	//for only testing purpose

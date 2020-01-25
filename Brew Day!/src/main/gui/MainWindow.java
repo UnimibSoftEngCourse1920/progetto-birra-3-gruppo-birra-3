@@ -251,11 +251,11 @@ public class MainWindow extends JFrame implements ActionListener{
 		
 		brewController.deleteFile();
 		
-		Brew brew1 = recipe1.createBrew();
+		Brew brew1 = recipeController.createBrew(recipe1.getId());
 		brewController.store(brew1);
 				
 		//create brew from recipe2
-		Brew brew2 = recipe2.createBrew();
+		Brew brew2 = recipeController.createBrew(recipe2.getId());
 		brewController.store(brew2);
 		
 		brewController.addNote(brew1.getId(), "Note 1", false);

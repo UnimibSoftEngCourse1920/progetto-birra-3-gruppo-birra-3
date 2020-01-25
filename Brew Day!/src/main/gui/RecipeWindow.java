@@ -8,9 +8,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,6 +21,8 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
+import main.recipes.Brew;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 
@@ -140,11 +144,22 @@ public class RecipeWindow extends JFrame implements ActionListener{
 				RecipeController recipeController = RecipeController.getInstance();
 				switch(command) {
 					case "Brew it!":
-						setVisible(false);
-						recipeController.createBrew(recipeId);
-						
-						new BrewWindow().setVisible(true);
-						dispose();
+						Brew brew = recipeController.createBrew(recipeId);
+						if(brew == null) {
+							Map<String,Double> missingIngredients = recipeController.getMissingIngredients(recipeId);
+							StringBuilder missingAlert = new StringBuilder();
+							missingAlert.append("Some ingredients are missing from your storage! \nYou should buy:");
+							for(Entry<String, Double> i : missingIngredients.entrySet()) {
+								missingAlert.append("\n" + i.getKey() + " : " + missingIngredients.get(i.getKey()));
+							}
+							
+							JOptionPane.showMessageDialog(this, missingAlert.toString());
+						}
+						else {
+							setVisible(false);
+							new BrewWindow().setVisible(true);
+							dispose();
+						}
 						break;
 					case "Modify":
 						setVisible(false);

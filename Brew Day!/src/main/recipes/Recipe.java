@@ -3,6 +3,8 @@ package main.recipes;
 import main.IngredientNotFoundException;
 import main.instrument.Equipment;
 import main.resources.Storage;
+import main.resources.StorageController;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public class Recipe implements Serializable{
 	private Map<String,Double> ingredients;
 	private Equipment equipment;
 	private Storage storage;
+	private Map<String,Double> missingIngredients;
 	private double countBrew = 1.0;
 	private int id;
 	private static final long serialVersionUID = 1L;
@@ -42,6 +45,10 @@ public class Recipe implements Serializable{
 
 	public String getName() {
 		return name;
+	}
+
+	public Map<String, Double> getMissingIngredients() {
+		return missingIngredients;
 	}
 
 	public double getQuantity(String name) {
@@ -92,29 +99,29 @@ public class Recipe implements Serializable{
 
 
 	public Brew createBrew(){
-		Map<String,Double> missingIngredients = this.computeMissingIngredients();
+		missingIngredients = this.computeMissingIngredients();
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
 			Brew b = new Brew(this, currentDate);
 			countBrew++;
-			
 			BrewController brewController = BrewController.getInstance();
 			brewController.store(b);
-			
 			//subtract ingredients from storage
 			Map<String,Double> storageIngredients = storage.getIngredients();
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
-				if (storageIngredients.containsKey(i.getKey())) {
-					double sIngredientvalue = storageIngredients.get(i.getKey()).doubleValue();
-					storageIngredients.replace(i.getKey(),sIngredientvalue-i.getValue());
-				}
+				double sIngredientValue = storageIngredients.get(i.getKey()).doubleValue();
+				storageIngredients.replace(i.getKey(),sIngredientValue-i.getValue());
 			}
-			storage.setIngredients(storageIngredients);
+			
+			StorageController storageController = StorageController.getInstance();
+			storageController.update(storageIngredients);
 			return b;
 		}
 		else {
+			StringBuilder missingAlert = new StringBuilder();
+			missingAlert.append("Some ingredients are missing from your storage! \nYou should buy:");
 			for(Entry<String, Double> i : missingIngredients.entrySet()) {
-				System.out.println("Need: " + i.getKey() + " " + missingIngredients.get(i.getKey()));
+				missingAlert.append("\n" + i.getKey() + " : " + missingIngredients.get(i.getKey()));
 			}
 			return null;
 		}
