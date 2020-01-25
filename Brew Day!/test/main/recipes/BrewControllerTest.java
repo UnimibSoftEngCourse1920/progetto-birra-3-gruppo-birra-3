@@ -81,35 +81,36 @@ public class BrewControllerTest {
 	public void testUpdateNote() {
 		BrewController brewController = BrewController.getInstance();
 		
-		Recipe recipe = new Recipe("Recipe", new HashMap<>());
-	    Brew brew1 = recipe.createBrew();
-	    brewController.addNote(brew1.getId(), "Note 1", true);
-	    brewController.addNote(brew1.getId(), "Note 2", false);
-	    System.out.println(brew1.getNotes().toString());
+		Recipe recipe1 = new Recipe("Recipe1", null);
+		Date startDate = new Date(System.currentTimeMillis());
+		Brew brew1 = new Brew(recipe1, startDate);
+		brew1.addNote("Note 1", false);
+		brew1.addNote("Note 2", false);
+		brewController.store(brew1);
 		
-	    Brew brew2 = recipe.createBrew();
-	    brewController.addNote(brew2.getId(), "Note 3", false);
-	    System.out.println(brew2.getNotes().toString());
-	    
-	    String noteEdit1 = "Note 1 Edit";
-		String noteEdit2 = "Note 3 Edit";
+		Recipe recipe2 = new Recipe("Recipe2", null);
+		Brew brew2 = new Brew(recipe2, startDate);
+		brew2.addNote("Note 3", true);
+		brewController.store(brew2);
 		
-		brewController.updateNote(brew1.getId(),-1,noteEdit1);
-		brewController.updateNote(brew2.getId(),1,noteEdit2);
+		System.out.println(brew1.getId());
+		System.out.println(brew2.getId());
 		
-		brew1.modifyNote(-1, noteEdit1);
-		System.out.println(brew1.getNotes().toString());
-		brew2.modifyNote(1, noteEdit2);
-		System.out.println(brew2.getNotes().toString());
+		String txt1 = "New Note 1";
+		String txt2 = "New note 3";
 		
-		ArrayList<Brew> brews = brewController.extractBrew();
+		brewController.updateNote(brew1.getId(), 2, txt1);
+		brewController.updateNote(brew2.getId(), -3, txt2);
 		
-		System.out.println(brews.toString());
+		brew1.modifyNote(2, txt1);
+		brew2.modifyNote(-3, txt2);
+		
+		List<Brew> brews = brewController.extractBrew();
 		
 		brewController.deleteFile();
 		
-		assertTrue(brews.get(0).equals(brew1));
-	  	assertTrue(brews.get(1).equals(brew2));
+		assertEquals(brews.get(0).getNotes(),brew1.getNotes());
+		assertEquals(brews.get(1).getNotes(),brew2.getNotes());	
 	}
 
 	@Test
@@ -137,7 +138,7 @@ public class BrewControllerTest {
 	    brewController.delete(brew1.getId());
 		brewController.delete(brew2.getId());
 		
-		ArrayList<Brew> brews = brewController.extractBrew();
+		List<Brew> brews = brewController.extractBrew();
 		
 		brewController.deleteFile();
 		
@@ -159,7 +160,7 @@ public class BrewControllerTest {
 	    
 	    brewController.deleteNote(brew1.getId(), -1);
 		
-		ArrayList<Brew> brews = brewController.extractBrew();
+		List<Brew> brews = brewController.extractBrew();
 		
 		brewController.deleteFile();
 		
@@ -195,6 +196,35 @@ public class BrewControllerTest {
 		
 		assertTrue(brews.isEmpty());
 		assertTrue(sIngredients.equals(extStorage.getIngredients()));
+	}
+	
+	@Test
+	public void tesAddNote() {
+		BrewController brewController = BrewController.getInstance();
+		
+		Recipe recipe1 = new Recipe("Recipe1", null);
+		Date startDate = new Date(System.currentTimeMillis());
+		Brew brew1 = new Brew(recipe1, startDate);
+		brewController.store(brew1);
+		
+		Recipe recipe2 = new Recipe("Recipe2", null);
+		Brew brew2 = new Brew(recipe2, startDate);
+		brewController.store(brew2);
+		
+		brewController.addNote(brew1.getId(), "New note 1", false);
+		brewController.addNote(brew1.getId(), "New note 2", false);
+		brewController.addNote(brew2.getId(), "New note 1", true);
+		
+		brew1.addNote("New note 1", false);
+		brew1.addNote("New note 2", false);
+		brew2.addNote("New note 1", true);
+		
+		List<Brew> brews = brewController.extractBrew();
+		
+		brewController.deleteFile();
+		
+		assertEquals(brews.get(0).getNotes(),brew1.getNotes());
+		assertEquals(brews.get(1).getNotes(),brew2.getNotes());
 	}
 
 }
