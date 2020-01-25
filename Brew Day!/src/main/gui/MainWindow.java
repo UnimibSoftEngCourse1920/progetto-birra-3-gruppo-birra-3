@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -29,31 +30,31 @@ public class MainWindow extends JFrame implements ActionListener{
 
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
-	private static MainWindow instance;
+	private static boolean brewIt = false;
 
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
-			case "View your recipes":
-			    setVisible(false);
-				new RecipeWindow().setVisible(true);
-			    break;
-			case "View your brews":
-				setVisible(false);
-				new BrewWindow().setVisible(true);
-				break;
-			case "View your equipment":
-				setVisible(false);
-				new EquipmentWindow().setVisible(true);
-				break;
-			case "View your storage":
-				setVisible(false);
-				new StorageWindow().setVisible(true);
-				break;
-			default:
+		case "View your recipes":
+			setVisible(false);
+			new RecipeWindow().setVisible(true);
+			break;
+		case "View your brews":
+			setVisible(false);
+			new BrewWindow().setVisible(true);
+			break;
+		case "View your equipment":
+			setVisible(false);
+			new EquipmentWindow().setVisible(true);
+			break;
+		case "View your storage":
+			setVisible(false);
+			new StorageWindow().setVisible(true);
+			break;
+		default:
 		}
 	}
 
-	private MainWindow() {
+	public MainWindow() {
 		super("Brew Day!");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -132,22 +133,22 @@ public class MainWindow extends JFrame implements ActionListener{
 		mainPanel.add(wsibtPanel);
 
 		Dimension d = new Dimension(200, 70);
-		
+
 		JButton recipeButton = new JButton("View your recipes");
 		recipeButton.addActionListener(this);
 		recipeButton.setPreferredSize(d);
 		recipeButtonPanel.add(recipeButton);
-		
+
 		JButton brewButton = new JButton("View your brews");
 		brewButton.addActionListener(this);
 		brewButton.setPreferredSize(d);
 		brewButtonPanel.add(brewButton);
-		
+
 		JButton equipmentButton = new JButton("View your equipment");
 		equipmentButton.addActionListener(this);
 		equipmentButton.setPreferredSize(d);
 		equipmentButtonPanel.add(equipmentButton);
-		
+
 		JButton storageButton = new JButton("View your storage");
 		storageButton.addActionListener(this);
 		storageButton.setPreferredSize(d);
@@ -155,17 +156,30 @@ public class MainWindow extends JFrame implements ActionListener{
 
 		String filepathRecipe = System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt";
 		File fileRecipe = new File(filepathRecipe);
+		String filepathStorage = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
+		File fileStorage = new File(filepathStorage);
+		RecipeController recipeController = RecipeController.getInstance();
+		StorageController storageController = StorageController.getInstance();
+
 		String wsibtRecipe = null;
-		if(fileRecipe.exists()) {
-			RecipeController recipeController = RecipeController.getInstance();
-			int size = recipeController.extractRecipe().size();
-			if(size != 0) {
-				wsibtRecipe = getWSIBT().getName();
+		if(fileRecipe.exists() && fileStorage.exists()) {
+			int sizeR = recipeController.extractRecipe().size();
+			int sizeS = storageController.extractStorage().getIngredients().size();
+			if(sizeR != 0 && sizeS != 0) {
+				Recipe r = getWSIBT();
+				if(r != null) {
+					wsibtRecipe = r.getName();
+					brewIt = true;
+				}else {
+					wsibtRecipe = "No recipe match the availability";
+				}
 			}
-		}else {
-			wsibtRecipe = "Nessuna recipe salvata!";
+			else if (sizeR == 0 || sizeS == 0)
+				wsibtRecipe = "None, you have no recipes saved or no storage ingredients!";
+		}else{
+			wsibtRecipe = "None, you have no recipes or no storage!";
 		}
-			
+
 		JLabel wsibtLabel = new JLabel ("What should I brew today? " + wsibtRecipe);
 		wsibtLabel.setFont(f);
 		wsibtLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -180,13 +194,18 @@ public class MainWindow extends JFrame implements ActionListener{
 		JButton wsibtButton = new JButton("Brew it!");
 		wsibtButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RecipeController recipeController = RecipeController.getInstance();
-				Recipe wsibtRecipe = getWSIBT();
-				recipeController.createBrew(wsibtRecipe.getId());
-				
-				BrewWindow brewWin = new BrewWindow();
-				brewWin.setVisible(true);
-				dispose();
+				if(brewIt) {
+					RecipeController recipeController = RecipeController.getInstance();
+					Recipe wsibtRecipe = getWSIBT();
+					recipeController.createBrew(wsibtRecipe.getId());
+
+					BrewWindow brewWin = new BrewWindow();
+					brewWin.setVisible(true);
+					dispose();
+				}
+				else
+					JOptionPane.showMessageDialog(wsibtButtonPanel, "You cant Brew it!");
+
 			}
 		});
 		wsibtButton.setPreferredSize(d);
@@ -198,23 +217,15 @@ public class MainWindow extends JFrame implements ActionListener{
 		return recipeController.featureWSIBT();
 	}
 
-	public static MainWindow getInstance() {
-		if (instance == null) {
-			instance = new MainWindow();
-		}
-
-		return instance;
-	}
-
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
+		/*
 		//Only for testing purposes
 		Map<String, Double> instruments = new HashMap<>();
 		instruments.put("Kettle", 25.0);
 		instruments.put("Fermenter", 10.0);	
 		EquipmentController equipmentController = EquipmentController.getInstance();
 		equipmentController.createEquipment(instruments);
-		
+
 		//create storage
 		Map<String,Double> ingredients = new HashMap<>();
 	    ingredients.put("Malt", 1000.0);
@@ -223,7 +234,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients.put("Sugar", 50.0);
 		StorageController storageController = StorageController.getInstance();
 		storageController.createStorage(ingredients);
-	
+
 		//create recipe1
 		RecipeController recipeController = RecipeController.getInstance();
 		HashMap<String,Double> ingredients2 = new HashMap<>();
@@ -231,37 +242,45 @@ public class MainWindow extends JFrame implements ActionListener{
 		ingredients2.put("Hop", 20.0); 
 		Recipe recipe1 = new Recipe("Recipe1", ingredients2);
 		recipeController.store(recipe1);
-				
+
 		//create recipe2
 		HashMap<String,Double> ingredients3 = new HashMap<>();
 	    ingredients3.put("Malt", 100.0); 
 		ingredients3.put("Yeast", 25.0);
 		Recipe recipe2 = new Recipe("Recipe2", ingredients3);
 		recipeController.store(recipe2);
-				
+
 		//create recipe3
 		HashMap<String,Double> ingredients4 = new HashMap<>();
 		ingredients4.put("Yeast", 10.0); 
 		ingredients4.put("Sugar", 20.0); 
 		Recipe recipe3 = new Recipe("Recipe3", ingredients4);
 		recipeController.store(recipe3);
-				
+
 		//create brew from recipe1
 		BrewController brewController = BrewController.getInstance();
-				
+
+		brewController.deleteFile();
+
 		Brew brew1 = recipe1.createBrew();
 		brewController.store(brew1);
-				
+
 		//create brew from recipe2
 		Brew brew2 = recipe2.createBrew();
 		brewController.store(brew2);
-		
+
 		brewController.addNote(brew1.getId(), "Note 1", false);
 		brewController.addNote(brew1.getId(), "Note 2", true);
 		brewController.addNote(brew2.getId(), "Note 2", true);
-				
+
+
+
+		//Only for testing purposes
+		//recipeController.deleteFile();
+		 */
+
 		//Only for testing purpose
-		MainWindow gui = getInstance();
+		MainWindow gui = new MainWindow();
 		gui.setVisible(true);
 	}
 }

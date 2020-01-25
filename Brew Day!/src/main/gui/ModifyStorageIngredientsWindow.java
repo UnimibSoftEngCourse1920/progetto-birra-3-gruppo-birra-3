@@ -116,7 +116,6 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 				sController.update(extractIngredients());
 
 				StorageWindow sWindow = new StorageWindow();
-
 				sWindow.setVisible(true);
 				dispose();
 			}

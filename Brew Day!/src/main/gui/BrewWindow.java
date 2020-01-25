@@ -113,7 +113,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Back")) {
-			MainWindow.getInstance().setVisible(true);
+			new MainWindow().setVisible(true);
 			dispose();
 		} else {
 			String[] tokens = e.getActionCommand().split("/");

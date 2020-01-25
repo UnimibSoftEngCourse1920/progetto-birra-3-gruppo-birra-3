@@ -3,6 +3,9 @@ package main.recipes;
 import main.IngredientNotFoundException;
 import main.instrument.Equipment;
 import main.resources.Storage;
+import main.resources.StorageController;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -121,17 +124,27 @@ public class Recipe implements Serializable{
 	}
 
 	public Map<String, Double> computeMissingIngredients(){
-		Map<String,Double> missingIngredients = new HashMap<>();
-		storage = Storage.getInstance();
-		Map<String,Double> storageIngredients = storage.getIngredients();
+		Map<String,Double> missingIngredients = new HashMap<>();		
+		
+		File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Storage.txt");
+		
+		try {
+			if(f.exists()) {
+				StorageController storageController = StorageController.getInstance();
+				Map<String,Double> storageIngredients = storageController.extractStorage().getIngredients();
+				for(Entry<String, Double> i : this.ingredients.entrySet()) {
+					double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
+					if (ingredientValue < i.getValue()) {
+						missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
+					}
+				}
 
-		for(Entry<String, Double> i : this.ingredients.entrySet()) {
-			double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
-			if (ingredientValue < i.getValue()) {
-				missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
+				return missingIngredients;
 			}
+			else throw new StorageNotFoundWSIBTException();
+		}catch(StorageNotFoundWSIBTException e){
+			System.out.println(e.getMessage());
 		}
-
 		return missingIngredients;
 	}
 
