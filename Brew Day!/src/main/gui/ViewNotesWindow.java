@@ -55,7 +55,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
 		
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Recipe Name","Brew Number","Note number","Notes","Type","",""}, 0) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Recipe Name","Brew Number","Note number","Note text","Type","",""}, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				switch (column) {
@@ -79,9 +79,9 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getColumnModel().getColumn(2).setPreferredWidth(750);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.getColumnModel().getColumn(3).setPreferredWidth(750);
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
 		table.setRowHeight(30);
 
 		@SuppressWarnings("unused")

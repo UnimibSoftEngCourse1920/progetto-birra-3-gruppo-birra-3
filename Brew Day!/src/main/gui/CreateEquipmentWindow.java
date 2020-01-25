@@ -1,20 +1,17 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
@@ -23,26 +20,6 @@ public class CreateEquipmentWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreateEquipmentWindow frame = new CreateEquipmentWindow();
-					frame.setVisible(true);
-					frame.setSize(600, 400);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public CreateEquipmentWindow() {
 		super("Brew Day! - Create equipment");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,9 +72,6 @@ public class CreateEquipmentWindow extends JFrame {
 				}catch(NullPointerException e1) {
 					JOptionPane.showMessageDialog(panel_2, "You must insert a number");
 				}
-				
-				
-				
 			}
 		});
 		
@@ -119,5 +93,4 @@ public class CreateEquipmentWindow extends JFrame {
 		});
 		panel_1.add(btnBack);
 	}
-
 }

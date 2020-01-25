@@ -164,7 +164,7 @@ implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
 	/*
 	 *	The button has been pressed. Stop editing and invoke the custom Action
 	 */
-	
+
 	public void actionPerformed(ActionEvent e){
 		int row = table.convertRowIndexToModel( table.getEditingRow() );
 		fireEditingStopped();
@@ -172,9 +172,9 @@ implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
 		//  Invoke the Action
 
 		ActionEvent event = new ActionEvent(
-			table,
-			ActionEvent.ACTION_PERFORMED,
-			table.getModel().getValueAt(row, 0) + "/" + e.getActionCommand() + "/" + row);
+				table,
+				ActionEvent.ACTION_PERFORMED,
+				table.getModel().getValueAt(row, 0) + "/" + e.getActionCommand() + "/" + row);
 		action.actionPerformed(event);
 	}
 

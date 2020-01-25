@@ -1,13 +1,11 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,10 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import main.instrument.EquipmentController;
 import javax.swing.JScrollPane;
-
 
 @SuppressWarnings("serial")
 public class ModifyEquipmentWindow extends JFrame {
@@ -27,26 +23,6 @@ public class ModifyEquipmentWindow extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ModifyEquipmentWindow frame = new ModifyEquipmentWindow();
-					frame.setVisible(true);
-					frame.setSize(600, 400);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public ModifyEquipmentWindow() {
 		super("Brew Day! - Modify equipment");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

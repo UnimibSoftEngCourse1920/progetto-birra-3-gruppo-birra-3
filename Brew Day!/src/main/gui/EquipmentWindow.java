@@ -1,14 +1,10 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import main.instrument.EquipmentController;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -25,26 +21,6 @@ public class EquipmentWindow extends JFrame {
 	private JPanel contentPane;
 	private String filepath = System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt";
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EquipmentWindow frame = new EquipmentWindow();
-					frame.setVisible(true);
-					frame.setSize(600, 400);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public EquipmentWindow() {
 		super("Brew Day! - Equipment menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,9 +109,6 @@ public class EquipmentWindow extends JFrame {
 		gbc_btnCreateEquipment.gridy = 0;
 		panel_1.add(btnCreateEquipment, gbc_btnCreateEquipment);
 		
-		
-		
-
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
 
 		btnModifyEquipment.addActionListener(new ActionListener() {
@@ -167,7 +140,6 @@ public class EquipmentWindow extends JFrame {
 		gbc_btnModifyEquipment.gridy = 2;
 		panel_1.add(btnModifyEquipment, gbc_btnModifyEquipment);
 
-
 		JButton btnInsertNewInstrument = new JButton("Insert New Instrument");
 		
 		btnInsertNewInstrument.addActionListener(new ActionListener() {
@@ -191,9 +163,7 @@ public class EquipmentWindow extends JFrame {
 		gbc_btnInsertNewInstrument.gridy = 3;
 		panel_1.add(btnInsertNewInstrument, gbc_btnInsertNewInstrument);
 
-
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
-		
 		
 		btnDeleteInstrument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

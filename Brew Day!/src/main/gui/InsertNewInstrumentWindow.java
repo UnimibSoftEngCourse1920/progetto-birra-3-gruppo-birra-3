@@ -1,14 +1,12 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import main.instrument.EquipmentController;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -27,26 +25,6 @@ public class InsertNewInstrumentWindow extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InsertNewInstrumentWindow frame = new InsertNewInstrumentWindow();
-					frame.setVisible(true);
-					frame.setSize(600, 400);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public InsertNewInstrumentWindow() {
 		super("Brew Day! - Insert new instrument");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

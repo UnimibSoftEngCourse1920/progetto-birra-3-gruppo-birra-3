@@ -8,10 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,11 +17,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
-import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
-import main.resources.StorageController;
 
 @SuppressWarnings("serial")
 public class RecipeWindow extends JFrame implements ActionListener{
@@ -79,7 +73,6 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		@SuppressWarnings("unused")
 		ButtonColumn deleteColumn = new ButtonColumn(recipesTable, this, 5);
 		
-        
 		viewRecipesPanel.add(scrollPane);
 		
 		Dimension d = new Dimension(200, 70);
@@ -99,53 +92,6 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		
 		RecipeController recipeController = RecipeController.getInstance();
 
-		//Only for testing purposes
-		//create storage
-		Map<String,Double> ingredients3 = new HashMap<String, Double>();
-	    ingredients3.put("Malt", 1000.0);
-		ingredients3.put("Yeast", 35.0);
-		ingredients3.put("Hop", 189.0);
-		ingredients3.put("Sugar", 50.0);
-		StorageController storageController = StorageController.getInstance();
-		storageController.createStorage(ingredients3);
-		
-		HashMap<String,Double> ingredients1 = new HashMap<>();
-		ingredients1.put("Malt", 5.0); 
-		ingredients1.put("Hop", 60.0); 
-		Recipe recipe1 = new Recipe("Recipe1", ingredients1);
-		recipeController.store(recipe1);
-		
-		HashMap<String,Double> ingredients2 = new HashMap<>();
-		ingredients2.put("Malt", 10.0); 
-		ingredients2.put("Hop", 20.0); 
-		Recipe recipe2 = new Recipe("Recipe2", ingredients2);
-		recipeController.store(recipe2);
-		
-		/*
-		Recipe recipe3 = new Recipe("Recipe3", ingredients2);
-		Recipe recipe4 = new Recipe("Recipe4", ingredients2);
-		Recipe recipe5 = new Recipe("Recipe5", ingredients2);
-		Recipe recipe6 = new Recipe("Recipe6", ingredients2);
-		Recipe recipe7 = new Recipe("Recipe7", ingredients2);
-		Recipe recipe8 = new Recipe("Recipe8", ingredients2);
-		Recipe recipe9 = new Recipe("Recipe9", ingredients2);
-		Recipe recipe10 = new Recipe("Recipe10", ingredients2);
-		Recipe recipe11 = new Recipe("Recipe11", ingredients2);
-		Recipe recipe12 = new Recipe("Recipe12", ingredients2);
-		recipeController.store(recipe2);
-		recipeController.store(recipe3);
-		recipeController.store(recipe4);
-		recipeController.store(recipe5);
-		recipeController.store(recipe6);
-		recipeController.store(recipe7);
-		recipeController.store(recipe8);
-		recipeController.store(recipe9);
-		recipeController.store(recipe10);
-		recipeController.store(recipe11);
-		recipeController.store(recipe12);
-		*/
-		//Only for testing purposes
-		
 		ArrayList<Recipe> recipes = recipeController.extractRecipe();
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Number","Name","Ingredients","","",""}, 0) {

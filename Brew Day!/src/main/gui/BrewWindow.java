@@ -7,9 +7,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,9 +20,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import main.recipes.Brew;
 import main.recipes.BrewController;
-import main.recipes.Recipe;
-import main.recipes.RecipeController;
-import main.resources.StorageController;
 
 @SuppressWarnings("serial")
 public class BrewWindow extends JFrame implements ActionListener {
@@ -44,42 +39,6 @@ public class BrewWindow extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-		//////////////////////////////////////////////
-		//Only for testing purposes
-		Map<String,Double> ingredients = new HashMap<String, Double>();
-		ingredients.put("Malt", 10.0);
-		ingredients.put("Yeast", 35.0);
-		ingredients.put("Hop", 189.0);
-		ingredients.put("Sugar", 50.0);
-		StorageController storageController = StorageController.getInstance();
-		storageController.createStorage(ingredients);
-
-		RecipeController recipeController = RecipeController.getInstance();
-		HashMap<String,Double> ingredients2 = new HashMap<>();
-		ingredients2.put("Malt", 10.0); 
-		ingredients2.put("Hop", 20.0); 
-		Recipe recipe = new Recipe("Test Recipe", ingredients2);
-		recipeController.store(recipe);
-
-		brewController = BrewController.getInstance();
-		Brew brew1 = recipe.createBrew();
-		brewController.store(brew1);
-
-		HashMap<String,Double> ingredients3 = new HashMap<>();
-		ingredients3.put("Yeast", 10.0); 
-		ingredients3.put("Sugar", 20.0); 
-		Recipe recipe2 = new Recipe("Recipe2", ingredients3);
-		Brew brew2 = recipe2.createBrew();
-		brewController.store(brew2);
-
-		brewController.addNote(brew1.getId(), "Note 1", false);
-		brewController.addNote(brew1.getId(), "Note 2", true);
-		brewController.addNote(brew2.getId(), "Note 2", true);
-		//Only for testing purposes
-		////////////////////////////////////////////////
-
-
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
@@ -121,8 +80,8 @@ public class BrewWindow extends JFrame implements ActionListener {
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.getColumnModel().getColumn(3).setPreferredWidth(450);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
 		table.setRowHeight(30);
 
 		@SuppressWarnings("unused")
@@ -141,7 +100,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font(btnBack.getFont().getName(),Font.BOLD, 18));
+		btnBack.setFont(new Font(btnBack.getFont().getName(),Font.BOLD, 16));
 		btnBack.addActionListener(this);
 		panel_2.add(btnBack);
 	}

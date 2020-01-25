@@ -1,8 +1,6 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,9 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import main.instrument.EquipmentController;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -26,26 +22,6 @@ public class InsertInstrumentsWindow extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InsertInstrumentsWindow frame = new InsertInstrumentsWindow(0);
-					frame.setVisible(true);
-					frame.setSize(600, 400);	
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public InsertInstrumentsWindow(int numberInstruments) {
 		super("Brew Day! - Insert instruments");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,8 +104,6 @@ public class InsertInstrumentsWindow extends JFrame {
 		}
 		return null;
 	}
-
-	
 	
 	private double fromStringToDouble(String str) {
 		if (str.contains("-")) {
@@ -137,5 +111,4 @@ public class InsertInstrumentsWindow extends JFrame {
 		} 
 		return Double.parseDouble(str);
 	}
-
 }
