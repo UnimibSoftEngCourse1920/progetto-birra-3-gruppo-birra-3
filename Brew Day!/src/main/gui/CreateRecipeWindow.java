@@ -19,6 +19,8 @@ import javax.swing.table.DefaultTableModel;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
 import java.awt.FlowLayout;
 
 
@@ -35,7 +37,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		super("Brew Day! - Create recipe");
         
 		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
@@ -49,8 +51,8 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		JLabel lblInsertTheName = new JLabel("Set the ingredients needed for the new recipe:");
 		panel.add(lblInsertTheName);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Ingredient name", "Quantity"}, 0) {
 			@Override
@@ -71,24 +73,24 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(this);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblModifyTheName = new JLabel("Set the name of the new recipe: ");
-		panel_2.add(lblModifyTheName);
+		panel2.add(lblModifyTheName);
 		
 		textField = new JTextField();
-		panel_2.add(textField);
+		panel2.add(textField);
 		textField.setColumns(10);
-		panel_2.add(btnSave);
+		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
-		panel_2.add(btnBack); 
+		panel2.add(btnBack); 
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -121,12 +123,13 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 					recipeWindow.setVisible(true);
 					dispose();
 				}
+			default:;
 		}
 	}
 	
 	private Map<String, Double> createIngredients(){
 		try {
-			Map<String, Double> ingredients = new HashMap<String, Double>();
+			Map<String, Double> ingredients = new HashMap<>();
 			
 			for (int i = 0; i < table.getRowCount(); i++) {
 				String ingredientName = table.getValueAt(i, 0).toString();
@@ -178,10 +181,5 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 			throw new NumberFormatException();
 		} 
 		return Double.parseDouble(str);
-	}
-	
-	public static void main(String[] args){
-		CreateRecipeWindow gui = new CreateRecipeWindow();
-		gui.setVisible( true);
 	}
 }

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 
 @SuppressWarnings("serial")
 public class InsertInstrumentsWindow extends JFrame {
@@ -24,7 +25,7 @@ public class InsertInstrumentsWindow extends JFrame {
 
 	public InsertInstrumentsWindow(int numberInstruments) {
 		super("Brew Day! - Insert instruments");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -38,8 +39,8 @@ public class InsertInstrumentsWindow extends JFrame {
 		panel.add(lblInsertTheName);
 		
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Instrument name","Capacity (l)"}, 0);
 		for(int i=0; i<numberInstruments; i++) {
@@ -53,8 +54,8 @@ public class InsertInstrumentsWindow extends JFrame {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
@@ -72,7 +73,7 @@ public class InsertInstrumentsWindow extends JFrame {
 			}
 		});
 		
-		panel_2.add(btnSave);
+		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -82,12 +83,12 @@ public class InsertInstrumentsWindow extends JFrame {
 				dispose();
 			}
 		});
-		panel_2.add(btnBack);
+		panel2.add(btnBack);
 	}
 	
 	private Map<String, Double> createInstruments(){
 		try {
-			Map<String, Double> instruments = new HashMap<String, Double>();
+			Map<String, Double> instruments = new HashMap<>();
 			for (int i = 0; i < table.getRowCount(); i++) {
 				String instrumentName = table.getValueAt(i, 0).toString();
 				if (!instrumentName.matches("[a-zA-Z_]+")) {

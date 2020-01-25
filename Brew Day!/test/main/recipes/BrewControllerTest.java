@@ -112,7 +112,7 @@ public class BrewControllerTest {
 		assertEquals(brews.get(0).getNotes(),brew1.getNotes());
 		assertEquals(brews.get(1).getNotes(),brew2.getNotes());	
 	}
-
+	
 	@Test
 	public void testDelete() {
 		BrewController brewController = BrewController.getInstance();
@@ -154,11 +154,15 @@ public class BrewControllerTest {
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
 	    brew1.addNote("Note 1",true);
+	    brew1.addNote("Note 2",false);
+	    brew1.addNote("Note 3",true);
 		recipe.incrementCountBrew();
 	    
 	    brewController.store(brew1);
 	    
 	    brewController.deleteNote(brew1.getId(), -1);
+	    brewController.deleteNote(brew1.getId(), 2);
+	    brewController.deleteNote(brew1.getId(), -3);
 		
 		List<Brew> brews = brewController.extractBrew();
 		

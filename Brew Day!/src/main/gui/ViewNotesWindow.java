@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import main.recipes.Brew;
@@ -34,7 +35,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 	 */
 	public ViewNotesWindow(Double id) {
 		super("Brew Day! - Brew Notes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(150, 200, 1600, 700);
 		this.brewId = id;
 		contentPane = new JPanel();

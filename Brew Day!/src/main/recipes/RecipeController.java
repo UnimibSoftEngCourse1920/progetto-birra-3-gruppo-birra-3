@@ -115,12 +115,9 @@ public class RecipeController {
 	}
 	
 	public void updateCounterId(int id) {
-		try {
-			System.out.println(id);
-			FileOutputStream fos = new FileOutputStream(counterIdFilepath);
-		    DataOutputStream dos = new DataOutputStream(fos);
-		    dos.writeInt(id);
-		    dos.close();   
+		try (FileOutputStream fos = new FileOutputStream(counterIdFilepath);
+		    DataOutputStream dos = new DataOutputStream(fos)) {
+		    dos.writeInt(id); 
         } catch (IOException e) {
         	System.out.println(e.getMessage());
         }

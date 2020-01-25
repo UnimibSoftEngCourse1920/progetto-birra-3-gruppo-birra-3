@@ -11,9 +11,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
@@ -23,11 +23,11 @@ public class InsertNewInstrumentWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textField1;
 
 	public InsertNewInstrumentWindow() {
 		super("Brew Day! - Insert new instrument");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -40,71 +40,70 @@ public class InsertNewInstrumentWindow extends JFrame {
 		JLabel lblInsertNewInstrument = new JLabel("Insert new instrument in your equipment:");
 		panel.add(lblInsertNewInstrument);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{120, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
+		GridBagLayout gblPanel1 = new GridBagLayout();
+		gblPanel1.columnWidths = new int[]{120, 0};
+		gblPanel1.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gblPanel1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gblPanel1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel1.setLayout(gblPanel1);
 		
 		JLabel lblName = new JLabel("Instrument name:");
-		GridBagConstraints gbc_lblName = new GridBagConstraints();
-		gbc_lblName.fill = GridBagConstraints.BOTH;
+		GridBagConstraints gbcLblName = new GridBagConstraints();
+		gbcLblName.fill = GridBagConstraints.BOTH;
 		
-		gbc_lblName.insets = new Insets(0, 0, 5, 0);
-		gbc_lblName.gridx = 0;
-		gbc_lblName.gridy = 0;
-		panel_1.add(lblName, gbc_lblName);
+		gbcLblName.insets = new Insets(0, 0, 5, 0);
+		gbcLblName.gridx = 0;
+		gbcLblName.gridy = 0;
+		panel1.add(lblName, gbcLblName);
 		
 		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.BOTH;
+		GridBagConstraints gbcTextField = new GridBagConstraints();
+		gbcTextField.insets = new Insets(0, 0, 5, 0);
+		gbcTextField.fill = GridBagConstraints.BOTH;
 		
-		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 1;
-		panel_1.add(textField, gbc_textField);
+		gbcTextField.gridx = 0;
+		gbcTextField.gridy = 1;
+		panel1.add(textField, gbcTextField);
 		textField.setColumns(10);
 		
 		JLabel lblCapacity = new JLabel("Capacity (l):");
-		GridBagConstraints gbc_lblCapacity = new GridBagConstraints();
-		gbc_lblCapacity.fill = GridBagConstraints.BOTH;
+		GridBagConstraints gbcLblCapacity = new GridBagConstraints();
+		gbcLblCapacity.fill = GridBagConstraints.BOTH;
 		
-		gbc_lblCapacity.insets = new Insets(0, 0, 5, 0);
-		gbc_lblCapacity.gridx = 0;
-		gbc_lblCapacity.gridy = 2;
-		panel_1.add(lblCapacity, gbc_lblCapacity);
+		gbcLblCapacity.insets = new Insets(0, 0, 5, 0);
+		gbcLblCapacity.gridx = 0;
+		gbcLblCapacity.gridy = 2;
+		panel1.add(lblCapacity, gbcLblCapacity);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.BOTH;
-		gbc_textField_1.gridx = 0;
-		gbc_textField_1.gridy = 3;
-		panel_1.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textField1 = new JTextField();
+		GridBagConstraints gbcTextField1 = new GridBagConstraints();
+		gbcTextField1.fill = GridBagConstraints.BOTH;
+		gbcTextField1.gridx = 0;
+		gbcTextField1.gridy = 3;
+		panel1.add(textField1, gbcTextField1);
+		textField1.setColumns(10);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				EquipmentController equipmentController = EquipmentController.getInstance();
-				Map<String, Double> instruments = new HashMap<String, Double>();
-				instruments = equipmentController.extractEquipment().getInstruments();
+				Map<String, Double> instruments = equipmentController.extractEquipment().getInstruments();
 				
 				String name = textField.getText();
 				boolean b = true;
 				
 				for(Entry<String, Double> i : instruments.entrySet()) {
 					if(name.equals(i.getKey())) {
-						JOptionPane.showMessageDialog(panel_2, "You already have this instrument in your equipment");
+						JOptionPane.showMessageDialog(panel2, "You already have this instrument in your equipment");
 						b = false;
 					}
 				}
-				double capacity = fromStringToDouble(textField_1.getText());
+				double capacity = fromStringToDouble(textField1.getText());
 				
 				if(b) {
 					instruments.put(name, capacity);
@@ -116,7 +115,7 @@ public class InsertNewInstrumentWindow extends JFrame {
 				dispose();
 			}
 		});
-		panel_2.add(btnSave);
+		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -126,7 +125,7 @@ public class InsertNewInstrumentWindow extends JFrame {
 				dispose();
 			}
 		});
-		panel_2.add(btnBack);
+		panel2.add(btnBack);
 	}
 	
 	private double fromStringToDouble(String str) {

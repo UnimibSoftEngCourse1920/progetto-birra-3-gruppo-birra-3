@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import main.recipes.Brew;
@@ -30,7 +31,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 
 	public BrewWindow() {
 		super("Brew Day! - Brews");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(150, 200, 1600, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,8 +45,8 @@ public class BrewWindow extends JFrame implements ActionListener {
 		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
 		panel.add(label);
 
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
@@ -65,13 +66,12 @@ public class BrewWindow extends JFrame implements ActionListener {
 			}
 		};
 
-		String ingredient;
+		StringBuilder ingredient = new StringBuilder();
 		for(Brew b : brews) {
-			ingredient = "";
 			for(Entry<String, Double> i : b.getRecipe().getIngredients().entrySet()) {
-				ingredient +=  "  " + i.getKey() + "= " + Double.toString(i.getValue());
+				ingredient.append("  " + i.getKey() + "= " + Double.toString(i.getValue()));
 			}
-			model.addRow(new String[] {Double.toString(b.getId()),Integer.toString(b.getRecipe().getId()),b.getRecipe().getName(),ingredient,Integer.toString(b.getNotes().size()),fromDatetoString(b.getStartDate()),fromDatetoString(b.getFinishDate()),"View Notes","Terminate","Cancel","Delete"});
+			model.addRow(new String[] {Double.toString(b.getId()),Integer.toString(b.getRecipe().getId()),b.getRecipe().getName(),ingredient.toString(),Integer.toString(b.getNotes().size()),fromDatetoString(b.getStartDate()),fromDatetoString(b.getFinishDate()),"View Notes","Terminate","Cancel","Delete"});
 		}
 
 		table = new JTable(model);
@@ -82,25 +82,21 @@ public class BrewWindow extends JFrame implements ActionListener {
 		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
 		table.setRowHeight(30);
 
-		@SuppressWarnings("unused")
-		ButtonColumn viewNotesColumn = new ButtonColumn(table, this, 7);
-		@SuppressWarnings("unused")
-		ButtonColumn terminateColumn = new ButtonColumn(table, this, 8);
-		@SuppressWarnings("unused")
-		ButtonColumn cancelColumn = new ButtonColumn(table, this, 9);
-		@SuppressWarnings("unused")
-		ButtonColumn deleteColumn = new ButtonColumn(table, this, 10);
+	    new ButtonColumn(table, this, 7);
+		new ButtonColumn(table, this, 8);
+		new ButtonColumn(table, this, 9);
+		new ButtonColumn(table, this, 10);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 
 		JButton btnBack = new JButton("Back");
 		btnBack.setFont(new Font(btnBack.getFont().getName(),Font.BOLD, 16));
 		btnBack.addActionListener(this);
-		panel_2.add(btnBack);
+		panel2.add(btnBack);
 	}
 
 	public static String fromDatetoString(Date date) {
@@ -138,14 +134,14 @@ public class BrewWindow extends JFrame implements ActionListener {
 				boolean terminated = false;
 
 				for (Brew b : brews) {
-					if (b.getId().compareTo(brewId) == 0) {
-						if (b.getFinishDate() != null) terminated = true;
+					if (b.getId().compareTo(brewId) == 0 && b.getFinishDate() != null) { 
+						terminated = true;
 					}
 				}
-				if (terminated == false) {
+				if (!terminated) {
 					brewController.setFinishDate(brewId);
-					JTable table = (JTable)e.getSource();
-					((DefaultTableModel)table.getModel()).setValueAt(fromDatetoString(new Date(System.currentTimeMillis())), row, 6);
+					JTable table1 = (JTable)e.getSource();
+					((DefaultTableModel)table1.getModel()).setValueAt(fromDatetoString(new Date(System.currentTimeMillis())), row, 6);
 				} else {
 					JOptionPane.showMessageDialog(this,"You can't terminate a terminated brew");
 				}
@@ -156,17 +152,14 @@ public class BrewWindow extends JFrame implements ActionListener {
 				boolean terminated1 = false;
 
 				for (Brew b : brews1) {
-					if (b.getId().compareTo(brewId) == 0) {
-						if (b.getFinishDate() != null) {
+					if (b.getId().compareTo(brewId) == 0 && b.getFinishDate() != null) {
 							terminated1 = true;
-						}
 					}
 				}
-
-				if (terminated1 == false) {
+				if (!terminated1) {
 					brewController.cancel(brewId);
-					JTable table1 = (JTable)e.getSource();
-					((DefaultTableModel)table1.getModel()).removeRow(row);
+					JTable table2 = (JTable)e.getSource();
+					((DefaultTableModel)table2.getModel()).removeRow(row);
 				} else {
 					JOptionPane.showMessageDialog(this,"You can't cancel a terminated brew");
 				}
@@ -174,8 +167,9 @@ public class BrewWindow extends JFrame implements ActionListener {
 				break;
 			case "Delete":
 				brewController.delete(brewId);
-				JTable table2 = (JTable)e.getSource();
-				((DefaultTableModel)table2.getModel()).removeRow(row);
+				JTable table3 = (JTable)e.getSource();
+				((DefaultTableModel)table3.getModel()).removeRow(row);
+			default:;
 			}
 		}
 	}
