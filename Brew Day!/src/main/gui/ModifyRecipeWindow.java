@@ -136,10 +136,6 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 					recipeController.update(recipe.getId(),updateName(),updateIngredients());
 					recipeWindow = new RecipeWindow();
 					
-					//Only for testing purposes
-					recipeController.deleteFile();
-					//Only for testing purposes
-					
 					recipeWindow.setVisible(true);
 					dispose();
 				}

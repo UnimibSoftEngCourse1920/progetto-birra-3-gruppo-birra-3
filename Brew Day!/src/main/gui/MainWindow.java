@@ -248,9 +248,7 @@ public class MainWindow extends JFrame implements ActionListener{
 				
 		//create brew from recipe1
 		BrewController brewController = BrewController.getInstance();
-		
-		brewController.deleteFile();
-		
+				
 		Brew brew1 = recipe1.createBrew();
 		brewController.store(brew1);
 				
@@ -265,8 +263,5 @@ public class MainWindow extends JFrame implements ActionListener{
 		//Only for testing purpose
 		MainWindow gui = getInstance();
 		gui.setVisible(true);
-				
-		//Only for testing purposes
-		//recipeController.deleteFile();
 	}
 }

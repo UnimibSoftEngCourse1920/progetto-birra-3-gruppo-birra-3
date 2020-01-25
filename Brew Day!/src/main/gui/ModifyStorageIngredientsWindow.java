@@ -23,8 +23,8 @@ import main.resources.StorageController;
 @SuppressWarnings("serial")
 public class ModifyStorageIngredientsWindow extends JFrame implements ActionListener{
 
-private StorageController sController;
-	
+	private StorageController sController;
+
 	private JPanel contentPane;
 	private JTable table;
 
@@ -36,55 +36,55 @@ private StorageController sController;
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
-		
+
 		JLabel label = new JLabel("The storage is:");
 		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
 		panel.add(label);
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
-		
+
 		sController = StorageController.getInstance();
-			
+
 		Storage storage = sController.extractStorage();
-		
+
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0) {
 			@Override
-			   public boolean isCellEditable(int row, int column) {
-			       return column == 1;
-			   }
+			public boolean isCellEditable(int row, int column) {
+				return column == 1;
+			}
 		};
 
 		for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
 			model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 		}
-		
+
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
 		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
 		table.setRowHeight(30);
-		
+
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
+
 		JPanel panel2 = new JPanel();
 		contentPane.add(panel2, BorderLayout.SOUTH);
-		
+
 		JButton modifyButton = new JButton("Save");
 		modifyButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 20));
 		modifyButton.addActionListener(this);
-		
+
 		panel2.add(modifyButton);
-		
+
 		JButton backButton = new JButton("Cancel");
 		backButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 20));
 		backButton.addActionListener(this);
-		
+
 		panel2.add(backButton);
 	}
 
@@ -101,12 +101,13 @@ private StorageController sController;
 		} 
 	}
 
-	private double fromStringToDouble(String str) {
+	private Double fromStringToDouble(String str) {
 		if (str.contains("-")) {
 			throw new NumberFormatException();
 		} 
 		return Double.parseDouble(str);
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -115,8 +116,6 @@ private StorageController sController;
 				sController.update(extractIngredients());
 
 				StorageWindow sWindow = new StorageWindow();
-
-				sController.deleteFile();
 
 				sWindow.setVisible(true);
 				dispose();
