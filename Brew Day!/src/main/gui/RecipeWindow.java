@@ -29,13 +29,11 @@ import main.recipes.RecipeController;
 @SuppressWarnings("serial")
 public class RecipeWindow extends JFrame implements ActionListener{
 	
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
 	private JTable recipesTable;
 	
 	public RecipeWindow(){
 		super("Brew Day! - Recipes");
-		setSize(WIDTH, HEIGHT);
+		setBounds(300, 150, 1280, 720);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		

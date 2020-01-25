@@ -36,7 +36,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 	public ViewNotesWindow(Double id) {
 		super("Brew Day! - Brew Notes");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(200, 200, 1400, 700);
+		setBounds(300, 150, 1280, 720);
 		this.brewId = id;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

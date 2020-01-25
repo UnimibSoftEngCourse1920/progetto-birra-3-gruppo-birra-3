@@ -26,7 +26,7 @@ public class ShowEquipmentWindow extends JFrame {
 	public ShowEquipmentWindow() {
 		super("Brew Day! - Show equipment");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(200, 200, 600, 400);
+		setBounds(300, 150, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

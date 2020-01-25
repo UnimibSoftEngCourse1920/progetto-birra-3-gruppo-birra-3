@@ -23,19 +23,14 @@ import java.awt.FlowLayout;
 @SuppressWarnings("serial")
 public class CreateRecipeWindow extends JFrame implements ActionListener {
 
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
 
 	public CreateRecipeWindow(){
 		super("Brew Day! - Create recipe");
-        
-		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
-		setBounds(200, 200, 600, 400);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);	
+		setBounds(300, 150, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

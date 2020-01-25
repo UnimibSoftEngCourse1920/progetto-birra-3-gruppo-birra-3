@@ -31,7 +31,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 	public ModifyStorageIngredientsWindow() {
 		super("Brew Day! - Storage");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(200, 200, 800, 350);
+		setBounds(300, 150, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

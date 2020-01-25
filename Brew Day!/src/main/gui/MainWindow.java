@@ -23,8 +23,6 @@ import main.resources.Storage;
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener{
 
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
 	private static boolean brewIt = false;
 
 	public void actionPerformed(ActionEvent e) {
@@ -51,7 +49,7 @@ public class MainWindow extends JFrame implements ActionListener{
 
 	public MainWindow() {
 		super("Brew Day!");
-		setSize(WIDTH, HEIGHT);
+		setBounds(300, 150, 1280, 720);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 

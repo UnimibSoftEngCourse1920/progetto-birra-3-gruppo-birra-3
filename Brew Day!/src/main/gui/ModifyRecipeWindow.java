@@ -24,8 +24,6 @@ import java.awt.FlowLayout;
 @SuppressWarnings("serial")
 public class ModifyRecipeWindow extends JFrame implements ActionListener {
 
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
 	private JPanel contentPane;
 	private JTable table;
 	Recipe recipe;
@@ -33,6 +31,8 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 
 	public ModifyRecipeWindow(int recipeId){
 		super("Brew Day! - Modify recipe");
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setBounds(300, 150, 1280, 720);
         
 		RecipeController recipeController = RecipeController.getInstance();
 		ArrayList<Recipe> recipes = recipeController.extractRecipe();
@@ -41,14 +41,11 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 				recipe = recipes.get(i);
 			}
 		}
+		
 		Map<String, Double> ingredients = new HashMap<>();
 		String recipeName = recipe.getName();
 		ingredients = recipe.getIngredients();
-		
-		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		
-		setBounds(200, 200, 600, 400);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
