@@ -44,8 +44,8 @@ public class StorageWindow extends JFrame implements ActionListener {
 		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
 		panel.add(label);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		sController = StorageController.getInstance();
 			
@@ -72,20 +72,20 @@ public class StorageWindow extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton modifyButton = new JButton("Modify ingredients");
 		modifyButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 20));
 		modifyButton.addActionListener(this);
 		
-		panel_2.add(modifyButton);
+		panel2.add(modifyButton);
 		
 		JButton backButton = new JButton("Back");
 		backButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 15));
 		backButton.addActionListener(this);
 		
-		panel_2.add(backButton);
+		panel2.add(backButton);
 	}
 	
 	@Override

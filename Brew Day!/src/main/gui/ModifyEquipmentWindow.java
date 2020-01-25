@@ -42,7 +42,7 @@ public class ModifyEquipmentWindow extends JFrame {
 		JPanel panel1 = new JPanel();
 		contentPane.add(panel1, BorderLayout.CENTER);
 		
-		Map<String, Double> instruments = new HashMap<String, Double>();
+		Map<String, Double> instruments = new HashMap<>();
 		EquipmentController equipmentController = EquipmentController.getInstance();
 		instruments = equipmentController.extractEquipment().getInstruments();
 		

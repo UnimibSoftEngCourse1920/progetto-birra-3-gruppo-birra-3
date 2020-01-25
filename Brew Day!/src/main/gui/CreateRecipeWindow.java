@@ -123,7 +123,8 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 					recipeWindow.setVisible(true);
 					dispose();
 				}
-			default:;
+				break;
+			default:
 		}
 	}
 	

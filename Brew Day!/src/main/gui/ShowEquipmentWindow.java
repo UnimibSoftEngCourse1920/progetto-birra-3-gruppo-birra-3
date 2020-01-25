@@ -38,10 +38,10 @@ public class ShowEquipmentWindow extends JFrame {
 		JLabel lblInsertTheName = new JLabel("The equipment is composed by:");
 		panel.add(lblInsertTheName);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 		
-		Map<String, Double> instruments = new HashMap<String, Double>();
+		Map<String, Double> instruments = new HashMap<>();
 		EquipmentController equipmentController = EquipmentController.getInstance();
 		instruments = equipmentController.extractEquipment().getInstruments();
 		
@@ -61,8 +61,8 @@ public class ShowEquipmentWindow extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
@@ -72,7 +72,7 @@ public class ShowEquipmentWindow extends JFrame {
 				dispose();
 			}
 		});
-		panel_2.add(btnBack);
+		panel2.add(btnBack);
 		
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
 		btnModifyEquipment.addActionListener(new ActionListener() {
@@ -82,7 +82,7 @@ public class ShowEquipmentWindow extends JFrame {
 				dispose();
 			}
 		});
-		panel_2.add(btnModifyEquipment);
+		panel2.add(btnModifyEquipment);
 		
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
 		btnDeleteInstrument.addActionListener(new ActionListener() {
@@ -92,7 +92,7 @@ public class ShowEquipmentWindow extends JFrame {
 				dispose();
 			}
 		});
-		panel_2.add(btnDeleteInstrument);
+		panel2.add(btnDeleteInstrument);
 		
 	}
 

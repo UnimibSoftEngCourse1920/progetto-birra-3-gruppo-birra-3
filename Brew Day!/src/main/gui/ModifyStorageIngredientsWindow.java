@@ -72,20 +72,20 @@ private StorageController sController;
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton modifyButton = new JButton("Save");
 		modifyButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 20));
 		modifyButton.addActionListener(this);
 		
-		panel_2.add(modifyButton);
+		panel2.add(modifyButton);
 		
 		JButton backButton = new JButton("Cancel");
 		backButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 20));
 		backButton.addActionListener(this);
 		
-		panel_2.add(backButton);
+		panel2.add(backButton);
 	}
 
 	private Map<String,Double> extractIngredients() {

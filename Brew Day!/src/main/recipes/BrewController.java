@@ -5,13 +5,15 @@ import main.resources.Storage;
 import main.resources.StorageController;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class BrewController {
+@SuppressWarnings("serial")
+public class BrewController implements Serializable {
 
 	private String filepath;
 	private IOController ioController;

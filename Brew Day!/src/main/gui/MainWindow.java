@@ -48,7 +48,8 @@ public class MainWindow extends JFrame implements ActionListener{
 			case "View your storage":
 				setVisible(false);
 				new StorageWindow().setVisible(true);
-			default:;
+				break;
+			default:
 		}
 	}
 
@@ -167,7 +168,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			
 		JLabel wsibtLabel = new JLabel ("What should I brew today? " + wsibtRecipe);
 		wsibtLabel.setFont(f);
-		wsibtLabel.setHorizontalAlignment(JLabel.CENTER);
+		wsibtLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		wsibtPanel.add(wsibtLabel);
 
 

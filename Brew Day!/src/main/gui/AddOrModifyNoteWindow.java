@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
-public class AddOrModifyNoteWindow extends JFrame implements ActionListener{
+public class AddOrModifyNoteWindow extends JFrame implements ActionListener, ItemListener{
 	
 	private int noteId;
 	private Double brewId;
@@ -45,23 +45,13 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener{
 		if (noteId != 0) {
 			for (Brew brew : brews) {
 				if (brew.getId().compareTo(brewId) == 0) {
-					textArea.setText(brew.getNotes().get(this.noteId).toString());
+					textArea.setText(brew.getNotes().get(this.noteId));
 				}
 			}
 		} else {
 			JCheckBox chckbxNewCheckBox = new JCheckBox("Tasting", false);
 			getContentPane().add(chckbxNewCheckBox, BorderLayout.NORTH);
-			chckbxNewCheckBox.addItemListener(new ItemListener() {
-				
-				@Override
-				public void itemStateChanged(ItemEvent e) {
-					if (e.getStateChange() == 1) {
-						tasting = true;
-					} else {
-						tasting = false;
-					}
-				}
-			});
+			chckbxNewCheckBox.addItemListener(this);
 		}
 		
 		JPanel panel = new JPanel();
@@ -89,5 +79,14 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener{
 		setVisible(false);
 		new ViewNotesWindow(brewId).setVisible(true);
 		dispose();
+	}
+	
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange() == 1) {
+			tasting = true;
+		} else {
+			tasting = false;
+		}
 	}
 }

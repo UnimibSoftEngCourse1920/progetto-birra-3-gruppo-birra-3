@@ -30,9 +30,6 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 	private BrewController brewController;
 	private Double brewId;
 
-	/**
-	 * Create the frame.
-	 */
 	public ViewNotesWindow(Double id) {
 		super("Brew Day! - Brew Notes");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -50,8 +47,8 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
 		panel.add(label);
 
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
@@ -85,26 +82,24 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
 		table.setRowHeight(30);
 
-		@SuppressWarnings("unused")
-		ButtonColumn viewNotesColumn = new ButtonColumn(table, this, 5);
-		@SuppressWarnings("unused")
-		ButtonColumn terminateColumn = new ButtonColumn(table, this, 6);
+		new ButtonColumn(table, this, 5);
+		new ButtonColumn(table, this, 6);
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 
 		JButton addButton = new JButton("Add");
 		addButton.setFont(new Font(addButton.getFont().getName(),Font.BOLD, 18));
 		addButton.addActionListener(this);
-		panel_2.add(addButton);
+		panel2.add(addButton);
 
 		JButton backButton = new JButton("Back");
 		backButton.setFont(new Font(backButton.getFont().getName(),Font.BOLD, 18));
 		backButton.addActionListener(this);
-		panel_2.add(backButton);
+		panel2.add(backButton);
 	}
 
 	public static String fromDatetoString(Date date) {
@@ -147,6 +142,8 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 				brewController.deleteNote(brewId, noteId1);
 				JTable table = (JTable)e.getSource();
 				((DefaultTableModel)table.getModel()).removeRow(row);
+				break;
+			default:
 			}
 		}
 	}

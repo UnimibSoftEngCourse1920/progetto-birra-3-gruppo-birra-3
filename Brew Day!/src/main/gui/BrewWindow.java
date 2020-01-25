@@ -169,7 +169,8 @@ public class BrewWindow extends JFrame implements ActionListener {
 				brewController.delete(brewId);
 				JTable table3 = (JTable)e.getSource();
 				((DefaultTableModel)table3.getModel()).removeRow(row);
-			default:;
+				break;
+			default:
 			}
 		}
 	}

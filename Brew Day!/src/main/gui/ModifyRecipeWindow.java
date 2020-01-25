@@ -45,7 +45,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 				recipe = recipes.get(i);
 			}
 		}
-		Map<String, Double> ingredients = new HashMap<String, Double>();
+		Map<String, Double> ingredients = new HashMap<>();
 		String recipeName = recipe.getName();
 		ingredients = recipe.getIngredients();
 		
@@ -73,7 +73,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 			       return column == 1;
 			   }
 			};
-		ArrayList<String> otherIngredients = new ArrayList<String>(5);
+		ArrayList<String> otherIngredients = new ArrayList<>(5);
 		otherIngredients.add("Malt");
 		otherIngredients.add("Hop");
 		otherIngredients.add("Yeast");
@@ -95,24 +95,24 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(this);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblModifyTheName = new JLabel("Modify the name of the recipe " + recipeName + ":");
-		panel_2.add(lblModifyTheName);
+		panel2.add(lblModifyTheName);
 		
 		textField = new JTextField();
-		panel_2.add(textField);
+		panel2.add(textField);
 		textField.setColumns(10);
-		panel_2.add(btnSave);
+		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
-		panel_2.add(btnBack); 
+		panel2.add(btnBack); 
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -143,12 +143,14 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 					recipeWindow.setVisible(true);
 					dispose();
 				}
+				break;
+			default:
 		}
 	}
 	
 	private Map<String, Double> updateIngredients(){
 		try {
-			Map<String, Double> ingredients = new HashMap<String, Double>();
+			Map<String, Double> ingredients = new HashMap<>();
 			
 			for (int i = 0; i < table.getRowCount(); i++) {
 				String ingredientName = table.getValueAt(i, 0).toString();

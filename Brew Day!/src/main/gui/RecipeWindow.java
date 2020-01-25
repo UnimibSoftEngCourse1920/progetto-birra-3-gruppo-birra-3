@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -49,8 +50,8 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		Font f = new Font("TimesRoman",Font.BOLD,25);
 		JTable recipesTable = new JTable(createRecipesTable());
 		JScrollPane scrollPane = new JScrollPane(recipesTable);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS); 
 		
 		TableColumnModel columnModel = recipesTable.getColumnModel();
 		TableColumn column = columnModel.getColumn(2);
@@ -67,12 +68,9 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		recipesTable.setFillsViewportHeight(true);
 		recipesTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
-		@SuppressWarnings("unused")
-		ButtonColumn createBrewColumn = new ButtonColumn(recipesTable, this, 3);
-		@SuppressWarnings("unused")
-		ButtonColumn modifyColumn = new ButtonColumn(recipesTable, this, 4);
-		@SuppressWarnings("unused")
-		ButtonColumn deleteColumn = new ButtonColumn(recipesTable, this, 5);
+		new ButtonColumn(recipesTable, this, 3);
+		new ButtonColumn(recipesTable, this, 4);
+		new ButtonColumn(recipesTable, this, 5);
 		
 		viewRecipesPanel.add(scrollPane);
 		
@@ -110,13 +108,12 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		    }
 		};
 
-		String ingredients;
+		StringBuilder ingredients = new StringBuilder();
 		for(Recipe r : recipes) {
-			ingredients = "";
 			for(Entry<String, Double> i : r.getIngredients().entrySet()) {
-				ingredients +=  i.getKey() + ": " + Double.toString(i.getValue()) + "\n";
+				ingredients.append(i.getKey() + ": " + Double.toString(i.getValue()) + "\n");
 			}
-			model.addRow(new String[] {Integer.toString(r.getId()),r.getName(),ingredients,"Brew it!","Modify","Delete"});
+			model.addRow(new String[] {Integer.toString(r.getId()),r.getName(),ingredients.toString(),"Brew it!","Modify","Delete"});
 		}
 
 		return model;
@@ -158,6 +155,8 @@ public class RecipeWindow extends JFrame implements ActionListener{
 						recipeController.delete(recipeId);
 						JTable table = (JTable)e.getSource();
 				        ((DefaultTableModel)table.getModel()).removeRow(row);
+				        break;
+				    default:
 			}
 		}
 	}
