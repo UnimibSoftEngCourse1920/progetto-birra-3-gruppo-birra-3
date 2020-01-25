@@ -117,7 +117,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 					recipeWindow = new RecipeWindow();
 					
 					//Only for testing purposes
-					recipeController.deleteFile();
+					//recipeController.deleteFile();
 					//Only for testing purposes
 					
 					recipeWindow.setVisible(true);

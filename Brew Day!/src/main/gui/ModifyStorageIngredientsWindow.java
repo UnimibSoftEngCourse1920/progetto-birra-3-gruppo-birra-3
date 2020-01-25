@@ -116,7 +116,7 @@ private StorageController sController;
 
 				StorageWindow sWindow = new StorageWindow();
 
-				sController.deleteFile();
+				//sController.deleteFile();
 
 				sWindow.setVisible(true);
 				dispose();

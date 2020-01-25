@@ -123,7 +123,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		switch(e.getActionCommand()) {
 			case "Back":
 				setVisible(false);
-				MainWindow.getInstance().setVisible(true);
+				new MainWindow().setVisible(true);
 				dispose();
 				break;
 			case "New recipe":

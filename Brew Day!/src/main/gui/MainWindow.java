@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -29,7 +30,7 @@ public class MainWindow extends JFrame implements ActionListener{
 
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
-	private static MainWindow instance;
+	private static boolean brewIt = false;
 
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
@@ -53,7 +54,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		}
 	}
 
-	private MainWindow() {
+	public MainWindow() {
 		super("Brew Day!");
 		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -155,15 +156,28 @@ public class MainWindow extends JFrame implements ActionListener{
 
 		String filepathRecipe = System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt";
 		File fileRecipe = new File(filepathRecipe);
+		String filepathStorage = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
+		File fileStorage = new File(filepathStorage);
+		RecipeController recipeController = RecipeController.getInstance();
+		StorageController storageController = StorageController.getInstance();
+		
 		String wsibtRecipe = null;
-		if(fileRecipe.exists()) {
-			RecipeController recipeController = RecipeController.getInstance();
-			int size = recipeController.extractRecipe().size();
-			if(size != 0) {
-				wsibtRecipe = getWSIBT().getName();
+		if(fileRecipe.exists() && fileStorage.exists()) {
+			int sizeR = recipeController.extractRecipe().size();
+			int sizeS = storageController.extractStorage().getIngredients().size();
+			if(sizeR != 0 && sizeS != 0) {
+				Recipe r = getWSIBT();
+				if(r != null) {
+					wsibtRecipe = r.getName();
+					brewIt = true;
+				}else {
+					wsibtRecipe = "No recipe match the availability";
+				}
 			}
-		}else {
-			wsibtRecipe = "Nessuna recipe salvata!";
+			else if (sizeR == 0 || sizeS == 0)
+				wsibtRecipe = "None, you have no recipes saved or no storage ingredients!";
+		}else{
+			wsibtRecipe = "None, you have no recipes or no storage!";
 		}
 			
 		JLabel wsibtLabel = new JLabel ("What should I brew today? " + wsibtRecipe);
@@ -180,13 +194,18 @@ public class MainWindow extends JFrame implements ActionListener{
 		JButton wsibtButton = new JButton("Brew it!");
 		wsibtButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RecipeController recipeController = RecipeController.getInstance();
-				Recipe wsibtRecipe = getWSIBT();
-				recipeController.createBrew(wsibtRecipe.getId());
+				if(brewIt) {
+					RecipeController recipeController = RecipeController.getInstance();
+					Recipe wsibtRecipe = getWSIBT();
+					recipeController.createBrew(wsibtRecipe.getId());
+					
+					BrewWindow brewWin = new BrewWindow();
+					brewWin.setVisible(true);
+					dispose();
+				}
+				else
+					JOptionPane.showMessageDialog(wsibtButtonPanel, "You cant Brew it!");
 				
-				BrewWindow brewWin = new BrewWindow();
-				brewWin.setVisible(true);
-				dispose();
 			}
 		});
 		wsibtButton.setPreferredSize(d);
@@ -198,16 +217,9 @@ public class MainWindow extends JFrame implements ActionListener{
 		return recipeController.featureWSIBT();
 	}
 
-	public static MainWindow getInstance() {
-		if (instance == null) {
-			instance = new MainWindow();
-		}
-
-		return instance;
-	}
-
 	public static void main(String[] args)
 	{
+		/*
 		//Only for testing purposes
 		Map<String, Double> instruments = new HashMap<>();
 		instruments.put("Kettle", 25.0);
@@ -262,11 +274,18 @@ public class MainWindow extends JFrame implements ActionListener{
 		brewController.addNote(brew1.getId(), "Note 2", true);
 		brewController.addNote(brew2.getId(), "Note 2", true);
 				
-		//Only for testing purpose
-		MainWindow gui = getInstance();
-		gui.setVisible(true);
+		
 				
 		//Only for testing purposes
 		//recipeController.deleteFile();
+		*/
+		
+		
+		
+		//Only for testing purpose
+		MainWindow gui = new MainWindow();
+		gui.setVisible(true);
+		
+		
 	}
 }
