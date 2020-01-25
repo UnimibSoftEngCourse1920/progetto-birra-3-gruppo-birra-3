@@ -198,7 +198,7 @@ public class EquipmentWindow extends JFrame {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainWindow mainWin = MainWindow.getInstance();
+				MainWindow mainWin = new MainWindow();
 				mainWin.setVisible(true);
 				dispose();
 			}

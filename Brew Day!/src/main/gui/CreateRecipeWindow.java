@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,14 +14,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-
 import java.awt.FlowLayout;
-
 
 @SuppressWarnings("serial")
 public class CreateRecipeWindow extends JFrame implements ActionListener {
@@ -115,10 +111,6 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 					RecipeController recipeController = RecipeController.getInstance();
 					recipeController.store(recipe);
 					recipeWindow = new RecipeWindow();
-					
-					//Only for testing purposes
-					recipeController.deleteFile();
-					//Only for testing purposes
 					
 					recipeWindow.setVisible(true);
 					dispose();
