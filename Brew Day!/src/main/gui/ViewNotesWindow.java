@@ -1,6 +1,8 @@
 package main.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,9 +20,10 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import main.recipes.Brew;
 import main.recipes.BrewController;
-
 
 @SuppressWarnings("serial")
 public class ViewNotesWindow extends JFrame implements ActionListener {
@@ -33,7 +36,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 	public ViewNotesWindow(Double id) {
 		super("Brew Day! - Brew Notes");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(150, 200, 1600, 700);
+		setBounds(200, 200, 1400, 700);
 		this.brewId = id;
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,6 +60,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				switch (column) {
+				case 3:
 				case 5:
 				case 6:
 					return true;
@@ -77,13 +81,18 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getColumnModel().getColumn(3).setPreferredWidth(750);
+		TableColumn column = table.getColumnModel().getColumn(3);
+		MultiRowCell multiRowCell = new MultiRowCell();
+		column.setPreferredWidth(600);
+		column.setCellEditor(multiRowCell);
+		column.setCellRenderer(multiRowCell);
 		//This is for hide first column
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
 		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
-		table.setRowHeight(30);
+		table.setFillsViewportHeight(true);
+		table.setRowHeight(50);
 
 		new ButtonColumn(table, this, 5);
 		new ButtonColumn(table, this, 6);
