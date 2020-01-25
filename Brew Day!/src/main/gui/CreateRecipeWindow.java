@@ -123,7 +123,8 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 	private Map<String, Double> createIngredients(){
 		try {
 			Map<String, Double> ingredients = new HashMap<>();
-			
+			if (table.isEditing())
+			    table.getCellEditor().stopCellEditing();
 			for (int i = 0; i < table.getRowCount(); i++) {
 				String ingredientName = table.getValueAt(i, 0).toString();
 				String ingredientQuantity = table.getValueAt(i, 1).toString();

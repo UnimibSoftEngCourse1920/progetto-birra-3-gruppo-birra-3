@@ -31,6 +31,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
+	private JTable recipesTable;
 	
 	public RecipeWindow(){
 		super("Brew Day! - Recipes");
@@ -52,7 +53,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		add(mainPanel, BorderLayout.CENTER);
 		
 		Font f = new Font("TimesRoman",Font.BOLD,25);
-		JTable recipesTable = new JTable(createRecipesTable());
+		recipesTable = new JTable(createRecipesTable());
 		JScrollPane scrollPane = new JScrollPane(recipesTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS); 
@@ -131,6 +132,8 @@ public class RecipeWindow extends JFrame implements ActionListener{
 				dispose();
 				break;
 			case "New recipe":
+				if (recipesTable.isEditing())
+				    recipesTable.getCellEditor().stopCellEditing();
 				setVisible(false);
 				new CreateRecipeWindow().setVisible(true);
 				dispose();

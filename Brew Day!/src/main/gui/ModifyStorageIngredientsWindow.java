@@ -113,6 +113,9 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Save")) {
 			if (extractIngredients() != null) {
+				if (table.isEditing())
+				    table.getCellEditor().stopCellEditing();
+				
 				sController.update(extractIngredients());
 
 				StorageWindow sWindow = new StorageWindow();
