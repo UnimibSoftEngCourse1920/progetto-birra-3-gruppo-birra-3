@@ -49,7 +49,7 @@ public class StorageWindow extends JFrame implements ActionListener {
 		
 		sController = StorageController.getInstance();
 			
-		Storage storage = Storage.getInstance();
+		Storage storage;
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Name","Quantity (g)"}, 0) {
 			@Override

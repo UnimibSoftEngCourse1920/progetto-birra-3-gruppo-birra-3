@@ -20,8 +20,13 @@ public class MultiRowCell extends AbstractCellEditor implements TableCellEditor,
     public MultiRowCell() {
         textArea = new JTextArea(25, 50);
         textArea.setEditable(false);
+        
+        Font f = new Font("TimesRoman",Font.BOLD,25);
+        textArea.setFont(f);
+
         textArea.setFont(new Font(textArea.getFont().getName(), Font.PLAIN, 14));
         textArea.setLineWrap(true);
+        
         scrollPane = new JScrollPane(textArea);
     }
 
@@ -47,8 +52,8 @@ public class MultiRowCell extends AbstractCellEditor implements TableCellEditor,
 
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        setCellValue(value);
-        return scrollPane;
+       setCellValue(value);
+       return scrollPane;
     }
 
     @Override

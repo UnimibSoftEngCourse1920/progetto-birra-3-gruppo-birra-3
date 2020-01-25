@@ -157,7 +157,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 			if(name.equals("")) {
 				throw new nullInputException();
 			}
-			else if (!name.matches("[a-zA-Z_]+")) {
+			else if (!name.matches("^[a-zA-Z0-9]*$") || name.length() >= 12) {
 				throw new IllegalArgumentException();
 			}
 			return name;
@@ -165,7 +165,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this,"Insert a string name for the new recipe");
 			return null;
 		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this,"Insert only string in recipe name field");
+			JOptionPane.showMessageDialog(this,"The recipe name is not alphanumeric or too long");
 			return null;
 		}
 	}

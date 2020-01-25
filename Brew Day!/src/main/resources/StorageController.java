@@ -56,6 +56,7 @@ public class StorageController {
 
 			Storage storage = extractStorage();
 			storage.deleteIngredient(ingredient);
+			Storage.getInstance().deleteIngredient(ingredient);
 			store(storage);
 
 		} catch(IngredientNotFoundException e) {
