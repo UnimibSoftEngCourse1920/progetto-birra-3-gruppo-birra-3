@@ -36,7 +36,7 @@ public class ModifyEquipmentWindow extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel lblInsertTheName = new JLabel("Modify the name and the capacity of instruments:");
+		JLabel lblInsertTheName = new JLabel("Modify the capacity of instruments:");
 		panel.add(lblInsertTheName);
 		
 		JPanel panel1 = new JPanel();
@@ -74,12 +74,19 @@ public class ModifyEquipmentWindow extends JFrame {
 				if (table.isEditing())
 				    table.getCellEditor().stopCellEditing();
 				
-				EquipmentController equipmentController = EquipmentController.getInstance();
-				equipmentController.update(updateInstruments());
+				if(updateInstruments() != null) {
+					EquipmentController equipmentController = EquipmentController.getInstance();
+					equipmentController.update(updateInstruments());
+					
+					ModifyEquipmentWindow modEquipmentWin = new ModifyEquipmentWindow();
+					modEquipmentWin.setVisible(true);
+					dispose();
+				}else {
+					ModifyEquipmentWindow modEquipmentWin = new ModifyEquipmentWindow();
+					modEquipmentWin.setVisible(true);
+					dispose();
+				}
 				
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
 			}
 		});
 		panel2.add(btnSave);
@@ -100,27 +107,17 @@ public class ModifyEquipmentWindow extends JFrame {
 		try {
 			Map<String, Double> instruments = new HashMap<>();
 			for (int i = 0; i < table.getRowCount(); i++) {
-				String instrumentName = table.getValueAt(i, 0).toString();
-				if (!instrumentName.matches("[a-zA-Z_]+")) {
+				String instrumentCapacity = table.getValueAt(i, 1).toString();
+				if (!instrumentCapacity.matches("[0-9]+.{0,1}[0-9]*")) {
 					throw new IllegalArgumentException();
 				}
-				instruments.put(table.getValueAt(i, 0).toString(), fromStringToDouble(table.getValueAt(i, 1).toString()));
+				instruments.put(table.getValueAt(i, 0).toString(), Double.parseDouble(instrumentCapacity));
 			}
 			return instruments;
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this,"Insert only positive number in quantity field");
-			return null;
 		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this,"Insert only string in name field");
+			JOptionPane.showMessageDialog(this,"Insert only positive numbers, separated by dot");
 			return null;
 		}
-	}
-	
-	private double fromStringToDouble(String str) {
-		if (str.contains("-")) {
-			throw new NumberFormatException();
-		} 
-		return Double.parseDouble(str);
 	}
 
 }

@@ -72,7 +72,7 @@ public class StorageWindow extends JFrame implements ActionListener {
 				model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 			}
 		}else {
-			storage = Storage.getInstance();
+			storage = sController.extractStorage();
 			for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
 				model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 			}
