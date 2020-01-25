@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import main.IOController;
 
@@ -43,7 +44,7 @@ public class RecipeController {
 	}
     
 	public void store(Recipe recipe) {
-		ArrayList<Recipe> recipes = extractRecipe();
+		List<Recipe> recipes = extractRecipe();
 		if (!recipes.contains(recipe)) {
 			recipes.add(recipe);
 			ioController.writeObjectToFile(recipes, filepath);
@@ -51,7 +52,7 @@ public class RecipeController {
 	}
 
 	public void update(int id, String name, Map<String,Double> ingredients) {
-		ArrayList<Recipe> recipes = extractRecipe();
+		List<Recipe> recipes = extractRecipe();
 		boolean found = false;
 		try {
 			for (int i = 0; i < recipes.size(); i++) {
@@ -59,6 +60,7 @@ public class RecipeController {
 					recipes.get(i).updateRecipe(name, ingredients);
 					found = true;
 					ioController.writeObjectToFile(recipes, filepath);
+					break;
 				}
 			}
 			if(!found) {
@@ -72,7 +74,7 @@ public class RecipeController {
 	}
 
 	public void delete(int id) {
-		ArrayList<Recipe> recipes = extractRecipe();
+		List<Recipe> recipes = extractRecipe();
 		boolean found = false;
 		try {
 			for (int i = 0; i < recipes.size(); i++) {
@@ -81,6 +83,7 @@ public class RecipeController {
 					i--;
 					found = true;
 					ioController.writeObjectToFile(recipes, filepath);
+					break;
 				}
 			}
 			if(!found) {
@@ -89,12 +92,10 @@ public class RecipeController {
 		} catch(RecipeNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 	
 	public void createBrew(int id) {
-		ArrayList<Recipe> recipes = extractRecipe();
+		List<Recipe> recipes = extractRecipe();
 		boolean found = false;
 		try {
 			for (int i = 0; i < recipes.size(); i++) {
@@ -102,6 +103,7 @@ public class RecipeController {
 					recipes.get(i).createBrew();
 					found = true;
 					ioController.writeObjectToFile(recipes, filepath);
+					break;
 				}
 			}
 			if(!found) {
@@ -136,7 +138,7 @@ public class RecipeController {
 		
 		try {
 			//inserisco tutte le ricette in un arraylist
-			ArrayList<Recipe> recipes = extractRecipe();
+			List<Recipe> recipes = extractRecipe();
 			//creo hashmap per inserire le ricette possibili sulla base degli ingredienti
 			Map<Integer, Double> recipeMax = new HashMap<>();
 			//scorro l'arraylist e per ogni ricetta faccio il controllo sugli ingredienti
@@ -178,9 +180,5 @@ public class RecipeController {
 			System.out.println(e.getMessage());
 		}
 		return null;
-	}
-	
-	public void updateCountBrew() {
-		
 	}
 }
