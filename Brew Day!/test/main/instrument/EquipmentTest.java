@@ -11,14 +11,17 @@ import main.instruments.Equipment;
 import main.instruments.NullInstrumentsException;
 
 public class EquipmentTest {
+	
+	String kettle = "Kettle";
+	String fermenter = "Fermenter";
 
 	@Test
 	public void testComputeCapacity() {
 		Equipment equipment = Equipment.getInstance();
 		Map<String, Double> instruments = new HashMap<>();
 		
-		instruments.put("Kettle", 25.0);
-		instruments.put("Fermenter", 10.0);	
+		instruments.put(kettle, 25.0);
+		instruments.put(fermenter, 10.0);	
 		equipment.setInstruments(instruments);
 		
 		assertEquals(35.0, equipment.computeCapacity(instruments), 0.00);
@@ -26,7 +29,7 @@ public class EquipmentTest {
 		instruments.put("Pipe", 0.57);
 		assertEquals(35.57, equipment.computeCapacity(instruments), 0.00);
 		
-		instruments.remove("Kettle");
+		instruments.remove(kettle);
 		assertEquals(10.57, equipment.computeCapacity(instruments), 0.00);
 	}
 
@@ -35,20 +38,20 @@ public class EquipmentTest {
 		Equipment equipment = Equipment.getInstance();
 		Map<String, Double> instruments = new HashMap<>();
 		
-		instruments.put("Kettle", 25.0);
-		instruments.put("Fermenter", 10.0);	
+		instruments.put(kettle, 25.0);
+		instruments.put(fermenter, 10.0);	
 		equipment.setInstruments(instruments);
 		
 		Map<String, Double> newInstruments = new HashMap<>();
 		
-		newInstruments.put("Kettle", 50.42);
+		newInstruments.put(kettle, 50.42);
 		newInstruments.put("Pipe", 0.35);	
 		equipment.updateInstruments(newInstruments);
 		
 		assertEquals(3, equipment.getInstruments().size());
 		assertNotEquals(2, equipment.getInstruments().size());
-		assertEquals((Double) 50.42, equipment.getInstruments().get("Kettle"));
-		assertEquals((Double) 10.0, equipment.getInstruments().get("Fermenter"));
+		assertEquals((Double) 50.42, equipment.getInstruments().get(kettle));
+		assertEquals((Double) 10.0, equipment.getInstruments().get(fermenter));
 		assertEquals((Double) 0.35, equipment.getInstruments().get("Pipe"));
 		assertFalse(equipment.getInstruments().containsValue(20.0));
 	}
@@ -58,13 +61,13 @@ public class EquipmentTest {
 		Equipment equipment = Equipment.getInstance();
 		Map<String, Double> instruments = new HashMap<>();
 		
-		instruments.put("Kettle", 25.0);
-		instruments.put("Fermenter", 10.0);	
+		instruments.put(kettle, 25.0);
+		instruments.put(fermenter, 10.0);	
 		equipment.setInstruments(instruments);
 		
-		equipment.deleteInstrument("Kettle");
+		equipment.deleteInstrument(kettle);
 		assertEquals(1, equipment.getInstruments().size());
-		assertTrue(equipment.getInstruments().containsKey("Fermenter"));
-		assertFalse(equipment.getInstruments().containsKey("Kettle"));
+		assertTrue(equipment.getInstruments().containsKey(fermenter));
+		assertFalse(equipment.getInstruments().containsKey(kettle));
 	}
 }
