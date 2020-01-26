@@ -44,8 +44,8 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
 		panel.add(label);
 
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 
 		sController = StorageController.getInstance();
 

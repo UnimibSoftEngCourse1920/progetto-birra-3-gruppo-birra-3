@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import main.instrument.EquipmentController;
 
 @SuppressWarnings("serial")
-public class ShowEquipmentWindow extends JFrame {
+public class ShowEquipmentWindow extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -65,35 +65,38 @@ public class ShowEquipmentWindow extends JFrame {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
-			}
-		});
+		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 		
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
-		btnModifyEquipment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ModifyEquipmentWindow modifyEqWin = new ModifyEquipmentWindow();
-				modifyEqWin.setVisible(true);
-				dispose();
-			}
-		});
+		btnModifyEquipment.addActionListener(this);
 		panel2.add(btnModifyEquipment);
 		
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
-		btnDeleteInstrument.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DeleteInstrumentWindow deleteInstrumentWin = new DeleteInstrumentWindow();
-				deleteInstrumentWin.setVisible(true);
-				dispose();
-			}
-		});
+		btnDeleteInstrument.addActionListener(this);
 		panel2.add(btnDeleteInstrument);
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()) {
+		case "Back":
+			EquipmentWindow equipmentWin = new EquipmentWindow();
+			equipmentWin.setVisible(true);
+			dispose();
+			break;
+		case "Modify Equipment":
+			ModifyEquipmentWindow modifyEqWin = new ModifyEquipmentWindow();
+			modifyEqWin.setVisible(true);
+			dispose();
+			break;
+		case "Delete Instrument":
+			DeleteInstrumentWindow deleteInstrumentWin = new DeleteInstrumentWindow();
+			deleteInstrumentWin.setVisible(true);
+			dispose();
+		default:
+		}
 	}
 
 }

@@ -112,17 +112,20 @@ public class Brew implements Serializable{
 		if (finishDate == null) {
 			if (other.finishDate != null)
 				return false;
-		} else if (!finishDate.equals(other.finishDate))
+		} 
+		else if (!finishDate.equals(other.finishDate))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} 
+		else if (!id.equals(other.id))
 			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
 				return false;
-		} else if (!startDate.equals(other.startDate))
+		} 
+		else if (!startDate.equals(other.startDate))
 			return false;
 		return true;
 	}

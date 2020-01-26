@@ -2,6 +2,10 @@ package main.recipes;
 
 import static org.junit.Assert.*;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +14,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import main.IOController;
+import main.resources.Storage;
 import main.resources.StorageController;
 
 public class RecipeControllerTest {
@@ -35,7 +40,7 @@ public class RecipeControllerTest {
 		recipes.add(recipe2);
 		
 		iocontroller.writeObjectToFile(recipes, System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt"); 
-		ArrayList<Recipe> extRecipes = recipeController.extractRecipe();
+		ArrayList<Recipe> extRecipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		
 		recipeController.deleteFile();
 		
@@ -58,7 +63,7 @@ public class RecipeControllerTest {
 		Recipe recipe2 = new Recipe("Recipe 2", ingredients2);
 		recipeController.store(recipe2);
 		
-		ArrayList<Recipe> recipes = recipeController.extractRecipe();
+		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		
 		recipeController.deleteFile();
 		
@@ -96,7 +101,7 @@ public class RecipeControllerTest {
 		recipe1.setIngredients(ingredients2);
 		recipe2.setIngredients(ingredients3);
 		
-		ArrayList<Recipe> extRecipes = recipeController.extractRecipe();
+		ArrayList<Recipe> extRecipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		
 		recipeController.deleteFile();
 		
@@ -123,11 +128,82 @@ public class RecipeControllerTest {
 		recipeController.delete(recipe1.getId());
 		recipeController.delete(recipe2.getId());
         
-		ArrayList<Recipe> recipes = recipeController.extractRecipe();
+		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		
 		recipeController.deleteFile();
 		
 		assertTrue(recipes.isEmpty());
+	}
+	
+	@Test
+	public void testCreateBrew() {
+		StorageController sController = StorageController.getInstance();
+		BrewController brewController = BrewController.getInstance();
+		RecipeController recipeController = RecipeController.getInstance();
+		
+		HashMap<String,Double> sIngredients = new HashMap<>();
+	    sIngredients.put("Malt", 20.0);
+	    sIngredients.put("Hop", 30.0);
+		Storage storage = Storage.getInstance();
+		storage.setIngredients(sIngredients);
+		sController.store(storage);
+		
+		HashMap<String,Double> ingredients = new HashMap<>();
+		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		recipeController.store(recipe1);
+		Brew brew1 = recipeController.createBrew(recipe1.getId());
+		Brew brew2 = recipeController.createBrew(recipe1.getId());
+		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
+		recipeController.store(recipe2);
+		Brew brew3 = recipeController.createBrew(recipe2.getId());
+		
+		brewController.deleteFile();
+		sController.deleteFile();
+		recipeController.deleteFile();
+		
+		assertTrue(brew1.getId().compareTo(recipe1.getId() + 0.1) == 0);
+		assertTrue(brew2.getId().compareTo(recipe1.getId() + 0.2) == 0);
+		assertTrue(brew3.getId().compareTo(recipe2.getId() + 0.1) == 0);
+	}
+	
+	@Test
+	public void testUpdateCounterId() {
+		RecipeController recipeController = RecipeController.getInstance();
+		
+		recipeController.updateCounterId(21);
+		
+		int id = 0;
+		try (FileInputStream fin = new FileInputStream(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+	        DataInputStream din = new DataInputStream(fin)) {
+		    id = din.readInt();
+		}
+		catch(FileNotFoundException fe)
+		{ 
+		    System.out.println("FileNotFoundException : " + fe);
+	    }
+		catch(IOException ioe)
+		{
+			System.out.println("IOException : " + ioe);
+		}
+		
+		assertEquals(id, 21);
+		
+		recipeController.updateCounterId(12);
+		
+		try (FileInputStream fin = new FileInputStream(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+		    DataInputStream din = new DataInputStream(fin)) {
+			id = din.readInt();
+		}
+		catch(FileNotFoundException fe)
+		{ 
+			System.out.println("FileNotFoundException : " + fe);
+		}
+	    catch(IOException ioe)
+	    {
+			System.out.println("IOException : " + ioe);
+		}
+		
+		assertEquals(id, 12);
 	}
 	
 	

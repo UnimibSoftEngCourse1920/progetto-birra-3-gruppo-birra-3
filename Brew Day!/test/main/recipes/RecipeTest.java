@@ -59,9 +59,9 @@ public class RecipeTest {
 		brewController.deleteFile();
 		sController.deleteFile();
 		
-		assertTrue(brew1.getId().compareTo(2.1) == 0);
-		assertTrue(brew2.getId().compareTo(2.2) == 0);
-		assertTrue(brew3.getId().compareTo(3.1) == 0);
+		assertTrue(brew1.getId().compareTo(recipe1.getId() + 0.1) == 0);
+		assertTrue(brew2.getId().compareTo(recipe1.getId() + 0.2) == 0);
+		assertTrue(brew3.getId().compareTo(recipe2.getId() + 0.1) == 0);
 	}
 	
 	@Test
@@ -81,10 +81,12 @@ public class RecipeTest {
 	@Test
 	public void testRecipe() {
 		HashMap<String,Double> ingredients = new HashMap<>();
+		Recipe recipe = new Recipe("Recipe 0", ingredients);
+	
 		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
-		assertEquals(recipe1.getId(), 5);
+		assertEquals(recipe1.getId(), recipe.getId() + 1);
 
 		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
-		assertEquals(recipe2.getId(), 6);
+		assertEquals(recipe2.getId(), recipe1.getId() + 1);
 	}
 }

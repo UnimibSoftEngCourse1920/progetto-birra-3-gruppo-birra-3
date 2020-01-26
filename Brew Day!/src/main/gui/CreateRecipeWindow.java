@@ -135,7 +135,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 				}
 			}
 			if(ingredients.isEmpty()) {
-				throw new nullInputException();
+				throw new NullInputException();
 			}
 			return ingredients;
 		} catch (NumberFormatException e) {
@@ -144,7 +144,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this,"Insert only string in ingredient name field");
 			return null;
-		} catch (nullInputException e) {
+		} catch (NullInputException e) {
 			JOptionPane.showMessageDialog(this,"Insert at least an ingredient");
 			return null;
 		}
@@ -154,13 +154,13 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		try {
 			String name = textField.getText();
 			if(name.equals("")) {
-				throw new nullInputException();
+				throw new NullInputException();
 			}
 			else if (!name.matches("^[a-zA-Z0-9]*$") || name.length() >= 12) {
 				throw new IllegalArgumentException();
 			}
 			return name;
-		} catch (nullInputException e) {
+		} catch (NullInputException e) {
 			JOptionPane.showMessageDialog(this,"Insert a string name for the new recipe");
 			return null;
 		} catch (IllegalArgumentException e) {

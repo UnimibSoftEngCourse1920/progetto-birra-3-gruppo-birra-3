@@ -1,11 +1,13 @@
 package main.resources;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Map;
 import main.IOController;
 import main.IngredientNotFoundException;
 
-public class StorageController {
+@SuppressWarnings("serial")
+public class StorageController implements Serializable{
 
 	private String filepath;
 	private IOController ioController;
@@ -29,14 +31,12 @@ public class StorageController {
 		return (Storage) this.ioController.readObjectFromFile(this.filepath);	
 	}
 
-	//Protected (changed for test purposes)
 	public void createStorage(Map<String,Double> ingredients) {
 		Storage storage = Storage.getInstance();
 		storage.setIngredients(ingredients);
 		store(storage);
 	}
 
-	//Protected (changed for test purposes)
 	public void store(Storage storage) {
 		this.ioController.writeObjectToFile(storage, this.filepath);
 	}

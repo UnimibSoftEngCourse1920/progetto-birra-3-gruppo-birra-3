@@ -35,7 +35,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		super("Brew Day! - Modify recipe");
         
 		RecipeController recipeController = RecipeController.getInstance();
-		ArrayList<Recipe> recipes = recipeController.extractRecipe();
+		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		for (int i = 0; i < recipes.size(); i++) {
 			if (recipes.get(i).getId() == recipeId) {
 				recipe = recipes.get(i);
@@ -60,8 +60,8 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		JLabel lblInsertTheName = new JLabel("Modify the ingredients of the recipe " + recipeName + ":");
 		panel.add(lblInsertTheName);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Ingredient name", "Quantity"}, 0) {
 			@Override
@@ -185,10 +185,5 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 			throw new NumberFormatException();
 		} 
 		return Double.parseDouble(str);
-	}
-	
-	public static void main(String[] args){
-		ModifyRecipeWindow gui = new ModifyRecipeWindow(1);
-		gui.setVisible( true);
 	}
 }

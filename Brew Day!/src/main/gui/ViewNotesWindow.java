@@ -1,8 +1,6 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +18,6 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import main.recipes.Brew;
 import main.recipes.BrewController;
@@ -152,8 +149,8 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 				break;
 			case "Delete":
 				brewController.deleteNote(brewId, noteId1);
-				JTable table = (JTable)e.getSource();
-				((DefaultTableModel)table.getModel()).removeRow(row);
+				JTable table1 = (JTable)e.getSource();
+				((DefaultTableModel)table1.getModel()).removeRow(row);
 				break;
 			default:
 			}

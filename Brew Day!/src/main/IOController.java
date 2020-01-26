@@ -6,9 +6,11 @@ import java.util.logging.Logger;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;	
+import java.io.ObjectOutputStream;
+import java.io.Serializable;	
 
-public class IOController {
+@SuppressWarnings("serial")
+public class IOController implements Serializable {
 	
 	Logger logger = Logger.getLogger(IOController.class.getName());
  

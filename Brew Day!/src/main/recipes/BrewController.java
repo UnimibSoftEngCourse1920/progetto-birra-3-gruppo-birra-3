@@ -34,7 +34,7 @@ public class BrewController implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Brew> extractBrew() {
+	public List<Brew> extractBrew() {
 	    if (ioController.readObjectFromFile(filepath) != null) {
 	      return (ArrayList<Brew>) ioController.readObjectFromFile(filepath);
 	    }
@@ -54,7 +54,7 @@ public class BrewController implements Serializable {
 			}
 	    }
 	    
-	    if (found == false) {
+	    if (!found) {
 	      brews.add(brew);
 	      ioController.writeObjectToFile(brews, filepath);
 	    }

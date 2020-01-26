@@ -18,13 +18,15 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 
 @SuppressWarnings("serial")
-public class InsertInstrumentsWindow extends JFrame {
+public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable table;
+	private int numberInstruments;
 
 	public InsertInstrumentsWindow(int numberInstruments) {
 		super("Brew Day! - Insert instruments");
+		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(200, 200, 600, 400);
 		contentPane = new JPanel();
@@ -57,38 +59,15 @@ public class InsertInstrumentsWindow extends JFrame {
 		JPanel panel2 = new JPanel();
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
+		this.numberInstruments = numberInstruments;
+		
 		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if (table.isEditing())
-				    table.getCellEditor().stopCellEditing();
-				
-				if(createInstruments() != null) {
-					EquipmentController equipmentController = EquipmentController.getInstance();
-					equipmentController.update(createInstruments());
-					
-					EquipmentWindow equipmentWin = new EquipmentWindow();
-					equipmentWin.setVisible(true);
-					dispose();
-				}else {
-					InsertInstrumentsWindow insInstrumentsWin = new InsertInstrumentsWindow(numberInstruments);
-					insInstrumentsWin.setVisible(true);
-					dispose();
-				}
-			}
-		});
+		btnSave.addActionListener(this);
 		
 		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
-			}
-		});
+		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 	}
 	
@@ -110,5 +89,31 @@ public class InsertInstrumentsWindow extends JFrame {
 			return null;
 		}
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Back")) {
+			EquipmentWindow equipmentWin = new EquipmentWindow();
+			equipmentWin.setVisible(true);
+			dispose();
+		}
+		else {
+			if (table.isEditing())
+			    table.getCellEditor().stopCellEditing();
+			
+			if(createInstruments() != null) {
+				EquipmentController equipmentController = EquipmentController.getInstance();
+				equipmentController.update(createInstruments());
+				
+				EquipmentWindow equipmentWin = new EquipmentWindow();
+				equipmentWin.setVisible(true);
+				dispose();
+			}else {
+				InsertInstrumentsWindow insInstrumentsWin = new InsertInstrumentsWindow(numberInstruments);
+				insInstrumentsWin.setVisible(true);
+				dispose();
+			}
+		}
 	}
 }

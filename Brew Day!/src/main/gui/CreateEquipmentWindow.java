@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 @SuppressWarnings("serial")
-public class CreateEquipmentWindow extends JFrame {
+public class CreateEquipmentWindow extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -60,19 +60,7 @@ public class CreateEquipmentWindow extends JFrame {
 		panel2.add(textField, gbcTextField);
 		
 		JButton btnNext = new JButton("Next >");
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String inputString = textField.getText();
-					int input = Integer.parseInt(inputString);
-					InsertInstrumentsWindow insertInstrumentsWin = new InsertInstrumentsWindow(input);
-					insertInstrumentsWin.setVisible(true);
-					dispose();
-				} catch (NumberFormatException|NullPointerException e1) {
-					JOptionPane.showMessageDialog(panel2,"You must insert a number");
-				}	
-			}
-		});
+		btnNext.addActionListener(this);
 		
 		GridBagConstraints gbcBtnNext = new GridBagConstraints();
 		gbcBtnNext.gridx = 0;
@@ -83,13 +71,27 @@ public class CreateEquipmentWindow extends JFrame {
 		contentPane.add(panel1, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
-			}
-		});
+		btnBack.addActionListener(this);
 		panel1.add(btnBack);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Back")) {
+			EquipmentWindow equipmentWin = new EquipmentWindow();
+			equipmentWin.setVisible(true);
+			dispose();
+		}
+		else {
+			try {
+				String inputString = textField.getText();
+				int input = Integer.parseInt(inputString);
+				InsertInstrumentsWindow insertInstrumentsWin = new InsertInstrumentsWindow(input);
+				insertInstrumentsWin.setVisible(true);
+				dispose();
+			} catch (NumberFormatException|NullPointerException e1) {
+				JOptionPane.showMessageDialog(this,"You must insert a number");
+			}	
+		}
 	}
 }

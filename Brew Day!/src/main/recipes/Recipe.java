@@ -129,7 +129,7 @@ public class Recipe implements Serializable{
 	}
 
 	public Map<String, Double> computeMissingIngredients(){
-		Map<String,Double> missingIngredients = new HashMap<>();		
+		Map<String,Double> result = new HashMap<>();		
 		
 		File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Storage.txt");
 		
@@ -139,17 +139,17 @@ public class Recipe implements Serializable{
 				for(Entry<String, Double> i : this.ingredients.entrySet()) {
 					double ingredientValue = storageIngredients.get(i.getKey()).doubleValue();
 					if (ingredientValue < i.getValue()) {
-						missingIngredients.put(i.getKey(), i.getValue() - ingredientValue);
+						result.put(i.getKey(), i.getValue() - ingredientValue);
 					}
 				}
 
-				return missingIngredients;
+				return result;
 			}
 			else throw new StorageNotFoundWSIBTException();
 		}catch(StorageNotFoundWSIBTException e){
 			System.out.println(e.getMessage());
 		}
-		return missingIngredients;
+		return result;
 	}
 
 	//Created only for testing purpose

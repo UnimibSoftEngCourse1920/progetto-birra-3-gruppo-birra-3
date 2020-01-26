@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class DeleteInstrumentWindow extends JFrame {
+public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 
@@ -42,13 +42,7 @@ public class DeleteInstrumentWindow extends JFrame {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
-			}
-		});
+		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 		
 		
@@ -62,16 +56,25 @@ public class DeleteInstrumentWindow extends JFrame {
 		}
 		for(JButton b : instrumentsDelete) {
 			panel1.add(b);
-			b.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String instrumentDel = e.getActionCommand();
-					equipmentController.delete(instrumentDel);
-					
-					EquipmentWindow equipmentWin = new EquipmentWindow();
-					equipmentWin.setVisible(true);
-					dispose();
-				}
-			});
+			b.addActionListener(this);
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Back")) {
+			EquipmentWindow equipmentWin = new EquipmentWindow();
+			equipmentWin.setVisible(true);
+			dispose();
+		}
+		else {
+			EquipmentController equipmentController = EquipmentController.getInstance();
+			String instrumentDel = e.getActionCommand();
+			equipmentController.delete(instrumentDel);
+			
+			EquipmentWindow equipmentWin = new EquipmentWindow();
+			equipmentWin.setVisible(true);
+			dispose();
 		}
 	}
 }

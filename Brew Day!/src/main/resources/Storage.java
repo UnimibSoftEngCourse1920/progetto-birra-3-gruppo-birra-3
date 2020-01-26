@@ -75,7 +75,8 @@ public class Storage implements Serializable{
 		if (ingredients == null) {
 			if (other.ingredients != null)
 				return false;
-		} else if (!ingredients.equals(other.ingredients))
+		} 
+		else if (!ingredients.equals(other.ingredients))
 			return false;
 		return true;
 	}

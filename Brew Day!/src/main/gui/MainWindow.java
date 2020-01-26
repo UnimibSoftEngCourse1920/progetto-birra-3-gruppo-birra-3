@@ -25,7 +25,7 @@ public class MainWindow extends JFrame implements ActionListener{
 
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
-	private static boolean brewIt = false;
+	private boolean brewIt = false;
 
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
@@ -44,6 +44,19 @@ public class MainWindow extends JFrame implements ActionListener{
 		case "View your storage":
 			setVisible(false);
 			new StorageWindow().setVisible(true);
+			break;
+		case "Brew it!":
+			if(brewIt) {
+				RecipeController recipeController = RecipeController.getInstance();
+				Recipe wsibtRecipe = getWSIBT();
+				recipeController.createBrew(wsibtRecipe.getId());
+
+				BrewWindow brewWin = new BrewWindow();
+				brewWin.setVisible(true);
+				dispose();
+			}
+			else
+				JOptionPane.showMessageDialog(this, "You can't Brew it!");
 			break;
 		default:
 		}
@@ -168,8 +181,9 @@ public class MainWindow extends JFrame implements ActionListener{
 					wsibtRecipe = "No recipe match the availability";
 				}
 			}
-			else if (sizeR == 0 || sizeS == 0)
+			else { 
 				wsibtRecipe = "None, you have no recipes saved or no storage ingredients!";
+			}
 		}else{
 			wsibtRecipe = "None, you have no recipes or no storage!";
 		}
@@ -186,22 +200,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		wsibtPanel.add(wsibtButtonPanel);
 
 		JButton wsibtButton = new JButton("Brew it!");
-		wsibtButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(brewIt) {
-					RecipeController recipeController = RecipeController.getInstance();
-					Recipe wsibtRecipe = getWSIBT();
-					recipeController.createBrew(wsibtRecipe.getId());
-
-					BrewWindow brewWin = new BrewWindow();
-					brewWin.setVisible(true);
-					dispose();
-				}
-				else
-					JOptionPane.showMessageDialog(wsibtButtonPanel, "You cant Brew it!");
-
-			}
-		});
+		wsibtButton.addActionListener(this);
 		wsibtButton.setPreferredSize(d);
 		wsibtButtonPanel.add(wsibtButton);
 	}

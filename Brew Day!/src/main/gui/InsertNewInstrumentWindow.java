@@ -19,7 +19,7 @@ import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class InsertNewInstrumentWindow extends JFrame {
+public class InsertNewInstrumentWindow extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -89,50 +89,50 @@ public class InsertNewInstrumentWindow extends JFrame {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				try {
-					EquipmentController equipmentController = EquipmentController.getInstance();
-					Map<String, Double> instruments = equipmentController.extractEquipment().getInstruments();
-					
-					boolean b = true;
-					String name = textField.getText();
-					String capacity = textField1.getText();
-					
-					if(!name.matches("[a-zA-Z_]+") || !capacity.matches("[0-9]+.{0,1}[0-9]*")) {
-						throw new IllegalArgumentException();
-					}
-					for(Entry<String, Double> i : instruments.entrySet()) {
-						if(name.equals(i.getKey())) {
-							JOptionPane.showMessageDialog(panel2, "You already have this instrument in your equipment");
-							b = false;
-						}
-					}
-					if(b) {
-						instruments.put(name, Double.parseDouble(capacity));
-						equipmentController.update(instruments);
-					}
-					EquipmentWindow equipmentWin = new EquipmentWindow();
-					equipmentWin.setVisible(true);
-					dispose();
-				}catch (IllegalArgumentException e1) {
-					JOptionPane.showMessageDialog(panel2,"Insert only string in name field and positive numbers , separated by dot (e.g. Kettle 10.50");
-				}
-			}
-		});
+		btnSave.addActionListener(this);
 		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnBack.addActionListener(this);
+		panel2.add(btnBack);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Back")) {
+			EquipmentWindow equipmentWin = new EquipmentWindow();
+			equipmentWin.setVisible(true);
+			dispose();
+		}
+		else {
+			try {
+				EquipmentController equipmentController = EquipmentController.getInstance();
+				Map<String, Double> instruments = equipmentController.extractEquipment().getInstruments();
+				
+				boolean b = true;
+				String name = textField.getText();
+				String capacity = textField1.getText();
+				
+				if(!name.matches("[a-zA-Z_]+") || !capacity.matches("[0-9]+.{0,1}[0-9]*")) {
+					throw new IllegalArgumentException();
+				}
+				for(Entry<String, Double> i : instruments.entrySet()) {
+					if(name.equals(i.getKey())) {
+						JOptionPane.showMessageDialog(this, "You already have this instrument in your equipment");
+						b = false;
+					}
+				}
+				if(b) {
+					instruments.put(name, Double.parseDouble(capacity));
+					equipmentController.update(instruments);
+				}
 				EquipmentWindow equipmentWin = new EquipmentWindow();
 				equipmentWin.setVisible(true);
 				dispose();
+			}catch (IllegalArgumentException e1) {
+				JOptionPane.showMessageDialog(this,"Insert only string in name field and positive numbers , separated by dot (e.g. Kettle 10.50");
 			}
-		});
-		panel2.add(btnBack);
+		}
 	}
 
 }

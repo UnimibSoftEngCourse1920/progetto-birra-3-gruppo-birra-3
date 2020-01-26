@@ -35,7 +35,7 @@ public class RecipeController {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Recipe> extractRecipe() {
+	public List<Recipe> extractRecipe() {
 		if (ioController.readObjectFromFile(filepath) != null) {
 			return (ArrayList<Recipe>) ioController.readObjectFromFile(filepath);
 		}

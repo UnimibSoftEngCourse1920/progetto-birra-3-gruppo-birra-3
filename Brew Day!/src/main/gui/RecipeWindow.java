@@ -94,7 +94,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		
 		RecipeController recipeController = RecipeController.getInstance();
 
-		ArrayList<Recipe> recipes = recipeController.extractRecipe();
+		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Number","Name","Ingredients","","",""}, 0) {
 			@Override
@@ -175,10 +175,4 @@ public class RecipeWindow extends JFrame implements ActionListener{
 			}
 		}
 	}
-	
-	public static void main(String[] args){
-		RecipeWindow gui = new RecipeWindow();
-		gui.setVisible(true);
-	}
-
 }

@@ -1,5 +1,6 @@
 package main.recipes;
 
+@SuppressWarnings("serial")
 public class StorageNotFoundWSIBTException extends Exception {
 
 	public StorageNotFoundWSIBTException() {
