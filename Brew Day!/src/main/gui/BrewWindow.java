@@ -51,7 +51,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
 
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Brew Number","Recipe Number", "Recipe Name","Ingredients","Note's number","Start Date","Finish Date","","","",""}, 0) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Brew Number","Recipe Number", "Recipe Name","Ingredients","Note's Number","Start Date","Finish Date","","","",""}, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				switch (column) {
@@ -78,7 +78,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getColumnModel().getColumn(3).setPreferredWidth(450);
+		table.getColumnModel().getColumn(3).setPreferredWidth(320);
 		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
 		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
 		table.setRowHeight(30);

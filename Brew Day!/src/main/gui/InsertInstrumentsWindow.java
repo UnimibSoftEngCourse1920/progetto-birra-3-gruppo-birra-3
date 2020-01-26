@@ -22,7 +22,6 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable table;
-	private int numberInstruments;
 
 	public InsertInstrumentsWindow(int numberInstruments) {
 		super("Brew Day! - Insert instruments");
@@ -55,11 +54,8 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		
 		JPanel panel2 = new JPanel();
 		contentPane.add(panel2, BorderLayout.SOUTH);
-		
-		this.numberInstruments = numberInstruments;
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(this);
@@ -106,12 +102,7 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 				EquipmentController equipmentController = EquipmentController.getInstance();
 				equipmentController.update(createInstruments());
 				
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
-			}else {
-				InsertInstrumentsWindow insInstrumentsWin = new InsertInstrumentsWindow(numberInstruments);
-				insInstrumentsWin.setVisible(true);
+				new ShowEquipmentWindow().setVisible(true);
 				dispose();
 			}
 		}

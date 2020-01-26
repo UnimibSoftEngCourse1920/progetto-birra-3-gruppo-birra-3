@@ -97,8 +97,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
+			new EquipmentWindow().setVisible(true);
 			dispose();
 		}
 		else {
@@ -109,12 +108,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 				EquipmentController equipmentController = EquipmentController.getInstance();
 				equipmentController.update(updateInstruments());
 				
-				ModifyEquipmentWindow modEquipmentWin = new ModifyEquipmentWindow();
-				modEquipmentWin.setVisible(true);
-				dispose();
-			}else {
-				ModifyEquipmentWindow modEquipmentWin = new ModifyEquipmentWindow();
-				modEquipmentWin.setVisible(true);
+				new ShowEquipmentWindow().setVisible(true);
 				dispose();
 			}
 		}

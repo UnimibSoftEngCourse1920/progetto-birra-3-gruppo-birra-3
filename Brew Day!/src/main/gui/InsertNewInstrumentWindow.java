@@ -100,8 +100,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
+			new EquipmentWindow().setVisible(true);
 			dispose();
 		}
 		else {
@@ -126,8 +125,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 					instruments.put(name, Double.parseDouble(capacity));
 					equipmentController.update(instruments);
 				}
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
+				new ShowEquipmentWindow().setVisible(true);
 				dispose();
 			}catch (IllegalArgumentException e1) {
 				JOptionPane.showMessageDialog(this,"Insert only string in name field and positive numbers , separated by dot (e.g. Kettle 10.50");
