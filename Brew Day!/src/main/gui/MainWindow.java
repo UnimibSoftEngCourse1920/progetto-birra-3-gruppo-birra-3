@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.Storage;
@@ -26,41 +28,6 @@ public class MainWindow extends JFrame implements ActionListener{
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	private boolean brewIt = false;
-
-	public void actionPerformed(ActionEvent e) {
-		switch(e.getActionCommand()) {
-		case "View your recipes":
-			setVisible(false);
-			new RecipeWindow().setVisible(true);
-			break;
-		case "View your brews":
-			setVisible(false);
-			new BrewWindow().setVisible(true);
-			break;
-		case "View your equipment":
-			setVisible(false);
-			new EquipmentWindow().setVisible(true);
-			break;
-		case "View your storage":
-			setVisible(false);
-			new StorageWindow().setVisible(true);
-			break;
-		case "Brew it!":
-			if(brewIt) {
-				RecipeController recipeController = RecipeController.getInstance();
-				Recipe wsibtRecipe = getWSIBT();
-				recipeController.createBrew(wsibtRecipe.getId());
-
-				BrewWindow brewWin = new BrewWindow();
-				brewWin.setVisible(true);
-				dispose();
-			}
-			else
-				JOptionPane.showMessageDialog(this, "You can't Brew it!");
-			break;
-		default:
-		}
-	}
 
 	public MainWindow() {
 		super("Brew Day!");
@@ -275,5 +242,46 @@ public class MainWindow extends JFrame implements ActionListener{
 		//Only for testing purpose
 		MainWindow gui = new MainWindow();
 		gui.setVisible(true);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()) {
+		case "View your recipes":
+			setVisible(false);
+			new RecipeWindow().setVisible(true);
+			break;
+		case "View your brews":
+			File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Brew.txt");
+
+			if (!f.exists() || BrewController.getInstance().extractBrew().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "No brews to show");
+			} else {
+				setVisible(false);
+				new BrewWindow().setVisible(true);
+			}
+			break;
+		case "View your equipment":
+			setVisible(false);
+			new EquipmentWindow().setVisible(true);
+			break;
+		case "View your storage":
+			setVisible(false);
+			new StorageWindow().setVisible(true);
+			break;
+		case "Brew it!":
+			if(brewIt) {
+				RecipeController recipeController = RecipeController.getInstance();
+				Recipe wsibtRecipe = getWSIBT();
+				recipeController.createBrew(wsibtRecipe.getId());
+
+				BrewWindow brewWin = new BrewWindow();
+				brewWin.setVisible(true);
+				dispose();
+			}
+			else
+				JOptionPane.showMessageDialog(this, "You can't Brew it!");
+			break;
+		default:
+		}
 	}
 }

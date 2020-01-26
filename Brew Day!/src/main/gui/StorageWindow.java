@@ -24,7 +24,6 @@ public class StorageWindow extends JFrame implements ActionListener {
 
 	private String filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 	private StorageController sController;
-	
 	private JPanel contentPane;
 	private JTable table;
 
