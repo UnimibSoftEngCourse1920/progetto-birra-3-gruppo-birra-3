@@ -1,7 +1,6 @@
 package main.recipes;
 
 import main.IngredientNotFoundException;
-import main.instruments.Equipment;
 import main.resources.Storage;
 import main.resources.StorageController;
 import java.io.File;
@@ -18,8 +17,6 @@ public class Recipe implements Serializable{
 	private String name;
 	private Map<String,Double> ingredients;
 	private Map<String, Double> percentageIngredients;
-	private Equipment equipment;
-	private Storage storage;
 	private Map<String,Double> missingIngredients;
 	private double countBrew = 1.0;
 	private int id;
@@ -36,8 +33,6 @@ public class Recipe implements Serializable{
         
 		this.name = name;
 		this.ingredients = ingredients;
-		this.equipment = Equipment.getInstance();
-		this.storage = Storage.getInstance();
 		
 		this.percentageIngredients = computePercentage(ingredients);
 	}
@@ -65,10 +60,6 @@ public class Recipe implements Serializable{
 			System.err.println(e.getMessage());
 		}
 		return result;
-	}
-
-	public Equipment getEquipment() {
-		return equipment;
 	}
 
 	public Map<String,Double> getIngredients() {
@@ -110,7 +101,7 @@ public class Recipe implements Serializable{
 			BrewController brewController = BrewController.getInstance();
 			brewController.store(b);
 			//subtract ingredients from storage
-			storage = Storage.getInstance();
+			Storage storage = Storage.getInstance();
 			Map<String,Double> storageIngredients = storage.getIngredients();
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
 				double sIngredientValue = storageIngredients.get(i.getKey()).doubleValue();
@@ -182,11 +173,9 @@ public class Recipe implements Serializable{
 		long temp;
 		temp = Double.doubleToLongBits(countBrew);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((equipment == null) ? 0 : equipment.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((ingredients == null) ? 0 : ingredients.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((storage == null) ? 0 : storage.hashCode());
 		return result;
 	}
 

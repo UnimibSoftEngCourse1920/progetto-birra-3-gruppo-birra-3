@@ -97,10 +97,8 @@ public class RecipeControllerTest {
 		recipeController.update(recipe1.getId(), nameEdit1, ingredients2);
 		recipeController.update(recipe2.getId(), nameEdit2, ingredients3);
 		
-		recipe1.setName(nameEdit1);
-		recipe2.setName(nameEdit2);
-		recipe1.setIngredients(ingredients2);
-		recipe2.setIngredients(ingredients3);
+		recipe1.updateRecipe(nameEdit1,ingredients2);
+		recipe2.updateRecipe(nameEdit2,ingredients3);
 		
 		ArrayList<Recipe> extRecipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		
