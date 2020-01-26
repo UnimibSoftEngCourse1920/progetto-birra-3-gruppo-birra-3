@@ -56,7 +56,7 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Instrument name","Capacity (l)"}, 0);
 		for(int i=0; i<numberInstruments; i++) {
-			model.addRow(new String[] {"",""});
+			model.addRow(new String[] {"","0.0"});
 		}
 		
 		table = new JTable(model);
