@@ -15,12 +15,15 @@ import main.recipes.Recipe;
 import main.recipes.RecipeController;
 
 public class EquipmentControllerTest {
+	
+	String kettle = "Kettle";
+	String fermenter = "Fermenter";
 
 	@Test
 	public void testExtractEquipment() {
 		Map<String, Double> instruments = new HashMap<>();
-		instruments.put("Kettle", 30.50);
-		instruments.put("Fermenter", 3.49);
+		instruments.put(kettle, 30.50);
+		instruments.put(fermenter, 3.49);
 		
 		EquipmentController ec = EquipmentController.getInstance();
 		ec.createEquipment(instruments);
@@ -36,8 +39,8 @@ public class EquipmentControllerTest {
 	@Test
 	public void testCreateEquipment() {
 		Map<String, Double> instruments = new HashMap<>();
-		instruments.put("Kettle", 30.50);
-		instruments.put("Fermenter", 3.49);
+		instruments.put(kettle, 30.50);
+		instruments.put(fermenter, 3.49);
 		
 		EquipmentController ec = EquipmentController.getInstance();
 		ec.createEquipment(instruments);
@@ -45,8 +48,8 @@ public class EquipmentControllerTest {
 		Equipment e1 = Equipment.getInstance();
 		Equipment e2 = ec.extractEquipment();
 		
-		assertEquals(e1.getInstruments().get("Kettle"), e2.getInstruments().get("Kettle"));
-		assertEquals(e1.getInstruments().get("Fermenter"), e2.getInstruments().get("Fermenter"));
+		assertEquals(e1.getInstruments().get(kettle), e2.getInstruments().get(kettle));
+		assertEquals(e1.getInstruments().get(fermenter), e2.getInstruments().get(fermenter));
 		
 		ec.deleteFile();
 	}
@@ -54,8 +57,8 @@ public class EquipmentControllerTest {
 	@Test
 	public void testStore() {
 		Map<String, Double> instruments = new HashMap<>();
-		instruments.put("Kettle", 30.50);
-		instruments.put("Fermenter", 3.49);
+		instruments.put(kettle, 30.50);
+		instruments.put(fermenter, 3.49);
 		
 		EquipmentController ec = EquipmentController.getInstance();
 		Equipment e = Equipment.getInstance();
@@ -64,8 +67,8 @@ public class EquipmentControllerTest {
 		
 		Equipment e1 = ec.extractEquipment();
 		
-		assertEquals(e.getInstruments().get("Kettle"), e1.getInstruments().get("Kettle"));
-		assertEquals(e.getInstruments().get("Fermenter"), e1.getInstruments().get("Fermenter"));
+		assertEquals(e.getInstruments().get(kettle), e1.getInstruments().get(kettle));
+		assertEquals(e.getInstruments().get(fermenter), e1.getInstruments().get(fermenter));
 		
 		ec.deleteFile();
 	}
@@ -74,8 +77,8 @@ public class EquipmentControllerTest {
 	@Test
 	public void testUpdate() {
 		Map<String, Double> instruments = new HashMap<>();
-		instruments.put("Kettle", 30.50);
-		instruments.put("Fermenter", 3.49);
+		instruments.put(kettle, 30.50);
+		instruments.put(fermenter, 3.49);
 		
 		EquipmentController ec = EquipmentController.getInstance();
 		Equipment e = Equipment.getInstance();
@@ -87,8 +90,8 @@ public class EquipmentControllerTest {
 		
 		Equipment e1 = ec.extractEquipment();
 		
-		assertEquals(e.getInstruments().get("Kettle"), e1.getInstruments().get("Kettle"));
-		assertEquals(e.getInstruments().get("Fermenter"), e1.getInstruments().get("Fermenter"));
+		assertEquals(e.getInstruments().get(kettle), e1.getInstruments().get(kettle));
+		assertEquals(e.getInstruments().get(fermenter), e1.getInstruments().get(fermenter));
 		assertEquals(e.getInstruments().get("Pipe"), e1.getInstruments().get("Pipe"));
 		
 		ec.deleteFile();
@@ -98,15 +101,15 @@ public class EquipmentControllerTest {
 	@Test
 	public void testDelete() {
 		Map<String, Double> instruments = new HashMap<>();
-		instruments.put("Kettle", 30.50);
-		instruments.put("Fermenter", 3.49);
+		instruments.put(kettle, 30.50);
+		instruments.put(fermenter, 3.49);
 		
 		EquipmentController ec = EquipmentController.getInstance();
 		ec.createEquipment(instruments);
-		ec.delete("Kettle");
+		ec.delete(kettle);
 		Equipment e = ec.extractEquipment();
 		
-		assertFalse(e.getInstruments().containsKey("Kettle"));
+		assertFalse(e.getInstruments().containsKey(kettle));
 		
 		ec.deleteFile();
 	}
@@ -115,8 +118,8 @@ public class EquipmentControllerTest {
 	public void testUpdateEquipmentAndUpdateRecipe() {
 		
 		Map<String, Double> instruments = new HashMap<>();
-		instruments.put("Kettle", 30.00);
-		instruments.put("Fermenter", 20.00);
+		instruments.put(kettle, 30.00);
+		instruments.put(fermenter, 20.00);
 		
 		EquipmentController ec = EquipmentController.getInstance();
 		Equipment e = Equipment.getInstance();
