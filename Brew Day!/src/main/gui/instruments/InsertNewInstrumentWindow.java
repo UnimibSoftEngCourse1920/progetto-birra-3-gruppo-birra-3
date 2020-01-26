@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -29,7 +30,10 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 	public InsertNewInstrumentWindow() {
 		super("Brew Day! - Insert new instrument");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(150, 150, 600, 400);
+
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();

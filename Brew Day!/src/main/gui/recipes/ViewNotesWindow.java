@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +38,10 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 	public ViewNotesWindow(Double id) {
 		super("Brew Day! - Brew Notes");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		this.brewId = id;

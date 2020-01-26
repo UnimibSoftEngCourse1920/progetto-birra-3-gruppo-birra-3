@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import main.instruments.EquipmentController;
 
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,10 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 	public DeleteInstrumentWindow() {
 		super("Brew Day! - Delete instrument");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();

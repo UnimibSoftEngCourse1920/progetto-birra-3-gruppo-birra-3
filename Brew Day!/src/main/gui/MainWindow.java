@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,6 +42,10 @@ public class MainWindow extends JFrame implements ActionListener{
 		super("Brew Day!");
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		Font labelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
@@ -68,27 +73,27 @@ public class MainWindow extends JFrame implements ActionListener{
 		resourcesPanel.setLayout(new GridLayout(1, 4));
 
 		JPanel wsibtPanel = new JPanel();
-		wsibtPanel.setBackground(Color.ORANGE);
+		wsibtPanel.setBackground(new Color(255, 200, 174));
 		wsibtPanel.setLayout(new GridLayout(2, 0));
 
 		JPanel recipePanel = new JPanel();
-		recipePanel.setBackground(Color.CYAN);
+		recipePanel.setBackground(new Color(189, 216, 255));
 		recipePanel.setLayout(new GridLayout(2, 0));
 		resourcesPanel.add(recipePanel);
 
 		JPanel brewPanel = new JPanel();
-		brewPanel.setBackground(Color.GREEN);
+		brewPanel.setBackground(new Color(189, 255, 178));
 		brewPanel.setLayout(new GridLayout(2, 0));
 		resourcesPanel.add(brewPanel);
 
 		JPanel equipmentPanel = new JPanel();
-		equipmentPanel.setBackground(Color.YELLOW);
+		equipmentPanel.setBackground(new Color(252, 255, 166));
 		equipmentPanel.setLayout(new GridLayout(2, 0));
 		resourcesPanel.add(equipmentPanel);
 
 		JPanel storagePanel = new JPanel();
 		storagePanel.setLayout(new GridLayout(2, 0));
-		storagePanel.setBackground(Color.RED);
+		storagePanel.setBackground(new Color(255, 154, 162));
 		resourcesPanel.add(storagePanel);
 
 		JLabel recipeLabel = new JLabel("Recipes");
@@ -110,22 +115,22 @@ public class MainWindow extends JFrame implements ActionListener{
 
 		JPanel recipeButtonPanel = new JPanel();
 		recipeButtonPanel.setLayout(new FlowLayout());
-		recipeButtonPanel.setBackground(Color.CYAN);
+		recipeButtonPanel.setBackground(new Color(189, 216, 255));
 		recipePanel.add(recipeButtonPanel);
 
 		JPanel brewButtonPanel = new JPanel();
 		brewButtonPanel.setLayout(new FlowLayout());
-		brewButtonPanel.setBackground(Color.GREEN);
+		brewButtonPanel.setBackground(new Color(189, 255, 178));
 		brewPanel.add(brewButtonPanel);
 
 		JPanel equipmentButtonPanel = new JPanel();
 		equipmentButtonPanel.setLayout(new FlowLayout());
-		equipmentButtonPanel.setBackground(Color.YELLOW);
+		equipmentButtonPanel.setBackground(new Color(252, 255, 166));
 		equipmentPanel.add(equipmentButtonPanel);
 
 		JPanel storageButtonPanel = new JPanel();
 		storageButtonPanel.setLayout(new FlowLayout());
-		storageButtonPanel.setBackground(Color.RED);
+		storageButtonPanel.setBackground(new Color(255, 154, 162));
 		storagePanel.add(storageButtonPanel);
 
 		getContentPane().add(mainPanel);
@@ -190,7 +195,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		wsibtPanel.add(wsibtLabel);
 
 		JPanel wsibtButtonPanel = new JPanel();
-		wsibtButtonPanel.setBackground(Color.ORANGE);
+		wsibtButtonPanel.setBackground(new Color(255, 200, 174));
 		wsibtButtonPanel.setLayout(new FlowLayout());
 		wsibtPanel.add(wsibtButtonPanel);
 
