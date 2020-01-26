@@ -6,11 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
-import main.instruments.EquipmentController;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import main.instruments.EquipmentController;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -55,7 +53,6 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
 		
 		JPanel panel2 = new JPanel();
 		contentPane.add(panel2, BorderLayout.SOUTH);
@@ -111,8 +108,7 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 				EquipmentController equipmentController = EquipmentController.getInstance();
 				equipmentController.update(createInstruments());
 				
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
+				new ShowEquipmentWindow().setVisible(true);
 				dispose();
 			}
 		}

@@ -4,9 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import main.instruments.EquipmentController;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.GridBagLayout;
@@ -30,7 +28,8 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 	public InsertNewInstrumentWindow() {
 		super("Brew Day! - Insert new instrument");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(300, 150, 1280, 720);
+		setBounds(150, 150, 600, 400);
+		//setBounds(300, 150, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -45,15 +44,15 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		JPanel panel1 = new JPanel();
 		contentPane.add(panel1, BorderLayout.CENTER);
 		GridBagLayout gblPanel1 = new GridBagLayout();
-		gblPanel1.columnWidths = new int[]{120, 0};
-		gblPanel1.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gblPanel1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gblPanel1.columnWidths = new int[]{121};
+		gblPanel1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gblPanel1.columnWeights = new double[]{0.0};
 		gblPanel1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel1.setLayout(gblPanel1);
 		
 		JLabel lblName = new JLabel("Instrument name:");
 		GridBagConstraints gbcLblName = new GridBagConstraints();
-		gbcLblName.fill = GridBagConstraints.BOTH;
+		gbcLblName.fill = GridBagConstraints.VERTICAL;
 		
 		gbcLblName.insets = new Insets(0, 0, 5, 0);
 		gbcLblName.gridx = 0;
@@ -72,7 +71,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		
 		JLabel lblCapacity = new JLabel("Capacity (l):");
 		GridBagConstraints gbcLblCapacity = new GridBagConstraints();
-		gbcLblCapacity.fill = GridBagConstraints.BOTH;
+		gbcLblCapacity.fill = GridBagConstraints.VERTICAL;
 		
 		gbcLblCapacity.insets = new Insets(0, 0, 5, 0);
 		gbcLblCapacity.gridx = 0;
@@ -102,8 +101,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
+			new EquipmentWindow().setVisible(true);
 			dispose();
 		}
 		else {
@@ -131,8 +129,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 					instruments.put(name, Double.parseDouble(capacity));
 					equipmentController.update(instruments);
 					
-					EquipmentWindow equipmentWin = new EquipmentWindow();
-					equipmentWin.setVisible(true);
+					new ShowEquipmentWindow().setVisible(true);
 					dispose();
 				}
 			}catch (NumberFormatException e1) {

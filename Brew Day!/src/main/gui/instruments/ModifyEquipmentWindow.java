@@ -15,9 +15,7 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import main.instruments.EquipmentController;
-
 import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
@@ -99,8 +97,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
+			new EquipmentWindow().setVisible(true);
 			dispose();
 		}
 		else {
@@ -111,12 +108,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 				EquipmentController equipmentController = EquipmentController.getInstance();
 				equipmentController.update(updateInstruments());
 				
-				ModifyEquipmentWindow modEquipmentWin = new ModifyEquipmentWindow();
-				modEquipmentWin.setVisible(true);
-				dispose();
-			}else {
-				ModifyEquipmentWindow modEquipmentWin = new ModifyEquipmentWindow();
-				modEquipmentWin.setVisible(true);
+				new ShowEquipmentWindow().setVisible(true);
 				dispose();
 			}
 		}
