@@ -69,7 +69,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		StringBuilder ingredient = new StringBuilder();
 		for(Brew b : brews) {
 			for(Entry<String, Double> i : b.getRecipe().getIngredients().entrySet()) {
-				ingredient.append("  " + i.getKey() + "= " + Double.toString(i.getValue()));
+				ingredient.append("   " + i.getKey() + " = " + Double.toString(i.getValue()));
 			}
 			model.addRow(new String[] {Double.toString(b.getId()),Integer.toString(b.getRecipe().getId()),b.getRecipe().getName(),ingredient.toString(),Integer.toString(b.getNotes().size()),fromDatetoString(b.getStartDate()),fromDatetoString(b.getFinishDate()),"View Notes","Terminate","Cancel","Delete"});
 			ingredient = new StringBuilder();
@@ -78,10 +78,10 @@ public class BrewWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getColumnModel().getColumn(3).setPreferredWidth(320);
+		table.getColumnModel().getColumn(3).setPreferredWidth(350);
 		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
 		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
-		table.setRowHeight(30);
+		table.setRowHeight(40);
 
 	    new ButtonColumn(table, this, 7);
 		new ButtonColumn(table, this, 8);

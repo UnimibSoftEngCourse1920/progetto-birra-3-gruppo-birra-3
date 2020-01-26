@@ -1,10 +1,7 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,16 +9,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-
 import main.recipes.Brew;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
@@ -29,67 +24,27 @@ import main.recipes.RecipeController;
 @SuppressWarnings("serial")
 public class RecipeWindow extends JFrame implements ActionListener{
 	
-	private JTable recipesTable;
+	private JPanel contentPane;
+	private JTable table;
 	
 	public RecipeWindow(){
 		super("Brew Day! - Recipes");
 		setBounds(300, 150, 1280, 720);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 		
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new GridLayout(2, 0));
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JPanel viewRecipesPanel = new JPanel();
-		viewRecipesPanel.setLayout(new BorderLayout());
-		mainPanel.add(viewRecipesPanel);
+		JLabel label = new JLabel("The Recipes are:");
+		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
+		panel.add(label);
 		
-		JPanel bottomPanel = new JPanel();
-		bottomPanel.setLayout(new FlowLayout());
-		mainPanel.add(bottomPanel);
-		
-		add(mainPanel, BorderLayout.CENTER);
-		
-		Font f = new Font("TimesRoman",Font.BOLD,25);
-		recipesTable = new JTable(createRecipesTable());
-		JScrollPane scrollPane = new JScrollPane(recipesTable);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS); 
-		
-		TableColumnModel columnModel = recipesTable.getColumnModel();
-		TableColumn column = columnModel.getColumn(2);
-        MultiRowCell multiRowCell = new MultiRowCell();
-        column.setCellEditor(multiRowCell);
-        column.setCellRenderer(multiRowCell);
-
-        int height = multiRowCell.getTableCellRendererComponent(recipesTable, "Test", true, true, 0, 0).getPreferredSize().height;
-        recipesTable.setRowHeight(height);
-		recipesTable.getTableHeader().setFont(f);
-		recipesTable.setFont(f);
-		recipesTable.setRowHeight(60);
-		recipesTable.setFillsViewportHeight(true);
-		recipesTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		
-		new ButtonColumn(recipesTable, this, 3);
-		new ButtonColumn(recipesTable, this, 4);
-		new ButtonColumn(recipesTable, this, 5);
-		
-		viewRecipesPanel.add(scrollPane);
-		
-		Dimension d = new Dimension(200, 70);
-		JButton backButton = new JButton("Back");
-		backButton.addActionListener(this);
-		backButton.setPreferredSize(d);
-		bottomPanel.add(backButton);
-		
-		JButton addRecipeButton = new JButton("New recipe");
-		addRecipeButton.addActionListener(this);
-		addRecipeButton.setPreferredSize(d);
-		bottomPanel.add(addRecipeButton);
-	}
-	
-	
-	public static DefaultTableModel createRecipesTable() {
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		RecipeController recipeController = RecipeController.getInstance();
 
@@ -113,13 +68,40 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		StringBuilder ingredients = new StringBuilder();
 		for(Recipe r : recipes) {
 			for(Entry<String, Double> i : r.getIngredients().entrySet()) {
-				ingredients.append(i.getKey() + ": " + Double.toString(i.getValue()) + "\n");
+				ingredients.append("   " + i.getKey() + " = " + Double.toString(i.getValue()));
 			}
 			model.addRow(new String[] {Integer.toString(r.getId()),r.getName(),ingredients.toString(),"Brew it!","Modify","Delete"});
 			ingredients = new StringBuilder();
 		}
+		
+		table = new JTable(model);
+		table.setBorder(null);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);	
+		table.getColumnModel().getColumn(2).setPreferredWidth(350);
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
+		table.setRowHeight(40);
+		table.setFillsViewportHeight(true);
+		
+		new ButtonColumn(table, this, 3);
+		new ButtonColumn(table, this, 4);
+		new ButtonColumn(table, this, 5);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
+		
+		JPanel panel2 = new JPanel();
+		contentPane.add(panel2, BorderLayout.SOUTH);
 
-		return model;
+		JButton backButton = new JButton("Back");
+		backButton.addActionListener(this);
+		backButton.setFont(new Font(backButton.getFont().getName(),Font.BOLD, 18));
+		panel2.add(backButton);
+		
+		JButton addRecipeButton = new JButton("New recipe");
+		addRecipeButton.addActionListener(this);
+		addRecipeButton.setFont(new Font(backButton.getFont().getName(),Font.BOLD, 18));
+		panel2.add(addRecipeButton);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -130,8 +112,8 @@ public class RecipeWindow extends JFrame implements ActionListener{
 				dispose();
 				break;
 			case "New recipe":
-				if (recipesTable.isEditing())
-				    recipesTable.getCellEditor().stopCellEditing();
+				if (table.isEditing())
+				    table.getCellEditor().stopCellEditing();
 				setVisible(false);
 				new CreateRecipeWindow().setVisible(true);
 				dispose();
