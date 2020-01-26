@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import main.instruments.EquipmentController;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -25,8 +27,11 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 
 	public InsertInstrumentsWindow(int numberInstruments) {
 		super("Brew Day! - Insert instruments");
-		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();

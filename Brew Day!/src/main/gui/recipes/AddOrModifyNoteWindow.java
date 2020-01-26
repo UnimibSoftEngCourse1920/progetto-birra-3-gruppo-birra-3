@@ -12,6 +12,8 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import main.recipes.Brew;
 import main.recipes.BrewController;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
@@ -27,6 +29,10 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 
 	public AddOrModifyNoteWindow(Double brewId,int noteId) {
 		super("Brew Day! - Modify Note");
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);

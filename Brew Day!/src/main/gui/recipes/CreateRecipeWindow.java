@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,7 +31,11 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 
 	public CreateRecipeWindow(){
 		super("Brew Day! - Create recipe");
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);	
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();

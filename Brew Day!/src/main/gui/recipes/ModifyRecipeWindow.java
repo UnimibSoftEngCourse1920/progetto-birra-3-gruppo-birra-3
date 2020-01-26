@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,6 +35,10 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 	public ModifyRecipeWindow(int recipeId){
 		super("Brew Day! - Modify recipe");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
         

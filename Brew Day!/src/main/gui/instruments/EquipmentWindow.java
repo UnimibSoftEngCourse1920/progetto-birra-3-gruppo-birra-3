@@ -11,6 +11,7 @@ import main.instruments.EquipmentController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,10 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 	public EquipmentWindow() {
 		super("Brew Day! - Equipment menu");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		setIconImage(icon.getImage());
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();
