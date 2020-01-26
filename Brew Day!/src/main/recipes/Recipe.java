@@ -161,15 +161,18 @@ public class Recipe implements Serializable{
 	}
 	
 	public Map<String, Double> computePercentage(Map<String, Double> ingredients){
-		Map<String, Double> percentageIngredients = new HashMap<String, Double>();
-		double totalGrams = 0.0;
-		for (Entry<String,Double> i : this.ingredients.entrySet()) {
-			totalGrams = i.getValue();
+		if(ingredients != null) {
+			Map<String, Double> percentageIngredients = new HashMap<String, Double>();
+			double totalGrams = 0.0;
+			for (Entry<String,Double> i : this.ingredients.entrySet()) {
+				totalGrams = i.getValue();
+			}
+			for (Entry<String,Double> i : this.ingredients.entrySet()) {
+				percentageIngredients.put(i.getKey(), i.getValue()/totalGrams);
+			}
+			return percentageIngredients;
 		}
-		for (Entry<String,Double> i : this.ingredients.entrySet()) {
-			percentageIngredients.put(i.getKey(), i.getValue()/totalGrams);
-		}
-		return percentageIngredients;
+		return null;
 	}
 
 	@Override
