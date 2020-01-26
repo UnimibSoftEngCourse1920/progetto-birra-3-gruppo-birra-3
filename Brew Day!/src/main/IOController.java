@@ -19,23 +19,17 @@ public class IOController implements Serializable {
             objectOut.writeObject(serObj);
         } catch (IOException e) {
         	logger.log(Level.FINE,e.getMessage());
-        } catch (Exception e) {
-        	logger.log(Level.FINE, e.getMessage());
-        } 
+        }
     }
     
     public Object readObjectFromFile(String filepath) {
     	 
         try (ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(filepath))) {
             return objectIn.readObject();
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
         	logger.log(Level.FINE,e.getMessage());
             return null;
-        } catch (Exception e) {
-        	logger.log(Level.FINE, e.getMessage());
-            return null;
-        } 
-        
+        }        
     }
     
 }
