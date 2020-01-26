@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,13 +46,14 @@ public class MainWindow extends JFrame implements ActionListener{
 
 	private boolean brewIt = false;
 	Logger logger = Logger.getLogger(IOController.class.getName());
+	String userDir = "user.dir";
 
 	public MainWindow() {
 		super("Brew Day!");
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		
-		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
+		ImageIcon icon = new ImageIcon(System.getProperty(userDir) + "\\src\\icon.png");
 		setIconImage(icon.getImage());
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -60,7 +62,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		Font buttonFont = new Font(Font.SANS_SERIF, Font.BOLD, 17);
 		
 		StorageController sController = StorageController.getInstance();
-		File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Storage.txt");
+		File f = new File(System.getProperty(userDir) + "\\src\\Files\\Storage.txt");
 		if(!f.exists()) {
 			Map<String,Double> defaultIngredients = new HashMap<>();
 			defaultIngredients.put("Malt", 0.0);
@@ -171,9 +173,9 @@ public class MainWindow extends JFrame implements ActionListener{
 		storageButton.setPreferredSize(d);
 		storageButtonPanel.add(storageButton);
 
-		String filepathRecipe = System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt";
+		String filepathRecipe = System.getProperty(userDir) + "\\src\\Files\\Recipe.txt";
 		File fileRecipe = new File(filepathRecipe);
-		String filepathStorage = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
+		String filepathStorage = System.getProperty(userDir) + "\\src\\Files\\Storage.txt";
 		File fileStorage = new File(filepathStorage);
 		RecipeController recipeController = RecipeController.getInstance();
 		
@@ -239,7 +241,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			new RecipeWindow().setVisible(true);
 			break;
 		case "View brews":
-			File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Brew.txt");
+			File f = new File(System.getProperty(userDir) + "\\src\\Files\\Brew.txt");
 
 			if (!f.exists() || BrewController.getInstance().extractBrew().isEmpty()) {
 				JOptionPane.showMessageDialog(this, "No brews to show");
@@ -276,7 +278,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			BrewController.getInstance().deleteFile();
 			StorageController.getInstance().deleteFile();
 			EquipmentController.getInstance().deleteFile();
-			try (FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+			try (FileOutputStream fos = new FileOutputStream(System.getProperty(userDir) + "\\src\\Files\\CounterId.txt");
 				DataOutputStream dos = new DataOutputStream(fos)) {
 				dos.writeInt(0); 
 			} catch (IOException ioe) {
