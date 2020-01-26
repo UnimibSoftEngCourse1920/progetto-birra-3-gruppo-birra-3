@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
 import main.gui.instruments.EquipmentWindow;
 import main.gui.recipes.BrewWindow;
 import main.gui.recipes.RecipeWindow;
@@ -171,9 +173,10 @@ public class MainWindow extends JFrame implements ActionListener{
 		File fileRecipe = new File(filepathRecipe);
 		String filepathStorage = System.getProperty(userDir) + "\\src\\Files\\Storage.txt";
 		File fileStorage = new File(filepathStorage);
+		
 		RecipeController recipeController = RecipeController.getInstance();
 		recipeController = RecipeController.getInstance();
-		
+
 		String wsibtRecipe = null;
 		if(fileRecipe.exists() && fileStorage.exists()) {
 			int sizeR = recipeController.extractRecipe().size();
@@ -277,7 +280,7 @@ public class MainWindow extends JFrame implements ActionListener{
 				DataOutputStream dos = new DataOutputStream(fos)) {
 				dos.writeInt(0); 
 			} catch (IOException ioe) {
-				System.out.println("IOException : " + ioe);
+				System.out.println(ioe.getMessage());
 			}
 		default:
 		}

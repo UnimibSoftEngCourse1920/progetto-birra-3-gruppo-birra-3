@@ -57,7 +57,7 @@ public class Recipe implements Serializable{
 				throw new IngredientNotFoundException();
 			}
 		} catch(IngredientNotFoundException e){
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 		return result;
 	}

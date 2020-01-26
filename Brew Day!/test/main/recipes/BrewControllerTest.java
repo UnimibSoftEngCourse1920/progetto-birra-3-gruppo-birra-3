@@ -14,6 +14,13 @@ import main.resources.StorageController;
 
 public class BrewControllerTest {
 	
+	String recipeName = "Recipe";
+	String note1 = "Note 1";
+	String note2 = "Note 2";
+	String note3 = "Note 3";
+	String newNote1 = "New note 1";
+	BrewController brewController = BrewController.getInstance();
+	
 	@Test
 	public void testGetInstance() {
 		assertEquals(BrewController.getInstance(), BrewController.getInstance());
@@ -22,12 +29,11 @@ public class BrewControllerTest {
 	@Test
 	public void testExtractBrew() {
 		IOController iocontroller = new IOController();
-		BrewController brewController = BrewController.getInstance();
 		
 		Map<String,Double> ingredients = new HashMap<>();
 	    ingredients.put("Malt", 10.0);
 	    ingredients.put("Hop", 20.0);
-		Recipe recipe = new Recipe("Recipe", ingredients);
+		Recipe recipe = new Recipe(recipeName, ingredients);
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
@@ -52,18 +58,16 @@ public class BrewControllerTest {
 
 	@Test
 	public void testStore() {
-		BrewController brewController = BrewController.getInstance();
-		
-		Recipe recipe = new Recipe("Recipe", new HashMap<>());
+		Recipe recipe = new Recipe(recipeName, new HashMap<>());
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
-	    brew1.addNote("Note 1",true);
-	    brew1.addNote("Note 2",false);
+	    brew1.addNote(note1,true);
+	    brew1.addNote(note2,false);
 	   
 		recipe.incrementCountBrew();
 	    Brew brew2 = new Brew(recipe,startDate);
-	    brew2.addNote("Note 3",true);
+	    brew2.addNote(note3,true);
 	    brew2.addNote("Note 4",false);
 	    
 	    brewController.store(brew1);
@@ -79,21 +83,19 @@ public class BrewControllerTest {
 
 	@Test
 	public void testUpdateNote() {
-		BrewController brewController = BrewController.getInstance();
-		
 		Recipe recipe1 = new Recipe("Recipe1", null);
 		Date startDate = new Date(System.currentTimeMillis());
 		Brew brew1 = new Brew(recipe1, startDate);
-		brew1.addNote("Note 1", false);
-		brew1.addNote("Note 2", false);
+		brew1.addNote(note1, false);
+		brew1.addNote(note2, false);
 		brewController.store(brew1);
 		
 		Recipe recipe2 = new Recipe("Recipe2", null);
 		Brew brew2 = new Brew(recipe2, startDate);
-		brew2.addNote("Note 3", true);
+		brew2.addNote(note3, true);
 		brewController.store(brew2);
 		
-		String txt1 = "New Note 1";
+		String txt1 = newNote1;
 		String txt2 = "New note 3";
 		
 		brewController.updateNote(brew1.getId(), 2, txt1);
@@ -112,21 +114,19 @@ public class BrewControllerTest {
 	
 	@Test
 	public void testDelete() {
-		BrewController brewController = BrewController.getInstance();
-		
 		HashMap<String,Double> ingredients = new HashMap<>();
 	    ingredients.put("Malt", 10.0);
 	    ingredients.put("Hop", 20.0);
-		Recipe recipe = new Recipe("Recipe", ingredients);
+		Recipe recipe = new Recipe(recipeName, ingredients);
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
-	    brew1.addNote("Note 1",true);
-	    brew1.addNote("Note 2",false);
+	    brew1.addNote(note1,true);
+	    brew1.addNote(note2,false);
 		recipe.incrementCountBrew();
 		
 	    Brew brew2 = new Brew(recipe,startDate);
-	    brew2.addNote("Note 3",true);
+	    brew2.addNote(note3,true);
 	    brew2.addNote("Note 4",false);
 	    
 	    brewController.store(brew1);
@@ -144,15 +144,13 @@ public class BrewControllerTest {
 	
 	@Test
 	public void testDeleteNote() {
-		BrewController brewController = BrewController.getInstance();
-
-		Recipe recipe = new Recipe("Recipe", new HashMap<>());
+		Recipe recipe = new Recipe(recipeName, new HashMap<>());
 	    Date startDate = new Date(System.currentTimeMillis());
 	    
 	    Brew brew1 = new Brew(recipe,startDate);
-	    brew1.addNote("Note 1",true);
-	    brew1.addNote("Note 2",false);
-	    brew1.addNote("Note 3",true);
+	    brew1.addNote(note1,true);
+	    brew1.addNote(note2,false);
+	    brew1.addNote(note3,true);
 		recipe.incrementCountBrew();
 	    
 	    brewController.store(brew1);
@@ -170,7 +168,6 @@ public class BrewControllerTest {
 	
 	@Test
 	public void testCancel() {
-		BrewController brewController = BrewController.getInstance();
 		StorageController sController = StorageController.getInstance();
 		
 		HashMap<String,Double> sIngredients = new HashMap<>();
@@ -183,7 +180,7 @@ public class BrewControllerTest {
 		HashMap<String,Double> rIngredients = new HashMap<>();
 	    rIngredients.put("Malt", 10.0);
 	    rIngredients.put("Hop", 20.0);
-		Recipe recipe = new Recipe("Recipe", rIngredients);
+		Recipe recipe = new Recipe(recipeName, rIngredients);
 		Brew brew1 = recipe.createBrew();
 		
 		brewController.store(brew1);
@@ -202,9 +199,7 @@ public class BrewControllerTest {
 	}
 	
 	@Test
-	public void tesAddNote() {
-		BrewController brewController = BrewController.getInstance();
-		
+	public void tesAddNote() {	
 		Recipe recipe1 = new Recipe("Recipe1", null);
 		Date startDate = new Date(System.currentTimeMillis());
 		Brew brew1 = new Brew(recipe1, startDate);
@@ -214,13 +209,13 @@ public class BrewControllerTest {
 		Brew brew2 = new Brew(recipe2, startDate);
 		brewController.store(brew2);
 		
-		brewController.addNote(brew1.getId(), "New note 1", false);
+		brewController.addNote(brew1.getId(), newNote1, false);
 		brewController.addNote(brew1.getId(), "New note 2", false);
-		brewController.addNote(brew2.getId(), "New note 1", true);
+		brewController.addNote(brew2.getId(), newNote1, true);
 		
-		brew1.addNote("New note 1", false);
+		brew1.addNote(newNote1, false);
 		brew1.addNote("New note 2", false);
-		brew2.addNote("New note 1", true);
+		brew2.addNote(newNote1, true);
 		
 		List<Brew> brews = brewController.extractBrew();
 		
@@ -229,5 +224,4 @@ public class BrewControllerTest {
 		assertEquals(brews.get(0).getNotes(),brew1.getNotes());
 		assertEquals(brews.get(1).getNotes(),brew2.getNotes());
 	}
-
 }

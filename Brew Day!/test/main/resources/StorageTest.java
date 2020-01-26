@@ -6,6 +6,8 @@ import java.util.Map;
 import org.junit.Test;
 
 public class StorageTest {
+	
+	String yeast = "Yeast";
 
 	@Test
 	public void testUpdateIngredients() {
@@ -22,16 +24,16 @@ public class StorageTest {
 		Map<String, Double> newIngredients = new HashMap<>();
 		
 		newIngredients.put("Hop", 30.0);
-		newIngredients.put("Yeast", 40.0);
+		newIngredients.put(yeast, 40.0);
 		
 		storage.updateIngredients(newIngredients);
 		
 		assertTrue(storage.getIngredients().containsKey("Malt"));
 		assertTrue(storage.getIngredients().containsKey("Hop"));
-		assertTrue(storage.getIngredients().containsKey("Yeast"));
+		assertTrue(storage.getIngredients().containsKey(yeast));
 		assertEquals(10,0 , storage.getIngredients().get("Malt").doubleValue());
 		assertEquals(30,0 , storage.getIngredients().get("Hop").doubleValue());
-		assertEquals(40,0 , storage.getIngredients().get("Yeast").doubleValue());
+		assertEquals(40,0 , storage.getIngredients().get(yeast).doubleValue());
 	}
 
 	@Test

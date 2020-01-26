@@ -3,9 +3,8 @@ package main.instruments;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.io.Serializable;
-
-
 
 public class Equipment implements Serializable{
 
@@ -13,7 +12,6 @@ public class Equipment implements Serializable{
 	private double capacity;
 	private static Equipment instance;
 	private static final long serialVersionUID = 3L;
-
 
 	private Equipment(Map<String, Double> instruments) {
 		super();

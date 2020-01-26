@@ -11,18 +11,21 @@ import java.util.Map.Entry;
 import org.junit.Test;
 
 public class BrewTest {
+	
+	String yeast = "Yeas";
+	String recipeName = "Recipe";
+	String note1 = "Note 1";
+	BrewController brewController = BrewController.getInstance();
 
 	@Test
 	public void testBrew() {
-		BrewController brewController = BrewController.getInstance();
-		
 		//create Storage
 		StorageController sController = StorageController.getInstance();
 		Storage storage = Storage.getInstance();
 		Map<String,Double> storageIngredients = new HashMap<>();
 		storageIngredients.put("Hop", 50.0);
 		storageIngredients.put("Malt", 5.0);
-		storageIngredients.put("Yeast", 30.0);
+		storageIngredients.put(yeast, 30.0);
 		storage.setIngredients(storageIngredients);
 		sController.store(storage);
 
@@ -49,20 +52,18 @@ public class BrewTest {
 	}
 
 	@Test
-	public void testAddNote() {
-		BrewController brewController = BrewController.getInstance();
-		
+	public void testAddNote() {	
 		//create Storage
 		StorageController sController = StorageController.getInstance();
 		Storage storage = Storage.getInstance();
 		Map<String,Double> storageIngredients = new HashMap<>();
 		storageIngredients.put("Hop", 50.0);
 		storageIngredients.put("Malt", 5.0);
-		storageIngredients.put("Yeast", 30.0);
+		storageIngredients.put(yeast, 30.0);
 		storage.setIngredients(storageIngredients);
 		sController.store(storage);
 			
-		Recipe recipe = new Recipe("Recipe", new HashMap<>());
+		Recipe recipe = new Recipe(recipeName, new HashMap<>());
 		Brew brew = recipe.createBrew();
 		brew.addNote("Standard note", false);
 		brew.addNote("Tasting note", true);
@@ -80,22 +81,20 @@ public class BrewTest {
 	}
 
 	@Test
-	public void testDeleteNote() {
-		BrewController brewController = BrewController.getInstance();
-		
+	public void testDeleteNote() {	
 		//create Storage
 		StorageController sController = StorageController.getInstance();
 		Storage storage = Storage.getInstance();
 		Map<String,Double> storageIngredients = new HashMap<>();
 		storageIngredients.put("Hop", 50.0);
 		storageIngredients.put("Malt", 5.0);
-		storageIngredients.put("Yeast", 30.0);
+		storageIngredients.put(yeast, 30.0);
 		storage.setIngredients(storageIngredients);
 		sController.store(storage);
 		
-		Recipe recipe = new Recipe("Recipe", new HashMap<>());
+		Recipe recipe = new Recipe(recipeName, new HashMap<>());
 		Brew brew = recipe.createBrew();
-		brew.addNote("Note 1", false);
+		brew.addNote(note1, false);
 		brew.addNote("Note 2", true);
 		brew.addNote("Note 3", false);
 		
@@ -112,28 +111,25 @@ public class BrewTest {
 
 	@Test
 	public void testModifyNote() {
-		BrewController brewController = BrewController.getInstance();
-		
 		//create Storage
 		StorageController sController = StorageController.getInstance();
 		Storage storage = Storage.getInstance();
 		Map<String,Double> storageIngredients = new HashMap<>();
 		storageIngredients.put("Hop", 50.0);
 		storageIngredients.put("Malt", 5.0);
-		storageIngredients.put("Yeast", 30.0);
+		storageIngredients.put(yeast, 30.0);
 		storage.setIngredients(storageIngredients);
 		sController.store(storage);
 		
-		Recipe recipe = new Recipe("Recipe", new HashMap<>());
+		Recipe recipe = new Recipe(recipeName, new HashMap<>());
 		Brew brew = recipe.createBrew();
-		brew.addNote("Note 1", false);
+		brew.addNote(note1, false);
 		brew.modifyNote(1, "New text");
 		
 		sController.deleteFile();
 		brewController.deleteFile();
 		
-		assertNotEquals(0,brew.getNotes().get(1).compareTo("Note 1"));
-		
+		assertNotEquals(0,brew.getNotes().get(1).compareTo(note1));
 	}
 
 }

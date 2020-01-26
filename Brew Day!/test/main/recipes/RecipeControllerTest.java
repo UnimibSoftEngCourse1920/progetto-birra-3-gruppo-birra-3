@@ -20,6 +20,13 @@ import main.resources.StorageController;
 
 public class RecipeControllerTest {
 	
+	String userDir = "user.dir";
+	String recipeName1 = "Recipe 1";
+	String recipeName2 = "Recipe 2";
+	String yeast = "Yeast";
+	String sugar = "Sugar";
+	String filepathCounterid = "\\src\\Files\\CounterId.txt";
+	
 	@Test
 	public void testGetInstance() {
 		assertEquals(RecipeController.getInstance(), RecipeController.getInstance());
@@ -32,15 +39,15 @@ public class RecipeControllerTest {
 		
 		HashMap<String,Double> ingredients = new HashMap<>();
 		ingredients.put("Malt", 10.0); 
-		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		Recipe recipe1 = new Recipe(recipeName1, ingredients);
 		ingredients.put("Hop", 20.0); 
-		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
+		Recipe recipe2 = new Recipe(recipeName2, ingredients);
 		
 		List<Recipe> recipes = new ArrayList<Recipe>();
 		recipes.add(recipe1);
 		recipes.add(recipe2);
 		
-		iocontroller.writeObjectToFile(recipes, System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt"); 
+		iocontroller.writeObjectToFile(recipes, System.getProperty(userDir) + "\\src\\Files\\Recipe.txt"); 
 		ArrayList<Recipe> extRecipes = (ArrayList<Recipe>) recipeController.extractRecipe();
 		
 		recipeController.deleteFile();
@@ -55,13 +62,13 @@ public class RecipeControllerTest {
 		HashMap<String,Double> ingredients1 = new HashMap<>();
 		ingredients1.put("Malt", 10.0); 
 		ingredients1.put("Hop", 20.0); 
-		Recipe recipe1 = new Recipe("Recipe 1", ingredients1);
+		Recipe recipe1 = new Recipe(recipeName1, ingredients1);
 		recipeController.store(recipe1);
 
 		Map<String,Double> ingredients2 = new HashMap<>();
-		ingredients2.put("Yeast", 30.0); 
-		ingredients2.put("Sugar", 40.0); 
-		Recipe recipe2 = new Recipe("Recipe 2", ingredients2);
+		ingredients2.put(yeast, 30.0); 
+		ingredients2.put(sugar, 40.0); 
+		Recipe recipe2 = new Recipe(recipeName2, ingredients2);
 		recipeController.store(recipe2);
 		
 		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
@@ -79,13 +86,13 @@ public class RecipeControllerTest {
 		HashMap<String,Double> ingredients1 = new HashMap<>();
 		ingredients1.put("Malt", 10.0); 
 		ingredients1.put("Hop", 20.0); 
-		Recipe recipe1 = new Recipe("Recipe 1", ingredients1);
+		Recipe recipe1 = new Recipe(recipeName1, ingredients1);
 		recipeController.store(recipe1);
 
 		Map<String,Double> ingredients2 = new HashMap<>();
-		ingredients2.put("Yeast", 30.0); 
-		ingredients2.put("Sugar", 40.0); 
-		Recipe recipe2 = new Recipe("Recipe 2", ingredients2);
+		ingredients2.put(yeast, 30.0); 
+		ingredients2.put(sugar, 40.0); 
+		Recipe recipe2 = new Recipe(recipeName2, ingredients2);
 		recipeController.store(recipe2);
 		
 		Map<String,Double> ingredients3 = new HashMap<>();
@@ -115,13 +122,13 @@ public class RecipeControllerTest {
 		HashMap<String,Double> ingredients1 = new HashMap<>();
 		ingredients1.put("Malt", 10.0); 
 		ingredients1.put("Hop", 20.0); 
-		Recipe recipe1 = new Recipe("Recipe 1", ingredients1);
+		Recipe recipe1 = new Recipe(recipeName1, ingredients1);
 		recipeController.store(recipe1);
 
 		Map<String,Double> ingredients2 = new HashMap<>();
-		ingredients2.put("Yeast", 30.0); 
-		ingredients2.put("Sugar", 40.0); 
-		Recipe recipe2 = new Recipe("Recipe 2", ingredients2);
+		ingredients2.put(yeast, 30.0); 
+		ingredients2.put(sugar, 40.0); 
+		Recipe recipe2 = new Recipe(recipeName2, ingredients2);
 		recipeController.store(recipe2);
 
 		recipeController.delete(recipe1.getId());
@@ -148,11 +155,11 @@ public class RecipeControllerTest {
 		sController.store(storage);
 		
 		HashMap<String,Double> ingredients = new HashMap<>();
-		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		Recipe recipe1 = new Recipe(recipeName1, ingredients);
 		recipeController.store(recipe1);
 		Brew brew1 = recipeController.createBrew(recipe1.getId());
 		Brew brew2 = recipeController.createBrew(recipe1.getId());
-		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
+		Recipe recipe2 = new Recipe(recipeName2, ingredients);
 		recipeController.store(recipe2);
 		Brew brew3 = recipeController.createBrew(recipe2.getId());
 		
@@ -172,7 +179,7 @@ public class RecipeControllerTest {
 		recipeController.updateCounterId(21);
 		
 		int id = 0;
-		try (FileInputStream fin = new FileInputStream(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+		try (FileInputStream fin = new FileInputStream(System.getProperty(userDir) + filepathCounterid);
 	        DataInputStream din = new DataInputStream(fin)) {
 		    id = din.readInt();
 		}
@@ -189,7 +196,7 @@ public class RecipeControllerTest {
 		
 		recipeController.updateCounterId(12);
 		
-		try (FileInputStream fin = new FileInputStream(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+		try (FileInputStream fin = new FileInputStream(System.getProperty(userDir) + filepathCounterid);
 		    DataInputStream din = new DataInputStream(fin)) {
 			id = din.readInt();
 		}
@@ -202,9 +209,9 @@ public class RecipeControllerTest {
 			System.out.println("IOException : " + ioe);
 		}
 		
-		File file = new File(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+		File file = new File(System.getProperty(userDir) + filepathCounterid);
 		file.delete();
-		
+
 		assertEquals(id, 12);
 	}
 	
@@ -217,27 +224,27 @@ public class RecipeControllerTest {
 		HashMap<String,Double> ingredients1 = new HashMap<>();
 		ingredients1.put("Malt", 10.0); 
 		ingredients1.put("Hop", 190.0); 
-		Recipe recipe1 = new Recipe("Recipe 1", ingredients1);
+		Recipe recipe1 = new Recipe(recipeName1, ingredients1);
 		recipeController.store(recipe1);
 		
 		Map<String,Double> ingredients2 = new HashMap<>();
-		ingredients2.put("Yeast", 30.0); 
-		ingredients2.put("Sugar", 40.0); 
-		Recipe recipe2 = new Recipe("Recipe 2", ingredients2);
+		ingredients2.put(yeast, 30.0); 
+		ingredients2.put(sugar, 40.0); 
+		Recipe recipe2 = new Recipe(recipeName2, ingredients2);
 		recipeController.store(recipe2);
 		
 		Map<String,Double> ingredients3 = new HashMap<>();
 		ingredients3.put("Malt", 15.0); 
-		ingredients3.put("Sugar", 40.0); 
+		ingredients3.put(sugar, 40.0); 
 		Recipe recipe3 = new Recipe("Recipe 3", ingredients3);
 		recipeController.store(recipe3);
 		
 		//creo storage
 		Map<String,Double> ingredients = new HashMap<String, Double>();
 		ingredients.put("Malt", 10.0);
-		ingredients.put("Yeast", 35.0);
+		ingredients.put(yeast, 35.0);
 		ingredients.put("Hop", 189.0);
-		ingredients.put("Sugar", 50.0);
+		ingredients.put(sugar, 50.0);
 		StorageController storageController = StorageController.getInstance();
 		storageController.createStorage(ingredients);
 		
