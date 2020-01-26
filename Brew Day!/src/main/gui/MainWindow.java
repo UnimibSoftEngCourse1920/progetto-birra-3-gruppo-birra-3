@@ -40,7 +40,6 @@ import javax.swing.JMenu;
 public class MainWindow extends JFrame implements ActionListener{
 
 	private boolean brewIt = false;
-	RecipeController recipeController;
 	String userDir = "user.dir";
 
 	public MainWindow() {
@@ -172,6 +171,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		File fileRecipe = new File(filepathRecipe);
 		String filepathStorage = System.getProperty(userDir) + "\\src\\Files\\Storage.txt";
 		File fileStorage = new File(filepathStorage);
+		RecipeController recipeController = RecipeController.getInstance();
 		recipeController = RecipeController.getInstance();
 		
 		String wsibtRecipe = null;
@@ -268,6 +268,7 @@ public class MainWindow extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(this, "You can't Brew it!");
 			break;
 		case "Reset":
+			RecipeController recipeController = RecipeController.getInstance();
 			recipeController.deleteFile();
 			BrewController.getInstance().deleteFile();
 			StorageController.getInstance().deleteFile();

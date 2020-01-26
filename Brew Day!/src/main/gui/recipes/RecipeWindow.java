@@ -168,8 +168,8 @@ public class RecipeWindow extends JFrame implements ActionListener{
 						break;
 					case "Delete":
 						recipeController.delete(recipeId);
-						JTable table = (JTable)e.getSource();
-				        ((DefaultTableModel)table.getModel()).removeRow(row);
+						JTable table1 = (JTable)e.getSource();
+				        ((DefaultTableModel)table1.getModel()).removeRow(row);
 				        break;
 				    default:
 			}

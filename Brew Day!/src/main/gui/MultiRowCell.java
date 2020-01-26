@@ -32,7 +32,6 @@ public class MultiRowCell extends AbstractCellEditor implements TableCellEditor,
 
     @Override
     public boolean isCellEditable(EventObject e) {
-        System.out.println(e);
         return true;
     }
 

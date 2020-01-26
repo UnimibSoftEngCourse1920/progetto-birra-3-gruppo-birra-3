@@ -47,7 +47,6 @@ public class StorageController implements Serializable{
 		store(storage);	
 	}
 
-	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
 		if (file.exists()) {

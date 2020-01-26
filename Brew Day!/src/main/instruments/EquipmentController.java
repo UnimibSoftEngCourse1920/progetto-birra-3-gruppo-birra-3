@@ -70,7 +70,6 @@ public class EquipmentController {
 		store(equipment);
 	}
 
-	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
 

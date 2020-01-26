@@ -199,7 +199,6 @@ public class BrewController implements Serializable {
 		ioController.writeObjectToFile(brews, filepath);
 	}
 
-	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
 

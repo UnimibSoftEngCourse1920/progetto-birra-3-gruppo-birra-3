@@ -202,15 +202,10 @@ public class RecipeControllerTest {
 			System.out.println("IOException : " + ioe);
 		}
 		
-		assertEquals(id, 12);
-		
 		File file = new File(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+		file.delete();
 		
-		if (file.delete()) {
-			System.out.println("\nFile deleted");
-		} else {
-			System.out.println("\nImpossible delete file");
-		}
+		assertEquals(id, 12);
 	}
 	
 	
