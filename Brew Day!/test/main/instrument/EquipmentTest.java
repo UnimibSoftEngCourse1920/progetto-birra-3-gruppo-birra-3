@@ -21,13 +21,13 @@ public class EquipmentTest {
 		instruments.put("Fermenter", 10.0);	
 		equipment.setInstruments(instruments);
 		
-		assertEquals(35.0, equipment.computeCapacity(), 0.00);
+		assertEquals(35.0, equipment.computeCapacity(instruments), 0.00);
 		
 		instruments.put("Pipe", 0.57);
-		assertEquals(35.57, equipment.computeCapacity(), 0.00);
+		assertEquals(35.57, equipment.computeCapacity(instruments), 0.00);
 		
 		instruments.remove("Kettle");
-		assertEquals(10.57, equipment.computeCapacity(), 0.00);
+		assertEquals(10.57, equipment.computeCapacity(instruments), 0.00);
 	}
 
 	@Test

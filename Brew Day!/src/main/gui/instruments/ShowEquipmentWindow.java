@@ -56,7 +56,7 @@ public class ShowEquipmentWindow extends JFrame implements ActionListener {
 		EquipmentController equipmentController = EquipmentController.getInstance();
 		instruments = equipmentController.extractEquipment().getInstruments();
 		
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Instrument name","Quantity"}, 0) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Instrument name","Capacity (l)"}, 0) {
 			@Override
 			   public boolean isCellEditable(int row, int column) {
 			       return false;

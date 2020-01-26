@@ -1,6 +1,7 @@
 package main.instruments;
 
 import main.IOController;
+import main.recipes.RecipeController;
 
 import java.io.File;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class EquipmentController {
 			if(instruments == null) throw new NullInstrumentsException();
 			Equipment equipment = Equipment.getInstance();
 			equipment.setInstruments(instruments);
+			equipment.setCapacity(equipment.computeCapacity(instruments));
 			store(equipment);
 		}catch(NullInstrumentsException e) {
 			System.out.println(e.getMessage());
@@ -47,9 +49,16 @@ public class EquipmentController {
 	public void update(Map<String, Double> instruments) {
 		try {
 			if(instruments == null) throw new NullInstrumentsException();
+			
 			Equipment equipment = Equipment.getInstance();
+			double oldCapacity = equipment.getCapacity();
 			equipment.updateInstruments(instruments);
 			store(equipment);
+			double newCapacity = equipment.getCapacity();
+			double ingredientsMultiplier = newCapacity/oldCapacity;
+			RecipeController recipeController = RecipeController.getInstance();
+			recipeController.updateAllRecipesOnNewEquipment(ingredientsMultiplier);
+			
 		}catch(NullInstrumentsException e) {
 			System.out.println(e.getMessage());
 		}

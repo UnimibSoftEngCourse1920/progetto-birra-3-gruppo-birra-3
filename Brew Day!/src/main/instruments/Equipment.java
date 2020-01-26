@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class Equipment implements Serializable{
 
 	private Map<String, Double> instruments;
+	private double capacity;
 	private static Equipment instance;
 	private static final long serialVersionUID = 3L;
 
@@ -17,20 +18,30 @@ public class Equipment implements Serializable{
 	private Equipment(Map<String, Double> instruments) {
 		super();
 		this.instruments = instruments;
+		setCapacity(computeCapacity(instruments));
 	}
 
 	public Map<String, Double> getInstruments() {
 		return this.instruments;
+	}
+	
+	public double getCapacity() {
+		return capacity;
+	}
+	
+
+	public void setCapacity(double capacity) {
+		this.capacity = capacity;
 	}
 
 	public void setInstruments(Map<String, Double> instruments) {
 		this.instruments = instruments;
 	}
 
-	public double computeCapacity() {
+	public double computeCapacity(Map<String, Double> instruments) {
 		try {
 			double total = 0;
-			for (Double value : this.instruments.values()) {
+			for (Double value : instruments.values()) {
 				if(value < 0) throw new CapacityException("Negative Capacity");
 				total += value;
 			}
@@ -49,6 +60,7 @@ public class Equipment implements Serializable{
 				if(i.getKey() == null || i.getValue() == null) throw new InstrumentException("Instrument null");
 				getInstruments().put(i.getKey(), i.getValue());
 			}
+			setCapacity(computeCapacity(getInstruments()));
 		}catch(InstrumentException e) {
 			System.out.println(e.getMessage());
 		}
@@ -59,6 +71,7 @@ public class Equipment implements Serializable{
 		try {
 			if(name == null) throw new InstrumentException("Instrument name null");
 			this.getInstruments().remove(name);
+			setCapacity(computeCapacity(instruments));
 		}catch(InstrumentException e) {
 			System.out.println(e.getMessage());
 		}
@@ -99,13 +112,5 @@ public class Equipment implements Serializable{
 			return false;
 		}
 		return true;
-	}
-	
-	
-
-
-	@Override
-	public String toString() {
-		return "instruments = " + instruments;
 	}	
 }

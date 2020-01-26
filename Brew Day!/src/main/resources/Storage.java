@@ -3,8 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import main.IngredientNotFoundException;
-
 import java.io.Serializable;
 
 public class Storage implements Serializable{
@@ -29,19 +27,6 @@ public class Storage implements Serializable{
 	public void updateIngredients(Map<String, Double> ingredients) {
 		for(Entry<String, Double> i : ingredients.entrySet()) {
 			this.getIngredients().put(i.getKey(), i.getValue());
-		}
-	}
-
-	public void deleteIngredient(String ingredient) {
-		try {
-			if (!this.ingredients.containsKey(ingredient)) {
-				throw new IngredientNotFoundException();
-			}
-
-			this.ingredients.remove(ingredient);
-
-		} catch(IngredientNotFoundException e) {
-			System.err.println(e.getMessage());
 		}
 	}
 
@@ -80,10 +65,5 @@ public class Storage implements Serializable{
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "ingredients = " + ingredients;
-	}	
 }
 

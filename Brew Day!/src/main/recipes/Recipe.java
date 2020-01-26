@@ -17,6 +17,7 @@ public class Recipe implements Serializable{
 	private static int startingId;
 	private String name;
 	private Map<String,Double> ingredients;
+	private Map<String, Double> percentageIngredients;
 	private Equipment equipment;
 	private Storage storage;
 	private Map<String,Double> missingIngredients;
@@ -37,6 +38,8 @@ public class Recipe implements Serializable{
 		this.ingredients = ingredients;
 		this.equipment = Equipment.getInstance();
 		this.storage = Storage.getInstance();
+		
+		this.percentageIngredients = computePercentage(ingredients);
 	}
 
 	public int getId() {
@@ -156,10 +159,17 @@ public class Recipe implements Serializable{
 	public void incrementCountBrew() {
 		countBrew++;
 	}
-
-	@Override
-	public String toString() {
-		return "id = " + id + ", name = " + name + ", ingredients = " + ingredients;
+	
+	public Map<String, Double> computePercentage(Map<String, Double> ingredients){
+		Map<String, Double> percentageIngredients = new HashMap<String, Double>();
+		double totalGrams = 0.0;
+		for (Entry<String,Double> i : this.ingredients.entrySet()) {
+			totalGrams = i.getValue();
+		}
+		for (Entry<String,Double> i : this.ingredients.entrySet()) {
+			percentageIngredients.put(i.getKey(), i.getValue()/totalGrams);
+		}
+		return percentageIngredients;
 	}
 
 	@Override
@@ -201,5 +211,9 @@ public class Recipe implements Serializable{
 		else if (!name.equals(other.name))
 				return false;
 		return true;
+	}
+
+	public Map<String, Double> getPercentageIngredients() {
+		return percentageIngredients;
 	}
 }
