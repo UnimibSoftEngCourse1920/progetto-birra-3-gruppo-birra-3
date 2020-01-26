@@ -271,8 +271,7 @@ public class MainWindow extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(this, "You can't Brew it!");
 			break;
 		case "Reset":
-			RecipeController recipeController = RecipeController.getInstance();
-			recipeController.deleteFile();
+			RecipeController.getInstance().deleteFile();
 			BrewController.getInstance().deleteFile();
 			StorageController.getInstance().deleteFile();
 			EquipmentController.getInstance().deleteFile();

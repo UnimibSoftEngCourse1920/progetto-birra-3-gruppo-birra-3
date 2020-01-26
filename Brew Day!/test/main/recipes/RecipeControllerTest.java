@@ -3,10 +3,12 @@ package main.recipes;
 import static org.junit.Assert.*;
 
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -209,8 +211,12 @@ public class RecipeControllerTest {
 			System.out.println("IOException : " + ioe);
 		}
 		
-		File file = new File(System.getProperty(userDir) + filepathCounterid);
-		file.delete();
+		Path filepath = Paths.get(System.getProperty(userDir) + filepathCounterid);
+		try {
+			Files.delete(filepath);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 
 		assertEquals(id, 12);
 	}
