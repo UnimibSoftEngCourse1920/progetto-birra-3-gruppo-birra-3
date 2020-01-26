@@ -18,7 +18,7 @@ public class IOController implements Serializable {
         try (ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(filepath))) {
             objectOut.writeObject(serObj);
         } catch (IOException e) {
-        	System.out.println(e.getMessage());
+        	logger.log(Level.FINE,e.getMessage());
         } catch (Exception e) {
         	logger.log(Level.FINE, e.getMessage());
         } 
@@ -29,7 +29,7 @@ public class IOController implements Serializable {
         try (ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(filepath))) {
             return objectIn.readObject();
         } catch (IOException e) {
-        	System.out.println(e.getMessage());
+        	logger.log(Level.FINE,e.getMessage());
             return null;
         } catch (Exception e) {
         	logger.log(Level.FINE, e.getMessage());

@@ -14,6 +14,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import main.IOController;
 import main.gui.instruments.EquipmentWindow;
 import main.gui.recipes.BrewWindow;
 import main.gui.recipes.RecipeWindow;
@@ -39,7 +44,7 @@ import javax.swing.JMenu;
 public class MainWindow extends JFrame implements ActionListener{
 
 	private boolean brewIt = false;
-	RecipeController recipeController;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 
 	public MainWindow() {
 		super("Brew Day!");
@@ -170,7 +175,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		File fileRecipe = new File(filepathRecipe);
 		String filepathStorage = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 		File fileStorage = new File(filepathStorage);
-		recipeController = RecipeController.getInstance();
+		RecipeController recipeController = RecipeController.getInstance();
 		
 		String wsibtRecipe = null;
 		if(fileRecipe.exists() && fileStorage.exists()) {
@@ -266,6 +271,7 @@ public class MainWindow extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(this, "You can't Brew it!");
 			break;
 		case "Reset":
+			RecipeController recipeController = RecipeController.getInstance();
 			recipeController.deleteFile();
 			BrewController.getInstance().deleteFile();
 			StorageController.getInstance().deleteFile();
@@ -274,7 +280,7 @@ public class MainWindow extends JFrame implements ActionListener{
 				DataOutputStream dos = new DataOutputStream(fos)) {
 				dos.writeInt(0); 
 			} catch (IOException ioe) {
-				System.out.println("IOException : " + ioe);
+				logger.log(Level.FINE,ioe.getMessage());
 			}
 		default:
 		}

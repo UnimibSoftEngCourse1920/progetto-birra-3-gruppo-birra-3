@@ -3,6 +3,11 @@ package main.instruments;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import main.IOController;
+
 import java.io.Serializable;
 
 
@@ -13,6 +18,7 @@ public class Equipment implements Serializable{
 	private double capacity;
 	private static Equipment instance;
 	private static final long serialVersionUID = 3L;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 
 
 	private Equipment(Map<String, Double> instruments) {
@@ -47,7 +53,7 @@ public class Equipment implements Serializable{
 			}
 			return total;
 		}catch(CapacityException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 			return 0.00;
 		}
 	}
@@ -62,7 +68,7 @@ public class Equipment implements Serializable{
 			}
 			setCapacity(computeCapacity(getInstruments()));
 		}catch(InstrumentException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		
 	}
@@ -73,7 +79,7 @@ public class Equipment implements Serializable{
 			this.getInstruments().remove(name);
 			setCapacity(computeCapacity(instruments));
 		}catch(InstrumentException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		
 	}

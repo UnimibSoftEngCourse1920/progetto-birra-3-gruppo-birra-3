@@ -1,5 +1,6 @@
 package main.recipes;
 
+import main.IOController;
 import main.IngredientNotFoundException;
 import main.resources.Storage;
 import main.resources.StorageController;
@@ -9,6 +10,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Recipe implements Serializable{
 
@@ -21,6 +24,7 @@ public class Recipe implements Serializable{
 	private double countBrew = 1.0;
 	private int id;
 	private static final long serialVersionUID = 1L;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 
 	public Recipe(String name, Map<String, Double> ingredients) {
 		super();
@@ -57,7 +61,7 @@ public class Recipe implements Serializable{
 				throw new IngredientNotFoundException();
 			}
 		} catch(IngredientNotFoundException e){
-			System.err.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		return result;
 	}
@@ -141,7 +145,7 @@ public class Recipe implements Serializable{
 			}
 			else throw new StorageNotFoundWSIBTException();
 		}catch(StorageNotFoundWSIBTException e){
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		return result;
 	}

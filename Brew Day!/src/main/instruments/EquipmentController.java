@@ -5,12 +5,15 @@ import main.recipes.RecipeController;
 
 import java.io.File;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EquipmentController {
 
 	private String filepath;
 	private IOController ioController;
 	private static EquipmentController instance;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 
 
 	private EquipmentController() {
@@ -38,7 +41,7 @@ public class EquipmentController {
 			equipment.setCapacity(equipment.computeCapacity(instruments));
 			store(equipment);
 		}catch(NullInstrumentsException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 
@@ -60,7 +63,7 @@ public class EquipmentController {
 			recipeController.updateAllRecipesOnNewEquipment(ingredientsMultiplier);
 			
 		}catch(NullInstrumentsException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 
@@ -76,9 +79,9 @@ public class EquipmentController {
 
 		if (file.exists()) {
 			if (file.delete()) {
-				System.out.println("\nFile deleted");
+				logger.log(Level.INFO,"\nFile deleted");
 			} else {
-				System.out.println("\nImpossible delete file");
+				logger.log(Level.INFO,"\nImpossible delete file");
 			}
 		}
 	}

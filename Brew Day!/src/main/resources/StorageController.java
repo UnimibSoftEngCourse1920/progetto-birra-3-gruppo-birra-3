@@ -3,6 +3,9 @@ package main.resources;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import main.IOController;
 
 @SuppressWarnings("serial")
@@ -11,6 +14,7 @@ public class StorageController implements Serializable{
 	private String filepath;
 	private IOController ioController;
 	private static StorageController instance;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 
 	private StorageController() {
 		super();
@@ -52,9 +56,9 @@ public class StorageController implements Serializable{
 		File file = new File(filepath);
 		if (file.exists()) {
 			if (file.delete()) {
-				System.out.println("\nFile deleted");
+				logger.log(Level.INFO,"\nFile deleted");
 			} else {
-				System.out.println("\nImpossible delete file");
+				logger.log(Level.INFO,"\nImpossible delete file");
 			}
 		}
 	}

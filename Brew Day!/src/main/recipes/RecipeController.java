@@ -2,6 +2,8 @@ package main.recipes;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,6 +20,7 @@ public class RecipeController {
 	private  String counterIdFilepath;
 	private  IOController ioController; 
 	private static RecipeController instance;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 	
 	private RecipeController() {
 		super();
@@ -67,7 +70,7 @@ public class RecipeController {
 				throw new RecipeNotFoundException();
 			}
 		} catch(RecipeNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 
 		
@@ -90,7 +93,7 @@ public class RecipeController {
 				throw new RecipeNotFoundException();
 			}
 		} catch(RecipeNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 	
@@ -111,7 +114,7 @@ public class RecipeController {
 				throw new RecipeNotFoundException();
 			}
 		} catch(RecipeNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		return brew;
 	}
@@ -121,7 +124,7 @@ public class RecipeController {
 		    DataOutputStream dos = new DataOutputStream(fos)) {
 		    dos.writeInt(id); 
         } catch (IOException e) {
-        	System.out.println(e.getMessage());
+        	logger.log(Level.FINE,e.getMessage());
         }
 	}
 	
@@ -141,7 +144,7 @@ public class RecipeController {
 				throw new RecipeNotFoundException();
 			}
 		} catch(RecipeNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		return missingIngredients;
 	}
@@ -151,9 +154,9 @@ public class RecipeController {
 
 		if (file.exists()) {
 			if (file.delete()) {
-				System.out.println("\nFile deleted");
+				logger.log(Level.INFO,"\nFile deleted");
 			} else {
-				System.out.println("\nImpossible delete file");
+				logger.log(Level.INFO,"\nImpossible delete file");
 			}
 		}
 	}
@@ -201,7 +204,7 @@ public class RecipeController {
 			}
 			throw new RecipeNotFoundException("Recipe WSIBT not found");
 		}catch(RecipeNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		return null;
 	}
