@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import main.gui.ButtonColumn;
 import main.gui.MainWindow;
+import main.instruments.EquipmentController;
 import main.recipes.Brew;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
@@ -123,11 +124,15 @@ public class RecipeWindow extends JFrame implements ActionListener{
 				dispose();
 				break;
 			case "New recipe":
-				if (table.isEditing())
-				    table.getCellEditor().stopCellEditing();
-				setVisible(false);
-				new CreateRecipeWindow().setVisible(true);
-				dispose();
+				File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt");
+
+				if (!f.exists() || EquipmentController.getInstance().extractEquipment().getInstruments().isEmpty()) {
+					JOptionPane.showMessageDialog(this, "You need to insert your equipment first!");
+				} else {
+					setVisible(false);
+					new CreateRecipeWindow().setVisible(true);
+					dispose();
+				}
 				break;
 			default:
 				String[] tokens = e.getActionCommand().split("/");

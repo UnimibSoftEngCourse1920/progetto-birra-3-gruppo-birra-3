@@ -8,7 +8,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -139,25 +142,25 @@ public class MainWindow extends JFrame implements ActionListener{
 
 		Dimension d = new Dimension(200, 70);
 
-		JButton recipeButton = new JButton("View your recipes");
+		JButton recipeButton = new JButton("View recipes");
 		recipeButton.setFont(buttonFont);
 		recipeButton.addActionListener(this);
 		recipeButton.setPreferredSize(d);
 		recipeButtonPanel.add(recipeButton);
 
-		JButton brewButton = new JButton("View your brews");
+		JButton brewButton = new JButton("View brews");
 		brewButton.setFont(buttonFont);
 		brewButton.addActionListener(this);
 		brewButton.setPreferredSize(d);
 		brewButtonPanel.add(brewButton);
 
-		JButton equipmentButton = new JButton("View your equipment");
+		JButton equipmentButton = new JButton("View equipment");
 		equipmentButton.setFont(buttonFont);
 		equipmentButton.addActionListener(this);
 		equipmentButton.setPreferredSize(d);
 		equipmentButtonPanel.add(equipmentButton);
 
-		JButton storageButton = new JButton("View your storage");
+		JButton storageButton = new JButton("View storage");
 		storageButton.setFont(buttonFont);
 		storageButton.addActionListener(this);
 		storageButton.setPreferredSize(d);
@@ -223,81 +226,14 @@ public class MainWindow extends JFrame implements ActionListener{
 		RecipeController recipeController = RecipeController.getInstance();
 		return recipeController.featureWSIBT();
 	}
-
-	public static void main(String[] args) {
-		/*
-		//Only for testing purposes
-		Map<String, Double> instruments = new HashMap<>();
-		instruments.put("Kettle", 25.0);
-		instruments.put("Fermenter", 10.0);	
-		EquipmentController equipmentController = EquipmentController.getInstance();
-		equipmentController.createEquipment(instruments);
-
-		//create storage
-		Map<String,Double> ingredients = new HashMap<>();
-	    ingredients.put("Malt", 1000.0);
-		ingredients.put("Yeast", 35.0);
-		ingredients.put("Hop", 189.0);
-		ingredients.put("Sugar", 50.0);
-		StorageController storageController = StorageController.getInstance();
-		storageController.createStorage(ingredients);
-
-		//create recipe1
-		RecipeController recipeController = RecipeController.getInstance();
-		HashMap<String,Double> ingredients2 = new HashMap<>();
-		ingredients2.put("Malt", 10.0); 
-		ingredients2.put("Hop", 20.0); 
-		Recipe recipe1 = new Recipe("Recipe1", ingredients2);
-		recipeController.store(recipe1);
-
-		//create recipe2
-		HashMap<String,Double> ingredients3 = new HashMap<>();
-	    ingredients3.put("Malt", 100.0); 
-		ingredients3.put("Yeast", 25.0);
-		Recipe recipe2 = new Recipe("Recipe2", ingredients3);
-		recipeController.store(recipe2);
-
-		//create recipe3
-		HashMap<String,Double> ingredients4 = new HashMap<>();
-		ingredients4.put("Yeast", 10.0); 
-		ingredients4.put("Sugar", 20.0); 
-		Recipe recipe3 = new Recipe("Recipe3", ingredients4);
-		recipeController.store(recipe3);
-
-		//create brew from recipe1
-		BrewController brewController = BrewController.getInstance();
-
-		brewController.deleteFile();
-	
-		Brew brew1 = recipeController.createBrew(recipe1.getId());
-		brewController.store(brew1);
-
-		//create brew from recipe2
-		Brew brew2 = recipeController.createBrew(recipe2.getId());
-		brewController.store(brew2);
-
-		brewController.addNote(brew1.getId(), "Note 1", false);
-		brewController.addNote(brew1.getId(), "Note 2", true);
-		brewController.addNote(brew2.getId(), "Note 2", true);
-
-
-
-		//Only for testing purposes
-		//recipeController.deleteFile();
-		 */
-
-		//Only for testing purpose
-		MainWindow gui = new MainWindow();
-		gui.setVisible(true);
-	}
 	
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
-		case "View your recipes":
+		case "View recipes":
 			setVisible(false);
 			new RecipeWindow().setVisible(true);
 			break;
-		case "View your brews":
+		case "View brews":
 			File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Brew.txt");
 
 			if (!f.exists() || BrewController.getInstance().extractBrew().isEmpty()) {
@@ -305,13 +241,14 @@ public class MainWindow extends JFrame implements ActionListener{
 			} else {
 				setVisible(false);
 				new BrewWindow().setVisible(true);
+				dispose();
 			}
 			break;
-		case "View your equipment":
+		case "View equipment":
 			setVisible(false);
 			new EquipmentWindow().setVisible(true);
 			break;
-		case "View your storage":
+		case "View storage":
 			setVisible(false);
 			new StorageWindow().setVisible(true);
 			break;
@@ -333,9 +270,12 @@ public class MainWindow extends JFrame implements ActionListener{
 			BrewController.getInstance().deleteFile();
 			StorageController.getInstance().deleteFile();
 			EquipmentController.getInstance().deleteFile();
-			File file = new File(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
-			if (file.exists()) 
-				file.delete();
+			try (FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+				DataOutputStream dos = new DataOutputStream(fos)) {
+				dos.writeInt(0); 
+			} catch (IOException ioe) {
+				System.out.println("IOException : " + ioe);
+			}
 		default:
 		}
 	}
