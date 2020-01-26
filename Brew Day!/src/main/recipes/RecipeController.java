@@ -146,7 +146,6 @@ public class RecipeController {
 		return missingIngredients;
 	}
 
-	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
 
