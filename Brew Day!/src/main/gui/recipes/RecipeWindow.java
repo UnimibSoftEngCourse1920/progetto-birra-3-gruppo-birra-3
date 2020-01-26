@@ -31,7 +31,8 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	
 	public RecipeWindow(){
 		super("Brew Day! - Recipes");
-		setBounds(300, 150, 1280, 720);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -28,7 +28,8 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 	public AddOrModifyNoteWindow(Double brewId,int noteId) {
 		super("Brew Day! - Modify Note");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(300, 150, 1280, 720);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setVisible(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		this.brewId = brewId;
 		this.noteId = noteId;

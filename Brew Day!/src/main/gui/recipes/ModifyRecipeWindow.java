@@ -33,7 +33,8 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 	public ModifyRecipeWindow(int recipeId){
 		super("Brew Day! - Modify recipe");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(300, 150, 1280, 720);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setVisible(true);
         
 		RecipeController recipeController = RecipeController.getInstance();
 		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
