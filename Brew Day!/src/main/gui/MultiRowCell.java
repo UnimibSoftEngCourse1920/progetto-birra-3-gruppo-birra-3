@@ -3,6 +3,7 @@ package main.gui;
 import java.awt.Component;
 import java.awt.Font;
 import java.util.EventObject;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JScrollPane;
@@ -10,6 +11,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+
+import main.IOController;
 
 @SuppressWarnings("serial")
 public class MultiRowCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
@@ -32,7 +35,6 @@ public class MultiRowCell extends AbstractCellEditor implements TableCellEditor,
 
     @Override
     public boolean isCellEditable(EventObject e) {
-        System.out.println(e);
         return true;
     }
 

@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
 public class BrewController implements Serializable {
@@ -18,6 +20,7 @@ public class BrewController implements Serializable {
 	private String filepath;
 	private IOController ioController;
 	private static BrewController instance;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 
 	private BrewController() {
 		super();
@@ -76,7 +79,7 @@ public class BrewController implements Serializable {
 				throw new BrewNotFoundException();
 			}
 		} catch(NoteNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 
@@ -98,7 +101,7 @@ public class BrewController implements Serializable {
 			}
 
 		} catch(NoteNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 
@@ -120,7 +123,7 @@ public class BrewController implements Serializable {
 			}
 
 		} catch(NoteNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 
@@ -142,7 +145,7 @@ public class BrewController implements Serializable {
 				throw new BrewNotFoundException();
 			}
 		} catch(NoteNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 
@@ -194,7 +197,7 @@ public class BrewController implements Serializable {
 			}
 
 		} catch(NoteNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 		ioController.writeObjectToFile(brews, filepath);
 	}
@@ -205,9 +208,9 @@ public class BrewController implements Serializable {
 
 		if (file.exists()) {
 			if (file.delete()) {
-				System.out.println("\nFile deleted");
+				logger.log(Level.INFO,"\nFile deleted");
 			} else {
-				System.out.println("\nImpossible delete file");
+				logger.log(Level.INFO,"\nImpossible delete file");
 			}
 		}
 	}

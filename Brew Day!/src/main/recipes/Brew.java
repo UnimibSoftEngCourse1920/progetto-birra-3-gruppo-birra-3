@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import main.IOController;
 
 public class Brew implements Serializable{
 
@@ -14,6 +18,7 @@ public class Brew implements Serializable{
 	private Recipe recipe;
 	private int countNote = 1;
 	private static final long serialVersionUID = 2L;
+	Logger logger = Logger.getLogger(IOController.class.getName());
 	
 	public Brew(Recipe recipe, Date startDate) {
 		super();
@@ -69,7 +74,7 @@ public class Brew implements Serializable{
 			}
 			notes.remove(id);
 		} catch(NoteNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}
 
@@ -80,7 +85,7 @@ public class Brew implements Serializable{
 			}
 			notes.put(id, text);
 		} catch(NoteNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.log(Level.FINE,e.getMessage());
 		}
 	}	
 

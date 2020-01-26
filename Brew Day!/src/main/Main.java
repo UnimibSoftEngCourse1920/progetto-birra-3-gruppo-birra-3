@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import main.gui.MainWindow;
 import main.recipes.Recipe;
 
@@ -13,6 +16,7 @@ import main.recipes.Recipe;
 public class Main {
 
 	public static void main(String[] args) {
+		Logger logger = Logger.getLogger(IOController.class.getName());
 		int startingId = 0;
 		String counterIdFilepath = System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt";
 		
@@ -21,8 +25,8 @@ public class Main {
 			try (FileOutputStream fos = new FileOutputStream(counterIdFilepath);
 				DataOutputStream dos = new DataOutputStream(fos)) {
 				dos.writeInt(0); 
-			} catch (IOException ioe) {
-				System.out.println("IOException : " + ioe);
+			} catch (IOException e) {
+				logger.log(Level.FINE,e.getMessage());
 			}
 		}
 	
@@ -30,11 +34,10 @@ public class Main {
 			DataInputStream din = new DataInputStream(fin)) {
 		
 	        startingId = din.readInt();
-	        System.out.println(startingId);
 	    }
-	    catch(IOException ioe)
+	    catch(IOException e)
 	    {
-	      System.out.println("IOException : " + ioe);
+	    	logger.log(Level.FINE,e.getMessage());
 	    }
 		
 		Recipe.setStartingId(startingId);
