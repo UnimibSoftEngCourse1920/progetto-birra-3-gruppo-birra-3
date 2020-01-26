@@ -1,6 +1,7 @@
 package main.gui.instruments;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -24,7 +25,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 	public CreateEquipmentWindow() {
 		super("Brew Day! - Create equipment");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(300, 150, 1280, 720);
+		setBounds(300, 150, 900, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -34,6 +35,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblCreateEquipment = new JLabel("Create Equipment");
+		lblCreateEquipment.setFont(new Font(lblCreateEquipment.getFont().getName(), Font.BOLD, 20));
 		panel.add(lblCreateEquipment);
 		
 		JPanel panel2 = new JPanel();
@@ -46,6 +48,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		panel2.setLayout(gblPanel2);
 		
 		JLabel lblHowManyInstruments = new JLabel("How many instruments do you want to insert?");
+		lblHowManyInstruments.setFont(new Font(lblHowManyInstruments.getFont().getName(), Font.BOLD, 20));
 		GridBagConstraints gbcLblHowManyInstruments = new GridBagConstraints();
 		gbcLblHowManyInstruments.insets = new Insets(0, 0, 5, 0);
 		gbcLblHowManyInstruments.gridx = 0;
@@ -53,6 +56,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		panel2.add(lblHowManyInstruments, gbcLblHowManyInstruments);
 		
 		textField = new JTextField(10);
+		textField.setFont(new Font(textField.getFont().getName(), Font.PLAIN, 20));
 		GridBagConstraints gbcTextField = new GridBagConstraints();
 		gbcTextField.insets = new Insets(0, 0, 5, 0);
 		gbcTextField.gridx = 0;
@@ -61,6 +65,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		
 		JButton btnNext = new JButton("Next >");
 		btnNext.addActionListener(this);
+		btnNext.setFont(new Font(btnNext.getFont().getName(), Font.BOLD, 15));
 		
 		GridBagConstraints gbcBtnNext = new GridBagConstraints();
 		gbcBtnNext.gridx = 0;
@@ -72,6 +77,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
+		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
 		panel1.add(btnBack);
 	}
 

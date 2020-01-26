@@ -1,6 +1,7 @@
 package main.gui.instruments;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblSelectTheInstrument = new JLabel("Select the instrument you want to delete from Equipment:");
+		lblSelectTheInstrument.setFont(new Font(lblSelectTheInstrument.getFont().getName(), Font.BOLD, 20));
 		panel.add(lblSelectTheInstrument);
 		
 		JPanel panel1 = new JPanel();
@@ -45,6 +47,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
+		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 20));
 		panel2.add(btnBack);
 		
 		
