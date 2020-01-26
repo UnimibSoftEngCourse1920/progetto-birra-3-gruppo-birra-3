@@ -41,12 +41,14 @@ public class BrewWindow extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 
 		JLabel label = new JLabel("The brews are:");
-		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
+		label.setFont(boldFont);
 		panel.add(label);
 
 		JPanel panel1 = new JPanel();
@@ -83,8 +85,8 @@ public class BrewWindow extends JFrame implements ActionListener {
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.getColumnModel().getColumn(3).setPreferredWidth(350);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
+		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(40);
 
 	    new ButtonColumn(table, this, 7);
@@ -99,7 +101,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font(btnBack.getFont().getName(),Font.BOLD, 16));
+		btnBack.setFont(boldFont);
 		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 	}

@@ -35,11 +35,13 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertTheName = new JLabel("Insert the name and the capacity of instruments:");
-		lblInsertTheName.setFont(new Font(lblInsertTheName.getFont().getName(), Font.BOLD, 20));
+		lblInsertTheName.setFont(boldFont);
 		panel.add(lblInsertTheName);
 		
 		
@@ -54,8 +56,8 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(30);
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -64,13 +66,13 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, 15));
+		btnSave.setFont(boldFont);
 		btnSave.addActionListener(this);
 		
 		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
+		btnBack.setFont(boldFont);
 		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 	}

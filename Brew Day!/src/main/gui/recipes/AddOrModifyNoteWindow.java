@@ -33,12 +33,14 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		this.brewId = brewId;
 		this.noteId = noteId;
+		
+		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
 
 		textArea = new JTextArea(16,20);
 		getContentPane().add(textArea, BorderLayout.CENTER);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		textArea.setFont(new Font(textArea.getFont().getName(), Font.PLAIN, 15));
+		textArea.setFont(plainFont);
 
 		brewController = BrewController.getInstance();
 

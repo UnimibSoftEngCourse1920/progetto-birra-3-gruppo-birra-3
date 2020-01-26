@@ -39,11 +39,13 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("The Recipes are:");
-		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
+		label.setFont(boldFont);
 		panel.add(label);
 		
 		JPanel panel1 = new JPanel();
@@ -81,8 +83,8 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);	
 		table.getColumnModel().getColumn(2).setPreferredWidth(350);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
+		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(40);
 		table.setFillsViewportHeight(true);
 		
@@ -98,12 +100,12 @@ public class RecipeWindow extends JFrame implements ActionListener{
 
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(this);
-		backButton.setFont(new Font(backButton.getFont().getName(),Font.BOLD, 18));
+		backButton.setFont(boldFont);
 		panel2.add(backButton);
 		
 		JButton addRecipeButton = new JButton("New recipe");
 		addRecipeButton.addActionListener(this);
-		addRecipeButton.setFont(new Font(backButton.getFont().getName(),Font.BOLD, 18));
+		addRecipeButton.setFont(boldFont);
 		panel2.add(addRecipeButton);
 	}
 	

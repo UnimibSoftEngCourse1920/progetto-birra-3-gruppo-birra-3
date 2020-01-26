@@ -33,11 +33,14 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
+		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblCreateEquipment = new JLabel("Create Equipment");
-		lblCreateEquipment.setFont(new Font(lblCreateEquipment.getFont().getName(), Font.BOLD, 20));
+		lblCreateEquipment.setFont(boldFont);
 		panel.add(lblCreateEquipment);
 		
 		JPanel panel2 = new JPanel();
@@ -50,7 +53,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		panel2.setLayout(gblPanel2);
 		
 		JLabel lblHowManyInstruments = new JLabel("How many instruments do you want to insert?");
-		lblHowManyInstruments.setFont(new Font(lblHowManyInstruments.getFont().getName(), Font.BOLD, 20));
+		lblHowManyInstruments.setFont(plainFont);
 		GridBagConstraints gbcLblHowManyInstruments = new GridBagConstraints();
 		gbcLblHowManyInstruments.insets = new Insets(0, 0, 5, 0);
 		gbcLblHowManyInstruments.gridx = 0;
@@ -58,7 +61,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		panel2.add(lblHowManyInstruments, gbcLblHowManyInstruments);
 		
 		textField = new JTextField(10);
-		textField.setFont(new Font(textField.getFont().getName(), Font.PLAIN, 20));
+		textField.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 		GridBagConstraints gbcTextField = new GridBagConstraints();
 		gbcTextField.insets = new Insets(0, 0, 5, 0);
 		gbcTextField.gridx = 0;
@@ -67,7 +70,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		
 		JButton btnNext = new JButton("Next >");
 		btnNext.addActionListener(this);
-		btnNext.setFont(new Font(btnNext.getFont().getName(), Font.BOLD, 15));
+		btnNext.setFont(boldFont);
 		
 		GridBagConstraints gbcBtnNext = new GridBagConstraints();
 		gbcBtnNext.gridx = 0;
@@ -79,7 +82,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
-		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
+		btnBack.setFont(boldFont);
 		panel1.add(btnBack);
 	}
 

@@ -36,6 +36,9 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setVisible(true);
+		
+		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
         
 		RecipeController recipeController = RecipeController.getInstance();
 		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
@@ -58,7 +61,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertTheName = new JLabel("Modify the ingredients of the recipe " + recipeName + ":");
-		lblInsertTheName.setFont(new Font(lblInsertTheName.getFont().getName(), Font.BOLD, 20));
+		lblInsertTheName.setFont(boldFont);
 		panel.add(lblInsertTheName);
 		
 		JPanel panel1 = new JPanel();
@@ -89,8 +92,8 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
+		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(40);
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
@@ -100,21 +103,21 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(this);
-		btnSave.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, 15));
+		btnSave.setFont(boldFont);
 		panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblModifyTheName = new JLabel("Modify the name of the recipe " + recipeName + ":");
-		lblModifyTheName.setFont(new Font(lblModifyTheName.getFont().getName(), Font.BOLD, 20));
+		lblModifyTheName.setFont(boldFont);
 		panel2.add(lblModifyTheName);
 		
 		textField = new JTextField();
-		textField.setFont(new Font(textField.getFont().getName(), Font.PLAIN, 16));
+		textField.setFont(plainFont);
 		panel2.add(textField);
 		textField.setColumns(10);
 		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
+		btnBack.setFont(boldFont);
 		btnBack.addActionListener(this);
 		panel2.add(btnBack); 
 	}

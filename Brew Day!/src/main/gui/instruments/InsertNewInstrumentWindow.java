@@ -37,11 +37,14 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertNewInstrument = new JLabel("Insert new instrument in your equipment:");
-		lblInsertNewInstrument.setFont(new Font(lblInsertNewInstrument.getFont().getName(), Font.BOLD, 20));
+		lblInsertNewInstrument.setFont(boldFont);
 		panel.add(lblInsertNewInstrument);
 		
 		JPanel panel1 = new JPanel();
@@ -54,7 +57,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		panel1.setLayout(gblPanel1);
 		
 		JLabel lblName = new JLabel("Instrument name:");
-		lblName.setFont(new Font(lblName.getFont().getName(), Font.BOLD, 18));
+		lblName.setFont(plainFont);
 		GridBagConstraints gbcLblName = new GridBagConstraints();
 		gbcLblName.fill = GridBagConstraints.VERTICAL;
 		
@@ -64,7 +67,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		panel1.add(lblName, gbcLblName);
 		
 		textField = new JTextField();
-		textField.setFont(new Font(textField.getFont().getName(), Font.PLAIN, 16));
+		textField.setFont(plainFont);
 		GridBagConstraints gbcTextField = new GridBagConstraints();
 		gbcTextField.insets = new Insets(0, 0, 5, 0);
 		gbcTextField.fill = GridBagConstraints.BOTH;
@@ -75,7 +78,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		textField.setColumns(10);
 		
 		JLabel lblCapacity = new JLabel("Capacity (l):");
-		lblCapacity.setFont(new Font(lblCapacity.getFont().getName(), Font.BOLD, 19));
+		lblCapacity.setFont(plainFont);
 		GridBagConstraints gbcLblCapacity = new GridBagConstraints();
 		gbcLblCapacity.fill = GridBagConstraints.VERTICAL;
 		
@@ -85,7 +88,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		panel1.add(lblCapacity, gbcLblCapacity);
 		
 		textField1 = new JTextField();
-		textField1.setFont(new Font(textField.getFont().getName(), Font.PLAIN, 16));
+		textField1.setFont(plainFont);
 		GridBagConstraints gbcTextField1 = new GridBagConstraints();
 		gbcTextField1.fill = GridBagConstraints.BOTH;
 		gbcTextField1.gridx = 0;
@@ -97,12 +100,12 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, 15));
+		btnSave.setFont(boldFont);
 		btnSave.addActionListener(this);
 		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
+		btnBack.setFont(boldFont);
 		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 	}

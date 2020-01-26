@@ -33,11 +33,13 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblSelectTheInstrument = new JLabel("Select the instrument you want to delete from Equipment:");
-		lblSelectTheInstrument.setFont(new Font(lblSelectTheInstrument.getFont().getName(), Font.BOLD, 20));
+		lblSelectTheInstrument.setFont(boldFont);
 		panel.add(lblSelectTheInstrument);
 		
 		JPanel panel1 = new JPanel();
@@ -48,7 +50,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
-		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 20));
+		btnBack.setFont(boldFont);
 		panel2.add(btnBack);
 		
 		
@@ -61,7 +63,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 			instrumentsDelete.add(new JButton(i.getKey()));
 		}
 		for(JButton b : instrumentsDelete) {
-			b.setFont(new Font(b.getFont().getName(), Font.BOLD, 15));
+			b.setFont(boldFont);
 			panel1.add(b);
 			b.addActionListener(this);
 		}

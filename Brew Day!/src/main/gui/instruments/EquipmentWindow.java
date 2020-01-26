@@ -34,12 +34,14 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 
 		JLabel lblEquipment = new JLabel("Equipment menu");
-		lblEquipment.setFont(new Font(lblEquipment.getFont().getName(), Font.BOLD, 20));
+		lblEquipment.setFont(boldFont);
 		panel.add(lblEquipment);
 
 		JPanel panel1 = new JPanel();
@@ -52,7 +54,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		panel1.setLayout(gblPanel1);
 
 		JButton btnShowEquipment = new JButton("Show Equipment");
-		btnShowEquipment.setFont(new Font(btnShowEquipment.getFont().getName(), Font.BOLD, 15));
+		btnShowEquipment.setFont(boldFont);
 		btnShowEquipment.addActionListener(this);
 		
 		GridBagConstraints gbcBtnShowEquipment = new GridBagConstraints();
@@ -64,7 +66,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 
 
 		JButton btnCreateEquipment = new JButton("Create Equipment");
-		btnCreateEquipment.setFont(new Font(btnCreateEquipment.getFont().getName(), Font.BOLD, 15));
+		btnCreateEquipment.setFont(boldFont);
 		btnCreateEquipment.addActionListener(this);
 
 		GridBagConstraints gbcBtnCreateEquipment = new GridBagConstraints();
@@ -75,7 +77,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		panel1.add(btnCreateEquipment, gbcBtnCreateEquipment);
 		
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
-		btnModifyEquipment.setFont(new Font(btnModifyEquipment.getFont().getName(), Font.BOLD, 15));
+		btnModifyEquipment.setFont(boldFont);
 		btnModifyEquipment.addActionListener(this);
 
 		GridBagConstraints gbcBtnModifyEquipment = new GridBagConstraints();
@@ -86,7 +88,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		panel1.add(btnModifyEquipment, gbcBtnModifyEquipment);
 
 		JButton btnInsertNewInstrument = new JButton("Insert New Instrument");
-		btnInsertNewInstrument.setFont(new Font(btnInsertNewInstrument.getFont().getName(), Font.BOLD, 15));
+		btnInsertNewInstrument.setFont(boldFont);
 		btnInsertNewInstrument.addActionListener(this);
 
 		GridBagConstraints gbcBtnInsertNewInstrument = new GridBagConstraints();
@@ -97,7 +99,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		panel1.add(btnInsertNewInstrument, gbcBtnInsertNewInstrument);
 
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
-		btnDeleteInstrument.setFont(new Font(btnDeleteInstrument.getFont().getName(), Font.BOLD, 15));
+		btnDeleteInstrument.setFont(boldFont);
 		btnDeleteInstrument.addActionListener(this);
 
 		GridBagConstraints gbcBtnDeleteInstrument = new GridBagConstraints();
@@ -111,7 +113,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
+		btnBack.setFont(boldFont);
 		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 	}

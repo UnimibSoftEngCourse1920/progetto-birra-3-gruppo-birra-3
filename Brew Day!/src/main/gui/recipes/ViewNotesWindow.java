@@ -43,12 +43,14 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 
 		JLabel label = new JLabel("The Notes are:");
-		label.setFont(new Font(label.getFont().getName(),Font.BOLD, 17));
+		label.setFont(boldFont);
 		panel.add(label);
 
 		JPanel panel1 = new JPanel();
@@ -90,8 +92,8 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		//This is for hide first column
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
-		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 14));
-		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 12));
+		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
 		table.setFillsViewportHeight(true);
 		table.setRowHeight(50);
 
@@ -105,12 +107,12 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 
 		JButton addButton = new JButton("Add");
-		addButton.setFont(new Font(addButton.getFont().getName(),Font.BOLD, 18));
+		addButton.setFont(boldFont);
 		addButton.addActionListener(this);
 		panel2.add(addButton);
 
 		JButton backButton = new JButton("Back");
-		backButton.setFont(new Font(backButton.getFont().getName(),Font.BOLD, 18));
+		backButton.setFont(boldFont);
 		backButton.addActionListener(this);
 		panel2.add(backButton);
 	}

@@ -43,6 +43,8 @@ public class MainWindow extends JFrame implements ActionListener{
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
+		Font labelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
+		Font buttonFont = new Font(Font.SANS_SERIF, Font.BOLD, 17);
 		
 		StorageController sController = StorageController.getInstance();
 		File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Storage.txt");
@@ -89,18 +91,17 @@ public class MainWindow extends JFrame implements ActionListener{
 		storagePanel.setBackground(Color.RED);
 		resourcesPanel.add(storagePanel);
 
-		Font font = new Font("TimesRoman",Font.BOLD,25);
 		JLabel recipeLabel = new JLabel("Recipes");
-		recipeLabel.setFont(font);
+		recipeLabel.setFont(labelFont);
 		recipeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel brewLabel = new JLabel("Brews");
-		brewLabel.setFont(font);
+		brewLabel.setFont(labelFont);
 		brewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel equipmentLabel = new JLabel("Equipment");
-		equipmentLabel.setFont(font);
+		equipmentLabel.setFont(labelFont);
 		equipmentLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel storageLabel = new JLabel("Storage");
-		storageLabel.setFont(font);
+		storageLabel.setFont(labelFont);
 		storageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		recipePanel.add(recipeLabel);
 		brewPanel.add(brewLabel);
@@ -134,21 +135,25 @@ public class MainWindow extends JFrame implements ActionListener{
 		Dimension d = new Dimension(200, 70);
 
 		JButton recipeButton = new JButton("View your recipes");
+		recipeButton.setFont(buttonFont);
 		recipeButton.addActionListener(this);
 		recipeButton.setPreferredSize(d);
 		recipeButtonPanel.add(recipeButton);
 
 		JButton brewButton = new JButton("View your brews");
+		brewButton.setFont(buttonFont);
 		brewButton.addActionListener(this);
 		brewButton.setPreferredSize(d);
 		brewButtonPanel.add(brewButton);
 
 		JButton equipmentButton = new JButton("View your equipment");
+		equipmentButton.setFont(buttonFont);
 		equipmentButton.addActionListener(this);
 		equipmentButton.setPreferredSize(d);
 		equipmentButtonPanel.add(equipmentButton);
 
 		JButton storageButton = new JButton("View your storage");
+		storageButton.setFont(buttonFont);
 		storageButton.addActionListener(this);
 		storageButton.setPreferredSize(d);
 		storageButtonPanel.add(storageButton);
@@ -180,10 +185,9 @@ public class MainWindow extends JFrame implements ActionListener{
 		}
 
 		JLabel wsibtLabel = new JLabel ("What should I brew today? " + wsibtRecipe);
-		wsibtLabel.setFont(font);
+		wsibtLabel.setFont(labelFont);
 		wsibtLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		wsibtPanel.add(wsibtLabel);
-
 
 		JPanel wsibtButtonPanel = new JPanel();
 		wsibtButtonPanel.setBackground(Color.ORANGE);
@@ -191,6 +195,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		wsibtPanel.add(wsibtButtonPanel);
 
 		JButton wsibtButton = new JButton("Brew it!");
+		wsibtButton.setFont(buttonFont);
 		wsibtButton.addActionListener(this);
 		wsibtButton.setPreferredSize(d);
 		wsibtButtonPanel.add(wsibtButton);
