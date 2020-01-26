@@ -26,7 +26,8 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 	public DeleteInstrumentWindow() {
 		super("Brew Day! - Delete instrument");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(300, 150, 1280, 720);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -60,6 +61,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 			instrumentsDelete.add(new JButton(i.getKey()));
 		}
 		for(JButton b : instrumentsDelete) {
+			b.setFont(new Font(b.getFont().getName(), Font.BOLD, 15));
 			panel1.add(b);
 			b.addActionListener(this);
 		}

@@ -2,15 +2,12 @@ package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-
 import main.gui.MainWindow;
 import main.instruments.EquipmentController;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -31,6 +28,8 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		super("Brew Day! - Equipment menu");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(300, 150, 600, 400);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

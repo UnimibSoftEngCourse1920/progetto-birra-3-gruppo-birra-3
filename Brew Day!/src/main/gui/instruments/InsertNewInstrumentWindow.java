@@ -2,7 +2,6 @@ package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,6 +30,8 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		super("Brew Day! - Insert new instrument");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(150, 150, 600, 400);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
