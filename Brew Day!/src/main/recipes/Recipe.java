@@ -1,7 +1,7 @@
 package main.recipes;
 
 import main.IngredientNotFoundException;
-import main.instrument.Equipment;
+import main.instruments.Equipment;
 import main.resources.Storage;
 import main.resources.StorageController;
 import java.io.File;

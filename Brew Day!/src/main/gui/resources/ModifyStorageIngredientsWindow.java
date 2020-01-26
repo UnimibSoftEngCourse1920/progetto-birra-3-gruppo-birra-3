@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.resources;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import main.resources.Storage;
 import main.resources.StorageController;
 

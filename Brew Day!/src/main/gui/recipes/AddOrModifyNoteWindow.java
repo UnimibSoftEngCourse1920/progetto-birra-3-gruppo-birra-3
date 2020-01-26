@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.recipes;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;

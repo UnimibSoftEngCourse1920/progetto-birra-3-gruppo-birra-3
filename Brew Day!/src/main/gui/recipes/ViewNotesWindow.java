@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.recipes;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -19,6 +19,9 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+
+import main.gui.ButtonColumn;
+import main.gui.MultiRowCell;
 import main.recipes.Brew;
 import main.recipes.BrewController;
 

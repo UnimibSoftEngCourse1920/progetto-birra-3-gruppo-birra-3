@@ -1,4 +1,4 @@
-package main.instrument;
+package main.instruments;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class Equipment implements Serializable{
 		this.instruments = instruments;
 	}
 
-	protected double computeCapacity() {
+	public double computeCapacity() {
 		try {
 			double total = 0;
 			for (Double value : this.instruments.values()) {
@@ -42,7 +42,7 @@ public class Equipment implements Serializable{
 	}
 
 
-	protected void updateInstruments(Map<String, Double> instruments) throws NullInstrumentsException{
+	public void updateInstruments(Map<String, Double> instruments) throws NullInstrumentsException{
 		try {
 			if(instruments == null) throw new NullInstrumentsException("Instruments null");
 			for(Entry<String, Double> i : instruments.entrySet()) {
@@ -55,7 +55,7 @@ public class Equipment implements Serializable{
 		
 	}
 
-	protected void deleteInstrument(String name) {
+	public void deleteInstrument(String name) {
 		try {
 			if(name == null) throw new InstrumentException("Instrument name null");
 			this.getInstruments().remove(name);

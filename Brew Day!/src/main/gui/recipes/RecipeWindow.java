@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.recipes;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -22,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import main.gui.ButtonColumn;
+import main.gui.MainWindow;
+import main.gui.MultiRowCell;
 import main.recipes.Brew;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;

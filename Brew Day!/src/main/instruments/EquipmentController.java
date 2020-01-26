@@ -1,4 +1,4 @@
-package main.instrument;
+package main.instruments;
 
 import main.IOController;
 
@@ -40,7 +40,7 @@ public class EquipmentController {
 		}
 	}
 	
-	protected void store(Equipment equipment) {
+	public void store(Equipment equipment) {
 		ioController.writeObjectToFile(equipment, filepath);
 	}
 	

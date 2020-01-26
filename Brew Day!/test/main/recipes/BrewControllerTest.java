@@ -93,9 +93,6 @@ public class BrewControllerTest {
 		brew2.addNote("Note 3", true);
 		brewController.store(brew2);
 		
-		System.out.println(brew1.getId());
-		System.out.println(brew2.getId());
-		
 		String txt1 = "New Note 1";
 		String txt2 = "New note 3";
 		

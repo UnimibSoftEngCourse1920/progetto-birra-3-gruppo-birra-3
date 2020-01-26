@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;

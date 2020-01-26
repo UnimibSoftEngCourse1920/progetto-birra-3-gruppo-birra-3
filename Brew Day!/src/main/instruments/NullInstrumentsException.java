@@ -1,4 +1,4 @@
-package main.instrument;
+package main.instruments;
 
 @SuppressWarnings("serial")
 public class NullInstrumentsException extends Exception {

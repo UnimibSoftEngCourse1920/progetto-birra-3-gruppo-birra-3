@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.resources;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -17,6 +17,8 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import main.gui.MainWindow;
 import main.resources.*;
 
 @SuppressWarnings("serial")
@@ -58,26 +60,10 @@ public class StorageWindow extends JFrame implements ActionListener {
 		    }
 		};
 
-		File f = new File(filepath);
-		if(!f.exists()) {
-			Map<String,Double> defaultIngredients = new HashMap<>();
-			defaultIngredients.put("Malt", 0.0);
-			defaultIngredients.put("Hop", 0.0);
-			defaultIngredients.put("Yeast", 0.0);
-			defaultIngredients.put("Sugar", 0.0);
-			defaultIngredients.put("Additive", 0.0);
-			sController.createStorage(defaultIngredients);
-			storage = Storage.getInstance();
-			for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
+		storage = sController.extractStorage();
+		for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
 				model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
-			}
-		}else {
-			storage = sController.extractStorage();
-			for(Entry<String, Double> i : storage.getIngredients().entrySet()) {
-				model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
-			}
 		}
-		
 		
 		table = new JTable(model);
 		table.setBorder(null);

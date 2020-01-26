@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.recipes;
 
 @SuppressWarnings("serial")
 public class NullInputException extends Exception {

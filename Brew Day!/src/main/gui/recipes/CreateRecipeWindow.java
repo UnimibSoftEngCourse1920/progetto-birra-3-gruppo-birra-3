@@ -1,9 +1,8 @@
-package main.gui;
+package main.gui.recipes;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
@@ -22,30 +21,16 @@ import javax.swing.WindowConstants;
 import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
-public class ModifyRecipeWindow extends JFrame implements ActionListener {
+public class CreateRecipeWindow extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable table;
-	Recipe recipe;
 	private JTextField textField;
 
-	public ModifyRecipeWindow(int recipeId){
-		super("Brew Day! - Modify recipe");
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	public CreateRecipeWindow(){
+		super("Brew Day! - Create recipe");
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);	
 		setBounds(300, 150, 1280, 720);
-        
-		RecipeController recipeController = RecipeController.getInstance();
-		ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeController.extractRecipe();
-		for (int i = 0; i < recipes.size(); i++) {
-			if (recipes.get(i).getId() == recipeId) {
-				recipe = recipes.get(i);
-			}
-		}
-		
-		Map<String, Double> ingredients = new HashMap<>();
-		String recipeName = recipe.getName();
-		ingredients = recipe.getIngredients();
-
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -54,7 +39,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel lblInsertTheName = new JLabel("Modify the ingredients of the recipe " + recipeName + ":");
+		JLabel lblInsertTheName = new JLabel("Set the ingredients needed for the new recipe:");
 		panel.add(lblInsertTheName);
 		
 		JPanel panel1 = new JPanel();
@@ -66,21 +51,12 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 			       return column == 1;
 			   }
 			};
-		ArrayList<String> otherIngredients = new ArrayList<>(5);
-		otherIngredients.add("Malt");
-		otherIngredients.add("Hop");
-		otherIngredients.add("Yeast");
-		otherIngredients.add("Sugar");
-		otherIngredients.add("Additive");
-		
-		for (int i = 0; i < otherIngredients.size(); i++) {
-				if(ingredients.get(otherIngredients.get(i)) != null) {
-					model.addRow(new String[] {otherIngredients.get(i),Double.toString(ingredients.get(otherIngredients.get(i)))});
-				}
-				else {
-					model.addRow(new String[] {otherIngredients.get(i),"0.0"});
-				}
-		}
+			
+		model.addRow(new String[] {"Malt","0.0"});
+		model.addRow(new String[] {"Hop","0.0"});
+		model.addRow(new String[] {"Yeast","0.0"});
+		model.addRow(new String[] {"Sugar","0.0"});
+		model.addRow(new String[] {"Additive","0.0"});
 		
 		table = new JTable(model);
 		table.setBorder(null);
@@ -95,7 +71,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		btnSave.addActionListener(this);
 		panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblModifyTheName = new JLabel("Modify the name of the recipe " + recipeName + ":");
+		JLabel lblModifyTheName = new JLabel("Set the name of the new recipe: ");
 		panel2.add(lblModifyTheName);
 		
 		textField = new JTextField();
@@ -118,15 +94,17 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 				dispose();
 				break;
 			case "Save":
-				String name = updateName();
-				Map<String, Double> ingredients = updateIngredients();
+				String name = createName();
+				Map<String, Double> ingredients = createIngredients();
 				
 				if(name != null && ingredients != null) {
 					if (table.isEditing())
 					    table.getCellEditor().stopCellEditing();
 					
+					Recipe recipe = new Recipe(createName(),createIngredients());
+					
 					RecipeController recipeController = RecipeController.getInstance();
-					recipeController.update(recipe.getId(),updateName(),updateIngredients());
+					recipeController.store(recipe);
 					recipeWindow = new RecipeWindow();
 					
 					recipeWindow.setVisible(true);
@@ -137,10 +115,11 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		}
 	}
 	
-	private Map<String, Double> updateIngredients(){
+	private Map<String, Double> createIngredients(){
 		try {
 			Map<String, Double> ingredients = new HashMap<>();
-			
+			if (table.isEditing())
+			    table.getCellEditor().stopCellEditing();
 			for (int i = 0; i < table.getRowCount(); i++) {
 				String ingredientName = table.getValueAt(i, 0).toString();
 				String ingredientQuantity = table.getValueAt(i, 1).toString();
@@ -151,6 +130,9 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 					ingredients.put(table.getValueAt(i, 0).toString(), fromStringToDouble(ingredientQuantity));
 				}
 			}
+			if(ingredients.isEmpty()) {
+				throw new NullInputException();
+			}
 			return ingredients;
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this,"Insert only positive number in quantity field");
@@ -158,19 +140,25 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this,"Insert only string in ingredient name field");
 			return null;
+		} catch (NullInputException e) {
+			JOptionPane.showMessageDialog(this,"Insert at least an ingredient");
+			return null;
 		}
 	}
 	
-	private String updateName(){
+	private String createName(){
 		try {
 			String name = textField.getText();
 			if(name.equals("")) {
-				name = recipe.getName();
+				throw new NullInputException();
 			}
-			else if (!name.matches("^[a-zA-Z0-9]*$") || name.length() >= 12) {
+			else if (!name.matches("^[a-zA-Z0-9]*$") || name.length() >= 17) {
 				throw new IllegalArgumentException();
 			}
 			return name;
+		} catch (NullInputException e) {
+			JOptionPane.showMessageDialog(this,"Insert a string name for the new recipe");
+			return null;
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this,"The recipe name is not alphanumeric or too long");
 			return null;

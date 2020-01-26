@@ -198,7 +198,7 @@ public class RecipeController {
 					}
 				}
 			}
-			throw new RecipeNotFoundException("Recipe not found");
+			throw new RecipeNotFoundException("Recipe WSIBT not found");
 		}catch(RecipeNotFoundException e) {
 			System.out.println(e.getMessage());
 		}

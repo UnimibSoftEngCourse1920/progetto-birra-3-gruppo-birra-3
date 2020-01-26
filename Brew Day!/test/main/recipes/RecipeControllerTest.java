@@ -3,6 +3,7 @@ package main.recipes;
 import static org.junit.Assert.*;
 
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -204,6 +205,14 @@ public class RecipeControllerTest {
 		}
 		
 		assertEquals(id, 12);
+		
+		File file = new File(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+		
+		if (file.delete()) {
+			System.out.println("\nFile deleted");
+		} else {
+			System.out.println("\nImpossible delete file");
+		}
 	}
 	
 	

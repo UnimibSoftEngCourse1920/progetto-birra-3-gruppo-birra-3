@@ -1,10 +1,12 @@
-package main.gui;
+package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import main.instrument.EquipmentController;
+
+import main.instruments.EquipmentController;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.GridBagLayout;
@@ -113,8 +115,11 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 				String name = textField.getText();
 				String capacity = textField1.getText();
 				
-				if(!name.matches("[a-zA-Z_]+") || !capacity.matches("[0-9]+.{0,1}[0-9]*")) {
+				if(!name.matches("[a-zA-Z_]+") || name.length() >= 13) {
 					throw new IllegalArgumentException();
+				}
+				else if(!capacity.matches("[0-9]+.{0,1}[0-9]*")) {
+					throw new NumberFormatException();
 				}
 				for(Entry<String, Double> i : instruments.entrySet()) {
 					if(name.equals(i.getKey())) {
@@ -125,12 +130,15 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 				if(b) {
 					instruments.put(name, Double.parseDouble(capacity));
 					equipmentController.update(instruments);
+					
+					EquipmentWindow equipmentWin = new EquipmentWindow();
+					equipmentWin.setVisible(true);
+					dispose();
 				}
-				EquipmentWindow equipmentWin = new EquipmentWindow();
-				equipmentWin.setVisible(true);
-				dispose();
+			}catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(this,"Insert only positive numbers in capacity field, separated by dot (e.g. Kettle 10.50)");
 			}catch (IllegalArgumentException e1) {
-				JOptionPane.showMessageDialog(this,"Insert only string in name field and positive numbers , separated by dot (e.g. Kettle 10.50");
+				JOptionPane.showMessageDialog(this,"The instrument name is too long or contains non-literal characters");
 			}
 		}
 	}

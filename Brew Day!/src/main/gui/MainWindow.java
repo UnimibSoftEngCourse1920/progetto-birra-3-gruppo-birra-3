@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,9 +19,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import main.gui.instruments.EquipmentWindow;
+import main.gui.recipes.BrewWindow;
+import main.gui.recipes.RecipeWindow;
+import main.gui.resources.StorageWindow;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.Storage;
+import main.resources.StorageController;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener{
@@ -67,6 +76,21 @@ public class MainWindow extends JFrame implements ActionListener{
 		setBounds(300, 150, 1280, 720);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
+		
+		StorageController sController = StorageController.getInstance();
+		File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Storage.txt");
+		if(!f.exists()) {
+			Map<String,Double> defaultIngredients = new HashMap<>();
+			defaultIngredients.put("Malt", 0.0);
+			defaultIngredients.put("Hop", 0.0);
+			defaultIngredients.put("Yeast", 0.0);
+			defaultIngredients.put("Sugar", 0.0);
+			defaultIngredients.put("Additive", 0.0);
+			sController.createStorage(defaultIngredients);
+		}else {
+			Map<String,Double> storageIngredients = sController.extractStorage().getIngredients();
+			sController.createStorage(storageIngredients);
+		}
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(2, 0));
@@ -98,18 +122,18 @@ public class MainWindow extends JFrame implements ActionListener{
 		storagePanel.setBackground(Color.RED);
 		resourcesPanel.add(storagePanel);
 
-		Font f = new Font("TimesRoman",Font.BOLD,25);
+		Font font = new Font("TimesRoman",Font.BOLD,25);
 		JLabel recipeLabel = new JLabel("Recipes");
-		recipeLabel.setFont(f);
+		recipeLabel.setFont(font);
 		recipeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel brewLabel = new JLabel("Brews");
-		brewLabel.setFont(f);
+		brewLabel.setFont(font);
 		brewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel equipmentLabel = new JLabel("Equipment");
-		equipmentLabel.setFont(f);
+		equipmentLabel.setFont(font);
 		equipmentLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JLabel storageLabel = new JLabel("Storage");
-		storageLabel.setFont(f);
+		storageLabel.setFont(font);
 		storageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		recipePanel.add(recipeLabel);
 		brewPanel.add(brewLabel);
@@ -189,7 +213,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		}
 
 		JLabel wsibtLabel = new JLabel ("What should I brew today? " + wsibtRecipe);
-		wsibtLabel.setFont(f);
+		wsibtLabel.setFont(font);
 		wsibtLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		wsibtPanel.add(wsibtLabel);
 

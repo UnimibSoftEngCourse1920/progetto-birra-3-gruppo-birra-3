@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +15,8 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import main.instrument.EquipmentController;
+
+import main.instruments.EquipmentController;
 
 @SuppressWarnings("serial")
 public class ShowEquipmentWindow extends JFrame implements ActionListener {

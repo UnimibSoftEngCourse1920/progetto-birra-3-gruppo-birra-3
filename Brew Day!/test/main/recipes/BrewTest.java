@@ -99,8 +99,6 @@ public class BrewTest {
 		brew.addNote("Note 2", true);
 		brew.addNote("Note 3", false);
 		
-		System.out.println(brew.toString());
-		
 		brew.deleteNote(1);
 		brew.deleteNote(-2);
 		

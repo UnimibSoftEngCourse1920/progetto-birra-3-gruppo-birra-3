@@ -1,13 +1,14 @@
 package main;
 
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.instrument.EquipmentController;
+import main.instruments.EquipmentController;
 import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
@@ -15,7 +16,6 @@ import main.resources.StorageController;
 
 public class Main {
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		int startingId = 0;
 		
@@ -54,5 +54,13 @@ public class Main {
 		sController.deleteFile();
 		rController.deleteFile();
 		eController.deleteFile();
+		
+		File file = new File(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+		
+		if (file.delete()) {
+			System.out.println("\nFile deleted");
+		} else {
+			System.out.println("\nImpossible delete file");
+		}
 	}
 }

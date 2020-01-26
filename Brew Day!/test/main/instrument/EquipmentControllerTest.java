@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import main.instruments.Equipment;
+import main.instruments.EquipmentController;
+
 public class EquipmentControllerTest {
 
 	@Test

@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-import main.instrument.EquipmentController;
+
+import main.instruments.EquipmentController;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
