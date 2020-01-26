@@ -80,22 +80,4 @@ public class StorageControllerTest {
 		
 		sController.deleteFile();
 	}
-	
-	@Test
-	public void testDelete() {
-		Storage storage = Storage.getInstance();
-		Map<String,Double> ingredients = new HashMap<>();
-		ingredients.put("Malt", 10.0);
-		ingredients.put("Hop", 20.0);
-		storage.setIngredients(ingredients);
-		StorageController sController = StorageController.getInstance();
-		sController.store(storage);	
-		sController.delete("Malt");
-		Storage storageExtracted = sController.extractStorage();
-		
-		assertTrue(storageExtracted.getIngredients().containsKey("Hop"));
-		assertFalse(storageExtracted.getIngredients().containsKey("Malt"));
-		
-		sController.deleteFile();
-	}
 }

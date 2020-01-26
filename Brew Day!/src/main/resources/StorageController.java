@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Map;
 import main.IOController;
-import main.IngredientNotFoundException;
 
 @SuppressWarnings("serial")
 public class StorageController implements Serializable{
@@ -46,22 +45,6 @@ public class StorageController implements Serializable{
 		storage.updateIngredients(ingredients);
 		Storage.getInstance().updateIngredients(ingredients);
 		store(storage);	
-	}
-
-	protected void delete(String ingredient) {
-		try {
-			if (!extractStorage().getIngredients().containsKey(ingredient)) {
-				throw new IngredientNotFoundException();
-			}
-
-			Storage storage = extractStorage();
-			storage.deleteIngredient(ingredient);
-			Storage.getInstance().deleteIngredient(ingredient);
-			store(storage);
-
-		} catch(IngredientNotFoundException e) {
-			System.err.println(e.getMessage());
-		}
 	}
 
 	//for only testing purpose

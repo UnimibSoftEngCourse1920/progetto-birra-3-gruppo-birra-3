@@ -35,23 +35,6 @@ public class StorageTest {
 	}
 
 	@Test
-	public void testDeleteIngredient() {
-		Storage storage = Storage.getInstance();
-		
-		Map<String, Double> ingredients = new HashMap<>();
-		
-		ingredients.put("Malt", 10.0);
-		ingredients.put("Hop", 20.0);
-		
-		storage.setIngredients(ingredients);
-		
-		storage.deleteIngredient("Malt");
-		
-		assertTrue(storage.getIngredients().containsKey("Hop"));
-		assertFalse(storage.getIngredients().containsKey("Malt"));
-	}
-
-	@Test
 	public void testGetInstance() {
 		assertEquals(Storage.getInstance(), Storage.getInstance());
 	}

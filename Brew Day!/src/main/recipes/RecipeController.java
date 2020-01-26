@@ -205,4 +205,21 @@ public class RecipeController {
 		}
 		return null;
 	}
+	
+	public void updateAllRecipesOnNewEquipment(double multiplier) {
+		List<Recipe> recipes = extractRecipe();
+		List<Recipe> newRecipes = new ArrayList<>();
+		for(int i = 0; i<recipes.size(); i++) {
+			Recipe r = recipes.get(i);
+			Map<String, Double> ingredientsR = r.getIngredients();
+			Map<String, Double> newIngredientsR = new HashMap<String, Double>();
+			for (Entry<String,Double> i1 : ingredientsR.entrySet()) {
+				double updateValue = Math.round(i1.getValue()*multiplier*100.0)/100.0;
+				newIngredientsR.put(i1.getKey(), updateValue);
+			}
+			r.updateRecipe(r.getName(), newIngredientsR);
+			newRecipes.add(r);
+		}
+		ioController.writeObjectToFile(newRecipes, filepath);
+	}
 }

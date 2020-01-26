@@ -83,11 +83,6 @@ public class Brew implements Serializable{
 			System.out.println(e.getMessage());
 		}
 	}	
-	
-	@Override
-	public String toString() {
-		return "id = " + id + ", startDate = " + startDate + ", finishDate = " + finishDate + ", notes = " + notes;
-	}
 
 	@Override
 	public int hashCode() {
