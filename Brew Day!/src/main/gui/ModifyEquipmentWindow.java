@@ -27,7 +27,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 	public ModifyEquipmentWindow() {
 		super("Brew Day! - Modify equipment");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(200, 200, 600, 400);
+		setBounds(300, 150, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

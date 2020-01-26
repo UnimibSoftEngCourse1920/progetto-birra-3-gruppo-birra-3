@@ -64,7 +64,7 @@ public class MainWindow extends JFrame implements ActionListener{
 
 	public MainWindow() {
 		super("Brew Day!");
-		setSize(WIDTH, HEIGHT);
+		setBounds(300, 150, 1280, 720);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 

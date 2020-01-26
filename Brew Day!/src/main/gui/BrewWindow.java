@@ -32,7 +32,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 	public BrewWindow() {
 		super("Brew Day! - Brews");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(150, 200, 1600, 700);
+		setBounds(300, 150, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

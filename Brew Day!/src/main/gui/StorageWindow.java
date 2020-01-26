@@ -31,7 +31,7 @@ public class StorageWindow extends JFrame implements ActionListener {
 	public StorageWindow() {
 		super("Brew Day! - Storage");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(200, 200, 800, 350);
+		setBounds(300, 150, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -99,7 +99,7 @@ public class StorageWindow extends JFrame implements ActionListener {
 		panel2.add(modifyButton);
 		
 		JButton backButton = new JButton("Back");
-		backButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 15));
+		backButton.setFont(new Font(modifyButton.getFont().getName(), Font.BOLD, 20));
 		backButton.addActionListener(this);
 		
 		panel2.add(backButton);
