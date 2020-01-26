@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +20,6 @@ import main.resources.*;
 @SuppressWarnings("serial")
 public class StorageWindow extends JFrame implements ActionListener {
 
-	private String filepath = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 	private StorageController sController;
 	private JPanel contentPane;
 	private JTable table;
@@ -91,16 +87,6 @@ public class StorageWindow extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		File f = new File(filepath);
-		if(!f.exists()) {
-			Map<String,Double> defaultIngredients = new HashMap<>();
-			defaultIngredients.put("Malt", 0.0);
-			defaultIngredients.put("Hop", 0.0);
-			defaultIngredients.put("Yeast", 0.0);
-			defaultIngredients.put("Sugar", 0.0);
-			defaultIngredients.put("Additive", 0.0);
-			sController.createStorage(defaultIngredients);
-		}
 		if (e.getActionCommand().equals("Back")) {
 			MainWindow mainWindow = new MainWindow();
 			mainWindow.setVisible(true);

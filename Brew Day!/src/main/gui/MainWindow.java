@@ -19,23 +19,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-
 import main.gui.instruments.EquipmentWindow;
 import main.gui.recipes.BrewWindow;
 import main.gui.recipes.RecipeWindow;
 import main.gui.resources.StorageWindow;
+import main.instruments.EquipmentController;
 import main.recipes.BrewController;
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import main.resources.Storage;
 import main.resources.StorageController;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener{
 
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
 	private boolean brewIt = false;
+	RecipeController recipeController;
 
 	public MainWindow() {
 		super("Brew Day!");
@@ -156,7 +157,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		File fileRecipe = new File(filepathRecipe);
 		String filepathStorage = System.getProperty("user.dir") + "\\src\\Files\\Storage.txt";
 		File fileStorage = new File(filepathStorage);
-		RecipeController recipeController = RecipeController.getInstance();
+		recipeController = RecipeController.getInstance();
 		
 		String wsibtRecipe = null;
 		if(fileRecipe.exists() && fileStorage.exists()) {
@@ -193,6 +194,19 @@ public class MainWindow extends JFrame implements ActionListener{
 		wsibtButton.addActionListener(this);
 		wsibtButton.setPreferredSize(d);
 		wsibtButtonPanel.add(wsibtButton);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu helpMenu = new JMenu("Help");
+		menuBar.add(helpMenu);
+		
+		JButton resetButton = new JButton("Reset");
+		resetButton.addActionListener(this);
+		
+		helpMenu.add(resetButton);
+		
+		
 	}
 
 	public Recipe getWSIBT() {
@@ -304,6 +318,14 @@ public class MainWindow extends JFrame implements ActionListener{
 			else
 				JOptionPane.showMessageDialog(this, "You can't Brew it!");
 			break;
+		case "Reset":
+			recipeController.deleteFile();
+			BrewController.getInstance().deleteFile();
+			StorageController.getInstance().deleteFile();
+			EquipmentController.getInstance().deleteFile();
+			File file = new File(System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt");
+			if (file.exists()) 
+				file.delete();
 		default:
 		}
 	}

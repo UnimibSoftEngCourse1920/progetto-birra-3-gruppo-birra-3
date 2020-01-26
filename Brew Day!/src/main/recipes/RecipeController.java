@@ -149,11 +149,13 @@ public class RecipeController {
 	//for only testing purpose
 	public void deleteFile() {
 		File file = new File(filepath);
-		
-		if (file.delete()) {
-			System.out.println("\nFile deleted");
-		} else {
-			System.out.println("\nImpossible delete file");
+
+		if (file.exists()) {
+			if (file.delete()) {
+				System.out.println("\nFile deleted");
+			} else {
+				System.out.println("\nImpossible delete file");
+			}
 		}
 	}
 	

@@ -18,47 +18,47 @@ public class BrewController implements Serializable {
 	private String filepath;
 	private IOController ioController;
 	private static BrewController instance;
-	
+
 	private BrewController() {
 		super();
 		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Brew.txt";
 		this.ioController = new IOController();
 	}
-	
+
 	public static BrewController getInstance() {
 		if (instance == null) {
 			instance = new BrewController();
 		}
-		
+
 		return instance;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Brew> extractBrew() {
-	    if (ioController.readObjectFromFile(filepath) != null) {
-	      return (ArrayList<Brew>) ioController.readObjectFromFile(filepath);
-	    }
+		if (ioController.readObjectFromFile(filepath) != null) {
+			return (ArrayList<Brew>) ioController.readObjectFromFile(filepath);
+		}
 
-	    return new ArrayList<>();
-	  }
+		return new ArrayList<>();
+	}
 
-	  public void store(Brew brew) {
-	    List<Brew> brews = extractBrew();
-	    
-	    boolean found = false;
-	    
-	    for (Brew b : brews) {
+	public void store(Brew brew) {
+		List<Brew> brews = extractBrew();
+
+		boolean found = false;
+
+		for (Brew b : brews) {
 			if (b.getId().compareTo(brew.getId()) == 0) {
 				found = true;
 				break;
 			}
-	    }
-	    
-	    if (!found) {
-	      brews.add(brew);
-	      ioController.writeObjectToFile(brews, filepath);
-	    }
-	  }
+		}
+
+		if (!found) {
+			brews.add(brew);
+			ioController.writeObjectToFile(brews, filepath);
+		}
+	}
 
 	public void updateNote(Double id, int noteId, String noteText) {
 		List<Brew> brews = extractBrew();
@@ -79,7 +79,7 @@ public class BrewController implements Serializable {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public void deleteNote(Double id, int noteId) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -92,16 +92,16 @@ public class BrewController implements Serializable {
 					break;
 				}
 			}
-			
+
 			if(!found) {
 				throw new BrewNotFoundException();
 			}
-			
+
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public void addNote(Double id, String text, Boolean tasting) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -124,7 +124,7 @@ public class BrewController implements Serializable {
 		}
 	}
 
-	
+
 	public void delete(Double id) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -145,7 +145,7 @@ public class BrewController implements Serializable {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public void cancel(Double id) {
 		List<Brew> brews = extractBrew();
 		Brew brew = brews.get(0);
@@ -159,23 +159,23 @@ public class BrewController implements Serializable {
 				break;
 			}
 		}
-		
+
 		ioController.writeObjectToFile(brews, filepath);
-		
+
 		Map<String,Double> bIngredients = brew.getRecipe().getIngredients();
 		Storage storage = Storage.getInstance();
 		Map<String,Double> sIngredients = storage.getIngredients();
-		
+
 		for (Entry<String,Double> i : bIngredients.entrySet()) {
 			double bIngredientValue = sIngredients.get(i.getKey()).doubleValue();
 			sIngredients.put(i.getKey(), i.getValue() + bIngredientValue);
 		}
-		
+
 		storage.updateIngredients(sIngredients);
 		StorageController storageController = StorageController.getInstance();
 		storageController.store(storage);
 	}
-	
+
 	public void setFinishDate(Double id) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -198,15 +198,17 @@ public class BrewController implements Serializable {
 		}
 		ioController.writeObjectToFile(brews, filepath);
 	}
-	
+
 	//for only testing purpose
-		public void deleteFile() {
-			File file = new File(filepath);
-			
+	public void deleteFile() {
+		File file = new File(filepath);
+
+		if (file.exists()) {
 			if (file.delete()) {
 				System.out.println("\nFile deleted");
 			} else {
 				System.out.println("\nImpossible delete file");
 			}
 		}
+	}
 }
