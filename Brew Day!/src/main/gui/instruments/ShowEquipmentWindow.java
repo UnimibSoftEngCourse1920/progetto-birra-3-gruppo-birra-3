@@ -1,6 +1,7 @@
 package main.gui.instruments;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ public class ShowEquipmentWindow extends JFrame implements ActionListener {
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertTheName = new JLabel("The equipment is composed by:");
+		lblInsertTheName.setFont(new Font(lblInsertTheName.getFont().getName(), Font.BOLD, 20));
 		panel.add(lblInsertTheName);
 		
 		JPanel panel1 = new JPanel();
@@ -66,6 +68,9 @@ public class ShowEquipmentWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.setRowHeight(30);
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
@@ -73,17 +78,19 @@ public class ShowEquipmentWindow extends JFrame implements ActionListener {
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
 		btnBack.addActionListener(this);
 		panel2.add(btnBack);
 		
 		JButton btnModifyEquipment = new JButton("Modify Equipment");
 		btnModifyEquipment.addActionListener(this);
+		btnModifyEquipment.setFont(new Font(btnModifyEquipment.getFont().getName(), Font.BOLD, 15));
 		panel2.add(btnModifyEquipment);
 		
 		JButton btnDeleteInstrument = new JButton("Delete Instrument");
+		btnDeleteInstrument.setFont(new Font(btnDeleteInstrument.getFont().getName(), Font.BOLD, 15));
 		btnDeleteInstrument.addActionListener(this);
 		panel2.add(btnDeleteInstrument);
-		
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package main.gui.instruments;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertTheName = new JLabel("Modify the capacity of instruments:");
+		lblInsertTheName.setFont(new Font(lblInsertTheName.getFont().getName(), Font.BOLD, 20));
 		panel.add(lblInsertTheName);
 		
 		JPanel panel1 = new JPanel();
@@ -67,6 +69,9 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.getTableHeader().setFont(new Font(table.getFont().getName(), Font.PLAIN, 16));
+		table.setFont(new Font(table.getFont().getName(), Font.PLAIN, 13));
+		table.setRowHeight(30);
 		JScrollPane scrollPane = new JScrollPane(table);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
@@ -76,12 +81,13 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(this);
+		btnSave.setFont(new Font(btnSave.getFont().getName(), Font.BOLD, 15));
 		panel2.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(this);
+		btnBack.setFont(new Font(btnBack.getFont().getName(), Font.BOLD, 15));
 		panel2.add(btnBack);
-		
 	}
 	
 	private Map<String, Double> updateInstruments(){
