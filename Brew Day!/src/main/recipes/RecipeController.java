@@ -6,6 +6,9 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,14 +17,14 @@ import main.IOController;
 
 public class RecipeController {
 
-	private  String filepath;
+	private Path filepath;
 	private  String counterIdFilepath;
 	private  IOController ioController; 
 	private static RecipeController instance;
 	
 	private RecipeController() {
 		super();
-		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt"; 
+		this.filepath = Paths.get(System.getProperty("user.dir") + "\\src\\Files\\Recipe.txt");
 		this.counterIdFilepath = System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt"; 
 		this.ioController = new IOController();
 	}
@@ -36,8 +39,8 @@ public class RecipeController {
 
 	@SuppressWarnings("unchecked")
 	public List<Recipe> extractRecipe() {
-		if (ioController.readObjectFromFile(filepath) != null) {
-			return (ArrayList<Recipe>) ioController.readObjectFromFile(filepath);
+		if (ioController.readObjectFromFile(filepath.toString()) != null) {
+			return (ArrayList<Recipe>) ioController.readObjectFromFile(filepath.toString());
 		}
 
 		return new ArrayList<>();
@@ -47,7 +50,7 @@ public class RecipeController {
 		List<Recipe> recipes = extractRecipe();
 		if (!recipes.contains(recipe)) {
 			recipes.add(recipe);
-			ioController.writeObjectToFile(recipes, filepath);
+			ioController.writeObjectToFile(recipes, filepath.toString());
 		}
 	}
 
@@ -59,7 +62,7 @@ public class RecipeController {
 				if (recipes.get(i).getId() == id) {
 					recipes.get(i).updateRecipe(name, ingredients);
 					found = true;
-					ioController.writeObjectToFile(recipes, filepath);
+					ioController.writeObjectToFile(recipes, filepath.toString());
 					break;
 				}
 			}
@@ -82,7 +85,7 @@ public class RecipeController {
 					recipes.remove(i);
 					i--;
 					found = true;
-					ioController.writeObjectToFile(recipes, filepath);
+					ioController.writeObjectToFile(recipes, filepath.toString());
 					break;
 				}
 			}
@@ -103,7 +106,7 @@ public class RecipeController {
 				if (recipes.get(i).getId() == id) {
 				    brew = recipes.get(i).createBrew();
 					found = true;
-					ioController.writeObjectToFile(recipes, filepath);
+					ioController.writeObjectToFile(recipes, filepath.toString());
 					break;
 				}
 			}
@@ -147,13 +150,13 @@ public class RecipeController {
 	}
 
 	public void deleteFile() {
-		File file = new File(filepath);
+		File file = new File(filepath.toString());
 
 		if (file.exists()) {
-			if (file.delete()) {
-				System.out.println("\nFile deleted");
-			} else {
-				System.out.println("\nImpossible delete file");
+			try{
+				Files.delete(filepath);
+			} catch(IOException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}
@@ -220,6 +223,6 @@ public class RecipeController {
 			r.updateRecipe(r.getName(), newIngredientsR);
 			newRecipes.add(r);
 		}
-		ioController.writeObjectToFile(newRecipes, filepath);
+		ioController.writeObjectToFile(newRecipes, filepath.toString());
 	}
 }

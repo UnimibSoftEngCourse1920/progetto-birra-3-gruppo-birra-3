@@ -4,18 +4,22 @@ import main.IOController;
 import main.recipes.RecipeController;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 public class EquipmentController {
 
-	private String filepath;
+	private Path filepath;
 	private IOController ioController;
 	private static EquipmentController instance;
 
 
 	private EquipmentController() {
 		super();
-		this.filepath = System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt";
+		this.filepath = Paths.get(System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt");
 		this.ioController = new IOController();
 	}
 
@@ -27,7 +31,7 @@ public class EquipmentController {
 	}
 
 	public Equipment extractEquipment() {
-		return (Equipment) ioController.readObjectFromFile(filepath);
+		return (Equipment) ioController.readObjectFromFile(filepath.toString());
 	}
 
 	public void createEquipment(Map<String, Double> instruments) {
@@ -43,7 +47,7 @@ public class EquipmentController {
 	}
 
 	public void store(Equipment equipment) {
-		ioController.writeObjectToFile(equipment, filepath);
+		ioController.writeObjectToFile(equipment, filepath.toString());
 	}
 
 	public void update(Map<String, Double> instruments) {
@@ -69,15 +73,15 @@ public class EquipmentController {
 		equipment.deleteInstrument(instrumentName);
 		store(equipment);
 	}
-
+	
 	public void deleteFile() {
-		File file = new File(filepath);
+		File file = new File(filepath.toString());
 
 		if (file.exists()) {
-			if (file.delete()) {
-				System.out.println("\nFile deleted");
-			} else {
-				System.out.println("\nImpossible delete file");
+			try{
+				Files.delete(filepath);
+			} catch(IOException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}
