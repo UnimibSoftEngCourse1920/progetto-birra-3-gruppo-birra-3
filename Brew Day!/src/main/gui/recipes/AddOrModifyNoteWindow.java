@@ -3,6 +3,7 @@ package main.gui.recipes;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -12,7 +13,6 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import main.recipes.Brew;
 import main.recipes.BrewController;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -34,7 +34,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 		setIconImage(icon.getImage());
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		this.brewId = brewId;

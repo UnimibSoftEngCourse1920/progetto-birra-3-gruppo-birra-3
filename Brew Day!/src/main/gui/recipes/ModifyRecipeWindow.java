@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,13 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import main.recipes.Recipe;
 import main.recipes.RecipeController;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 
 @SuppressWarnings("serial")
 public class ModifyRecipeWindow extends JFrame implements ActionListener {
@@ -40,7 +39,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
 		setIconImage(icon.getImage());
 		
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		
 		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);

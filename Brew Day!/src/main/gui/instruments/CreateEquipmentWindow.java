@@ -2,12 +2,12 @@ package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,7 +31,7 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
 		setIconImage(icon.getImage());
 		
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

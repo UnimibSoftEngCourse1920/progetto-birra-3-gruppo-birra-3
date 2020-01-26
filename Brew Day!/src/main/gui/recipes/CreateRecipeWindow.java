@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 
 @SuppressWarnings("serial")
 public class CreateRecipeWindow extends JFrame implements ActionListener {
@@ -37,7 +37,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
 		setIconImage(icon.getImage());
 		
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -2,6 +2,7 @@ package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -32,7 +33,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
 		setIconImage(icon.getImage());
 		
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
