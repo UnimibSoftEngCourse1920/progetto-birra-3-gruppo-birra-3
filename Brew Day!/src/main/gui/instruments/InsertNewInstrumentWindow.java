@@ -155,8 +155,6 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 					new ShowEquipmentWindow().setVisible(true);
 					dispose();
 				}
-			}catch (NumberFormatException e1) {
-				JOptionPane.showMessageDialog(this, e1.getMessage());
 			}catch (IllegalArgumentException e1) {
 				JOptionPane.showMessageDialog(this, e1.getMessage());
 			}

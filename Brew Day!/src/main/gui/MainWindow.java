@@ -60,13 +60,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		StorageController sController = StorageController.getInstance();
 		File f = new File(System.getProperty(userDir) + "\\src\\Files\\Storage.txt");
 		if(!f.exists()) {
-			Map<String,Double> defaultIngredients = new HashMap<>();
-			defaultIngredients.put("Malt", 0.0);
-			defaultIngredients.put("Hop", 0.0);
-			defaultIngredients.put("Yeast", 0.0);
-			defaultIngredients.put("Sugar", 0.0);
-			defaultIngredients.put("Additive", 0.0);
-			sController.createStorage(defaultIngredients);
+			createDefaultStorage();
 		}else {
 			Map<String,Double> storageIngredients = sController.extractStorage().getIngredients();
 			sController.createStorage(storageIngredients);
@@ -232,6 +226,17 @@ public class MainWindow extends JFrame implements ActionListener{
 		return recipeController.featureWSIBT();
 	}
 	
+	public void createDefaultStorage() {
+		StorageController sController = StorageController.getInstance();
+		Map<String,Double> defaultIngredients = new HashMap<>();
+		defaultIngredients.put("Malt", 0.0);
+		defaultIngredients.put("Hop", 0.0);
+		defaultIngredients.put("Yeast", 0.0);
+		defaultIngredients.put("Sugar", 0.0);
+		defaultIngredients.put("Additive", 0.0);
+		sController.createStorage(defaultIngredients);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
 		case "View recipes":
@@ -281,12 +286,15 @@ public class MainWindow extends JFrame implements ActionListener{
 				BrewController.getInstance().deleteFile();
 				StorageController.getInstance().deleteFile();
 				EquipmentController.getInstance().deleteFile();
+				createDefaultStorage();
+				
 				try (FileOutputStream fos = new FileOutputStream(System.getProperty(userDir) + "\\src\\Files\\CounterId.txt");
 					DataOutputStream dos = new DataOutputStream(fos)) {
 					dos.writeInt(0); 
 				} catch (IOException ioe) {
 					System.out.println(ioe.getMessage());
 				}
+				Recipe.setStartingId(0);
 			}
 			break;
 		default:
