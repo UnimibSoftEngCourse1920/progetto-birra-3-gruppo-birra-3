@@ -271,16 +271,24 @@ public class MainWindow extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(this, "You can't Brew it!");
 			break;
 		case "Reset":
-			RecipeController.getInstance().deleteFile();
-			BrewController.getInstance().deleteFile();
-			StorageController.getInstance().deleteFile();
-			EquipmentController.getInstance().deleteFile();
-			try (FileOutputStream fos = new FileOutputStream(System.getProperty(userDir) + "\\src\\Files\\CounterId.txt");
-				DataOutputStream dos = new DataOutputStream(fos)) {
-				dos.writeInt(0); 
-			} catch (IOException ioe) {
-				System.out.println(ioe.getMessage());
+			int choice = JOptionPane.showConfirmDialog(null, 
+					"Are you sure you want to reset all your data?\nThis operation cannot be undone",
+					"Confirm",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			
+			if(choice == 0) {
+				RecipeController.getInstance().deleteFile();
+				BrewController.getInstance().deleteFile();
+				StorageController.getInstance().deleteFile();
+				EquipmentController.getInstance().deleteFile();
+				try (FileOutputStream fos = new FileOutputStream(System.getProperty(userDir) + "\\src\\Files\\CounterId.txt");
+					DataOutputStream dos = new DataOutputStream(fos)) {
+					dos.writeInt(0); 
+				} catch (IOException ioe) {
+					System.out.println(ioe.getMessage());
+				}
 			}
+			break;
 		default:
 		}
 	}

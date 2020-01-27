@@ -1,6 +1,7 @@
 package main.gui.instruments;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import javax.swing.JFrame;
@@ -38,6 +39,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(252, 255, 166));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -46,6 +48,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(252, 255, 166));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertNewInstrument = new JLabel("Insert new instrument in your equipment:");
@@ -53,6 +56,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		panel.add(lblInsertNewInstrument);
 		
 		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(252, 255, 166));
 		contentPane.add(panel1, BorderLayout.CENTER);
 		GridBagLayout gblPanel1 = new GridBagLayout();
 		gblPanel1.columnWidths = new int[]{121};
@@ -102,6 +106,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		textField1.setColumns(10);
 		
 		JPanel panel2 = new JPanel();
+		panel2.setBackground(new Color(252, 255, 166));
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");

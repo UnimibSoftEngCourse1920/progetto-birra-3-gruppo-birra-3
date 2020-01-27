@@ -1,6 +1,7 @@
 package main.gui.recipes;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -45,6 +46,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		setVisible(true);
 		this.brewId = id;
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(189, 255, 178));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -52,6 +54,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(189, 255, 178));
 		contentPane.add(panel, BorderLayout.NORTH);
 
 		JLabel label = new JLabel("The Notes are:");
@@ -59,6 +62,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		panel.add(label);
 
 		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(189, 255, 178));
 		contentPane.add(panel1, BorderLayout.CENTER);
 
 		brewController = BrewController.getInstance();
@@ -99,16 +103,17 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
 		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
-		table.setFillsViewportHeight(true);
 		table.setRowHeight(50);
 
 		new ButtonColumn(table, this, 5);
 		new ButtonColumn(table, this, 6);
 
 		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.getViewport().setBackground(new Color(189, 255, 178));
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
 		JPanel panel2 = new JPanel();
+		panel2.setBackground(new Color(189, 255, 178));
 		contentPane.add(panel2, BorderLayout.SOUTH);
 
 		JButton addButton = new JButton("Add");

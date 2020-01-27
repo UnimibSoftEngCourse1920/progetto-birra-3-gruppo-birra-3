@@ -2,6 +2,7 @@ package main.gui.recipes;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		getContentPane().setBackground(new Color(189, 255, 178));
 		this.brewId = brewId;
 		this.noteId = noteId;
 		
@@ -65,6 +67,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 		}
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(189, 255, 178));
 		getContentPane().add(panel, BorderLayout.SOUTH);
 
 		JButton btnSave = new JButton("Save");

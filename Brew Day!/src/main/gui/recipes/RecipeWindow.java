@@ -1,6 +1,7 @@
 package main.gui.recipes;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -43,6 +44,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(189, 216, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -50,6 +52,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(189, 216, 255));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("The Recipes are:");
@@ -57,6 +60,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		panel.add(label);
 		
 		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(189, 216, 255));
 		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		RecipeController recipeController = RecipeController.getInstance();
@@ -94,16 +98,17 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
 		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(40);
-		table.setFillsViewportHeight(true);
 		
 		new ButtonColumn(table, this, 3);
 		new ButtonColumn(table, this, 4);
 		new ButtonColumn(table, this, 5);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.getViewport().setBackground(new Color(189, 216, 255));
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel panel2 = new JPanel();
+		panel2.setBackground(new Color(189, 216, 255));
 		contentPane.add(panel2, BorderLayout.SOUTH);
 
 		JButton backButton = new JButton("Back");

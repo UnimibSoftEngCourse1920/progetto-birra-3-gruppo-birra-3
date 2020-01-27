@@ -1,6 +1,7 @@
 package main.gui.instruments;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(252, 255, 166));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -44,6 +46,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(252, 255, 166));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertTheName = new JLabel("Modify the capacity of instruments:");
@@ -51,6 +54,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		panel.add(lblInsertTheName);
 		
 		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(252, 255, 166));
 		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		Map<String, Double> instruments = new HashMap<>();
@@ -75,10 +79,12 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(30);
 		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.getViewport().setBackground(new Color(252, 255, 166));
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		
 		JPanel panel2 = new JPanel();
+		panel2.setBackground(new Color(252, 255, 166));
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");

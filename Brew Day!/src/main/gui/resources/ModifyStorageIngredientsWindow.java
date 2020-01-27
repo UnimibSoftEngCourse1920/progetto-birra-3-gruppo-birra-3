@@ -1,6 +1,7 @@
 package main.gui.resources;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -40,6 +41,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
 		setVisible(true);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 154, 162));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -47,6 +49,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 154, 162));
 		contentPane.add(panel, BorderLayout.NORTH);
 
 		JLabel label = new JLabel("The storage is:");
@@ -54,6 +57,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 		panel.add(label);
 
 		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(255, 154, 162));
 		contentPane.add(panel1, BorderLayout.CENTER);
 
 		sController = StorageController.getInstance();
@@ -79,9 +83,11 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 		table.setRowHeight(30);
 
 		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.getViewport().setBackground(new Color(255, 154, 162));
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
 		JPanel panel2 = new JPanel();
+		panel2.setBackground(new Color(255, 154, 162));
 		contentPane.add(panel2, BorderLayout.SOUTH);
 
 		JButton modifyButton = new JButton("Save");

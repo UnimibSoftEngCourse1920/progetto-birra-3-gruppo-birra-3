@@ -1,6 +1,7 @@
 package main.gui.recipes;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -58,11 +59,13 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		ingredients = recipe.getIngredients();
 
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(189, 216, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(189, 216, 255));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertTheName = new JLabel("Modify the ingredients of the recipe " + recipeName + ":");
@@ -70,6 +73,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		panel.add(lblInsertTheName);
 		
 		JPanel panel1 = new JPanel();
+		panel1.setBackground(new Color(189, 216, 255));
 		contentPane.add(panel1, BorderLayout.CENTER);
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Ingredient name", "Quantity"}, 0) {
@@ -100,10 +104,13 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
 		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(40);
+		
 		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.getViewport().setBackground(new Color(189, 216, 255));
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel panel2 = new JPanel();
+		panel2.setBackground(new Color(189, 216, 255));
 		contentPane.add(panel2, BorderLayout.SOUTH);
 		
 		JButton btnSave = new JButton("Save");
