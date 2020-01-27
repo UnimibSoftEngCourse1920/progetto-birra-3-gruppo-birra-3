@@ -2,6 +2,7 @@ package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import java.io.File;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class EquipmentWindow extends JFrame implements ActionListener {
@@ -34,7 +36,9 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
 		setIconImage(icon.getImage());
 		
-		setExtendedState(Frame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -2,8 +2,11 @@ package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -35,6 +38,8 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		setIconImage(icon.getImage());
 		
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(252, 255, 166));

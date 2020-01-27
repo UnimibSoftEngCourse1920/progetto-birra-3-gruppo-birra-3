@@ -2,6 +2,7 @@ package main.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.ImageIcon;
@@ -37,6 +40,8 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 		setIconImage(icon.getImage());
 		
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(252, 255, 166));

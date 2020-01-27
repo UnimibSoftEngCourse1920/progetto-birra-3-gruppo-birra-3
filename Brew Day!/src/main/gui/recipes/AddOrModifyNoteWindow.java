@@ -3,8 +3,10 @@ package main.gui.recipes;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -36,6 +38,8 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 		
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
 		setVisible(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		getContentPane().setBackground(new Color(189, 255, 178));

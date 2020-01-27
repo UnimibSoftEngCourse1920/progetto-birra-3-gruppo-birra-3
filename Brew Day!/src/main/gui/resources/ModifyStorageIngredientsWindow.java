@@ -2,8 +2,10 @@ package main.gui.resources;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -39,6 +41,8 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 		setIconImage(icon.getImage());
 		
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
 		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 154, 162));

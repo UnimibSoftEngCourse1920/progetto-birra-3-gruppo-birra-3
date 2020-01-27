@@ -2,6 +2,7 @@ package main.gui.recipes;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import javax.swing.WindowConstants;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class ModifyRecipeWindow extends JFrame implements ActionListener {
@@ -40,7 +42,9 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
 		setIconImage(icon.getImage());
 		
-		setExtendedState(Frame.MAXIMIZED_BOTH); 
+		setExtendedState(Frame.MAXIMIZED_BOTH);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
 		setVisible(true);
 		
 		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);

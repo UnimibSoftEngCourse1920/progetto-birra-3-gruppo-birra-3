@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
@@ -47,6 +48,8 @@ public class MainWindow extends JFrame implements ActionListener{
 	public MainWindow() {
 		super("Brew Day!");
 		setExtendedState(Frame.MAXIMIZED_BOTH); 
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
 		setVisible(true);
 		
 		ImageIcon icon = new ImageIcon(System.getProperty(userDir) + "\\src\\icon.png");
