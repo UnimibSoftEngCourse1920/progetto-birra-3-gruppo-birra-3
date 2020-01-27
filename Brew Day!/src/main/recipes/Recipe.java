@@ -74,6 +74,10 @@ public class Recipe implements Serializable{
 		return startingId;
 	}
 
+	public Map<String, Double> getPercentageIngredients() {
+		return percentageIngredients;
+	}
+
 	public static void setStartingId(int startingId) {
 		Recipe.startingId = startingId;
 	}
@@ -153,16 +157,16 @@ public class Recipe implements Serializable{
 	
 	public Map<String, Double> computePercentage(Map<String, Double> ingredients){
 		if(ingredients != null) {
-			Map<String, Double> percentageIngredients = new HashMap<>();
+			Map<String, Double> percentageIng = new HashMap<>();
 			Double totalGrams = null;
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
 				totalGrams = i.getValue();
 			}
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
 				if(totalGrams != null && totalGrams.compareTo(0.0) != 0)
-					percentageIngredients.put(i.getKey(), i.getValue()/totalGrams);
+					percentageIng.put(i.getKey(), i.getValue()/totalGrams);
 			}
-			return percentageIngredients;
+			return percentageIng;
 		}
 		return null;
 	}
@@ -204,9 +208,5 @@ public class Recipe implements Serializable{
 		else if (!name.equals(other.name))
 				return false;
 		return true;
-	}
-
-	public Map<String, Double> getPercentageIngredients() {
-		return percentageIngredients;
 	}
 }

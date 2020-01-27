@@ -129,7 +129,9 @@ public class RecipeWindow extends JFrame implements ActionListener{
 
 				if (!f.exists() || EquipmentController.getInstance().extractEquipment().getInstruments().isEmpty()) {
 					JOptionPane.showMessageDialog(this, "You need to insert your equipment first!");
-				} else {
+				} else if(EquipmentController.getInstance().extractEquipment().getCapacity().compareTo(0.0) == 0){
+					JOptionPane.showMessageDialog(this, "Your equipment has a capacity equal to zero, change it!");
+				}else {
 					setVisible(false);
 					new CreateRecipeWindow().setVisible(true);
 					dispose();

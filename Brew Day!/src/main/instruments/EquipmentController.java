@@ -54,9 +54,10 @@ public class EquipmentController {
 		try {
 			if(instruments == null) throw new NullInstrumentsException();
 			
-			Equipment equipment = Equipment.getInstance();
+			Equipment equipment = extractEquipment();
 			double oldCapacity = equipment.getCapacity();
 			equipment.updateInstruments(instruments);
+			Equipment.getInstance().updateInstruments(instruments);
 			store(equipment);
 			double newCapacity = equipment.getCapacity();
 			double ingredientsMultiplier = newCapacity/oldCapacity;
@@ -69,8 +70,9 @@ public class EquipmentController {
 	}
 
 	public void delete(String instrumentName) {
-		Equipment equipment = Equipment.getInstance();
+		Equipment equipment = extractEquipment();
 		equipment.deleteInstrument(instrumentName);
+		Equipment.getInstance().deleteInstrument(instrumentName);
 		store(equipment);
 	}
 	

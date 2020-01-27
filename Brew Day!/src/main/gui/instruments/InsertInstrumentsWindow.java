@@ -89,22 +89,24 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 				String instrumentName = table.getValueAt(i, 0).toString();
 				String instrumentCapacity = table.getValueAt(i, 1).toString();
 				if (!instrumentName.matches("[a-zA-Z_]+") || instrumentName.length() >= 13) {
-					throw new IllegalArgumentException();
+					if(instrumentName.length() == 0) throw new IllegalArgumentException("Please insert a name to identify the instrument");
+					else throw new IllegalArgumentException("The instrument name is too long or contains non-literal characters");
 				}
 				else if(!instrumentCapacity.matches("[0-9]+.{0,1}[0-9]*")) {
-					throw new NumberFormatException();
+					throw new NumberFormatException("Insert only positive numbers in capacity field, separated by dot (e.g. Kettle 10.50)");
 				}
 				
 				instruments.put(instrumentName, Double.parseDouble(instrumentCapacity));
 			}
 			return instruments;
 		}catch (NumberFormatException e1) {
-			JOptionPane.showMessageDialog(this,"Insert only positive numbers in capacity field, separated by dot (e.g. Kettle 10.50)");
+			JOptionPane.showMessageDialog(this, e1.getMessage());
 			return null;
 		}catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this,"The instrument name is too long or contains non-literal characters");
+			JOptionPane.showMessageDialog(this, e.getMessage());
 			return null;
 		}
+		
 		
 	}
 
@@ -121,7 +123,7 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 			
 			if(createInstruments() != null) {
 				EquipmentController equipmentController = EquipmentController.getInstance();
-				equipmentController.update(createInstruments());
+				equipmentController.createEquipment(createInstruments());
 				
 				new ShowEquipmentWindow().setVisible(true);
 				dispose();

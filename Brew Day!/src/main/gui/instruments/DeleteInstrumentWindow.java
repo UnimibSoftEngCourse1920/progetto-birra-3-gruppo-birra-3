@@ -4,13 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+
+import main.instruments.Equipment;
 import main.instruments.EquipmentController;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -57,13 +57,11 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 		btnBack.setFont(boldFont);
 		panel2.add(btnBack);
 		
-		
-		Map<String, Double> instruments = new HashMap<>();
 		EquipmentController equipmentController = EquipmentController.getInstance();
-		instruments = equipmentController.extractEquipment().getInstruments();
+		Equipment equipment = equipmentController.extractEquipment();
 		ArrayList<JButton> instrumentsDelete = new ArrayList<>();
 		
-		for(Entry<String, Double> i : instruments.entrySet()) {
+		for(Entry<String, Double> i : equipment.getInstruments().entrySet()) {
 			instrumentsDelete.add(new JButton(i.getKey()));
 		}
 		for(JButton b : instrumentsDelete) {

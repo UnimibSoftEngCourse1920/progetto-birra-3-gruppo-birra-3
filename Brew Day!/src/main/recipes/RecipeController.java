@@ -83,7 +83,7 @@ public class RecipeController {
 			for (int i = 0; i < recipes.size(); i++) {
 				if (recipes.get(i).getId() == id) {
 					recipes.remove(i);
-					i--;
+					
 					found = true;
 					ioController.writeObjectToFile(recipes, filepath.toString());
 					break;
@@ -215,7 +215,7 @@ public class RecipeController {
 		for(int i = 0; i<recipes.size(); i++) {
 			Recipe r = recipes.get(i);
 			Map<String, Double> ingredientsR = r.getIngredients();
-			Map<String, Double> newIngredientsR = new HashMap<String, Double>();
+			Map<String, Double> newIngredientsR = new HashMap<>();
 			for (Entry<String,Double> i1 : ingredientsR.entrySet()) {
 				double updateValue = Math.round(i1.getValue()*multiplier*100.0)/100.0;
 				newIngredientsR.put(i1.getKey(), updateValue);

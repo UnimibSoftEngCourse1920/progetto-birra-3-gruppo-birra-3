@@ -136,7 +136,7 @@ public class BrewController implements Serializable {
 			for (int i = 0; i < brews.size(); i++) {
 				if (brews.get(i).getId().compareTo(id) == 0) {
 					brews.remove(i);
-					i--;
+					
 					found = true;
 					ioController.writeObjectToFile(brews, filepath.toString());
 					break;

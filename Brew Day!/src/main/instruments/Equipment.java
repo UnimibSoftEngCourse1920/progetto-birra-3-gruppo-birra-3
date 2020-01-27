@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Equipment implements Serializable{
 
 	private Map<String, Double> instruments;
-	private double capacity;
+	private Double capacity;
 	private static Equipment instance;
 	private static final long serialVersionUID = 3L;
 
@@ -23,7 +23,7 @@ public class Equipment implements Serializable{
 		return this.instruments;
 	}
 	
-	public double getCapacity() {
+	public Double getCapacity() {
 		return capacity;
 	}
 	
@@ -36,7 +36,7 @@ public class Equipment implements Serializable{
 		this.instruments = instruments;
 	}
 
-	public double computeCapacity(Map<String, Double> instruments) {
+	public Double computeCapacity(Map<String, Double> instruments) {
 		try {
 			double total = 0;
 			for (Double value : instruments.values()) {
@@ -68,7 +68,7 @@ public class Equipment implements Serializable{
 	public void deleteInstrument(String name) {
 		try {
 			if(name == null) throw new InstrumentException("Instrument name null");
-			this.getInstruments().remove(name);
+			getInstruments().remove(name);
 			setCapacity(computeCapacity(instruments));
 		}catch(InstrumentException e) {
 			System.out.println(e.getMessage());

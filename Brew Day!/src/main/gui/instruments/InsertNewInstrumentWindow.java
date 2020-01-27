@@ -131,10 +131,11 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 				String capacity = textField1.getText();
 				
 				if(!name.matches("[a-zA-Z_]+") || name.length() >= 13) {
-					throw new IllegalArgumentException();
+					if(name.length() == 0) throw new IllegalArgumentException("Please insert a name to identify the instrument");
+					else throw new IllegalArgumentException("The instrument name is too long or contains non-literal characters");
 				}
 				else if(!capacity.matches("[0-9]+.{0,1}[0-9]*")) {
-					throw new NumberFormatException();
+					throw new NumberFormatException("Insert only positive numbers in capacity field, separated by dot (e.g. Kettle 10.50)");
 				}
 				for(Entry<String, Double> i : instruments.entrySet()) {
 					if(name.equals(i.getKey())) {
@@ -150,9 +151,9 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 					dispose();
 				}
 			}catch (NumberFormatException e1) {
-				JOptionPane.showMessageDialog(this,"Insert only positive numbers in capacity field, separated by dot (e.g. Kettle 10.50)");
+				JOptionPane.showMessageDialog(this, e1.getMessage());
 			}catch (IllegalArgumentException e1) {
-				JOptionPane.showMessageDialog(this,"The instrument name is too long or contains non-literal characters");
+				JOptionPane.showMessageDialog(this, e1.getMessage());
 			}
 		}
 	}
