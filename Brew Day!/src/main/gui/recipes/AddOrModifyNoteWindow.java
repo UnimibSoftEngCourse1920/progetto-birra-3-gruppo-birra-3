@@ -47,6 +47,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 		this.noteId = noteId;
 		
 		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
+		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 		textArea = new JTextArea(16,20);
 		getContentPane().add(textArea, BorderLayout.CENTER);
@@ -75,10 +76,12 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 		getContentPane().add(panel, BorderLayout.SOUTH);
 
 		JButton btnSave = new JButton("Save");
+		btnSave.setFont(boldFont);
 		btnSave.addActionListener(this);
 		panel.add(btnSave);
 
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setFont(boldFont);
 		btnCancel.addActionListener(this);
 		panel.add(btnCancel);
 	}
