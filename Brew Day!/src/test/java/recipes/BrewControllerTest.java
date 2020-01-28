@@ -103,17 +103,17 @@ public class BrewControllerTest {
 		String txt2 = "New note 3";
 		
 		brewController.updateNote(brew1.getId(), 2, txt1);
-		brewController.updateNote(brew2.getId(), -3, txt2);
+		brewController.updateNote(brew2.getId(), -1, txt2);
 		
 		brew1.modifyNote(2, txt1);
-		brew2.modifyNote(-3, txt2);
+		brew2.modifyNote(-1, txt2);
 		
 		List<Brew> brews = brewController.extractBrew();
 		
 		brewController.deleteFile();
 		
-		assertEquals(brews.get(0).getNotes(),brew1.getNotes());
-		assertEquals(brews.get(1).getNotes(),brew2.getNotes());	
+		assertEquals(brews.get(0).getNotes().get(2),brew1.getNotes().get(2));
+		assertEquals(brews.get(1).getNotes().get(-1),brew2.getNotes().get(-1));	
 	}
 	
 	@Test

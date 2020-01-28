@@ -33,9 +33,9 @@ public class StorageTest {
 		assertTrue(storage.getIngredients().containsKey("Malt"));
 		assertTrue(storage.getIngredients().containsKey("Hop"));
 		assertTrue(storage.getIngredients().containsKey(yeast));
-		assertEquals(10,0 , storage.getIngredients().get("Malt").doubleValue());
-		assertEquals(30,0 , storage.getIngredients().get("Hop").doubleValue());
-		assertEquals(40,0 , storage.getIngredients().get(yeast).doubleValue());
+		assertEquals(10.0, storage.getIngredients().get("Malt").doubleValue(),0);
+		assertEquals(30.0, storage.getIngredients().get("Hop").doubleValue(),0);
+		assertEquals(40.0, storage.getIngredients().get(yeast).doubleValue(),0);
 	}
 
 	@Test

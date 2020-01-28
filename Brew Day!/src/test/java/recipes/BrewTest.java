@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class BrewTest {
 	
-	String yeast = "Yeas";
+	String yeast = "Yeast";
 	String recipeName = "Recipe";
 	String note1 = "Note 1";
 	BrewController brewController = BrewController.getInstance();
@@ -46,10 +46,12 @@ public class BrewTest {
 		storage.setIngredients(storageIngredients);
 		
 		//create Brew correctly
-		assertEquals(1,1 , recipe1.createBrew().getId());
-		assertEquals(1,2 , recipe1.createBrew().getId());
+		assertEquals(recipe1.getId() + 0.1, recipe1.createBrew().getId(),0);
+		assertEquals(recipe1.getId() + 0.2, recipe1.createBrew().getId(),0);
 		
-		assertEquals(2,1 , new Recipe("Recipe 2", new HashMap<String,Double>()).createBrew().getId());
+		Recipe recipe2 = new Recipe("Recipe 2", new HashMap<String,Double>());
+		
+		assertEquals(recipe2.getId() + 0.1 , recipe2.createBrew().getId(),0);
 	    
 		sController.deleteFile();
 		brewController.deleteFile();

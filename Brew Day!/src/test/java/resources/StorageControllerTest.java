@@ -76,9 +76,9 @@ public class StorageControllerTest {
 		sController.update(ingredients);
 		Storage storageExtracted = sController.extractStorage();
 		
-		assertEquals(storageExtracted.getIngredients().get("Malt").doubleValue(), 10,0);
-		assertEquals(storageExtracted.getIngredients().get("Hop").doubleValue(), 30,0);
-		assertEquals(storageExtracted.getIngredients().get("Yeast").doubleValue(), 40,0);
+		assertEquals(10.0, storageExtracted.getIngredients().get("Malt").doubleValue(),0);
+		assertEquals(30.0, storageExtracted.getIngredients().get("Hop").doubleValue(),0);
+		assertEquals(40.0, storageExtracted.getIngredients().get("Yeast").doubleValue(),0);
 		
 		sController.deleteFile();
 	}

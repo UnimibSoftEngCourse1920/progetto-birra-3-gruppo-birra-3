@@ -62,9 +62,9 @@ public class RecipeTest {
 		brewController.deleteFile();
 		sController.deleteFile();
 		
-		assertTrue(brew1.getId().compareTo(recipe1.getId() + 0.1) == 0);
-		assertTrue(brew2.getId().compareTo(recipe1.getId() + 0.2) == 0);
-		assertTrue(brew3.getId().compareTo(recipe2.getId() + 0.1) == 0);
+		assertEquals(recipe1.getId() + 0.1, brew1.getId(),0);
+		assertEquals(recipe1.getId() + 0.2, brew2.getId(),0);
+		assertEquals(recipe2.getId() + 0.1, brew3.getId(),0);
 	}
 	
 	@Test

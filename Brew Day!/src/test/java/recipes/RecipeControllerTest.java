@@ -198,7 +198,7 @@ public class RecipeControllerTest {
 			System.out.println("IOException : " + ioe);
 		}
 		
-		assertEquals(id, 21);
+		assertEquals(21, id);
 		
 		recipeController.updateCounterId(12);
 		
@@ -222,7 +222,7 @@ public class RecipeControllerTest {
 			System.out.println(e.getMessage());
 		}
 
-		assertEquals(id, 12);
+		assertEquals(12, id);
 	}
 	
 	
