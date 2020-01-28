@@ -116,7 +116,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 			}
 			return newIngredients;
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this,"Insert only positive number in quantity field");
+			JOptionPane.showMessageDialog(this,"Insert only positive numbers in quantity field, separated by dot (e.g. Sugar 10.50)");
 			return null;
 		} 
 	}

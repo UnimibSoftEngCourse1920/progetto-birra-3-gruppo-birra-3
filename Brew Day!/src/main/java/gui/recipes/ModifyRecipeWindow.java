@@ -82,7 +82,7 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 		panel1.setBackground(new Color(189, 216, 255));
 		contentPane.add(panel1, BorderLayout.CENTER);
 		
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Ingredient name", "Quantity"}, 0) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Ingredient name", "Quantity (g)"}, 0) {
 			@Override
 			   public boolean isCellEditable(int row, int column) {
 			       return column == 1;
@@ -150,15 +150,16 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 				dispose();
 				break;
 			case "Save":
+				if (table.isEditing()) {
+					table.getCellEditor().stopCellEditing();
+				}
+				
 				String name = updateName();
 				Map<String, Double> ingredients = updateIngredients();
 				
 				if(name != null && ingredients != null) {
-					if (table.isEditing())
-					    table.getCellEditor().stopCellEditing();
-					
 					RecipeController recipeController = RecipeController.getInstance();
-					recipeController.update(recipe.getId(),updateName(),updateIngredients());
+					recipeController.update(recipe.getId(),name,ingredients);
 					recipeWindow = new RecipeWindow();
 					
 					recipeWindow.setVisible(true);
@@ -183,12 +184,18 @@ public class ModifyRecipeWindow extends JFrame implements ActionListener {
 					ingredients.put(table.getValueAt(i, 0).toString(), fromStringToDouble(ingredientQuantity));
 				}
 			}
+			if(ingredients.isEmpty()) {
+				throw new NullInputException();
+			}
 			return ingredients;
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this,"Insert only positive number in quantity field");
+			JOptionPane.showMessageDialog(this,"Insert only positive numbers in quantity field, separated by dot (e.g. Sugar 10.50)");
 			return null;
 		} catch (IllegalArgumentException e) {
 			JOptionPane.showMessageDialog(this,"Insert only string in ingredient name field");
+			return null;
+		} catch (NullInputException e) {
+			JOptionPane.showMessageDialog(this,"Insert at least an ingredient");
 			return null;
 		}
 	}

@@ -90,7 +90,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		StringBuilder ingredients = new StringBuilder();
 		for(Recipe r : recipes) {
 			for(Entry<String, Double> i : r.getIngredients().entrySet()) {
-				ingredients.append("   " + i.getKey() + " = " + Double.toString(i.getValue()));
+				ingredients.append("   " + i.getKey() + " = " + Double.toString(i.getValue()) + "g");
 			}
 			model.addRow(new String[] {Integer.toString(r.getId()),r.getName(),ingredients.toString(),"Brew it!","Modify","Delete"});
 			ingredients = new StringBuilder();

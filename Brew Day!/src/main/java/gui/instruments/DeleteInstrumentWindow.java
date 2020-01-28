@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
+	private JPanel panel1;
 
 	public DeleteInstrumentWindow() {
 		super("Brew Day! - Delete instrument");
@@ -54,7 +55,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 		lblSelectTheInstrument.setFont(boldFont);
 		panel.add(lblSelectTheInstrument);
 		
-		JPanel panel1 = new JPanel();
+		panel1 = new JPanel();
 		panel1.setBackground(new Color(252, 255, 166));
 		contentPane.add(panel1, BorderLayout.WEST);
 		
@@ -93,9 +94,9 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 			String instrumentDel = e.getActionCommand();
 			equipmentController.delete(instrumentDel);
 			
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
-			dispose();
+			JButton clickedButton = (JButton)e.getSource();
+			panel1.remove(clickedButton);
+			repaint();
 		}
 	}
 }

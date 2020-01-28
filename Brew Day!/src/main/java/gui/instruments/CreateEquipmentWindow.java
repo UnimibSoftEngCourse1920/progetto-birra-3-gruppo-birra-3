@@ -111,11 +111,14 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 			try {
 				String inputString = textField.getText();
 				int input = Integer.parseInt(inputString);
+				if (input < 0){
+					throw new NumberFormatException();
+				} 
 				InsertInstrumentsWindow insertInstrumentsWin = new InsertInstrumentsWindow(input);
 				insertInstrumentsWin.setVisible(true);
 				dispose();
 			} catch (NumberFormatException|NullPointerException e1) {
-				JOptionPane.showMessageDialog(this,"You must insert a number");
+				JOptionPane.showMessageDialog(this,"You must insert a positive integer number");
 			}	
 		}
 	}

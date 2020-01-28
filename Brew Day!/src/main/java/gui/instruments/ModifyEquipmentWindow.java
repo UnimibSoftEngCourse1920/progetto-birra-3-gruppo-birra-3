@@ -116,7 +116,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 			}
 			return instruments;
 		} catch (IllegalArgumentException e) {
-			JOptionPane.showMessageDialog(this,"Insert only positive numbers, separated by dot");
+			JOptionPane.showMessageDialog(this,"Insert only positive numbers, separated by dot (e.g. Kettle 10.50)");
 			return null;
 		}
 	}

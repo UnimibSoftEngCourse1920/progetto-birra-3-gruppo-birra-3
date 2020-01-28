@@ -127,8 +127,8 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
+			CreateEquipmentWindow crtEquipmentWin = new CreateEquipmentWindow();
+			crtEquipmentWin.setVisible(true);
 			dispose();
 		}
 		else {

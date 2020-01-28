@@ -89,7 +89,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		StringBuilder ingredient = new StringBuilder();
 		for(Brew b : brews) {
 			for(Entry<String, Double> i : b.getRecipe().getIngredients().entrySet()) {
-				ingredient.append("   " + i.getKey() + "= " + Double.toString(i.getValue()));
+				ingredient.append("   " + i.getKey() + "= " + Double.toString(i.getValue()) + "g");
 			}
 			model.addRow(new String[] {Double.toString(b.getId()),Integer.toString(b.getRecipe().getId()),b.getRecipe().getName(),ingredient.toString(),Integer.toString(b.getNotes().size()),fromDatetoString(b.getStartDate()),fromDatetoString(b.getFinishDate()),"View Notes","Terminate","Cancel","Delete"});
 			ingredient = new StringBuilder();
