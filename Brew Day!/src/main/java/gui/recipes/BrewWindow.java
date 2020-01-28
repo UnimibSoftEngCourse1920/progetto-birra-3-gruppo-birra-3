@@ -98,7 +98,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		table = new JTable(model);
 		table.setBorder(null);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getColumnModel().getColumn(3).setPreferredWidth(350);
+		table.getColumnModel().getColumn(2).setPreferredWidth(350);
 		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
 		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		table.setRowHeight(40);
