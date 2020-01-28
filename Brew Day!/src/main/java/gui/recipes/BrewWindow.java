@@ -71,7 +71,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
 
-		DefaultTableModel model = new DefaultTableModel(new String[]{"Brew Number","Recipe Number", "Recipe Name","Ingredients","Note's Number","Start Date","Finish Date","","","",""}, 0) {
+		DefaultTableModel model = new DefaultTableModel(new String[]{"Brew Number", "Recipe Name","Ingredients","Batch Size (l)","Note's Number","Start Date","Finish Date","","","",""}, 0) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				switch (column) {
@@ -91,7 +91,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 			for(Entry<String, Double> i : b.getRecipe().getIngredients().entrySet()) {
 				ingredient.append("   " + i.getKey() + "= " + Double.toString(i.getValue()) + "g");
 			}
-			model.addRow(new String[] {Double.toString(b.getId()),Integer.toString(b.getRecipe().getId()),b.getRecipe().getName(),ingredient.toString(),Integer.toString(b.getNotes().size()),fromDatetoString(b.getStartDate()),fromDatetoString(b.getFinishDate()),"View Notes","Terminate","Cancel","Delete"});
+			model.addRow(new String[] {Double.toString(b.getId()),b.getRecipe().getName(),ingredient.toString(),Double.toString(b.getBatchSize()),Integer.toString(b.getNotes().size()),fromDatetoString(b.getStartDate()),fromDatetoString(b.getFinishDate()),"View Notes","Terminate","Cancel","Delete"});
 			ingredient = new StringBuilder();
 		}
 

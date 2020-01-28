@@ -13,13 +13,15 @@ public class Brew implements Serializable{
 	private Map<Integer,String> notes = new HashMap<>();
 	private Recipe recipe;
 	private int countNote = 1;
+	private double batchSize;
 	private static final long serialVersionUID = 2L;
 	
-	public Brew(Recipe recipe, Date startDate) {
+	public Brew(Recipe recipe, Date startDate, double batchSize) {
 		super();
 		this.id = (double) recipe.getId() + recipe.getCountBrew() / 10;
 		this.startDate = startDate;
 		this.recipe = recipe;
+		this.batchSize = batchSize;
 	}
 
 	public Double getId() {
@@ -42,6 +44,10 @@ public class Brew implements Serializable{
 		return this.recipe;
 	}
 	
+	public double getBatchSize() {
+		return batchSize;
+	}
+
 	public String getNoteType(int id) {
 		if (id > 0) return "Standard";
 		return "Tasting";

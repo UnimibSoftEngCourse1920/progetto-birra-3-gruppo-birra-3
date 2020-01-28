@@ -1,6 +1,7 @@
 package main.java.recipes;
 
 import main.java.IngredientNotFoundException;
+import main.java.instruments.Equipment;
 import main.java.resources.Storage;
 import main.java.resources.StorageController;
 
@@ -101,7 +102,7 @@ public class Recipe implements Serializable{
 		missingIngredients = this.computeMissingIngredients();
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
-			Brew b = new Brew(this, currentDate);
+			Brew b = new Brew(this, currentDate, Equipment.getInstance().getCapacity());
 			countBrew++;
 			BrewController brewController = BrewController.getInstance();
 			brewController.store(b);
