@@ -71,7 +71,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		new ButtonColumn(table, this, 4);
 		new ButtonColumn(table, this, 5);
 		
-		WindowEditor.createBackAndOther(null, contentPane, this, color,"New Recipe");
+		WindowEditor.createBackAndOther(null, contentPane, this, color,"New recipe");
 	}
 	
 	public void actionPerformed(ActionEvent e) {

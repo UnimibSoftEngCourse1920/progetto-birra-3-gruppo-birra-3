@@ -170,7 +170,6 @@ implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
 		fireEditingStopped();
 
 		//  Invoke the Action
-
 		ActionEvent event = new ActionEvent(
 				table,
 				ActionEvent.ACTION_PERFORMED,
