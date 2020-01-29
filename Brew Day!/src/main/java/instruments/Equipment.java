@@ -37,17 +37,11 @@ public class Equipment implements Serializable{
 	}
 
 	public Double computeCapacity(Map<String, Double> instruments) {
-		try {
-			double total = 0;
-			for (Double value : instruments.values()) {
-				if(value < 0) throw new CapacityException("Negative Capacity");
+		double total = 0;
+		for (Double value : instruments.values()) {
 				total += value;
-			}
-			return total;
-		}catch(CapacityException e) {
-			System.out.println(e.getMessage());
-			return 0.00;
 		}
+	    return total;
 	}
 
 
@@ -55,25 +49,18 @@ public class Equipment implements Serializable{
 		try {
 			if(instruments == null) throw new NullInstrumentsException("Instruments null");
 			for(Entry<String, Double> i : instruments.entrySet()) {
-				if(i.getKey() == null || i.getValue() == null) throw new InstrumentException("Instrument null");
 				getInstruments().put(i.getKey(), i.getValue());
 			}
 			setCapacity(computeCapacity(getInstruments()));
-		}catch(InstrumentException e) {
+		}catch(NullInstrumentsException e) {
 			System.out.println(e.getMessage());
 		}
 		
 	}
 
 	public void deleteInstrument(String name) {
-		try {
-			if(name == null) throw new InstrumentException("Instrument name null");
 			getInstruments().remove(name);
 			setCapacity(computeCapacity(instruments));
-		}catch(InstrumentException e) {
-			System.out.println(e.getMessage());
-		}
-		
 	}
 
 	public static Equipment getInstance() {

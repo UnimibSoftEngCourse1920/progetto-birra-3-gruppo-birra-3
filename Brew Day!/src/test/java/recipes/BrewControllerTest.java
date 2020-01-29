@@ -203,7 +203,7 @@ public class BrewControllerTest {
 	}
 	
 	@Test
-	public void tesAddNote() {	
+	public void testAddNote() {	
 		Recipe recipe1 = new Recipe("Recipe1", null);
 		Date startDate = new Date(System.currentTimeMillis());
 		Brew brew1 = new Brew(recipe1, startDate,1);
@@ -227,5 +227,27 @@ public class BrewControllerTest {
 		
 		assertEquals(brews.get(0).getNotes(),brew1.getNotes());
 		assertEquals(brews.get(1).getNotes(),brew2.getNotes());
+	}
+	
+	@Test
+	public void testSetFinishDate() {	
+		Recipe recipe1 = new Recipe("Recipe1", null);
+		Date startDate = new Date(System.currentTimeMillis());
+		Brew brew1 = new Brew(recipe1, startDate,1);
+		brewController.store(brew1);
+		
+		Recipe recipe2 = new Recipe("Recipe2", null);
+		Brew brew2 = new Brew(recipe2, startDate,1);
+		brewController.store(brew2);
+		
+		brewController.setFinishDate(brew1.getId());
+		brewController.setFinishDate(brew2.getId());
+		
+		List<Brew> brews = brewController.extractBrew();
+		
+		brewController.deleteFile();
+		
+		assertFalse(brews.get(0).getFinishDate() == null);
+		assertFalse(brews.get(1).getFinishDate() == null);
 	}
 }

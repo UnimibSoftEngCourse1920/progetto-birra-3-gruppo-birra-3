@@ -268,4 +268,33 @@ public class RecipeControllerTest {
 		
 		assertEquals(recipeFeature.getId(), recipe2.getId());		
 	}
+	
+	@Test
+	public void testGetMissingIngredients() {
+		StorageController sController = StorageController.getInstance();
+		BrewController brewController = BrewController.getInstance();
+		RecipeController recipeController = RecipeController.getInstance();
+		
+		HashMap<String,Double> sIngredients = new HashMap<>();
+	    sIngredients.put("Malt", 0.0);
+		Storage storage = Storage.getInstance();
+		storage.setIngredients(sIngredients);
+		sController.store(storage);
+		
+		Map<String,Double> ingredients = new HashMap<String, Double>();
+		ingredients.put("Malt", 10.0);
+		Recipe recipe1 = new Recipe(recipeName1, ingredients);
+		recipeController.store(recipe1);
+		recipeController.createBrew(recipe1.getId());
+		Recipe recipe2 = new Recipe(recipeName2, ingredients);
+		recipeController.store(recipe2);
+		
+		Map<String,Double> missingIngredients = recipeController.getMissingIngredients(recipe1.getId());
+		
+		brewController.deleteFile();
+		sController.deleteFile();
+		recipeController.deleteFile();
+		
+		assertTrue(missingIngredients.equals(ingredients));
+	}
 }
