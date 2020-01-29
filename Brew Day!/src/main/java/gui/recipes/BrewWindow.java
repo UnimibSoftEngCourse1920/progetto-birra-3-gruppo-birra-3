@@ -1,8 +1,6 @@
 package main.java.gui.recipes;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -10,12 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,21 +30,11 @@ public class BrewWindow extends JFrame implements ActionListener {
 	public BrewWindow() {
 		super("Brew Day! - Brews");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(189, 255, 178));
+		Color color = new Color(189, 255, 178);
 		
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		contentPane = WindowEditor.showWindow(this, color);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(189, 255, 178));
-		contentPane.add(panel, BorderLayout.NORTH);
-
-		JLabel label = new JLabel("The brews are:");
-		label.setFont(boldFont);
-		panel.add(label);
-
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(189, 255, 178));
-		contentPane.add(panel1, BorderLayout.CENTER);
+		WindowEditor.initializeWindow(contentPane, color, "The brews are:");
 
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
@@ -78,33 +63,17 @@ public class BrewWindow extends JFrame implements ActionListener {
 			ingredient = new StringBuilder();
 		}
 
-		table = new JTable(model);
-		table.setBorder(null);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table = WindowEditor.createTable(model, this, color, 40);
 		table.getColumnModel().getColumn(2).setPreferredWidth(350);
-		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
-		table.setRowHeight(40);
 
 	    new ButtonColumn(table, this, 7);
 		new ButtonColumn(table, this, 8);
 		new ButtonColumn(table, this, 9);
 		new ButtonColumn(table, this, 10);
 
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.getViewport().setBackground(new Color(189, 255, 178));
-		contentPane.add(scrollPane, BorderLayout.CENTER);
-
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(189, 255, 178));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-
-		JButton btnBack = new JButton("Back");
-		btnBack.setFont(boldFont);
-		btnBack.addActionListener(this);
-		panel2.add(btnBack);
+		WindowEditor.createBack(null, contentPane, this, color);
 	}
-
+	
 	public static String fromDatetoString(Date date) {
 		if (date == null) {
 			return "";
@@ -119,8 +88,8 @@ public class BrewWindow extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Back")) {
-			new MainWindow().setVisible(true);
-			dispose();
+			MainWindow mainWindow = new MainWindow();
+			WindowEditor.back(this,mainWindow);
 		} else {
 			String[] tokens = e.getActionCommand().split("/");
 			Double brewId = Double.parseDouble(tokens[0]);

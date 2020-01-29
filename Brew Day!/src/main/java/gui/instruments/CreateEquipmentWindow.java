@@ -2,13 +2,8 @@ package main.java.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,70 +22,32 @@ public class CreateEquipmentWindow extends JFrame implements ActionListener{
 	public CreateEquipmentWindow() {
 		super("Brew Day! - Create equipment");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(252, 255, 166));
+		Color color = new Color(252, 255, 166);
 		
-		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
+		contentPane = WindowEditor.showWindow(this, color);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(252, 255, 166));
+		panel.setBackground(color);
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblCreateEquipment = new JLabel("Create Equipment");
-		lblCreateEquipment.setFont(boldFont);
+		lblCreateEquipment.setFont(WindowEditor.boldFont);
 		panel.add(lblCreateEquipment);
 		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel2, BorderLayout.CENTER);
-		GridBagLayout gblPanel2 = new GridBagLayout();
-		gblPanel2.columnWidths = new int[]{301, 0};
-		gblPanel2.rowHeights = new int[]{0, 0, 0, 0};
-		gblPanel2.columnWeights = new double[]{10.0, Double.MIN_VALUE};
-		gblPanel2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel2.setLayout(gblPanel2);
+		JPanel panel2 = WindowEditor.createGridBagPanel(contentPane, color, new int[]{301, 0}, new int[]{0, 0, 0, 0},
+				new double[]{10.0, Double.MIN_VALUE}, new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE});
 		
-		JLabel lblHowManyInstruments = new JLabel("How many instruments do you want to insert?");
-		lblHowManyInstruments.setFont(plainFont);
-		GridBagConstraints gbcLblHowManyInstruments = new GridBagConstraints();
-		gbcLblHowManyInstruments.insets = new Insets(0, 0, 5, 0);
-		gbcLblHowManyInstruments.gridx = 0;
-		gbcLblHowManyInstruments.gridy = 0;
-		panel2.add(lblHowManyInstruments, gbcLblHowManyInstruments);
-		
-		textField = new JTextField(10);
-		textField.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
-		GridBagConstraints gbcTextField = new GridBagConstraints();
-		gbcTextField.insets = new Insets(0, 0, 5, 0);
-		gbcTextField.gridx = 0;
-		gbcTextField.gridy = 1;
-		panel2.add(textField, gbcTextField);
-		
-		JButton btnNext = new JButton("Next >");
-		btnNext.addActionListener(this);
-		btnNext.setFont(boldFont);
-		
-		GridBagConstraints gbcBtnNext = new GridBagConstraints();
-		gbcBtnNext.gridx = 0;
-		gbcBtnNext.gridy = 2;
-		panel2.add(btnNext, gbcBtnNext);
-		
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel1, BorderLayout.SOUTH);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(this);
-		btnBack.setFont(boldFont);
-		panel1.add(btnBack);
+		WindowEditor.createGridBagLabel("How many instruments do you want to insert?", panel2, 0);
+		textField = WindowEditor.createGridBagTextField(panel2, 1,false);
+		WindowEditor.createGridBagButton("Next >", this, panel2, 2,false);
+	
+		WindowEditor.createBack(null, contentPane, this, color);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
-			dispose();
+			WindowEditor.back(this,new EquipmentWindow());
 		}
 		else {
 			try {

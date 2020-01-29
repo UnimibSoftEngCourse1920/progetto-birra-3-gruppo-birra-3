@@ -1,19 +1,14 @@
 package main.java.gui.resources;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,21 +27,11 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 	public ModifyStorageIngredientsWindow() {
 		super("Brew Day! - Storage");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(255, 154, 162));
+		Color color = new Color(255, 154, 162);
 		
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 154, 162));
-		contentPane.add(panel, BorderLayout.NORTH);
-
-		JLabel label = new JLabel("The storage is:");
-		label.setFont(boldFont);
-		panel.add(label);
-
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(255, 154, 162));
-		contentPane.add(panel1, BorderLayout.CENTER);
+		contentPane = WindowEditor.showWindow(this, color);
+		
+		WindowEditor.initializeWindow(contentPane, color, "The storage is:");
 
 		sController = StorageController.getInstance();
 
@@ -63,52 +48,22 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 			model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 		}
 
-		table = new JTable(model);
-		table.setBorder(null);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
-		table.setRowHeight(30);
+		table = WindowEditor.createTable(model, this, color, 30);
 
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.getViewport().setBackground(new Color(255, 154, 162));
-		contentPane.add(scrollPane, BorderLayout.CENTER);
-
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(255, 154, 162));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-
-		JButton modifyButton = new JButton("Save");
-		modifyButton.setFont(boldFont);
-		modifyButton.addActionListener(this);
-
-		panel2.add(modifyButton);
-
-		JButton backButton = new JButton("Cancel");
-		backButton.setFont(boldFont);
-		backButton.addActionListener(this);
-
-		panel2.add(backButton);
+		WindowEditor.createBackAndOther(null, contentPane, this, color,"Save");
 	}
 
 	private Map<String,Double> extractIngredients() {
 		try {
 			Map<String,Double> newIngredients = new HashMap<>();
 			for (int i = 0; i < table.getRowCount(); i++) {
-				newIngredients.put(table.getValueAt(i, 0).toString(), fromStringToDouble(table.getValueAt(i, 1).toString()));
+				newIngredients.put(table.getValueAt(i, 0).toString(), WindowEditor.fromStringToDouble(table.getValueAt(i, 1).toString()));
 			}
 			return newIngredients;
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this,"Insert only positive numbers in quantity field, separated by dot (e.g. Sugar 10.50)");
 			return null;
 		} 
-	}
-
-	private Double fromStringToDouble(String str) {
-		if (str.contains("-")) {
-			throw new NumberFormatException();
-		} 
-		return Double.parseDouble(str);
 	}
 
 
@@ -127,8 +82,7 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 			}
 		} else {
 			StorageWindow sWindow = new StorageWindow();
-			sWindow.setVisible(true);
-			dispose();
+			WindowEditor.back(this,sWindow);
 		}
 	}
 

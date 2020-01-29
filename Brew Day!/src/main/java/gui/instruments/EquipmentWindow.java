@@ -2,7 +2,6 @@ package main.java.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -12,13 +11,9 @@ import main.java.instruments.EquipmentController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 @SuppressWarnings("serial")
 public class EquipmentWindow extends JFrame implements ActionListener {
@@ -29,92 +24,28 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 	public EquipmentWindow() {
 		super("Brew Day! - Equipment menu");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(252, 255, 166));
+		Color color = new Color(252, 255, 166);
 		
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		contentPane = WindowEditor.showWindow(this, color);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(252, 255, 166));
+		panel.setBackground(color);
 		contentPane.add(panel, BorderLayout.NORTH);
 
 		JLabel lblEquipment = new JLabel("Equipment menu");
-		lblEquipment.setFont(boldFont);
+		lblEquipment.setFont(WindowEditor.boldFont);
 		panel.add(lblEquipment);
 
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel1, BorderLayout.CENTER);
-		GridBagLayout gblPanel1 = new GridBagLayout();
-		gblPanel1.columnWidths = new int[]{121};
-		gblPanel1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gblPanel1.columnWeights = new double[]{0.0};
-		gblPanel1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel1.setLayout(gblPanel1);
-
-		JButton btnShowEquipment = new JButton("Show Equipment");
-		btnShowEquipment.setFont(boldFont);
-		btnShowEquipment.addActionListener(this);
+		JPanel panel1 = WindowEditor.createGridBagPanel(contentPane, color, new int[]{121}, new int[]{0, 0, 0, 0, 0, 0, 0},
+				new double[]{0.0}, new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE});
 		
-		GridBagConstraints gbcBtnShowEquipment = new GridBagConstraints();
-		gbcBtnShowEquipment.fill = GridBagConstraints.BOTH;
-		gbcBtnShowEquipment.insets = new Insets(0, 0, 5, 0);
-		gbcBtnShowEquipment.gridx = 0;
-		gbcBtnShowEquipment.gridy = 1;
-		panel1.add(btnShowEquipment, gbcBtnShowEquipment);
-
-
-		JButton btnCreateEquipment = new JButton("Create Equipment");
-		btnCreateEquipment.setFont(boldFont);
-		btnCreateEquipment.addActionListener(this);
-
-		GridBagConstraints gbcBtnCreateEquipment = new GridBagConstraints();
-		gbcBtnCreateEquipment.fill = GridBagConstraints.BOTH;
-		gbcBtnCreateEquipment.insets = new Insets(0, 0, 5, 0);
-		gbcBtnCreateEquipment.gridx = 0;
-		gbcBtnCreateEquipment.gridy = 0;
-		panel1.add(btnCreateEquipment, gbcBtnCreateEquipment);
+		WindowEditor.createGridBagButton("Show Equipment", this, panel1, 1,true);
+		WindowEditor.createGridBagButton("Create Equipment", this, panel1, 0,true);
+		WindowEditor.createGridBagButton("Modify Equipment", this, panel1, 2,true);
+		WindowEditor.createGridBagButton("Insert New Instrument", this, panel1, 3,true);
+		WindowEditor.createGridBagButton("Delete Instrument", this, panel1, 4,true);
 		
-		JButton btnModifyEquipment = new JButton("Modify Equipment");
-		btnModifyEquipment.setFont(boldFont);
-		btnModifyEquipment.addActionListener(this);
-
-		GridBagConstraints gbcBtnModifyEquipment = new GridBagConstraints();
-		gbcBtnModifyEquipment.fill = GridBagConstraints.BOTH;
-		gbcBtnModifyEquipment.insets = new Insets(0, 0, 5, 0);
-		gbcBtnModifyEquipment.gridx = 0;
-		gbcBtnModifyEquipment.gridy = 2;
-		panel1.add(btnModifyEquipment, gbcBtnModifyEquipment);
-
-		JButton btnInsertNewInstrument = new JButton("Insert New Instrument");
-		btnInsertNewInstrument.setFont(boldFont);
-		btnInsertNewInstrument.addActionListener(this);
-
-		GridBagConstraints gbcBtnInsertNewInstrument = new GridBagConstraints();
-		gbcBtnInsertNewInstrument.fill = GridBagConstraints.BOTH;
-		gbcBtnInsertNewInstrument.insets = new Insets(0, 0, 5, 0);
-		gbcBtnInsertNewInstrument.gridx = 0;
-		gbcBtnInsertNewInstrument.gridy = 3;
-		panel1.add(btnInsertNewInstrument, gbcBtnInsertNewInstrument);
-
-		JButton btnDeleteInstrument = new JButton("Delete Instrument");
-		btnDeleteInstrument.setFont(boldFont);
-		btnDeleteInstrument.addActionListener(this);
-
-		GridBagConstraints gbcBtnDeleteInstrument = new GridBagConstraints();
-		gbcBtnDeleteInstrument.insets = new Insets(0, 0, 5, 0);
-		gbcBtnDeleteInstrument.fill = GridBagConstraints.BOTH;
-		gbcBtnDeleteInstrument.gridx = 0;
-		gbcBtnDeleteInstrument.gridy = 4;
-		panel1.add(btnDeleteInstrument, gbcBtnDeleteInstrument);
-		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.setFont(boldFont);
-		btnBack.addActionListener(this);
-		panel2.add(btnBack);
+		WindowEditor.createBack(null, contentPane, this, color);
 	}
 
 	@Override
@@ -206,9 +137,7 @@ public class EquipmentWindow extends JFrame implements ActionListener {
 				}
 				break;
 			case "Back":
-				MainWindow mainWin = new MainWindow();
-				mainWin.setVisible(true);
-				dispose();
+				WindowEditor.back(this,new MainWindow());
 				break;
 			default:
 		}

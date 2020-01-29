@@ -1,16 +1,12 @@
 package main.java.gui.instruments;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -19,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import main.java.gui.WindowEditor;
 import main.java.instruments.EquipmentController;
 
-import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class ModifyEquipmentWindow extends JFrame implements ActionListener{
@@ -30,26 +25,11 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 	public ModifyEquipmentWindow() {
 		super("Brew Day! - Modify equipment");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(252, 255, 166));
+		Color color = new Color(252, 255, 166);
 		
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		contentPane = WindowEditor.showWindow(this,color);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel, BorderLayout.NORTH);
-		
-		JLabel lblInsertTheName = new JLabel("Modify the capacity of instruments:");
-		lblInsertTheName.setFont(boldFont);
-		panel.add(lblInsertTheName);
-		
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel1, BorderLayout.CENTER);
-		
-		Map<String, Double> instruments = new HashMap<>();
-		EquipmentController equipmentController = EquipmentController.getInstance();
-		instruments = equipmentController.extractEquipment().getInstruments();
-		
+		Map<String, Double> instruments = WindowEditor.initializeSMEquipmentWindow(contentPane, color, "Modify the capacity of instruments:");
 		
 		DefaultTableModel model = new DefaultTableModel(new String[]{"Instrument name", "Capacity (l)"}, 0) {
 				@Override
@@ -61,30 +41,9 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 			model.addRow(new String[] {i.getKey(),Double.toString(i.getValue())});
 		}
 		
-		table = new JTable(model);
-		table.setBorder(null);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
-		table.setRowHeight(30);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.getViewport().setBackground(new Color(252, 255, 166));
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		table = WindowEditor.createTable(model, this, color, 30);
 		
-		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(this);
-		btnSave.setFont(boldFont);
-		panel2.add(btnSave);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(this);
-		btnBack.setFont(boldFont);
-		panel2.add(btnBack);
+		WindowEditor.createBackAndOther(null, contentPane, this, color,"Save");
 	}
 	
 	private Map<String, Double> updateInstruments(){
@@ -107,8 +66,7 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			new EquipmentWindow().setVisible(true);
-			dispose();
+			WindowEditor.back(this,new EquipmentWindow());
 		}
 		else {
 			if (table.isEditing())

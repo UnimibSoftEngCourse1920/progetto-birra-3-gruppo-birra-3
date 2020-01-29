@@ -2,7 +2,6 @@ package main.java.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import javax.swing.JFrame;
@@ -26,30 +25,23 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 	public DeleteInstrumentWindow() {
 		super("Brew Day! - Delete instrument");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(252, 255, 166));
+		Color color = new Color(252, 255, 166);
 		
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		contentPane = WindowEditor.showWindow(this, color);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(252, 255, 166));
+		panel.setBackground(color);
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblSelectTheInstrument = new JLabel("Select the instrument you want to delete from Equipment:");
-		lblSelectTheInstrument.setFont(boldFont);
+		lblSelectTheInstrument.setFont(WindowEditor.boldFont);
 		panel.add(lblSelectTheInstrument);
 		
 		panel1 = new JPanel();
-		panel1.setBackground(new Color(252, 255, 166));
+		panel1.setBackground(color);
 		contentPane.add(panel1, BorderLayout.WEST);
 		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(this);
-		btnBack.setFont(boldFont);
-		panel2.add(btnBack);
+		WindowEditor.createBack(null, contentPane, this, color);
 		
 		EquipmentController equipmentController = EquipmentController.getInstance();
 		Equipment equipment = equipmentController.extractEquipment();
@@ -59,7 +51,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 			instrumentsDelete.add(new JButton(i.getKey()));
 		}
 		for(JButton b : instrumentsDelete) {
-			b.setFont(boldFont);
+			b.setFont(WindowEditor.boldFont);
 			panel1.add(b);
 			b.addActionListener(this);
 		}
@@ -68,9 +60,7 @@ public class DeleteInstrumentWindow extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			EquipmentWindow equipmentWin = new EquipmentWindow();
-			equipmentWin.setVisible(true);
-			dispose();
+			WindowEditor.back(this,new EquipmentWindow());
 		}
 		else {
 			EquipmentController equipmentController = EquipmentController.getInstance();

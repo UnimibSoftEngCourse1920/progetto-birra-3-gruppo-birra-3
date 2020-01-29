@@ -1,20 +1,15 @@
 package main.java.gui.recipes;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,21 +30,11 @@ public class RecipeWindow extends JFrame implements ActionListener{
 	public RecipeWindow(){
 		super("Brew Day! - Recipes");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(189, 216, 255));
+		Color color = new Color(189, 216, 255);
 		
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		contentPane = WindowEditor.showWindow(this, color);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(189, 216, 255));
-		contentPane.add(panel, BorderLayout.NORTH);
-		
-		JLabel label = new JLabel("The Recipes are:");
-		label.setFont(boldFont);
-		panel.add(label);
-		
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(189, 216, 255));
-		contentPane.add(panel1, BorderLayout.CENTER);
+		WindowEditor.initializeWindow(contentPane, color, "The Recipes are:");
 		
 		RecipeController recipeController = RecipeController.getInstance();
 
@@ -79,43 +64,20 @@ public class RecipeWindow extends JFrame implements ActionListener{
 			ingredients = new StringBuilder();
 		}
         
-		table = new JTable(model);
-		table.setBorder(null);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);	
+		table = WindowEditor.createTable(model, this, color, 30);
 		table.getColumnModel().getColumn(2).setPreferredWidth(350);
-		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
-		table.setRowHeight(40);
 		
 		new ButtonColumn(table, this, 3);
 		new ButtonColumn(table, this, 4);
 		new ButtonColumn(table, this, 5);
 		
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.getViewport().setBackground(new Color(189, 216, 255));
-		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(189, 216, 255));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-
-		JButton backButton = new JButton("Back");
-		backButton.addActionListener(this);
-		backButton.setFont(boldFont);
-		panel2.add(backButton);
-		
-		JButton addRecipeButton = new JButton("New recipe");
-		addRecipeButton.addActionListener(this);
-		addRecipeButton.setFont(boldFont);
-		panel2.add(addRecipeButton);
+		WindowEditor.createBackAndOther(null, contentPane, this, color,"New Recipe");
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
 			case "Back":
-				setVisible(false);
-				new MainWindow().setVisible(true);
-				dispose();
+				WindowEditor.back(this,new MainWindow());
 				break;
 			case "New recipe":
 				File f = new File(System.getProperty("user.dir") + "\\src\\Files\\Equipment.txt");

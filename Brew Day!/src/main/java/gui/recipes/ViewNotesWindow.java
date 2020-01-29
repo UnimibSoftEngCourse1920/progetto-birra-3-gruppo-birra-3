@@ -1,20 +1,12 @@
 package main.java.gui.recipes;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -36,22 +28,13 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 	public ViewNotesWindow(Double id) {
 		super("Brew Day! - Brew Notes");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(189, 255, 178));
+		Color color = new Color(189, 255, 178);
+		
+		contentPane = WindowEditor.showWindow(this, color);
+		
 		this.brewId = id;
 		
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
-
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(189, 255, 178));
-		contentPane.add(panel, BorderLayout.NORTH);
-
-		JLabel label = new JLabel("The Notes are:");
-		label.setFont(boldFont);
-		panel.add(label);
-
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(189, 255, 178));
-		contentPane.add(panel1, BorderLayout.CENTER);
+	    WindowEditor.initializeWindow(contentPane, color, "The Notes are:");
 
 		brewController = BrewController.getInstance();
 		List<Brew> brews = brewController.extractBrew();
@@ -78,9 +61,7 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 			}
 		}
 
-		table = new JTable(model);
-		table.setBorder(null);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table = WindowEditor.createTable(model, this, color, 50);
 		TableColumn column = table.getColumnModel().getColumn(3);
 		MultiRowCell multiRowCell = new MultiRowCell();
 		column.setPreferredWidth(600);
@@ -89,50 +70,17 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		//This is for hide first column
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
-		table.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-		table.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 13));
-		table.setRowHeight(50);
 
 		new ButtonColumn(table, this, 5);
 		new ButtonColumn(table, this, 6);
-
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.getViewport().setBackground(new Color(189, 255, 178));
-		contentPane.add(scrollPane, BorderLayout.CENTER);
-
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(189, 255, 178));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-
-		JButton addButton = new JButton("Add");
-		addButton.setFont(boldFont);
-		addButton.addActionListener(this);
-		panel2.add(addButton);
-
-		JButton backButton = new JButton("Back");
-		backButton.setFont(boldFont);
-		backButton.addActionListener(this);
-		panel2.add(backButton);
-	}
-
-	public static String fromDatetoString(Date date) {
-		if (date == null) {
-			return "";
-		}
-
-		String pattern = "dd/MM/yyyy";
-
-		DateFormat df = new SimpleDateFormat(pattern);
-
-		return df.format(date);
+		
+		WindowEditor.createBackAndOther(null, contentPane, this, color,"Add");
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()) {
 		case "Back":
-			setVisible(false);
-			new BrewWindow().setVisible(true);
-			dispose();
+			WindowEditor.back(this,new BrewWindow());
 			break;
 		case "Add":
 			setVisible(false);

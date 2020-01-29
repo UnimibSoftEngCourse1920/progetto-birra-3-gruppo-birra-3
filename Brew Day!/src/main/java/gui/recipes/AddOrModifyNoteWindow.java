@@ -3,7 +3,6 @@ package main.java.gui.recipes;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -15,7 +14,6 @@ import main.java.gui.WindowEditor;
 import main.java.recipes.Brew;
 import main.java.recipes.BrewController;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 
@@ -32,19 +30,18 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 	public AddOrModifyNoteWindow(Double brewId,int noteId) {
 		super("Brew Day! - Modify Note");
 		
+		Color color = new Color(189, 255, 178);
+				
 		contentPane = WindowEditor.showWindow(this, new Color(189, 255, 178));
 
 		this.brewId = brewId;
 		this.noteId = noteId;
-		
-		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 		textArea = new JTextArea(16,20);
 		contentPane.add(textArea, BorderLayout.CENTER);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		textArea.setFont(plainFont);
+		textArea.setFont(WindowEditor.plainFont);
 
 		brewController = BrewController.getInstance();
 
@@ -62,19 +59,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 			chckbxNewCheckBox.addItemListener(this);
 		}
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(189, 255, 178));
-		contentPane.add(panel, BorderLayout.SOUTH);
-
-		JButton btnSave = new JButton("Save");
-		btnSave.setFont(boldFont);
-		btnSave.addActionListener(this);
-		panel.add(btnSave);
-
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setFont(boldFont);
-		btnCancel.addActionListener(this);
-		panel.add(btnCancel);
+		WindowEditor.createBackAndOther(null, contentPane, this, color,"Save");
 	}
 
 	@Override
@@ -86,9 +71,9 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 				brewController.addNote(brewId, textArea.getText(), tasting);
 			}
 		}
-		setVisible(false);
-		new ViewNotesWindow(brewId).setVisible(true);
-		dispose();
+		ViewNotesWindow vWindow = new ViewNotesWindow(brewId);
+		WindowEditor.back(this,vWindow);
+		new ViewNotesWindow(brewId);
 	}
 
 	@Override

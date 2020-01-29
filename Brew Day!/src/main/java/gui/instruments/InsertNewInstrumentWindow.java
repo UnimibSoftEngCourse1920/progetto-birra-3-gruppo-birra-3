@@ -2,21 +2,16 @@ package main.java.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import main.java.gui.WindowEditor;
 import main.java.instruments.EquipmentController;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,89 +27,33 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 	public InsertNewInstrumentWindow() {
 		super("Brew Day! - Insert new instrument");
 		
-		contentPane = WindowEditor.showWindow(this, new Color(252, 255, 166));
+		Color color = new Color(252, 255, 166);
 		
-		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
-		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+		contentPane = WindowEditor.showWindow(this,color);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(252, 255, 166));
+		panel.setBackground(color);
 		contentPane.add(panel, BorderLayout.NORTH);
 		
 		JLabel lblInsertNewInstrument = new JLabel("Insert new instrument in your equipment:");
-		lblInsertNewInstrument.setFont(boldFont);
+		lblInsertNewInstrument.setFont(WindowEditor.boldFont);
 		panel.add(lblInsertNewInstrument);
 		
-		JPanel panel1 = new JPanel();
-		panel1.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel1, BorderLayout.CENTER);
-		GridBagLayout gblPanel1 = new GridBagLayout();
-		gblPanel1.columnWidths = new int[]{121};
-		gblPanel1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gblPanel1.columnWeights = new double[]{0.0};
-		gblPanel1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel1.setLayout(gblPanel1);
+     	JPanel panel1 = WindowEditor.createGridBagPanel(contentPane, color, new int[]{121}, new int[]{0, 0, 0, 0, 0, 0, 0},
+				new double[]{0.0}, new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE});
+	
+		WindowEditor.createGridBagLabel("Instrument name:", panel1, 0);
+		textField = WindowEditor.createGridBagTextField(panel1, 1,true);
+		WindowEditor.createGridBagLabel("Capacity (l):", panel1, 2);
+		textField1 = WindowEditor.createGridBagTextField(panel1, 3,true);
 		
-		JLabel lblName = new JLabel("Instrument name:");
-		lblName.setFont(plainFont);
-		GridBagConstraints gbcLblName = new GridBagConstraints();
-		gbcLblName.fill = GridBagConstraints.VERTICAL;
-		
-		gbcLblName.insets = new Insets(0, 0, 5, 0);
-		gbcLblName.gridx = 0;
-		gbcLblName.gridy = 0;
-		panel1.add(lblName, gbcLblName);
-		
-		textField = new JTextField();
-		textField.setFont(plainFont);
-		GridBagConstraints gbcTextField = new GridBagConstraints();
-		gbcTextField.insets = new Insets(0, 0, 5, 0);
-		gbcTextField.fill = GridBagConstraints.BOTH;
-		
-		gbcTextField.gridx = 0;
-		gbcTextField.gridy = 1;
-		panel1.add(textField, gbcTextField);
-		textField.setColumns(10);
-		
-		JLabel lblCapacity = new JLabel("Capacity (l):");
-		lblCapacity.setFont(plainFont);
-		GridBagConstraints gbcLblCapacity = new GridBagConstraints();
-		gbcLblCapacity.fill = GridBagConstraints.VERTICAL;
-		
-		gbcLblCapacity.insets = new Insets(0, 0, 5, 0);
-		gbcLblCapacity.gridx = 0;
-		gbcLblCapacity.gridy = 2;
-		panel1.add(lblCapacity, gbcLblCapacity);
-		
-		textField1 = new JTextField();
-		textField1.setFont(plainFont);
-		GridBagConstraints gbcTextField1 = new GridBagConstraints();
-		gbcTextField1.fill = GridBagConstraints.BOTH;
-		gbcTextField1.gridx = 0;
-		gbcTextField1.gridy = 3;
-		panel1.add(textField1, gbcTextField1);
-		textField1.setColumns(10);
-		
-		JPanel panel2 = new JPanel();
-		panel2.setBackground(new Color(252, 255, 166));
-		contentPane.add(panel2, BorderLayout.SOUTH);
-		
-		JButton btnSave = new JButton("Save");
-		btnSave.setFont(boldFont);
-		btnSave.addActionListener(this);
-		panel2.add(btnSave);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.setFont(boldFont);
-		btnBack.addActionListener(this);
-		panel2.add(btnBack);
+		WindowEditor.createBackAndOther(null, contentPane, this, color,"Save");
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Back")) {
-			new EquipmentWindow().setVisible(true);
-			dispose();
+			WindowEditor.back(this,new EquipmentWindow());
 		}
 		else {
 			try {
