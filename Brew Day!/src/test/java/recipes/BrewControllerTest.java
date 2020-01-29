@@ -81,8 +81,8 @@ public class BrewControllerTest {
 	    
 	    brewController.deleteFile();
 	        
-	  	assertTrue(brews.get(0).equals(brew1));
-	  	assertTrue(brews.get(1).equals(brew2));
+	  	assertEquals(brews.get(0).getId(),brew1.getId());
+	  	assertEquals(brews.get(1).getId(),brew2.getId());
 	}
 
 	@Test

@@ -24,7 +24,7 @@ public class StorageControllerTest {
 		Storage storage1 = Storage.getInstance();
 		Storage storage2 = sController.extractStorage();
 		
-		assertTrue(storage1.equals(storage2));
+		assertEquals(storage1.getIngredients(), storage2.getIngredients());
 		
 		sController.deleteFile();
 	}
@@ -44,7 +44,7 @@ public class StorageControllerTest {
 		
 		sController.deleteFile();
 		
-		assertTrue(storage1.equals(storage2));
+		assertEquals(storage1.getIngredients(), storage2.getIngredients());
 	}
 
 	@Test

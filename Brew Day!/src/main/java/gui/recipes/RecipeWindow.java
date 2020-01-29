@@ -64,7 +64,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 			ingredients = new StringBuilder();
 		}
         
-		table = WindowEditor.createTable(model, this, color, 30);
+		table = WindowEditor.createTable(model, this, color, 40);
 		table.getColumnModel().getColumn(2).setPreferredWidth(350);
 		
 		new ButtonColumn(table, this, 3);

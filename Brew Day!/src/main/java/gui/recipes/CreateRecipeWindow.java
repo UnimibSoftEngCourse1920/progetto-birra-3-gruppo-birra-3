@@ -46,7 +46,7 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		model.addRow(new String[] {"Sugar","0.0"});
 		model.addRow(new String[] {"Additive","0.0"});
 		
-		table = WindowEditor.createTable(model, this, color, 30);
+		table = WindowEditor.createTable(model, this, color, 40);
 		
 		textField = WindowEditor.createTextField(this, "Set the name of the new recipe: ", color);
 		

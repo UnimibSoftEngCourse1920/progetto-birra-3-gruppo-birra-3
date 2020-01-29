@@ -37,33 +37,5 @@ public class Storage implements Serializable{
 
 		return instance;
 	}
-
-
-	//Starting here, for only testing purpose
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ingredients == null) ? 0 : ingredients.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Storage other = (Storage) obj;
-		if (ingredients == null) {
-			if (other.ingredients != null)
-				return false;
-		} 
-		else if (!ingredients.equals(other.ingredients))
-			return false;
-		return true;
-	}
 }
 

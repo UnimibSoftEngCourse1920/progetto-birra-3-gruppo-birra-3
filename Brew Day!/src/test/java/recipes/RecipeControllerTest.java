@@ -81,8 +81,8 @@ public class RecipeControllerTest {
 		
 		recipeController.deleteFile();
 		
-		assertTrue(recipes.get(0).equals(recipe1));
-		assertTrue(recipes.get(1).equals(recipe2));
+		assertEquals(recipes.get(0).getId(),recipe1.getId());
+		assertEquals(recipes.get(1).getId(),recipe2.getId());
 	}
 
 	@Test
@@ -117,8 +117,10 @@ public class RecipeControllerTest {
 		
 		recipeController.deleteFile();
 		
-		assertTrue(extRecipes.get(0).equals(recipe1));
-		assertTrue(extRecipes.get(1).equals(recipe2));
+		assertEquals(extRecipes.get(0).getName(),recipe1.getName());
+		assertEquals(extRecipes.get(1).getName(),recipe2.getName());
+		assertEquals(extRecipes.get(0).getIngredients(),recipe1.getIngredients());
+		assertEquals(extRecipes.get(1).getIngredients(),recipe2.getIngredients());
 	}
 
 	@Test
@@ -264,6 +266,6 @@ public class RecipeControllerTest {
 		recipeController.deleteFile();
 		storageController.deleteFile();
 		
-		assertTrue(recipeFeature.equals(recipe2));		
+		assertEquals(recipeFeature.getId(), recipe2.getId());		
 	}
 }

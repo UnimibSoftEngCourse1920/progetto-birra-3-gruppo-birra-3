@@ -92,4 +92,29 @@ public class RecipeTest {
 		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
 		assertEquals(recipe2.getId(), recipe1.getId() + 1);
 	}
+	
+	@Test
+	public void testHashCode() {
+		HashMap<String,Double> ingredients = new HashMap<>();
+		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
+
+	    
+	    assertEquals(recipe1.hashCode() + 1, recipe2.hashCode());
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	@Test
+	public void testEquals() {
+		HashMap<String,Double> ingredients = new HashMap<>();
+		Recipe recipe1 = new Recipe("Recipe 1", ingredients);
+		Recipe recipe2 = new Recipe("Recipe 2", ingredients);
+	   
+	    String s = "";
+	    
+	    assertFalse(recipe1.equals(recipe2));
+	    assertFalse(recipe1.equals(s));
+	    assertTrue(recipe1.equals(recipe1));
+	    assertFalse(recipe1.equals(null));
+	}
 }

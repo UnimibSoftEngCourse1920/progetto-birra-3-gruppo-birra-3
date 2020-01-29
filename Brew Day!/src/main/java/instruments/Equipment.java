@@ -83,32 +83,4 @@ public class Equipment implements Serializable{
 
 		return instance;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((instruments == null) ? 0 : instruments.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Equipment other = (Equipment) obj;
-		if (instruments == null) {
-			if (other.instruments != null) {
-				return false;
-			}
-		} 
-		else if (!instruments.equals(other.instruments)) {
-			return false;
-		}
-		return true;
-	}	
 }

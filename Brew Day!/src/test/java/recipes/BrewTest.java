@@ -8,6 +8,7 @@ import main.java.recipes.Recipe;
 import main.java.resources.Storage;
 import main.java.resources.StorageController;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -137,5 +138,50 @@ public class BrewTest {
 		
 		assertNotEquals(0,brew.getNotes().get(1).compareTo(note1));
 	}
-
+	
+	@Test
+	public void testGetNoteType() {
+		Map<String,Double> ingredients = new HashMap<>();
+		Recipe recipe = new Recipe(recipeName, ingredients);
+	    Date startDate = new Date(System.currentTimeMillis());
+	    
+	    Brew brew = new Brew(recipe,startDate,1);
+	    
+	    assertEquals("Standard",brew.getNoteType(1));
+	    assertEquals("Tasting",brew.getNoteType(-1));
+	}
+	
+	@Test
+	public void testHashCode() {
+		Map<String,Double> ingredients = new HashMap<>();
+		Recipe recipe = new Recipe(recipeName, ingredients);
+	    Date startDate = new Date(System.currentTimeMillis());
+	    
+	    Brew brew1 = new Brew(recipe,startDate,1);
+	    Brew brew2 = new Brew(recipe,startDate,1);
+	    
+	    assertEquals(brew1.hashCode(), brew2.hashCode());
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	@Test
+	public void testEquals() {
+		Map<String,Double> ingredients = new HashMap<>();
+		Recipe recipe = new Recipe(recipeName, ingredients);
+	    Date startDate = new Date(System.currentTimeMillis());
+	    
+	    Brew brew1 = new Brew(recipe,startDate,1);
+	    Brew brew2 = new Brew(recipe,startDate,1);
+	    
+	    assertTrue(brew1.equals(brew2));
+	   
+		Recipe recipe2 = new Recipe(recipeName, ingredients);
+	   
+	    Brew brew3 = new Brew(recipe2,startDate,1);
+	    
+	    assertFalse(brew1.equals(brew3));
+	    assertFalse(brew1.equals(recipe));
+	    assertTrue(brew1.equals(brew1));
+	    assertFalse(brew1.equals(null));
+	}
 }

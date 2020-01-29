@@ -177,12 +177,7 @@ public class Recipe implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(countBrew);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + id;
-		result = prime * result + ((ingredients == null) ? 0 : ingredients.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -197,18 +192,6 @@ public class Recipe implements Serializable{
 		Recipe other = (Recipe) obj;
 		if (id != other.id)
 			return false;
-		if (ingredients == null) {
-			if (other.ingredients != null)
-				return false;
-		} 
-		else if (!ingredients.equals(other.ingredients))
-				return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} 
-		else if (!name.equals(other.name))
-				return false;
 		return true;
 	}
 }

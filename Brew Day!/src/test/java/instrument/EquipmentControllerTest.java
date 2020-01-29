@@ -30,7 +30,7 @@ public class EquipmentControllerTest {
 		Equipment e = Equipment.getInstance();
 		Equipment e1 = ec.extractEquipment();
 		
-		assertTrue(e.equals(e1));
+		assertEquals(e.getInstruments(),e1.getInstruments());
 		
 		ec.deleteFile();
 	}
