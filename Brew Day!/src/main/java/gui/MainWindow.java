@@ -1,13 +1,10 @@
 package main.java.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
@@ -17,14 +14,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
 
 import main.java.gui.instruments.EquipmentWindow;
 import main.java.gui.recipes.BrewWindow;
@@ -43,21 +38,15 @@ import javax.swing.JMenu;
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements ActionListener{
 
+	private JPanel contentPane;
 	private boolean brewIt = false;
 	String userDir = "user.dir";
 
 	public MainWindow() {
 		super("Brew Day!");
-		setExtendedState(Frame.MAXIMIZED_BOTH); 
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
-		setVisible(true);
 		
-		ImageIcon icon = new ImageIcon(System.getProperty(userDir) + "\\src\\icon.png");
-		setIconImage(icon.getImage());
+		contentPane = WindowEditor.showWindow(this, null);
 		
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout());
 		Font labelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
 		Font buttonFont = new Font(Font.SANS_SERIF, Font.BOLD, 17);
 		
@@ -137,7 +126,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		storageButtonPanel.setBackground(new Color(255, 154, 162));
 		storagePanel.add(storageButtonPanel);
 
-		getContentPane().add(mainPanel);
+		contentPane.add(mainPanel);
 		mainPanel.add(resourcesPanel);
 		mainPanel.add(wsibtPanel);
 

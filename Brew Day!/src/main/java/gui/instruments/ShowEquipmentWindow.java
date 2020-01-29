@@ -2,26 +2,21 @@ package main.java.gui.instruments;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import main.java.gui.WindowEditor;
 import main.java.instruments.EquipmentController;
 
 @SuppressWarnings("serial")
@@ -32,20 +27,8 @@ public class ShowEquipmentWindow extends JFrame implements ActionListener {
 
 	public ShowEquipmentWindow() {
 		super("Brew Day! - Show equipment");
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
-		setIconImage(icon.getImage());
-		
-		setExtendedState(Frame.MAXIMIZED_BOTH);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
-		setVisible(true);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(252, 255, 166));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		contentPane = WindowEditor.showWindow(this, new Color(252, 255, 166));
 		
 		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 		

@@ -2,12 +2,10 @@ package main.java.gui.recipes;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,18 +13,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import main.java.gui.WindowEditor;
 import main.java.recipes.Recipe;
 import main.java.recipes.RecipeController;
 
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class CreateRecipeWindow extends JFrame implements ActionListener {
@@ -37,20 +32,8 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 
 	public CreateRecipeWindow(){
 		super("Brew Day! - Create recipe");
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
-		ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "\\src\\icon.png");
-		setIconImage(icon.getImage());
-		
-		setExtendedState(Frame.MAXIMIZED_BOTH); 
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setSize((int) (screenSize.width/1.5), (int) (screenSize.height/1.5));
-		setVisible(true);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(189, 216, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		contentPane = WindowEditor.showWindow(this, new Color(189, 216, 255));
 		
 		Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
 		Font boldFont = new Font(Font.SANS_SERIF, Font.BOLD, 18);
