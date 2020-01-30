@@ -38,6 +38,9 @@ public class RecipeController {
 		return instance;
 	}
 
+	/*
+	 * Returns the List of Recipe objects stored in the Recipe.txt file 
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Recipe> extractRecipe() {
 		if (ioController.readObjectFromFile(filepath.toString()) != null) {
@@ -47,6 +50,9 @@ public class RecipeController {
 		return new ArrayList<>();
 	}
     
+	/*
+	 * Stores the given recipe object in the Recipe.txt file if it isn't stored already
+	 */
 	public void store(Recipe recipe) {
 		List<Recipe> recipes = extractRecipe();
 		if (!recipes.contains(recipe)) {
@@ -55,6 +61,10 @@ public class RecipeController {
 		}
 	}
 
+	/*
+	 * Updates with the given ingredients and name the recipe with the given id, 
+	 * if the recipe exists in the Recipe.txt file (otherwise an exception is thrown)
+	 */
 	public void update(int id, String name, Map<String,Double> ingredients) {
 		List<Recipe> recipes = extractRecipe();
 		boolean found = false;
@@ -77,6 +87,10 @@ public class RecipeController {
 		
 	}
 
+	/*
+	 * Deletes the recipe with the given id, if the recipe exists in the 
+	 * Recipe.txt file (otherwise an exception is thrown)
+	 */
 	public void delete(int id) {
 		List<Recipe> recipes = extractRecipe();
 		boolean found = false;
@@ -98,6 +112,10 @@ public class RecipeController {
 		}
 	}
 	
+	/*
+	 * Creates and returns a brew from the recipe with the given id, if the recipe 
+	 * exists in the Recipe.txt file (otherwise an exception is thrown)
+	 */
 	public Brew createBrew(int id) {
 		List<Recipe> recipes = extractRecipe();
 		Brew brew = null;
@@ -120,6 +138,9 @@ public class RecipeController {
 		return brew;
 	}
 	
+	/*
+	 * Updates the counterId.txt file by writing the given id in it
+	 */
 	public void updateCounterId(int id) {
 		try (FileOutputStream fos = new FileOutputStream(counterIdFilepath);
 		    DataOutputStream dos = new DataOutputStream(fos)) {
@@ -129,6 +150,11 @@ public class RecipeController {
         }
 	}
 	
+	/*
+	 * Returns the missing ingredients to start brewing the recipe with the 
+	 * given id, if the recipe exists in the Recipe.txt file (otherwise an 
+	 * exception is thrown)
+	 */
 	public Map<String,Double> getMissingIngredients(int id) {
 		List<Recipe> recipes = extractRecipe();
 		Map<String,Double> missingIngredients = null;
@@ -150,6 +176,9 @@ public class RecipeController {
 		return missingIngredients;
 	}
 
+	/*
+	 * Deletes the Recipe.txt file
+	 */
 	public void deleteFile() {
 		File file = new File(filepath.toString());
 
@@ -162,19 +191,23 @@ public class RecipeController {
 		}
 	}
 	
+	/*
+	 * Returns the recipe that maximize the usage of the available ingredients, 
+	 * if there aren't recipes that can be brewed or there aren't recipes at all
+	 * an exception is thrown
+	 */
 	public Recipe featureWSIBT() {
-		
 		try {
-			//inserisco tutte le ricette in un arraylist
+			//puts the recipes in a list
 			List<Recipe> recipes = extractRecipe();
-			//creo hashmap per inserire le ricette possibili sulla base degli ingredienti
+			//creates a map to contain the recipes for which there aren't missing ingredients
 			Map<Integer, Double> recipeMax = new HashMap<>();
-			//scorro l'arraylist e per ogni ricetta faccio il controllo sugli ingredienti
+			//browses the list and computes the missing ingredients for each recipe
 			for (int i = 0; i < recipes.size(); i++) {
 				Recipe r = recipes.get(i);
 				Map<String, Double> missingIngredients = r.computeMissingIngredients();
 				double totIngredients = 0.0;
-				//se sono presenti tutti gli ingredienti in storage calcolo gli ingredienti
+				//if there aren't missing ingredients the total sum of the ingredients is saved in the map along with the recipe
 				if(missingIngredients.isEmpty()) {
 					Map<String, Double> ingredients = r.getIngredients();
 					for(Entry<String, Double> j : ingredients.entrySet()) {
@@ -184,18 +217,18 @@ public class RecipeController {
 				}			
 			}
 			
-			//se esiste una ricetta plausibile
+			//if there is a recipe for which there aren't missing ingredients
 			if(!recipeMax.isEmpty()) {
 				double max = 0.0;
 				int id = -1;
-				//cerco la ricetta che massimizza gli ingredienti utilizzati
+				//looks for the recipe that maximize the ingredients usage
 				for(Entry<Integer, Double> r : recipeMax.entrySet()) {
 					if(r.getValue() > max) {
 						max = r.getValue();
 					    id = r.getKey();
 					}
 				}
-				//determino la ricetta da restituire
+				//returns the right recipe
 				for (int i = 0; i < recipes.size(); i++) {
 					Recipe r = recipes.get(i);
 					if(r.getId() == id) {
@@ -210,6 +243,9 @@ public class RecipeController {
 		return null;
 	}
 	
+	/*
+	 * Updates all the recipes' ingredients using the given multiplier
+	 */
 	public void updateAllRecipesOnNewEquipment(double multiplier) {
 		List<Recipe> recipes = extractRecipe();
 		List<Recipe> newRecipes = new ArrayList<>();
@@ -218,6 +254,8 @@ public class RecipeController {
 			Map<String, Double> ingredientsR = r.getIngredients();
 			Map<String, Double> newIngredientsR = new HashMap<>();
 			for (Entry<String,Double> i1 : ingredientsR.entrySet()) {
+				
+				//computes the new ingredient quantity using the multiplier
 				double updateValue = Math.round(i1.getValue()*multiplier*100.0)/100.0;
 				newIngredientsR.put(i1.getKey(), updateValue);
 			}

@@ -37,6 +37,9 @@ public class BrewController implements Serializable {
 		return instance;
 	}
 
+	/*
+	 * Returns the List of Brew objects stored in the Brew.txt file
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Brew> extractBrew() {
 		if (ioController.readObjectFromFile(filepath.toString()) != null) {
@@ -46,6 +49,9 @@ public class BrewController implements Serializable {
 		return new ArrayList<>();
 	}
 
+	/*
+	 * Stores the given brew object in the Brew.txt file if it isn't stored already
+	 */
 	public void store(Brew brew) {
 		List<Brew> brews = extractBrew();
 
@@ -64,6 +70,11 @@ public class BrewController implements Serializable {
 		}
 	}
 
+	/*
+	 * Updates with the given noteText the text of the note with the given noteId 
+	 * and associated to the brew with the given id, if the brew exists in 
+	 * the Brew.txt file (otherwise an exception is thrown)
+	 */
 	public void updateNote(Double id, int noteId, String noteText) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -84,6 +95,11 @@ public class BrewController implements Serializable {
 		}
 	}
 
+	/*
+	 * Deletes the note with the given noteId and associated to the brew 
+	 * with the given id, if the brew exists in the Brew.txt file (otherwise an 
+	 * exception is thrown)
+	 */
 	public void deleteNote(Double id, int noteId) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -106,6 +122,11 @@ public class BrewController implements Serializable {
 		}
 	}
 
+	/*
+	 * Adds to the brew with the given id a new note with the given text and of
+	 * the type depending on the tasting value, if the brew exists in 
+	 * the Brew.txt file (otherwise an exception is thrown)
+	 */
 	public void addNote(Double id, String text, Boolean tasting) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -129,6 +150,10 @@ public class BrewController implements Serializable {
 	}
 
 
+	/*
+	 * Deletes the brew with the given id, if the brew exists in the Brew.txt file
+	 * (otherwise an exception is thrown)
+	 */
 	public void delete(Double id) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -150,21 +175,35 @@ public class BrewController implements Serializable {
 		}
 	}
 
+	/*
+	 * Deletes the brew with the given id, if the brew exists in the Brew.txt file
+	 * (otherwise an exception is thrown) and it isn't finished yet. If the 
+	 * brew is deleted it adds the relative ingredients to the storage
+	 */
 	public void cancel(Double id) {
 		List<Brew> brews = extractBrew();
 		Brew brew = brews.get(0);
-		for (int i = 0; i < brews.size(); i++) {
-			if (brews.get(i).getId().compareTo(id) == 0) {
-				brew = brews.get(i);
-				if (brew.getFinishDate() != null) {
-					return;
+		boolean found = false;
+		try {
+			for (int i = 0; i < brews.size(); i++) {
+				if (brews.get(i).getId().compareTo(id) == 0) {
+					brew = brews.get(i);
+					if (brew.getFinishDate() != null) {
+						return;
+					}
+					brews.remove(i);
+					
+					found = true;
+					ioController.writeObjectToFile(brews, filepath.toString());
+					break;
 				}
-				brews.remove(i);
-				break;
 			}
+			if(!found) {
+				throw new BrewNotFoundException();
+			}
+		} catch(NoteNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
-
-		ioController.writeObjectToFile(brews, filepath.toString());
 
 		Map<String,Double> bIngredients = brew.getRecipe().getIngredients();
 		Storage storage = Storage.getInstance();
@@ -180,6 +219,10 @@ public class BrewController implements Serializable {
 		storageController.store(storage);
 	}
 
+	/*
+	 * Sets to the actual date the finish date of the brew with the given id, 
+	 * if the brew exists in the Brew.txt file (otherwise an exception is thrown)
+	 */
 	public void setFinishDate(Double id) {
 		List<Brew> brews = extractBrew();
 		boolean found = false;
@@ -188,7 +231,9 @@ public class BrewController implements Serializable {
 				if (brew.getId().compareTo(id) == 0) {
 					Date currentDate = new Date(System.currentTimeMillis());
 					brew.setFinishDate(currentDate);
+					
 					found = true;
+					ioController.writeObjectToFile(brews, filepath.toString());
 					break;
 				}
 			}
@@ -200,9 +245,11 @@ public class BrewController implements Serializable {
 		} catch(NoteNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		ioController.writeObjectToFile(brews, filepath.toString());
 	}
 
+	/*
+	 * Deletes the Brew.txt file
+	 */
 	public void deleteFile() {
 		File file = new File(filepath.toString());
 

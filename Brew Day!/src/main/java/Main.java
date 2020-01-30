@@ -13,6 +13,11 @@ import main.java.recipes.Recipe;
 
 public class Main {
 
+	/*
+	 * Sets the recipes' starting id to the number written in the 
+	 * CounterId.txt file and creates the main window.
+	 * If the CounterId.txt file doesn't exist it creates it and writes 0 in it
+	 */
 	public static void main(String[] args) {
 		int startingId = 0;
 		String counterIdFilepath = System.getProperty("user.dir") + "\\src\\Files\\CounterId.txt";

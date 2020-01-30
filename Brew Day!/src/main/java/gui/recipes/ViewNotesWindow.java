@@ -67,7 +67,8 @@ public class ViewNotesWindow extends JFrame implements ActionListener {
 		column.setPreferredWidth(600);
 		column.setCellEditor(multiRowCell);
 		column.setCellRenderer(multiRowCell);
-		//This is for hide first column
+		
+		//hides the first column
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 

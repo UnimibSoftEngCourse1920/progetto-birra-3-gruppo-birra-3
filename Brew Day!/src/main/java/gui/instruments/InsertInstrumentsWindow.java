@@ -41,15 +41,20 @@ public class InsertInstrumentsWindow extends JFrame implements ActionListener {
 		WindowEditor.createBackAndOther(null, contentPane, this, color,"Save");
 	}
 	
+	/*
+	 * Returns the instruments map using the data inserted in the table. Shows 
+	 * an alert message and returns null if the input format is not correct or if something
+	 * hasn't been inserted
+	 */
 	private Map<String, Double> createInstruments(){
 		try {
 			Map<String, Double> instruments = new HashMap<>();
 			for (int i = 0; i < table.getRowCount(); i++) {
 				String instrumentName = table.getValueAt(i, 0).toString();
 				String instrumentCapacity = table.getValueAt(i, 1).toString();
-				if (!instrumentName.matches("[a-zA-Z_]+") || instrumentName.length() >= 13) {
+				if (!instrumentName.matches("[a-zA-Z_]+[0-9]*") || instrumentName.length() >= 13) {
 					if(instrumentName.length() == 0) throw new IllegalArgumentException("Please insert a name to identify the instrument");
-					else throw new IllegalArgumentException("The instrument name is too long or contains non-literal characters");
+					else throw new IllegalArgumentException("The instrument name is too long or is not alphanumeric");
 				}
 				else if(!instrumentCapacity.matches("[0-9]+.{0,1}[0-9]*")) {
 					throw new NumberFormatException("Insert only positive numbers in capacity field, separated by dot (e.g. Kettle 10.50)");

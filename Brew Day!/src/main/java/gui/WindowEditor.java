@@ -30,6 +30,11 @@ import javax.swing.table.DefaultTableModel;
 import main.java.gui.recipes.NullInputException;
 import main.java.instruments.EquipmentController;
 
+/**
+ *  The WindoEditor class provides initialization 
+ *  and components creation methods to the JFrame classes (that represent 
+ *  the GUI windows) to avoid duplicated code
+ */
 public class WindowEditor {
 	
 	public static final Font plainFont = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
@@ -214,6 +219,11 @@ public class WindowEditor {
 		return textField;
 	}
 	
+	/*
+	 * Returns the ingredients map using the data inserted in the given table 
+	 * located in the given window. Shows an alert message and returns null if the input format
+	 * is not correct or if nothing has been inserted
+	 */
 	public static Map<String, Double> createIngredients(JFrame window,JTable table){
 		try {
 			Map<String, Double> ingredients = new HashMap<>();
@@ -244,6 +254,10 @@ public class WindowEditor {
 		}
 	}
 	
+	/*
+	 * Parses the given string str into a Double and returns it.
+	 * Throws a NumberFormatException if the number is negative
+	 */
 	public static double fromStringToDouble(String str) {
 		if (str.contains("-")) {
 			throw new NumberFormatException();

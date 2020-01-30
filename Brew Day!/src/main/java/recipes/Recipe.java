@@ -29,6 +29,10 @@ public class Recipe implements Serializable{
 		
 		RecipeController recipeController = RecipeController.getInstance();
 		
+        /*
+         * sets the recipe id incrementing the static id and updates the 
+		 * CounterId.txt file to make the static id persistent
+		 */
         startingId++;
         this.id = startingId;
         recipeController.updateCounterId(startingId);
@@ -51,6 +55,10 @@ public class Recipe implements Serializable{
 		return missingIngredients;
 	}
 
+	/*
+	 * Returns the quantity of the ingredient with the given name, if the
+	 * ingredient exists (otherwise an exception is thrown)
+	 */
 	public double getQuantity(String name) {
 		Double result = null;
 		try {
@@ -97,16 +105,22 @@ public class Recipe implements Serializable{
 	    this.setIngredients(ingredients);
 	}
 
-
+	/*
+	 * Creates and returns a brew from this recipe and subtract the necessary 
+	 * ingredients from the storage if there are enough in it
+	 */
 	public Brew createBrew(){
 		missingIngredients = this.computeMissingIngredients();
+		
+		//if no ingredients are missing from the storage the brew is created and stored
 		if(missingIngredients.isEmpty()) {
 			Date currentDate = new Date(System.currentTimeMillis());
 			Brew b = new Brew(this, currentDate, Equipment.getInstance().getCapacity());
 			countBrew++;
 			BrewController brewController = BrewController.getInstance();
 			brewController.store(b);
-			//subtract ingredients from storage
+			
+			//subtract used ingredients from the storage
 			Storage storage = Storage.getInstance();
 			Map<String,Double> storageIngredients = storage.getIngredients();
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
@@ -114,10 +128,12 @@ public class Recipe implements Serializable{
 				storageIngredients.replace(i.getKey(),sIngredientValue-i.getValue());
 			}
 			
+			//updates the storage instance and file
 			StorageController storageController = StorageController.getInstance();
 			storageController.update(storageIngredients);
 			return b;
 		}
+		//if some ingredients are missing the an alert is shown
 		else {
 			StringBuilder missingAlert = new StringBuilder();
 			missingAlert.append("Some ingredients are missing from your storage! \nYou should buy:");
@@ -128,6 +144,11 @@ public class Recipe implements Serializable{
 		}
 	}
 
+	/*
+	 * Returns the Map of the ingredients that are missing from the storage 
+	 * to start brewing this recipe if the storage exists in the Storage.txt file
+	 * (otherwise an exception is thrown)
+	 */
 	public Map<String, Double> computeMissingIngredients(){
 		Map<String,Double> result = new HashMap<>();		
 		
@@ -157,15 +178,19 @@ public class Recipe implements Serializable{
 		countBrew++;
 	}
 	
+	/*
+	 * Returns the Map of the ingredients quantities expressed as
+	 * a percentage of the total sum of their quantities
+	 */
 	public Map<String, Double> computePercentage(Map<String, Double> ingredients){
 		if(ingredients != null) {
 			Map<String, Double> percentageIng = new HashMap<>();
-			Double totalGrams = null;
+			Double totalGrams = 0.0;
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
-				totalGrams = i.getValue();
+				totalGrams += i.getValue();
 			}
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
-				if(totalGrams != null && totalGrams.compareTo(0.0) != 0)
+				if(totalGrams.compareTo(0.0) != 0)
 					percentageIng.put(i.getKey(), i.getValue()/totalGrams);
 			}
 			return percentageIng;

@@ -81,6 +81,11 @@ public class CreateRecipeWindow extends JFrame implements ActionListener {
 		}
 	}
 	
+	/*
+	 * Returns the string inserted in the textField. Shows an alert message
+	 * and returns null if the input format is not correct or if nothing has 
+	 * been inserted
+	 */
 	private String createName(){
 		try {
 			String name = textField.getText();

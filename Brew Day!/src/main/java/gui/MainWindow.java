@@ -42,6 +42,7 @@ public class MainWindow extends JFrame implements ActionListener{
 	private boolean brewIt = false;
 	String userDir = "user.dir";
 
+	//creates and initialize the main window
 	public MainWindow() {
 		super("Brew Day!");
 		
@@ -50,6 +51,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		Font labelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 25);
 		Font buttonFont = new Font(Font.SANS_SERIF, Font.BOLD, 17);
 		
+		//creates a default storage if there isn't one already
 		StorageController sController = StorageController.getInstance();
 		File f = new File(System.getProperty(userDir) + "\\src\\Files\\Storage.txt");
 		if(!f.exists()) {
@@ -164,6 +166,12 @@ public class MainWindow extends JFrame implements ActionListener{
 		RecipeController recipeController = RecipeController.getInstance();
 		recipeController = RecipeController.getInstance();
 
+		/*
+		 * visualize the recipe chosen by the feature "What Should I Brew Today?"
+		 * if there are at least one recipe and at least one ingredients 
+		 * in the storage, otherwise a message describing the problem 
+		 * is visualized
+		 */
 		String wsibtRecipe = null;
 		if(fileRecipe.exists() && fileStorage.exists()) {
 			int sizeR = recipeController.extractRecipe().size();
@@ -214,11 +222,13 @@ public class MainWindow extends JFrame implements ActionListener{
 		
 	}
 
+	//returns the recipe chosen by the feature "What Should I Brew Today?"
 	public Recipe getWSIBT() {
 		RecipeController recipeController = RecipeController.getInstance();
 		return recipeController.featureWSIBT();
 	}
 	
+	//creates the Storage instance with all ingredients quantity as 0.0
 	public void createDefaultStorage() {
 		StorageController sController = StorageController.getInstance();
 		Map<String,Double> defaultIngredients = new HashMap<>();
@@ -268,6 +278,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			else
 				JOptionPane.showMessageDialog(this, "You can't Brew it!");
 			break;
+		//deletes or resets all the data files
 		case "Reset":
 			int choice = JOptionPane.showConfirmDialog(null, 
 					"Are you sure you want to reset all your data?\nThis operation cannot be undone",

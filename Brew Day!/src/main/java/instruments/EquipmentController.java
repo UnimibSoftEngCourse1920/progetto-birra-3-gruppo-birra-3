@@ -30,10 +30,17 @@ public class EquipmentController {
 		return instance;
 	}
 
+	/*
+	 * Returns the Equipment object stored in the Equipment.txt file
+	 */
 	public Equipment extractEquipment() {
 		return (Equipment) ioController.readObjectFromFile(filepath.toString());
 	}
 
+	/*
+	 * Creates the Equipment instance, initialize it with the given instruments
+	 * and the relative capacity and stores it in the Equipment.txt file
+	 */
 	public void createEquipment(Map<String, Double> instruments) {
 		try {
 			if(instruments == null) throw new NullInstrumentsException();
@@ -50,15 +57,23 @@ public class EquipmentController {
 		ioController.writeObjectToFile(equipment, filepath.toString());
 	}
 
+	/*
+	 * Updates the equipment instruments with the given instruments, computes the 
+	 * multiplier and uses it to update all the recipes ingredients.
+	 * Updates both the Equipment instance and the object stored in file. 
+	 */
 	public void update(Map<String, Double> instruments) {
 		try {
 			if(instruments == null) throw new NullInstrumentsException();
 			
+			//updates the equipment
 			Equipment equipment = extractEquipment();
 			double oldCapacity = equipment.getCapacity();
 			equipment.updateInstruments(instruments);
 			Equipment.getInstance().updateInstruments(instruments);
 			store(equipment);
+			
+			//updates the recipes
 			double newCapacity = equipment.getCapacity();
 			double ingredientsMultiplier = newCapacity/oldCapacity;
 			RecipeController recipeController = RecipeController.getInstance();
@@ -69,6 +84,10 @@ public class EquipmentController {
 		}
 	}
 
+	/*
+	 * Deletes the given instrument and computes the new capacity.
+	 * Deletes it from both the Equipment instance and the object stored in file.
+	 */
 	public void delete(String instrumentName) {
 		Equipment equipment = extractEquipment();
 		equipment.deleteInstrument(instrumentName);
@@ -76,6 +95,9 @@ public class EquipmentController {
 		store(equipment);
 	}
 	
+	/*
+	 * Deletes the Equipment.txt file
+	 */
 	public void deleteFile() {
 		File file = new File(filepath.toString());
 

@@ -18,6 +18,8 @@ public class Brew implements Serializable{
 	
 	public Brew(Recipe recipe, Date startDate, double batchSize) {
 		super();
+		
+		//sets the brew id in pointed notation based on the relative recipe's id 
 		this.id = (double) recipe.getId() + recipe.getCountBrew() / 10;
 		this.startDate = startDate;
 		this.recipe = recipe;
@@ -57,6 +59,11 @@ public class Brew implements Serializable{
 		if (this.finishDate == null) this.finishDate = finishDate;
 	}
 
+	/*
+	 * Adds a new note with the given text and of the type depending 
+	 * on the boolean value to the brew notes. If tasting is true the note is 
+	 * a tasting note, otherwise it's a standard note
+	 */
 	public void addNote(String text, boolean tasting) {
 		if(tasting) {
 			notes.put((-1) * countNote, text);
@@ -68,6 +75,10 @@ public class Brew implements Serializable{
 		}
 	}
 
+	/*
+	 * Deletes the note with the given id, if it exists (otherwise 
+	 * an exception is thrown)
+	 */
 	public void deleteNote(int id) {
 		try {
 			if(notes.get(id) == null) {
@@ -79,6 +90,10 @@ public class Brew implements Serializable{
 		}
 	}
 
+	/*
+	 * Modifies the text of the note with the given id changing it to
+	 * the given text, if the note exists (otherwise an exception is thrown)
+	 */
 	public void modifyNote(int id, String text) {
 		try {
 			if(notes.get(id) == null) {

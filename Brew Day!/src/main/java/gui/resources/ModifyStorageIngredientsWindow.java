@@ -53,6 +53,10 @@ public class ModifyStorageIngredientsWindow extends JFrame implements ActionList
 		WindowEditor.createBackAndOther(null, contentPane, this, color,"Save");
 	}
 
+	/*
+	 * Returns the ingredients map using the data inserted in the table.
+	 * Shows an alert message if the input format is not correct
+	 */
 	private Map<String,Double> extractIngredients() {
 		try {
 			Map<String,Double> newIngredients = new HashMap<>();

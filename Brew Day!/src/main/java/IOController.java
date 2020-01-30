@@ -14,6 +14,10 @@ public class IOController implements Serializable {
 	
 	Logger logger = Logger.getLogger(IOController.class.getName());
  
+	/*
+	 * writes the given serializable object serObj in the file located at the 
+	 * given filepath
+	 */
     public void writeObjectToFile(Object serObj, String filepath) {
         try (ObjectOutputStream objectOut = new ObjectOutputStream(new FileOutputStream(filepath))) {
             objectOut.writeObject(serObj);
@@ -22,6 +26,10 @@ public class IOController implements Serializable {
         }
     }
     
+   /*
+    * reads the serializable object written in the file located at the 
+    * given filepath and returns it
+    */
     public Object readObjectFromFile(String filepath) {
     	 
         try (ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(filepath))) {

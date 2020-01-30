@@ -36,6 +36,10 @@ public class Equipment implements Serializable{
 		this.instruments = instruments;
 	}
 
+	/*
+	 * Computes the total capacity of the equipment, given by the sum
+	 * of all instrument's capacity, and returns it
+	 */
 	public Double computeCapacity(Map<String, Double> instruments) {
 		double total = 0;
 		for (Double value : instruments.values()) {
@@ -44,7 +48,10 @@ public class Equipment implements Serializable{
 	    return total;
 	}
 
-
+	/*
+	 * Updates the instruments map with the given instruments 
+	 * and computes the new capacity
+	 */
 	public void updateInstruments(Map<String, Double> instruments) throws NullInstrumentsException{
 		try {
 			if(instruments == null) throw new NullInstrumentsException("Instruments null");
@@ -58,6 +65,9 @@ public class Equipment implements Serializable{
 		
 	}
 
+	/*
+	 * Deletes the given instrument and computes the new capacity
+	 */
 	public void deleteInstrument(String name) {
 			getInstruments().remove(name);
 			setCapacity(computeCapacity(instruments));

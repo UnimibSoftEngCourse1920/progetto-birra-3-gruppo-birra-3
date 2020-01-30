@@ -46,6 +46,10 @@ public class ModifyEquipmentWindow extends JFrame implements ActionListener{
 		WindowEditor.createBackAndOther(null, contentPane, this, color,"Save");
 	}
 	
+	/*
+	 * Returns the instruments map using the data inserted in the table. Shows 
+	 * an alert message and returns null if the input format is not correct
+	 */
 	private Map<String, Double> updateInstruments(){
 		try {
 			Map<String, Double> instruments = new HashMap<>();

@@ -55,6 +55,7 @@ public class RecipeWindow extends JFrame implements ActionListener{
 		    }
 		};
 
+		//build the ingredients list to be visualized in the table
 		StringBuilder ingredients = new StringBuilder();
 		for(Recipe r : recipes) {
 			for(Entry<String, Double> i : r.getIngredients().entrySet()) {

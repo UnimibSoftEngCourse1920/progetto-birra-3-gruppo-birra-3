@@ -56,6 +56,7 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 			WindowEditor.back(this,new EquipmentWindow());
 		}
 		else {
+			//retrieve the information from the textAreas and if the input is legal update the equipment
 			try {
 				EquipmentController equipmentController = EquipmentController.getInstance();
 				Map<String, Double> instruments = equipmentController.extractEquipment().getInstruments();
@@ -64,9 +65,9 @@ public class InsertNewInstrumentWindow extends JFrame implements ActionListener 
 				String name = textField.getText();
 				String capacity = textField1.getText();
 				
-				if(!name.matches("[a-zA-Z_]+") || name.length() >= 13) {
+				if(!name.matches("[a-zA-Z_]+[0-9]*") || name.length() >= 13) {
 					if(name.length() == 0) throw new IllegalArgumentException("Please insert a name to identify the instrument");
-					else throw new IllegalArgumentException("The instrument name is too long or contains non-literal characters");
+					else throw new IllegalArgumentException("The instrument name is too long or is not alphanumeric");
 				}
 				else if(!capacity.matches("[0-9]+.{0,1}[0-9]*")) {
 					throw new NumberFormatException("Insert only positive numbers in capacity field, separated by dot (e.g. Kettle 10.50)");

@@ -21,7 +21,7 @@ public class StorageWindow extends JFrame implements ActionListener {
 	public StorageWindow() {
 		super("Brew Day! - Storage");
 		
-Color color = new Color(255, 154, 162);
+		Color color = new Color(255, 154, 162);
 		
 		contentPane = WindowEditor.showWindow(this, color);
 		

@@ -78,6 +78,7 @@ public class AddOrModifyNoteWindow extends JFrame implements ActionListener, Ite
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
+		//if the checkbox is ticked or unticked
 		if (e.getStateChange() == 1) {
 			tasting = true;
 		} else {

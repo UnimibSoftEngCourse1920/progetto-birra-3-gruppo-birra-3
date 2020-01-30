@@ -11,6 +11,10 @@ import javax.swing.JTextArea;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+/**
+ *  The MultiRowCell class can be used to make table cells scrollable
+ *  providing a renderer and an editor
+ */
 @SuppressWarnings("serial")
 public class MultiRowCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 

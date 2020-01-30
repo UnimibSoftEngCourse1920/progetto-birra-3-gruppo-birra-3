@@ -54,6 +54,7 @@ public class BrewWindow extends JFrame implements ActionListener {
 			}
 		};
 
+		//build the ingredients list to be visualized in the table
 		StringBuilder ingredient = new StringBuilder();
 		for(Brew b : brews) {
 			for(Entry<String, Double> i : b.getRecipe().getIngredients().entrySet()) {
@@ -74,6 +75,9 @@ public class BrewWindow extends JFrame implements ActionListener {
 		WindowEditor.createBack(null, contentPane, this, color);
 	}
 	
+	/*
+	 * Returns the string representing the given date in the dd/MM/yyyy format
+	 */
 	public static String fromDatetoString(Date date) {
 		if (date == null) {
 			return "";

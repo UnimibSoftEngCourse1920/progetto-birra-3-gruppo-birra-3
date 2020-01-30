@@ -170,6 +170,9 @@ implements TableCellRenderer, TableCellEditor, ActionListener, MouseListener {
 		fireEditingStopped();
 
 		//  Invoke the Action
+		// the action command will contain the value of the cell in the first column and in the 
+		// row of the button, the action command of the button and the row number of the button
+		// separated by a "/"
 		ActionEvent event = new ActionEvent(
 				table,
 				ActionEvent.ACTION_PERFORMED,
