@@ -125,7 +125,7 @@ public class Recipe implements Serializable{
 			Map<String,Double> storageIngredients = storage.getIngredients();
 			for (Entry<String,Double> i : this.ingredients.entrySet()) {
 				double sIngredientValue = storageIngredients.get(i.getKey()).doubleValue();
-				storageIngredients.replace(i.getKey(),sIngredientValue-i.getValue());
+				storageIngredients.replace(i.getKey(), Math.round((sIngredientValue-i.getValue())*100)/100.0);
 			}
 			
 			//updates the storage instance and file
