@@ -299,6 +299,8 @@ public class MainWindow extends JFrame implements ActionListener{
 					System.out.println(ioe.getMessage());
 				}
 				Recipe.setStartingId(0);
+				MainWindow gui = new MainWindow();
+				gui.setVisible(true);
 			}
 			break;
 		default:
