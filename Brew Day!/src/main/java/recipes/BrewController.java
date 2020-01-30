@@ -211,7 +211,7 @@ public class BrewController implements Serializable {
 
 		for (Entry<String,Double> i : bIngredients.entrySet()) {
 			double bIngredientValue = sIngredients.get(i.getKey()).doubleValue();
-			sIngredients.put(i.getKey(), i.getValue() + bIngredientValue);
+			sIngredients.put(i.getKey(), Math.round((i.getValue() + bIngredientValue)*100)/100.0);
 		}
 
 		storage.updateIngredients(sIngredients);
