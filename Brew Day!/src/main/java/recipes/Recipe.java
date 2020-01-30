@@ -138,7 +138,7 @@ public class Recipe implements Serializable{
 			StringBuilder missingAlert = new StringBuilder();
 			missingAlert.append("Some ingredients are missing from your storage! \nYou should buy:");
 			for(Entry<String, Double> i : missingIngredients.entrySet()) {
-				missingAlert.append("\n" + i.getKey() + " : " + missingIngredients.get(i.getKey()));
+				missingAlert.append("\n" + i.getKey() + " : " +  Math.round(missingIngredients.get(i.getKey())*100)/100);
 			}
 			return null;
 		}
