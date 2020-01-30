@@ -22,7 +22,7 @@ To get started with Brew Day! download the `.zip` file containing everything you
 `Clone or download` and `Download ZIP` in this page. The next step is to extract the folder contained in the `.zip` file, 
 then you're ready to import the project in your IDE.
 
-Alternatively you can directly import the repository in your IDE by clicking on `Clone or donwload` and copying the given URL.
+Alternatively you can directly import the repository in your IDE by clicking on `Clone or download` and copying the given URL.
 
 ### Prerequisites
 
