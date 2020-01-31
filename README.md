@@ -32,8 +32,8 @@ It's required to have Java (preferably the latest version) installed on your PC 
 
 To install Brew Day! download the `.zip` file containing everything you need by clicking on `Clone or download`
 and `Download ZIP` in this page. The next step is to extract the folder contained in the `.zip` file. The final step is 
-to run the `BrewDay!.exe` file contained in the folder if you're using Windows or the `BrewDay!.rar` file also contained 
-in the folder if you're using macOS.
+to run the `BrewDay!.exe` file contained in the `Brew Day!` folder if you're using Windows or the `BrewDay!.rar` file contained 
+in the same folder if you're using macOS.
 
 ## Running the tests
 
