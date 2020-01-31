@@ -1,0 +1,116 @@
+<html><head><title>pom.xml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="sourcestyles.css" />
+</head><body>
+<h3>File: D:\Git Repositories\progetto-birra-3-gruppo-birra-3\Brew Day!\pom.xml</h3>
+<SCRIPT>
+ defaultStatus = "File: D:\\Git Repositories\\progetto-birra-3-gruppo-birra-3\\Brew Day!\\pom.xml";
+top.document.title  = "pom.xml";
+</SCRIPT>
+<pre><a name="1"><font size=-1>1     </font></a><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<a name="2"><font size=-1>2     </font></a>  <modelVersion>4.0.0</modelVersion>
+<a name="3"><font size=-1>3     </font></a>  <groupId>gruppo.birra.3</groupId>
+<a name="4"><font size=-1>4     </font></a>  <artifactId>maven</artifactId>
+<a name="5"><font size=-1>5     </font></a>  <version>0.0.1-SNAPSHOT</version>
+<a name="6"><font size=-1>6     </font></a>  <name>Brew Day!</name>
+<a name="7"><font size=-1>7     </font></a>  <dependencies>
+<a name="8"><font size=-1>8     </font></a>    <dependency>
+<a name="9"><font size=-1>9     </font></a>      <groupId>junit</groupId>
+<a name="10"><font size=-1>10     </font></a>      <artifactId>junit</artifactId>
+<a name="11"><font size=-1>11     </font></a>      <version>4.12</version>
+<a name="12"><font size=-1>12     </font></a>      <scope>test</scope>
+<a name="13"><font size=-1>13     </font></a>	</dependency>
+<a name="14"><font size=-1>14     </font></a>  </dependencies>
+<a name="15"><font size=-1>15     </font></a>  <build>
+<a name="16"><font size=-1>16     </font></a>    <resources>
+<a name="17"><font size=-1>17     </font></a>      <resource>
+<a name="18"><font size=-1>18     </font></a>        <directory>src</directory>
+<a name="19"><font size=-1>19     </font></a>        <excludes>
+<a name="20"><font size=-1>20     </font></a>          <exclude>**/*.java</exclude>
+<a name="21"><font size=-1>21     </font></a>        </excludes>
+<a name="22"><font size=-1>22     </font></a>      </resource>
+<a name="23"><font size=-1>23     </font></a>    </resources>
+<a name="24"><font size=-1>24     </font></a>    <plugins>
+<a name="25"><font size=-1>25     </font></a>      <plugin>
+<a name="26"><font size=-1>26     </font></a>	    <artifactId>maven-surefire-plugin</artifactId>
+<a name="27"><font size=-1>27     </font></a>		  <configuration>
+<a name="28"><font size=-1>28     </font></a>		    <skip>true</skip>
+<a name="29"><font size=-1>29     </font></a>		  </configuration>
+<a name="30"><font size=-1>30     </font></a>		  <executions>
+<a name="31"><font size=-1>31     </font></a>		    <execution>
+<a name="32"><font size=-1>32     </font></a>		      <id>unit-test</id>
+<a name="33"><font size=-1>33     </font></a>		      <phase>test</phase>
+<a name="34"><font size=-1>34     </font></a>		      <goals>
+<a name="35"><font size=-1>35     </font></a>		        <goal>test</goal>
+<a name="36"><font size=-1>36     </font></a>		      </goals>
+<a name="37"><font size=-1>37     </font></a>		      <configuration>
+<a name="38"><font size=-1>38     </font></a>		        <skip>${maven.test.skip}</skip>
+<a name="39"><font size=-1>39     </font></a>		        <argLine>${argLine}</argLine>
+<a name="40"><font size=-1>40     </font></a>		        <excludes>
+<a name="41"><font size=-1>41     </font></a>		          <exclude>**/*IntegrationTest.java</exclude>
+<a name="42"><font size=-1>42     </font></a>		        </excludes>
+<a name="43"><font size=-1>43     </font></a>		      </configuration>
+<a name="44"><font size=-1>44     </font></a>		    </execution>
+<a name="45"><font size=-1>45     </font></a>		    <execution>
+<a name="46"><font size=-1>46     </font></a>		      <id>integration-test</id>
+<a name="47"><font size=-1>47     </font></a>		      <phase>integration-test</phase>
+<a name="48"><font size=-1>48     </font></a>		      <goals>
+<a name="49"><font size=-1>49     </font></a>		        <goal>test</goal>
+<a name="50"><font size=-1>50     </font></a>		      </goals>
+<a name="51"><font size=-1>51     </font></a>		      <configuration>
+<a name="52"><font size=-1>52     </font></a>		        <skip>${skipITs}</skip>
+<a name="53"><font size=-1>53     </font></a>		        <argLine>${argLine}</argLine>
+<a name="54"><font size=-1>54     </font></a>		        <includes>
+<a name="55"><font size=-1>55     </font></a>		          <include>**/*IntegrationTest.java</include>
+<a name="56"><font size=-1>56     </font></a>		        </includes>
+<a name="57"><font size=-1>57     </font></a>		      </configuration>
+<a name="58"><font size=-1>58     </font></a>		    </execution>
+<a name="59"><font size=-1>59     </font></a>		  </executions>
+<a name="60"><font size=-1>60     </font></a>		</plugin>
+<a name="61"><font size=-1>61     </font></a>		<plugin>
+<a name="62"><font size=-1>62     </font></a>		    <groupId>org.jacoco</groupId>
+<a name="63"><font size=-1>63     </font></a>		    <artifactId>jacoco-maven-plugin</artifactId>
+<a name="64"><font size=-1>64     </font></a>		    <version>0.8.5</version>
+<a name="65"><font size=-1>65     </font></a>		    <configuration>
+<a name="66"><font size=-1>66     </font></a>		        <skip>${maven.test.skip}</skip>
+<a name="67"><font size=-1>67     </font></a>		        <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+<a name="68"><font size=-1>68     </font></a>		        <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+<a name="69"><font size=-1>69     </font></a>		        <output>file</output>
+<a name="70"><font size=-1>70     </font></a>		        <append>true</append>
+<a name="71"><font size=-1>71     </font></a>		    </configuration>
+<a name="72"><font size=-1>72     </font></a>		    <executions>
+<a name="73"><font size=-1>73     </font></a>		        <execution>
+<a name="74"><font size=-1>74     </font></a>		            <id>jacoco-initialize</id>
+<a name="75"><font size=-1>75     </font></a>		            <goals>
+<a name="76"><font size=-1>76     </font></a>		                <goal>prepare-agent</goal>
+<a name="77"><font size=-1>77     </font></a>		            </goals>
+<a name="78"><font size=-1>78     </font></a>		        </execution>
+<a name="79"><font size=-1>79     </font></a>		        <execution>
+<a name="80"><font size=-1>80     </font></a>		            <id>jacoco-site</id>
+<a name="81"><font size=-1>81     </font></a>		            <phase>verify</phase>
+<a name="82"><font size=-1>82     </font></a>		            <goals>
+<a name="83"><font size=-1>83     </font></a>		                <goal>report</goal>
+<a name="84"><font size=-1>84     </font></a>		            </goals>
+<a name="85"><font size=-1>85     </font></a>		        </execution>
+<a name="86"><font size=-1>86     </font></a>		    </executions>
+<a name="87"><font size=-1>87     </font></a>		</plugin>
+<a name="88"><font size=-1>88     </font></a>		<plugin>
+<a name="89"><font size=-1>89     </font></a>	        <groupId>org.apache.maven.plugins</groupId>
+<a name="90"><font size=-1>90     </font></a>		    <artifactId>maven-compiler-plugin</artifactId>
+<a name="91"><font size=-1>91     </font></a>		    <version>3.8.1</version>
+<a name="92"><font size=-1>92     </font></a>		    <configuration>
+<a name="93"><font size=-1>93     </font></a>		        <source>11</source>
+<a name="94"><font size=-1>94     </font></a>		        <target>11</target>
+<a name="95"><font size=-1>95     </font></a>		    </configuration>
+<a name="96"><font size=-1>96     </font></a>	  </plugin>
+<a name="97"><font size=-1>97     </font></a>    </plugins>
+<a name="98"><font size=-1>98     </font></a>  </build>
+<a name="99"><font size=-1>99     </font></a>  <properties>
+<a name="100"><font size=-1>100     </font></a>      <sonar.projectKey>UnimibSoftEngCourse1920_progetto-birra-3-gruppo-birra-3</sonar.projectKey>
+<a name="101"><font size=-1>101     </font></a>      <sonar.organization>unimibsoftengcourse1920</sonar.organization>
+<a name="102"><font size=-1>102     </font></a>      <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+<a name="103"><font size=-1>103     </font></a>      <sonar.login>3e9d0b52e6d645be26e1fd507272b8d90182ee18</sonar.login>
+<a name="104"><font size=-1>104     </font></a>      <sonar.coverage.exclusions>**/gui/**,**/test/**,**/*Exception.java,**/Main.java</sonar.coverage.exclusions>
+<a name="105"><font size=-1>105     </font></a>  </properties>
+<a name="106"><font size=-1>106     </font></a></project>
+</pre></body></html>
